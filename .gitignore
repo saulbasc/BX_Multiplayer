@@ -1,0 +1,73 @@
+
+# --- Archivos y carpetas del sistema ---
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+MemoryCaptures/
+
+# Archivos generados por Unity
+sysinfo.txt
+*.stacktrace
+
+# Archivos de configuración local
+UserSettings/
+.vscode/
+.idea/
+*.csproj
+*.sln
+*.user
+*.pidb
+*.suo
+
+# Archivos de paquetes descargados
+Packages/packages-lock.json
+
+# Archivos de cache del render pipeline
+Assets/**/RenderPipelineCache/
+
+# --- Configuración de Unity Collab ---
+.collabignore
+.collab/
+
+# --- Archivos del sistema operativo ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Archivos móviles ---
+# Android
+*.apk
+*.aab
+*.keystore
+
+# iOS
+*.xcworkspace
+*.xcodeproj
+*.pbxproj
+*.xcuserstate
+*.xcuserdata/
+DerivedData/
+build/
+
+# --- Netcode for GameObjects ---
+# Archivos de captura de red o simulaciones
+*.npcapture
+*.nglog
+
+# --- Otros ---
+# Rider
+*.idea/
+*.sln.iml
+
+# Unity Cloud Build
+*.cloudbuild/
+
+# Addressables (opcional, si no lo versionas)
+Assets/AddressableAssetsData/*.bin*
+Assets/AddressableAssetsData/*.json
+
+# Auto-generados por Unity (según tus necesidades)
+Generated*/  
