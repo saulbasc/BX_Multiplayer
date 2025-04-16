@@ -7,6 +7,7 @@ namespace Assets.Scripts.GameManager.GameEvents.State
         warming,
         starting,
         playing,
+        onGoal,
         pause,
         gameOver,
         exit,

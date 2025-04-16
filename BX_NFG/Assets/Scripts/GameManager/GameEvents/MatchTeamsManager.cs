@@ -1,7 +1,7 @@
 ﻿
 namespace Assets.Scripts.GameManager.GameEvents
 {
-    internal class MatchReset
+    public class MatchTeamsManager
     {
     }
 }

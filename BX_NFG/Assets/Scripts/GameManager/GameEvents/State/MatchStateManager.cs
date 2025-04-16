@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System;
+using Unity.Netcode;
 
 namespace Assets.Scripts.GameManager.GameEvents.State
 {
-    public class MatchStateManager : MonoBehaviour
+    public class MatchStateManager : NetworkBehaviour
     {
         public event Action<MatchState> OnMatchStateChanged;
-        private MatchState matchState;
+        [SerializeField] private MatchState matchState;
 
         public void SetMatchState(MatchState matchState)
         {
@@ -14,6 +15,7 @@ namespace Assets.Scripts.GameManager.GameEvents.State
             {
                 this.matchState = matchState;
                 OnMatchStateChanged?.Invoke(matchState);
+                Debug.Log(matchState);
             }
         }
     }

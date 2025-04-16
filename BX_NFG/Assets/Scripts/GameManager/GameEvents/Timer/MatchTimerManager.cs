@@ -1,39 +1,88 @@
 ﻿using Assets.Scripts.GameManager.GameEvents.State;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Assets.Scripts.GameManager.GameEvents.Timer
 {
-    public class MatchTimerManager : MonoBehaviour
+    public class MatchTimerManager : NetworkBehaviour
     {
-        private MatchDuration matchDuration;
-        private float timeRemaining;
+        [SerializeField] private MatchStateManager matchStateManager;
+        [SerializeField] private MatchDuration matchDuration;
+        private bool isRunning = true;
 
-        private bool isTimerCreated = false;
+        private NetworkVariable<float> timeRemaining = new NetworkVariable<float>(
+            writePerm: NetworkVariableWritePermission.Server);
 
-        public void Init( MatchDuration matchDuration )
+        public override void OnNetworkSpawn()
         {
-            this.matchDuration = matchDuration;
-            TimeAsignment();
-            isTimerCreated = true;
+            if (IsServer)
+            {
+                TimeAsignment();
+                matchStateManager.OnMatchStateChanged += HandleStateChanged;
+            }
         }
+
+        private void OnDisable()
+        {
+            if (IsServer && matchStateManager != null)
+            {
+                matchStateManager.OnMatchStateChanged -= HandleStateChanged;
+            }
+        }
+
+        private void Update()
+        {
+            if (!IsServer) return;
+
+            if (isRunning)
+            {
+                PlayingTimer();
+            }
+            
+            if (timeRemaining.Value <= 0)
+            {
+                StopTimer();
+                matchStateManager.SetMatchState(MatchState.gameOver);
+            }
+        }
+
+        private void HandleStateChanged(MatchState state)
+        {
+            if (!IsServer) return;
+
+            if (state == MatchState.playing)
+            {
+                StartTimer();
+            }
+            else
+            {
+                StopTimer();
+            }
+        }
+
+        private void StartTimer() => isRunning = true;
+        private void StopTimer() => isRunning = false;
 
         private void TimeAsignment()
         {
-            if (matchDuration == MatchDuration.matchDuration1) timeRemaining = 60f;
-            if (matchDuration == MatchDuration.matchDuration3) timeRemaining = 180f;
-            if (matchDuration == MatchDuration.matchDuration5) timeRemaining = 300f;
-            if (matchDuration == MatchDuration.matchDuration7) timeRemaining = 420f;
-            if (matchDuration == MatchDuration.matchDuration10) timeRemaining = 600f;
-        }
-
-        void Update()
-        {
-            if(!isTimerCreated) return;
+            switch (matchDuration)
+            {
+                case MatchDuration.matchDuration1: timeRemaining.Value = 20f; break;
+                case MatchDuration.matchDuration3: timeRemaining.Value = 180f; break;
+                case MatchDuration.matchDuration5: timeRemaining.Value = 300f; break;
+                case MatchDuration.matchDuration7: timeRemaining.Value = 420f; break;
+                case MatchDuration.matchDuration10: timeRemaining.Value = 600f; break;
+            }
         }
 
         private void PlayingTimer()
         {
-            timeRemaining -= Time.deltaTime;
+            timeRemaining.Value -= Time.deltaTime;
+        }
+
+        public float GetTime()
+        {
+            return timeRemaining.Value;
         }
     }
 }

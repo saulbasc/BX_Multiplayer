@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerController : NetworkBehaviour
 {
-    private readonly float moveSpeed = 200f;
+    private readonly float moveSpeed = 10f;
     [SerializeField] private PlayerInput playerInput;
     private Rigidbody rb;
 
 
-    private void Awake()
+    private void Start()
     {
         playerInput.enabled = false;
         rb = GetComponent<Rigidbody>();
@@ -17,6 +17,7 @@ public class PlayerController : NetworkBehaviour
 
     private void LateUpdate()
     {
+        if (IsHost) UpdateInputHost(playerInput.GetPlayerInput());
         if (IsOwner) UpdateInputServerRpc(playerInput.GetPlayerInput());
     }
 
@@ -24,7 +25,13 @@ public class PlayerController : NetworkBehaviour
     private void UpdateInputServerRpc(Vector3 direction)
     {
         Vector3 newDirection = new Vector3(direction.x, 0, direction.y);
-        Vector3 force = newDirection * moveSpeed * Time.deltaTime;
+        Vector3 force = newDirection * moveSpeed;
+        rb.linearVelocity = force;
+    }
+    private void UpdateInputHost(Vector3 direction)
+    {
+        Vector3 newDirection = new Vector3(direction.x, 0, direction.y);
+        Vector3 force = newDirection * moveSpeed;
         rb.linearVelocity = force;
     }
 
