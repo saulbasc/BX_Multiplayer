@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Scripts.Scenes
+namespace Assets.Scripts.UI.LobbyUI
 {
-    public class SceneManager
+    internal class LobbyController
     {
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
 using UnityEngine;
@@ -7,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class ConnectionManager : NetworkBehaviour
 {
     [SerializeField] MatchStateManager matchStateManager;
-    private int globalState = 0;
+    private int matchState = 0;
 
     public override void OnNetworkSpawn()
     {
@@ -16,36 +15,32 @@ public class ConnectionManager : NetworkBehaviour
         matchStateManager.OnMatchStateChanged += HandleStateChanged;
     }
 
+    private void Update()
+    {
+        if ( matchState == 1 )
+        {
+            if(NetworkManager.Singleton.IsServer)
+            {
+                NetworkManager.Singleton.SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
+                Shutdown();
+            }
+            else
+            {
+                SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
+            }
+        }
+    }
+
     private void HandleStateChanged(MatchState state)
     {
         if(state == MatchState.gameOver)
         {
-            globalState = 1;
+            matchState = 1;
         }
     }
 
-    private void Update()
+    private void Shutdown()
     {
-        if (globalState == 1)
-        { 
-            if (IsServer)
-            {
-                NetworkManager.Singleton.SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
-
-                StartCoroutine(DelayedShutdown());
-            }
-            else
-            {
-                SceneManager.LoadScene("MenuScene");
-            }
-        }
-    }
-
-    private IEnumerator DelayedShutdown()
-    {
-        yield return new WaitForSeconds(1f);
-
-        DisconnectAllClients();
         DestroyRoom();
     }
 
