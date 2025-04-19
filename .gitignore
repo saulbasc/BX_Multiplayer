@@ -71,3 +71,6 @@ Assets/AddressableAssetsData/*.json
 
 # Auto-generados por Unity (según tus necesidades)
 Generated*/  
+
+# Firebase - evitar subir binarios nativos grandes
+/BX_NFG/Assets/Firebase/Plugins/x86_64/
