@@ -13,7 +13,9 @@ namespace Assets.Scripts.Lobbi
         public void SetPlayerData(LobbyPlayerData data)
         {
             playerData = data;
-            playerName.text = playerData.Name;
+            playerName.text = playerData.GameTag;
+            gameObject.SetActive(true);
+            if (playerData.IsReady) { playerName.color = Color.green; }
         }
     }
 }

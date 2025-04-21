@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Connection.Lobbi;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Connection.Lobbi;
+using Assets.Scripts.Lobbi;
 using TMPro;
 using UnityEngine;
 
@@ -10,7 +12,7 @@ namespace Assets.Scripts.UI.LobbyUI
 
         private void Start()
         {
-            lobbyNameText.text = $"Lobby code: {GameLobbyManager.Instance.GetLobbyCode()}";
+            lobbyNameText.text = GameLobbyManager.Instance.GetLobbyCode();   
         }
     }
 }

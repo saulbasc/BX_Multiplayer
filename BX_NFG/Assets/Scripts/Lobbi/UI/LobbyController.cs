@@ -1,12 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Assets.Scripts.Connection.Lobbi;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.LobbyUI
 {
-    internal class LobbyController
+    public class LobbyController : MonoBehaviour
     {
+        [SerializeField] private Button readyButton;
+
+        private void OnEnable()
+        {
+            readyButton.onClick.AddListener(OnReadyButtonClicked);
+        }
+
+        private void OnDisable()
+        {
+            readyButton.onClick.RemoveListener(OnReadyButtonClicked);
+        }
+
+        private async void OnReadyButtonClicked()
+        {
+            bool success = await GameLobbyManager.Instance.SetPlayerReady();
+            if(success)
+            {
+                readyButton.gameObject.SetActive(false);
+            }
+        }
     }
 }

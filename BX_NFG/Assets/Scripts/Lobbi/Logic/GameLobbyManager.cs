@@ -1,18 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Assets.Scripts.Commons;
 using Assets.Scripts.Lobbi;
+using Assets.Scripts.Lobbi.Data;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies.Models;
+using UnityEngine;
 
 namespace Assets.Scripts.Connection.Lobbi
 {
     public class GameLobbyManager : Singleton<GameLobbyManager>
     {
-
         private List<LobbyPlayerData> playersData = new List<LobbyPlayerData>();
         private LobbyPlayerData localPlayerData;
-
 
         private void OnEnable()
         {
@@ -35,14 +36,15 @@ namespace Assets.Scripts.Connection.Lobbi
         public async Task<bool> JoinLobby(string code)
         {
             LobbyPlayerData playerData = new LobbyPlayerData();
-            playerData.Inizialize(AuthenticationService.Instance.PlayerId, "HostPlayer");
+            playerData.Inizialize(AuthenticationService.Instance.PlayerId, "JoinPlayer");
             bool success = await LobbyManager.Instance.JoinLobby(code, playerData.Serialize());
             return success;
         }
+
         private void OnLobbyUpdated(Lobby lobby)
         {
             List<Dictionary<string, PlayerDataObject>> players = LobbyManager.Instance.GetPlayersData();
-            players.Clear();
+            playersData.Clear();
 
             foreach (Dictionary<string, PlayerDataObject> data in players)
             {
@@ -65,9 +67,27 @@ namespace Assets.Scripts.Connection.Lobbi
             return LobbyManager.Instance.GetLobbyCode();
         }
 
-        internal List<LobbyPlayerData> GetPlayerDataList()
+        public List<LobbyPlayerData> GetPlayerDataList()
         {
             return playersData;
+        }
+
+        public async Task<bool> SetPlayerReady()
+        {
+            localPlayerData.IsReady = true;
+            return await LobbyManager.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize());
+        }
+
+        public async Task<bool> SetPlayerNotReady()
+        {
+            localPlayerData.IsReady = false;
+            return await LobbyManager.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize());
+        }
+
+        public async Task<bool> SetPlayerTeam(PlayerTeam team)
+        {
+            localPlayerData.PlayerTeam = team;
+            return await LobbyManager.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize());
         }
     }
 }

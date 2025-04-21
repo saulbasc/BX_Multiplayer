@@ -9,6 +9,7 @@ using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using Assets.Scripts.Commons;
 using Assets.Scripts.Lobbi.Util;
+using System;
 
 namespace Assets.Scripts.Lobbi
 {
@@ -45,9 +46,10 @@ namespace Assets.Scripts.Lobbi
             JoinLobbyByCodeOptions options = new JoinLobbyByCodeOptions();
             Player player = new Player(AuthenticationService.Instance.PlayerId, null, LobbyUtil.SerializePlayerData(playerData));
             options.Player = player;
+
             try
             {
-                lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(code);
+                lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(code, options);
             }
             catch (System.Exception)
             {
@@ -103,6 +105,26 @@ namespace Assets.Scripts.Lobbi
         public string GetLobbyCode()
         {
             return lobby?.LobbyCode;
+        }
+
+        public async Task<bool> UpdatePlayerData(string id, Dictionary<string, string> data)
+        {
+            Dictionary<string, PlayerDataObject> playerData = LobbyUtil.SerializePlayerData(data);
+            UpdatePlayerOptions options = new UpdatePlayerOptions
+            {
+                Data = playerData,
+            };
+            try
+            {
+                lobby = await LobbyService.Instance.UpdatePlayerAsync(lobby.Id, id, options);
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
+
+            LobbyEvents.OnLobbyUpdated(lobby);
+            return true;
         }
     }
 }

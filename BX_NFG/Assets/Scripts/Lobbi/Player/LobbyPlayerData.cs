@@ -1,5 +1,7 @@
 ﻿
+using System;
 using System.Collections.Generic;
+using Assets.Scripts.Lobbi.Data;
 using Unity.Services.Lobbies.Models;
 
 namespace Assets.Scripts.Lobbi
@@ -9,20 +11,28 @@ namespace Assets.Scripts.Lobbi
         private string id;
         private string gameTag;
         private bool isReady;
+        private PlayerTeam playerTeam;
 
         public string Id => id;
-        public string Name => gameTag;
+        public string GameTag => gameTag;
         public bool IsReady
         {
             set => isReady = value;
             get => isReady;
         }
 
-        public void Inizialize(string id, string name)
+        public PlayerTeam PlayerTeam
+        {
+            set => playerTeam = value;
+            get => playerTeam;
+        }
+
+        public void Inizialize(string id, string gameTag)
         {
             this.id = id;
-            this.gameTag = name;
+            this.gameTag = gameTag;
             isReady = false;
+            playerTeam = PlayerTeam.Spectator;
         }
 
         public void Inizialice(Dictionary<string, PlayerDataObject> playerData)
@@ -32,17 +42,25 @@ namespace Assets.Scripts.Lobbi
 
         private void UpdateState(Dictionary<string, PlayerDataObject> playerData)
         {
-            if(playerData.ContainsKey("Id"))
+            if(playerData.ContainsKey(PlayerDataKeys.Id))
             {
-                id = playerData["Id"].Value;
+                id = playerData[PlayerDataKeys.Id].Value;
             }
-            if (playerData.ContainsKey("Name"))
+            if (playerData.ContainsKey(PlayerDataKeys.GameTag))
             {
-                gameTag = playerData["Name"].Value;
+                gameTag = playerData[PlayerDataKeys.GameTag].Value;
             }
-            if (playerData.ContainsKey("IsReady"))
+            if (playerData.ContainsKey(PlayerDataKeys.IsReady))
             {
-                isReady = playerData["IsReady"].Value == "True";
+                isReady = playerData[PlayerDataKeys.IsReady].Value == "True";
+            }
+            if(playerData.ContainsKey(PlayerDataKeys.PlayerTeam))
+            {
+                string team = playerData[PlayerDataKeys.PlayerTeam].Value;
+                if (Enum.TryParse(team, ignoreCase: true, out PlayerTeam parsedTeam))
+                {
+                    playerTeam = parsedTeam;
+                }
             }
         }
 
@@ -50,9 +68,10 @@ namespace Assets.Scripts.Lobbi
         {
             return new Dictionary<string, string>
             {
-                { "Id", id },
-                { "Name", gameTag },
-                { "IsReady", isReady.ToString() }
+                { PlayerDataKeys.Id, id },
+                { PlayerDataKeys.GameTag, gameTag },
+                { PlayerDataKeys.IsReady, isReady.ToString() },
+                { PlayerDataKeys.PlayerTeam, playerTeam.ToString() },
             };
         }
     }
