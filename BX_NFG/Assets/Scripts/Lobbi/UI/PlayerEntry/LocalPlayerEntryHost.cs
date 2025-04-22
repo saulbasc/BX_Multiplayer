@@ -1,12 +1,11 @@
 ﻿
-using Assets.Scripts.Connection.Lobbi;
 using Assets.Scripts.Lobbi.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Lobbi.UI.PlayerEntry
 {
-    public class LocalPlayerEntry : MonoBehaviour
+    public class LocalPlayerEntryHost : PlayerEntryHost
     {
         [SerializeField] private Button rightButton;
 
@@ -20,9 +19,9 @@ namespace Assets.Scripts.Lobbi.UI.PlayerEntry
             rightButton.onClick.RemoveListener(OnRightButtonClick);
         }
 
-        private async void OnRightButtonClick()
+        private void OnRightButtonClick()
         {
-            await GameLobbyManager.Instance.SetPlayerTeam(PlayerTeam.Spectator);
+            ChangeTeam(PlayerTeam.Spectator);
         }
     }
 }

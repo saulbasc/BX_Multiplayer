@@ -1,12 +1,13 @@
 ﻿
 using Assets.Scripts.Connection.Lobbi;
 using Assets.Scripts.Lobbi.Data;
+using Assets.Scripts.Lobbi.UI.PlayerEntry;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Lobbi.UI
 {
-    public class SpectatorPlayerEntry : MonoBehaviour
+    public class SpectatorPlayerEntryHost : PlayerEntryHost
     {
         [SerializeField] private Button leftButton;
         [SerializeField] private Button rightButton;
@@ -23,14 +24,14 @@ namespace Assets.Scripts.Lobbi.UI
             rightButton.onClick.RemoveListener(OnRightButtonClick);
         }
 
-        private async void OnLeftButtonClick()
+        private void OnLeftButtonClick()
         {
-            await GameLobbyManager.Instance.SetPlayerTeam(PlayerTeam.Local);
+            ChangeTeam(PlayerTeam.Local);
         }
 
-        private async void OnRightButtonClick()
+        private void OnRightButtonClick()
         {
-            await GameLobbyManager.Instance.SetPlayerTeam(PlayerTeam.Visitor);
+            ChangeTeam(PlayerTeam.Visitor);
         }
     }
 }

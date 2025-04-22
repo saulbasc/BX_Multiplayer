@@ -1,9 +1,10 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Assets.Scripts.Commons;
 using Assets.Scripts.Lobbi;
 using Assets.Scripts.Lobbi.Data;
+using Assets.Scripts.Lobbi.Players;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
@@ -41,27 +42,34 @@ namespace Assets.Scripts.Connection.Lobbi
             return success;
         }
 
+        //-------------EVENTS----------------
+
         private void OnLobbyUpdated(Lobby lobby)
         {
             List<Dictionary<string, PlayerDataObject>> players = LobbyManager.Instance.GetPlayersData();
             playersData.Clear();
 
-            foreach (Dictionary<string, PlayerDataObject> data in players)
-            {
-                LobbyPlayerData playerData = new LobbyPlayerData();
-                playerData.Inizialice(data);
-
-                if (AuthenticationService.Instance.PlayerId == playerData.Id)
-                {
-                    localPlayerData = playerData;
-                }
-
-                playersData.Add(playerData);
-            }
-
+            players.ForEach(playerData => GenerateData(playerData));
             GameLobbyEvents.OnLobbyUpdated?.Invoke();
         }
 
+        //-----------------------------------------
+
+        private void GenerateData(Dictionary<string, PlayerDataObject> data)
+        {
+            LobbyPlayerData playerData = new LobbyPlayerData();
+            playerData.Inizialice(data);
+
+            if (AuthenticationService.Instance.PlayerId == playerData.Id)
+            {
+                localPlayerData = playerData;
+                Debug.Log("Local Player Data => "+localPlayerData.Id);
+            }
+
+            playersData.Add(playerData);
+        }
+
+        //------------------ GETTTERS ------------------//
         public string GetLobbyCode()
         {
             return LobbyManager.Instance.GetLobbyCode();
@@ -72,6 +80,13 @@ namespace Assets.Scripts.Connection.Lobbi
             return playersData;
         }
 
+        public string GetLocalID()
+        {
+            return localPlayerData.Id;
+        }
+
+
+        //------------------ SETTTERS ------------------//
         public async Task<bool> SetPlayerReady()
         {
             localPlayerData.IsReady = true;
@@ -84,10 +99,10 @@ namespace Assets.Scripts.Connection.Lobbi
             return await LobbyManager.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize());
         }
 
-        public async Task<bool> SetPlayerTeam(PlayerTeam team)
+        public async Task<bool> SetPlayerTeam(LobbyPlayerData playerData, PlayerTeam playerTeam)
         {
-            localPlayerData.PlayerTeam = team;
-            return await LobbyManager.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize());
+            playerData.PlayerTeam = playerTeam;
+            return await LobbyManager.Instance.UpdatePlayerData(playerData.Id, playerData.Serialize());
         }
     }
 }
