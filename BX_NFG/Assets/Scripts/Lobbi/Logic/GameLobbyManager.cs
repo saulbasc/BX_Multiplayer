@@ -1,13 +1,16 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Assets.Scripts.Commons;
 using Assets.Scripts.Lobbi;
 using Assets.Scripts.Lobbi.Data;
+using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Lobbi.Players;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Connection.Lobbi
 {
@@ -16,6 +19,7 @@ namespace Assets.Scripts.Connection.Lobbi
         private List<LobbyPlayerData> playersData = new List<LobbyPlayerData>();
         private LobbyPlayerData localPlayerData;
 
+        private int maxPlayers = 10;
         private void OnEnable()
         {
             LobbyEvents.OnLobbyUpdated += OnLobbyUpdated;
@@ -30,7 +34,7 @@ namespace Assets.Scripts.Connection.Lobbi
         {
             LobbyPlayerData playerData = new LobbyPlayerData();
             playerData.Inizialize(AuthenticationService.Instance.PlayerId, "HostPlayer");
-            bool success = await LobbyManager.Instance.CreateLobby(4, false, playerData.Serialize());
+            bool success = await LobbyManager.Instance.CreateLobby(maxPlayers, false, playerData.Serialize());
             return success;
         }
 
@@ -49,8 +53,27 @@ namespace Assets.Scripts.Connection.Lobbi
             List<Dictionary<string, PlayerDataObject>> players = LobbyManager.Instance.GetPlayersData();
             playersData.Clear();
 
-            players.ForEach(playerData => GenerateData(playerData));
+            int numberOfPlayersReady = 0;
+
+            players.ForEach(playerData => 
+            {
+                GenerateData(playerData);
+                numberOfPlayersReady = NumberOfPlayersReady(playerData, numberOfPlayersReady);
+            });
+
+
             GameLobbyEvents.OnLobbyUpdated?.Invoke();
+
+            if (numberOfPlayersReady == players.Count)
+            {
+                GameLobbyEvents.OnLobbyReady?.Invoke();
+            }
+            else
+            {
+                GameLobbyEvents.OnLobbyCancel?.Invoke();
+            }
+
+            
         }
 
         //-----------------------------------------
@@ -63,10 +86,22 @@ namespace Assets.Scripts.Connection.Lobbi
             if (AuthenticationService.Instance.PlayerId == playerData.Id)
             {
                 localPlayerData = playerData;
-                Debug.Log("Local Player Data => "+localPlayerData.Id);
             }
 
             playersData.Add(playerData);
+        }
+
+        private int NumberOfPlayersReady(Dictionary<string, PlayerDataObject> data, int playersReady)
+        {
+            LobbyPlayerData playerData = new LobbyPlayerData();
+            playerData.Inizialice(data);
+
+            if(playerData.IsReady)
+            {
+                return playersReady + 1;
+            }
+
+            return playersReady;
         }
 
         //------------------ GETTTERS ------------------//
@@ -103,6 +138,18 @@ namespace Assets.Scripts.Connection.Lobbi
         {
             playerData.PlayerTeam = playerTeam;
             return await LobbyManager.Instance.UpdatePlayerData(playerData.Id, playerData.Serialize());
+        }
+
+        public async Task StartGame()
+        {
+            await RelayManager.Instance.CreateRelay(maxPlayers);
+
+            string allocationId = RelayManager.Instance.GetAllocatorId();
+            string connectionData = RelayManager.Instance.GetConnectionData();
+
+            await LobbyManager.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize(), allocationId, connectionData);
+
+            await SceneManager.LoadSceneAsync("GameScene");
         }
     }
 }

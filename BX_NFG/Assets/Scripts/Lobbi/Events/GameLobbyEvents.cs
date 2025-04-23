@@ -6,5 +6,11 @@ namespace Assets.Scripts.Lobbi
         // This event is triggered when the lobby is updated (Only advertise)
         public delegate void LobbyUpdated();
         public static LobbyUpdated OnLobbyUpdated;
+
+        public delegate void LobbyReady();
+        public static LobbyReady OnLobbyReady;
+
+        public delegate void LobbyCancel();
+        public static LobbyCancel OnLobbyCancel;
     }
 }

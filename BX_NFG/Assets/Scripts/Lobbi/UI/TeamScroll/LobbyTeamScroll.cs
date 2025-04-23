@@ -62,7 +62,7 @@ namespace Assets.Scripts.Lobbi.UI.TeamScroll
         protected void SetLobbyPlayer(GameObject playerPanel, LobbyPlayerData playerData)
         {
             LobbyPlayerUI lobbyPlayer = playerPanel.GetComponent<LobbyPlayerUI>();
-            lobbyPlayer.SetPlayerName(playerData.GameTag);
+            lobbyPlayer.SetPlayerName(playerData.GameTag, playerData.IsReady);
         }
 
         protected abstract void UpdateAction(LobbyPlayerData playerData);

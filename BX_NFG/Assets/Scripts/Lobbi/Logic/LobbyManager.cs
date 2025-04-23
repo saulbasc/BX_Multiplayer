@@ -34,7 +34,7 @@ namespace Assets.Scripts.Lobbi
             try {lobby = await LobbyService.Instance.CreateLobbyAsync("MyLobby", maxPlayers, lobbyOptions);}
             catch (Exception){ return false; }
 
-            lobbyCoroutine = StartCoroutine(LobbyUtil.LobbyCoroutine(lobby.Id, 6f));
+            lobbyCoroutine = StartCoroutine(LobbyUtil.LobbyCoroutine(lobby.Id, 3f));
             refreshLobbyCoroutine = StartCoroutine(RefreshLobbyCoroutine(lobby.Id, 1f));
 
             return true;
@@ -89,10 +89,15 @@ namespace Assets.Scripts.Lobbi
 
         //---------------------------
 
-        public async Task<bool> UpdatePlayerData(string id, Dictionary<string, string> data)
+        public async Task<bool> UpdatePlayerData(string id, Dictionary<string, string> data, string allocationId = default, string connectionData = default)
         {
             Dictionary<string, PlayerDataObject> playerData = LobbyUtil.SerializePlayerData(data);
-            UpdatePlayerOptions options = new UpdatePlayerOptions { Data = playerData };
+            UpdatePlayerOptions options = new UpdatePlayerOptions 
+            { 
+                Data = playerData,
+                AllocationId = allocationId,
+                ConnectionInfo = connectionData,
+            };
 
             try { lobby = await LobbyService.Instance.UpdatePlayerAsync(lobby.Id, id, options); }
             catch (Exception e)

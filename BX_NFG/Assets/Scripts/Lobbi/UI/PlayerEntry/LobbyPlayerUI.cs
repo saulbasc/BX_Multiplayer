@@ -10,11 +10,19 @@ namespace Assets.Scripts.Lobbi.Players
     {
         [SerializeField] private TextMeshProUGUI playerNameText;
 
-        public void SetPlayerName(string playerName)
+        public void SetPlayerName(string playerName, bool isReady)
         {
             if(playerNameText != null)
             {
                 playerNameText.text = playerName;
+                if (isReady)
+                {
+                    playerNameText.color = Color.green;
+                }
+                else
+                {
+                    playerNameText.color = Color.red;
+                }
             }
         }
     }
