@@ -41,7 +41,7 @@ namespace Assets.Scripts.Lobbi.UI.TeamScroll
 
         protected GameObject SetPlayerPanel(LobbyPlayerData playerData)
         {
-            return GameLobbyManager.Instance.GetLocalID() == LobbyManager.Instance.GetHostID()
+            return GameLobbyManager.Instance.GetLocalID() == playerData.Id
                 ? GenerateHostPlayerPanel(playerData)
                 : GenerateClientPlayerPanel(playerData);
         }
