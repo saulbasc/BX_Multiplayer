@@ -69,7 +69,7 @@ namespace Assets.Scripts.UI.LobbyUI
 
         private async void OnStartButtonClick()
         {
-            await GameLobbyManager.Instance.StartGame();
+            await GameLobbyManager.Instance.StartRelayServer();
         }
     }
 }

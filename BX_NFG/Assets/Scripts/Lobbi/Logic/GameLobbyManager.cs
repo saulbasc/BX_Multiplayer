@@ -1,12 +1,13 @@
 ﻿
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Assets.Scripts.Commons;
 using Assets.Scripts.Lobbi;
 using Assets.Scripts.Lobbi.Data;
+using Assets.Scripts.Lobbi.Datas;
 using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Lobbi.Players;
+using Assets.Scripts.UI.LobbyUI;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
@@ -18,6 +19,8 @@ namespace Assets.Scripts.Connection.Lobbi
     {
         private List<LobbyPlayerData> playersData = new List<LobbyPlayerData>();
         private LobbyPlayerData localPlayerData;
+        // private LobbyData lobbyData;
+        bool joined = false;
 
         private int maxPlayers = 10;
         private void OnEnable()
@@ -33,8 +36,9 @@ namespace Assets.Scripts.Connection.Lobbi
         public async Task<bool> CreateLobby()
         {
             LobbyPlayerData playerData = new LobbyPlayerData();
+            LobbyData lobbyData = new LobbyData();
             playerData.Inizialize(AuthenticationService.Instance.PlayerId, "HostPlayer");
-            bool success = await LobbyManager.Instance.CreateLobby(maxPlayers, false, playerData.Serialize());
+            bool success = await LobbyManager.Instance.CreateLobby(maxPlayers, false, playerData.Serialize(), lobbyData.Serialize());
             return success;
         }
 
@@ -48,7 +52,7 @@ namespace Assets.Scripts.Connection.Lobbi
 
         //-------------EVENTS----------------
 
-        private void OnLobbyUpdated(Lobby lobby)
+        private async void OnLobbyUpdated(Lobby lobby)
         {
             List<Dictionary<string, PlayerDataObject>> players = LobbyManager.Instance.GetPlayersData();
             playersData.Clear();
@@ -68,12 +72,18 @@ namespace Assets.Scripts.Connection.Lobbi
             {
                 GameLobbyEvents.OnLobbyReady?.Invoke();
             }
+
             else
             {
                 GameLobbyEvents.OnLobbyCancel?.Invoke();
             }
 
-            
+            if (LobbyManager.Instance.GetRelayCode() != null && !joined)
+            {
+                await JoinRelayServer();
+                await SceneManager.LoadSceneAsync("GameScene");
+                joined = true;
+            }
         }
 
         //-----------------------------------------
@@ -140,9 +150,14 @@ namespace Assets.Scripts.Connection.Lobbi
             return await LobbyManager.Instance.UpdatePlayerData(playerData.Id, playerData.Serialize());
         }
 
-        public async Task StartGame()
+        //-----------------------------------------------
+
+        public async Task StartRelayServer()
         {
-            await RelayManager.Instance.CreateRelay(maxPlayers);
+            string relayCode = await RelayManager.Instance.CreateRelay(maxPlayers);
+            LobbyData lobbyData = new LobbyData();
+            lobbyData.Inizialice(relayCode, "GameScene");
+            await LobbyManager.Instance.UpdateLobbyData(lobbyData.Serialize());
 
             string allocationId = RelayManager.Instance.GetAllocatorId();
             string connectionData = RelayManager.Instance.GetConnectionData();
@@ -150,6 +165,19 @@ namespace Assets.Scripts.Connection.Lobbi
             await LobbyManager.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize(), allocationId, connectionData);
 
             await SceneManager.LoadSceneAsync("GameScene");
+        }
+
+        private async Task<bool> JoinRelayServer()
+        {
+            await RelayManager.Instance.JoinRelay(LobbyManager.Instance.GetRelayCode());
+
+            string allocationId = RelayManager.Instance.GetAllocatorId();
+            string connectionData = RelayManager.Instance.GetConnectionData();
+
+            await Task.Delay(200);
+            await LobbyManager.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize(), allocationId, connectionData);
+
+            return true;
         }
     }
 }

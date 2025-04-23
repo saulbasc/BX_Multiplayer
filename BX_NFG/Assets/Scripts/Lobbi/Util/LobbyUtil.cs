@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Services.Lobbies;
@@ -20,6 +21,19 @@ namespace Assets.Scripts.Lobbi.Util
                 ));
             }
             return playerData;
+        }
+
+        public static Dictionary<string, DataObject> SerializeLobbyData(Dictionary<string, string> data)
+        {
+            Dictionary<string, DataObject> lobbyData = new Dictionary<string, DataObject>();
+            foreach (var (key, value) in data)
+            {
+                lobbyData.Add(key, new DataObject(
+                    visibility: DataObject.VisibilityOptions.Member,
+                    value: value
+                ));
+            }
+            return lobbyData;
         }
 
         public static IEnumerator LobbyCoroutine(string lobbyId, float wait)

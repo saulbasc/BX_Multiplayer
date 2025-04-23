@@ -9,6 +9,7 @@ using UnityEngine;
 using Assets.Scripts.Commons;
 using Assets.Scripts.Lobbi.Util;
 using System;
+using Assets.Scripts.Lobbi.Data;
 
 namespace Assets.Scripts.Lobbi
 {
@@ -20,21 +21,23 @@ namespace Assets.Scripts.Lobbi
 
         //---------------------------
 
-        public async Task<bool> CreateLobby(int maxPlayers, bool isPrivate, Dictionary<string, string> data)
+        public async Task<bool> CreateLobby(int maxPlayers, bool isPrivate, Dictionary<string, string> data, Dictionary<string, string> lobbyData)
         {
             Dictionary<string, PlayerDataObject> playerData = LobbyUtil.SerializePlayerData(data);
+            Dictionary<string, DataObject> lobbyDataSerialized = LobbyUtil.SerializeLobbyData(lobbyData);
             Player player = new Player(AuthenticationService.Instance.PlayerId, null, playerData);
 
             CreateLobbyOptions lobbyOptions = new CreateLobbyOptions
             {
                 IsPrivate = isPrivate,
                 Player = player,
+                Data = lobbyDataSerialized,
             };
 
             try {lobby = await LobbyService.Instance.CreateLobbyAsync("MyLobby", maxPlayers, lobbyOptions);}
             catch (Exception){ return false; }
 
-            lobbyCoroutine = StartCoroutine(LobbyUtil.LobbyCoroutine(lobby.Id, 3f));
+            lobbyCoroutine = StartCoroutine(LobbyUtil.LobbyCoroutine(lobby.Id, 2f));
             refreshLobbyCoroutine = StartCoroutine(RefreshLobbyCoroutine(lobby.Id, 1f));
 
             return true;
@@ -69,7 +72,7 @@ namespace Assets.Scripts.Lobbi
             }
         }
 
-        //---------------------------
+        //---------------------------s
 
         private IEnumerator RefreshLobbyCoroutine(string lobbyId, float wait)
         {
@@ -110,6 +113,25 @@ namespace Assets.Scripts.Lobbi
             return true;
         }
 
+        public async Task<bool> UpdateLobbyData(Dictionary<string, string> data)
+        {
+            Dictionary<string, DataObject> lobbyData = new Dictionary<string, DataObject>();
+            UpdateLobbyOptions options = new UpdateLobbyOptions
+            {
+                Data = LobbyUtil.SerializeLobbyData(data),
+            };
+
+            try { lobby = await LobbyService.Instance.UpdateLobbyAsync(lobby.Id, options); }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+                return false;
+            }
+
+            LobbyEvents.OnLobbyUpdated(lobby);
+            return true;
+        }
+
         //---------------- GETTERS ----------------
 
         public List<Dictionary<string, PlayerDataObject>> GetPlayersData()
@@ -117,6 +139,11 @@ namespace Assets.Scripts.Lobbi
             List<Dictionary<string, PlayerDataObject>> playersData = new List<Dictionary<string, PlayerDataObject>>();
             lobby.Players.ForEach(player => playersData.Add(player.Data));
             return playersData;
+        }
+
+        public Dictionary<string, DataObject> GetLobbyData()
+        {
+            return lobby.Data;
         }
 
         public string GetLobbyCode()
@@ -127,6 +154,15 @@ namespace Assets.Scripts.Lobbi
         public string GetHostID()
         {
             return lobby?.HostId;
+        }
+
+        public string GetRelayCode()
+        {
+            if (lobby != null && lobby.Data != null && lobby.Data.ContainsKey(LobbyDataKeys.JoinRelayCode))
+            {
+                return lobby.Data[LobbyDataKeys.JoinRelayCode].Value;
+            }
+            return null;
         }
     }
 }
