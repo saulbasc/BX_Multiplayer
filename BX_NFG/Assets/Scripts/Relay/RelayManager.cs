@@ -10,11 +10,20 @@ namespace Assets.Scripts.Lobbi.Logic
 {
     public class RelayManager : Singleton<RelayManager>
     {
+        private bool host = false;
         private string joinCode;
         private string ip;
         private int port;
         private byte[] connectionData;
+        private byte[] key;
+        private byte[] hostConnectionData;
+        private byte[] allocationIdBytes;
         private Guid allocationId;
+
+        public bool IsHost()
+        {
+            return host;
+        }
 
         public string GetAllocatorId()
         {
@@ -35,7 +44,12 @@ namespace Assets.Scripts.Lobbi.Logic
             port = dtlsEndpoint.Port;
 
             allocationId = allocation.AllocationId;
+            allocationIdBytes = allocation.AllocationIdBytes;
             connectionData = allocation.ConnectionData;
+            key = allocation.Key;
+            
+
+            host = true;
 
             return joincode;
         }
@@ -51,9 +65,22 @@ namespace Assets.Scripts.Lobbi.Logic
             port = dtlsEndpoint.Port;
 
             allocationId = allocation.AllocationId;
+            allocationIdBytes = allocation.AllocationIdBytes;
             connectionData = allocation.ConnectionData;
+            hostConnectionData = allocation.HostConnectionData;
+            key = allocation.Key;
 
             return true;
+        }
+
+        public (byte[] allocationId, byte[] key, byte[] connectionData, string dtslAdrres, int dtlsPort) GetHostConnectionData()
+        {
+            return (allocationIdBytes, key, connectionData, ip, port);
+        }
+
+        public (byte[] allocationId, byte[] key, byte[] connectionData, byte[] hostConnectionData, string dtslAdrres, int dtlsPort) GetClientConnectionData()
+        {
+            return (allocationIdBytes, key, connectionData, hostConnectionData, ip, port);
         }
     }
 }

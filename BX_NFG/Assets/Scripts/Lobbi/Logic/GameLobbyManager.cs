@@ -7,7 +7,6 @@ using Assets.Scripts.Lobbi.Data;
 using Assets.Scripts.Lobbi.Datas;
 using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Lobbi.Players;
-using Assets.Scripts.UI.LobbyUI;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
