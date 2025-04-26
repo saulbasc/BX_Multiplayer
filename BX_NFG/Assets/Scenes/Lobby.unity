@@ -2191,6 +2191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1158026559}
   - component: {fileID: 1158026560}
+  - component: {fileID: 1158026561}
   m_Layer: 5
   m_Name: LobbyController
   m_TagString: Untagged
@@ -2232,6 +2233,21 @@ MonoBehaviour:
   readyButton: {fileID: 895987236}
   cancelButton: {fileID: 113867741}
   startButton: {fileID: 1674501564}
+--- !u!114 &1158026561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158026558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3989150069206be4baae7ca3fa31bdc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  matchTimeText: {fileID: 791001628}
+  upperTimeButton: {fileID: 905406403}
+  lowerTimeButton: {fileID: 1168210035}
 --- !u!1 &1168210033
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,7 +27,7 @@ namespace Assets.Scripts.Lobbi.Players
             public Action<object> Apply;
         }
 
-        public void Inizialize(string id, string gameTag)
+        public LobbyPlayerData(string id, string gameTag)
         {
             this.id = id;
             this.gameTag = gameTag;
@@ -35,7 +35,7 @@ namespace Assets.Scripts.Lobbi.Players
             playerTeam = PlayerTeam.Spectator;
         }
 
-        public void Inizialice(Dictionary<string, PlayerDataObject> playerData)
+        public LobbyPlayerData(Dictionary<string, PlayerDataObject> playerData)
         {
             InizialiceValueAppliers();
             UpdateState(playerData);

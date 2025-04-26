@@ -121,6 +121,8 @@ namespace Assets.Scripts.Lobbi
                 Data = LobbyUtil.SerializeLobbyData(data),
             };
 
+            Debug.Log("Updating lobby data");
+
             try { lobby = await LobbyService.Instance.UpdateLobbyAsync(lobby.Id, options); }
             catch (Exception e)
             {
@@ -139,6 +141,18 @@ namespace Assets.Scripts.Lobbi
             List<Dictionary<string, PlayerDataObject>> playersData = new List<Dictionary<string, PlayerDataObject>>();
             lobby.Players.ForEach(player => playersData.Add(player.Data));
             return playersData;
+        }
+
+        public Dictionary<string, PlayerDataObject> GetPlayerData(string id)
+        {
+            foreach (var player in lobby.Players)
+            {
+                if (player.Id == id)
+                {
+                    return player.Data;
+                }
+            }
+            return null;
         }
 
         public Dictionary<string, DataObject> GetLobbyData()

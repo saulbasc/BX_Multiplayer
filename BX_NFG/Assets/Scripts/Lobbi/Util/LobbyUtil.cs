@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Lobbi.Players;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
@@ -34,6 +35,19 @@ namespace Assets.Scripts.Lobbi.Util
                 ));
             }
             return lobbyData;
+        }
+
+        public static LobbyPlayerData DeserializePlayerData(Dictionary<string, PlayerDataObject> data)
+        {
+            LobbyPlayerData playerData = new LobbyPlayerData(data);
+            return playerData;
+        }
+
+        public static LobbyPlayerData DeserializePlayerDataWithID(string playerID)
+        {
+            Dictionary<string, PlayerDataObject> data = LobbyManager.Instance.GetPlayerData(playerID);
+            LobbyPlayerData playerData = new LobbyPlayerData(data);
+            return playerData;
         }
 
         public static IEnumerator LobbyCoroutine(string lobbyId, float wait)

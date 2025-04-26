@@ -34,6 +34,7 @@ namespace Assets.Scripts.Lobbi.Logic
         {
             return connectionData.ToString();
         }
+
         public async Task<string> CreateRelay(int maxConnections)
         {
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
@@ -48,7 +49,6 @@ namespace Assets.Scripts.Lobbi.Logic
             connectionData = allocation.ConnectionData;
             key = allocation.Key;
             
-
             host = true;
 
             return joincode;

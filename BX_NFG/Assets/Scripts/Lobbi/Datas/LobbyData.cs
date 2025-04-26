@@ -1,5 +1,7 @@
 ﻿
+using System;
 using System.Collections.Generic;
+using Assets.Scripts.GameManager.GameEvents.Timer;
 using Assets.Scripts.Lobbi.Data;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
@@ -10,11 +12,18 @@ namespace Assets.Scripts.Lobbi.Datas
     {
         private string relayJoinCode;
         private string sceneName;
+        private MatchDuration matchDuration;
 
         public string RelayJoinCode
         {
             get { return relayJoinCode; }
             set { relayJoinCode = value; }
+        }
+
+        public MatchDuration MatchDuration
+        {
+            get { return matchDuration; }
+            set { matchDuration = value; }
         }
 
         public string SceneName
@@ -23,16 +32,19 @@ namespace Assets.Scripts.Lobbi.Datas
             set { sceneName = value; }
         }
 
-        public void Inizialice(string relayJoinCode, string sceneName)
+        public LobbyData(string relayJoinCode, string sceneName, MatchDuration matchDuration)
         {
             this.relayJoinCode = relayJoinCode;
             this.sceneName = sceneName;
+            this.matchDuration = matchDuration;
         }
 
-        public void Inizialice(Dictionary<string, DataObject> lobbyData)
+        public LobbyData(Dictionary<string, DataObject> lobbyData)
         {
             UpdateState(lobbyData);
         }
+
+        public LobbyData() { }
 
         private void UpdateState(Dictionary<string, DataObject> lobbyData)
         {
@@ -49,6 +61,18 @@ namespace Assets.Scripts.Lobbi.Datas
             {
                 sceneName = lobbyData[LobbyDataKeys.SceneName].Value?.ToString();
             }
+            if (lobbyData.ContainsKey(LobbyDataKeys.MatchDuration))
+            {
+                string matchDurationString = lobbyData[LobbyDataKeys.MatchDuration].Value?.ToString();
+                if (Enum.TryParse(matchDurationString, out MatchDuration parsedMatchDuration))
+                {
+                    matchDuration = parsedMatchDuration;
+                }
+                else
+                {
+                    Debug.LogWarning($"Failed to parse MatchDuration from string: {matchDurationString}");
+                }
+            }
         }
 
         public Dictionary<string, string> Serialize()
@@ -57,6 +81,7 @@ namespace Assets.Scripts.Lobbi.Datas
             {
                 { LobbyDataKeys.JoinRelayCode, relayJoinCode },
                 { LobbyDataKeys.SceneName, sceneName },
+                { LobbyDataKeys.MatchDuration, matchDuration.ToString() }
             };
         }
     }
