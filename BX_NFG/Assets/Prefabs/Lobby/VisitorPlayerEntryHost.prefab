@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1858498147904898828}
   - component: {fileID: 7907429491377679134}
   - component: {fileID: 7833064117788522349}
-  - component: {fileID: 6146988400604679098}
   - component: {fileID: 8548652410771824788}
+  - component: {fileID: 8185448560091696743}
   m_Layer: 5
   m_Name: VisitorPlayerEntryHost
   m_TagString: Untagged
@@ -79,19 +79,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6146988400604679098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 193053701650911506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50c9a518e265b4f4388c4218aa1d94cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftButton: {fileID: 5874974278553295234}
 --- !u!114 &8548652410771824788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,6 +92,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 7104525091615243796}
+--- !u!114 &8185448560091696743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193053701650911506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50c9a518e265b4f4388c4218aa1d94cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftButton: {fileID: 5874974278553295234}
 --- !u!1 &4788768077678776475
 GameObject:
   m_ObjectHideFlags: 0

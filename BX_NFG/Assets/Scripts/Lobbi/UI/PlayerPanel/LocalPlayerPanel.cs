@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Lobbi.UI.PlayerEntry
 {
-    public class LocalPlayerEntryHost : PlayerEntryHost
+    public class LocalPlayerEntryHost : PlayerPanel
     {
         [SerializeField] private Button rightButton;
 

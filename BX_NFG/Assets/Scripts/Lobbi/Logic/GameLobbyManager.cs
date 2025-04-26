@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Assets.Scripts.Commons;
 using Assets.Scripts.GameManager.GameEvents.Timer;
@@ -18,11 +17,11 @@ namespace Assets.Scripts.Connection.Lobbi
 {
     public class GameLobbyManager : Singleton<GameLobbyManager>
     {
-        private List<LobbyPlayerData> playersData = new List<LobbyPlayerData>();
         bool joined = false;
         bool inGame = false;
 
         private int maxPlayers = 10;
+
         private void OnEnable()
         {
             LobbyEvents.OnLobbyUpdated += OnLobbyUpdated;
@@ -43,30 +42,18 @@ namespace Assets.Scripts.Connection.Lobbi
 
         public async Task<bool> JoinLobby(string code)
         {
-            LobbyPlayerData playerData = new LobbyPlayerData(GetLocalID(), "HostPlayer");
+            LobbyPlayerData playerData = new LobbyPlayerData(GetLocalID(), "JoinPlayer");
             bool success = await LobbyManager.Instance.JoinLobby(code, playerData.Serialize());
             return success;
         }
 
-        //-------------EVENTS----------------
-
         private async void OnLobbyUpdated(Lobby lobby)
         {
             List<Dictionary<string, PlayerDataObject>> players = LobbyManager.Instance.GetPlayersData();
-            playersData.Clear();
-
-            int numberOfPlayersReady = 0;
-
-            players.ForEach(playerData => 
-            {
-                GeneratePlayerData(playerData);
-                numberOfPlayersReady = NumberOfPlayersReady(playerData, numberOfPlayersReady);
-            });
-
 
             GameLobbyEvents.OnLobbyUpdated?.Invoke();
 
-            if (numberOfPlayersReady == players.Count)
+            if (LobbyUtil.NumberOfPlayersReady(players) == players.Count)
             {
                 GameLobbyEvents.OnLobbyReady?.Invoke();
             }
@@ -82,66 +69,6 @@ namespace Assets.Scripts.Connection.Lobbi
                 joined = true;
             }
         }
-
-        //-----------------------------------------
-
-        private void GeneratePlayerData(Dictionary<string, PlayerDataObject> data)
-        {
-            LobbyPlayerData playerData = new LobbyPlayerData(data);
-            playersData.Add(playerData);
-        }
-
-        private int NumberOfPlayersReady(Dictionary<string, PlayerDataObject> data, int playersReady)
-        {
-            LobbyPlayerData playerData = new LobbyPlayerData(data);
-
-            if (playerData.IsReady)
-            {
-                return playersReady + 1;
-            }
-
-            return playersReady;
-        }
-
-        //------------------ GETTTERS ------------------//
-        public string GetLobbyCode()
-        {
-            return LobbyManager.Instance.GetLobbyCode();
-        }
-
-        public List<LobbyPlayerData> GetPlayerDataList()
-        {
-            return playersData;
-        }
-
-        public string GetLocalID()
-        {
-            return AuthenticationService.Instance.PlayerId;
-        }
-
-
-        //------------------ SETTTERS ------------------//
-        public async Task<bool> SetPlayerReady()
-        {
-            LobbyPlayerData localPlayerData = LobbyUtil.DeserializePlayerDataWithID(GetLocalID());
-            localPlayerData.IsReady = true;
-            return await LobbyManager.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize());
-        }
-
-        public async Task<bool> SetPlayerNotReady()
-        {
-            LobbyPlayerData localPlayerData = LobbyUtil.DeserializePlayerDataWithID(GetLocalID());
-            localPlayerData.IsReady = false;
-            return await LobbyManager.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize());
-        }
-
-        public async Task<bool> SetPlayerTeam(LobbyPlayerData playerData, PlayerTeam playerTeam)
-        {
-            playerData.PlayerTeam = playerTeam;
-            return await LobbyManager.Instance.UpdatePlayerData(playerData.Id, playerData.Serialize());
-        }
-
-        //-----------------------------------------------
 
         public async Task StartRelayServer()
         {
@@ -177,16 +104,56 @@ namespace Assets.Scripts.Connection.Lobbi
             return true;
         }
 
-        //-------------------------------
+        public bool IsHost() => AuthenticationService.Instance.PlayerId == LobbyManager.Instance.GetHostID();
 
-        public async void UpdatePlayerData (Dictionary<string, string> data)
+        public async Task<bool> SetPlayerReady()
         {
-            await LobbyManager.Instance.UpdateLobbyData(data);
+            LobbyPlayerData localPlayerData = LobbyUtil.DeserializePlayerDataWithID(GetLocalID());
+            localPlayerData.IsReady = true;
+            return await LobbyManager.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize());
         }
 
-        public bool IsHost()
+        public async Task<bool> SetPlayerNotReady()
         {
-            return AuthenticationService.Instance.PlayerId == LobbyManager.Instance.GetHostID();
+            LobbyPlayerData localPlayerData = LobbyUtil.DeserializePlayerDataWithID(GetLocalID());
+            localPlayerData.IsReady = false;
+            return await LobbyManager.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize());
         }
+
+        public async Task<bool> SetPlayerTeam(LobbyPlayerData playerData, PlayerTeam playerTeam)
+        {
+            playerData.PlayerTeam = playerTeam;
+            return await LobbyManager.Instance.UpdatePlayerData(playerData.Id, playerData.Serialize());
+        }
+
+        public async Task<bool> SetMatchDuration(MatchDuration newMatchDuration)
+        {
+            Dictionary<string, DataObject> getLobbyData = LobbyManager.Instance.GetLobbyData();
+            LobbyData lobbyData = new LobbyData(getLobbyData);
+            lobbyData.MatchDuration = newMatchDuration;
+            return await LobbyManager.Instance.UpdateLobbyData(lobbyData.Serialize());
+        }
+
+        public string GetLobbyCode()
+        {
+            return LobbyManager.Instance.GetLobbyCode();
+        }
+
+        public MatchDuration GetMatchDuration()
+        {
+            Dictionary<string, DataObject> lobbyData = LobbyManager.Instance.GetLobbyData();
+            LobbyData getLobbyData = new LobbyData(lobbyData);
+            return getLobbyData.MatchDuration;
+        }
+
+        public List<LobbyPlayerData> GetPlayerDataList()
+        {
+            List<LobbyPlayerData> players = new List<LobbyPlayerData>();
+            List<Dictionary<string, PlayerDataObject>> playersData = LobbyManager.Instance.GetPlayersData();
+            playersData.ForEach(playerData => players.Add(LobbyUtil.DeserializePlayerData(playerData)));
+            return players;
+        }
+
+        public string GetLocalID() => AuthenticationService.Instance.PlayerId;
     }
 }

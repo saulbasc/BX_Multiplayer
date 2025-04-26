@@ -4,7 +4,7 @@ using Assets.Scripts.Lobbi.Players;
 
 namespace Assets.Scripts.Lobbi.UI.TeamScroll
 {
-    public class LobbyLocalScroll : LobbyTeamScroll
+    public class LobbyLocalScroll : LobbyScroll
     {
         protected override void UpdateAction(LobbyPlayerData playerData)
         {

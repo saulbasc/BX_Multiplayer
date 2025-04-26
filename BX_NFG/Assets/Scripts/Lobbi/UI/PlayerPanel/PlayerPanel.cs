@@ -6,11 +6,11 @@ using UnityEngine;
 
 namespace Assets.Scripts.Lobbi.UI.PlayerEntry
 {
-    public abstract class PlayerEntryHost : MonoBehaviour
+    public class PlayerPanel : MonoBehaviour
     {
         protected LobbyPlayerData playerData;
 
-        public void SetPlayerData(LobbyPlayerData data)
+        public void Inicialize(LobbyPlayerData data)
         {
             playerData = data;
         }

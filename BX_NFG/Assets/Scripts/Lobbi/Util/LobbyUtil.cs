@@ -50,14 +50,19 @@ namespace Assets.Scripts.Lobbi.Util
             return playerData;
         }
 
-        public static IEnumerator LobbyCoroutine(string lobbyId, float wait)
+        public static int NumberOfPlayersReady(List<Dictionary<string, PlayerDataObject>> players)
         {
-            while (true)
-            {
-                Debug.Log("Lobby coroutine");
-                LobbyService.Instance.SendHeartbeatPingAsync(lobbyId);
-                yield return new WaitForSecondsRealtime(wait);
-            }
+            int numberOfPlayersReady = 0;
+            players.ForEach(player => { numberOfPlayersReady = SumPlayerReady(player, numberOfPlayersReady); });
+            return numberOfPlayersReady;
+        }
+
+        public static int SumPlayerReady(Dictionary<string, PlayerDataObject> playerData, int playersReady)
+        {
+            LobbyPlayerData player = new LobbyPlayerData(playerData);
+            return player.IsReady
+                ? playersReady + 1
+                : playersReady;
         }
     }
 }

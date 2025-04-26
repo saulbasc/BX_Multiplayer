@@ -2564,7 +2564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bacd8fe962161db4fa7ed79e36499309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hostPlayerPanelPrefab: {fileID: 193053701650911506, guid: e36d2696ea44bbe46b64b1a850852464, type: 3}
+  localPlayerPanelPrefab: {fileID: 193053701650911506, guid: e36d2696ea44bbe46b64b1a850852464, type: 3}
   playerPanelPrefab: {fileID: 193053701650911506, guid: 4896f0d2548d2cf468e47cdabef57c80, type: 3}
   playerListContainer: {fileID: 1229635903}
 --- !u!114 &1238613803
@@ -2579,7 +2579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4bacb1613ef8be4dae50b0437b99984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hostPlayerPanelPrefab: {fileID: 193053701650911506, guid: 27b45b8e585f1ae4888ccbf7f8463990, type: 3}
+  localPlayerPanelPrefab: {fileID: 193053701650911506, guid: 27b45b8e585f1ae4888ccbf7f8463990, type: 3}
   playerPanelPrefab: {fileID: 193053701650911506, guid: 2febb5cc61608cc41ac938fb619aca33, type: 3}
   playerListContainer: {fileID: 15663107}
 --- !u!114 &1238613804
@@ -2594,7 +2594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b74988a186c8c4e972927c365805e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hostPlayerPanelPrefab: {fileID: 193053701650911506, guid: 99e8dad216e970a40b8ea198f648f275, type: 3}
+  localPlayerPanelPrefab: {fileID: 193053701650911506, guid: 99e8dad216e970a40b8ea198f648f275, type: 3}
   playerPanelPrefab: {fileID: 193053701650911506, guid: 5356a5a7fe10a834f9b4bc49464fd382, type: 3}
   playerListContainer: {fileID: 560311454}
 --- !u!1 &1320272010

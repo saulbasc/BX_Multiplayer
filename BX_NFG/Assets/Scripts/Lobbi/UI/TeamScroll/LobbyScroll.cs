@@ -7,9 +7,9 @@ using Assets.Scripts.Lobbi.Players;
 
 namespace Assets.Scripts.Lobbi.UI.TeamScroll
 {
-    public abstract class LobbyTeamScroll : MonoBehaviour
+    public abstract class LobbyScroll : MonoBehaviour
     {
-        [SerializeField] protected GameObject hostPlayerPanelPrefab;
+        [SerializeField] protected GameObject localPlayerPanelPrefab;
         [SerializeField] protected GameObject playerPanelPrefab;
         [SerializeField] protected Transform playerListContainer;
 
@@ -19,17 +19,14 @@ namespace Assets.Scripts.Lobbi.UI.TeamScroll
 
         private void OnDisable(){ GameLobbyEvents.OnLobbyUpdated -= OnLobbyUpdated; }
 
+        protected abstract void UpdateAction(LobbyPlayerData playerData);
+
         private void OnLobbyUpdated()
         {
             List<LobbyPlayerData> playerDataList = GameLobbyManager.Instance.GetPlayerDataList();
-            RestorePlayers();
-            playerDataList.ForEach(playerData => UpdateAction(playerData));
-        }
-
-        private void RestorePlayers()
-        {
-            instantiatedPlayerPanels.ForEach (panel => Destroy(panel));
+            instantiatedPlayerPanels.ForEach(playerPanel => Destroy(playerPanel));
             instantiatedPlayerPanels.Clear();
+            playerDataList.ForEach(playerData => UpdateAction(playerData));
         }
 
         protected void SetUIPlayer(LobbyPlayerData playerData)
@@ -42,29 +39,22 @@ namespace Assets.Scripts.Lobbi.UI.TeamScroll
         protected GameObject SetPlayerPanel(LobbyPlayerData playerData)
         {
             return GameLobbyManager.Instance.GetLocalID() == playerData.Id
-                ? GenerateHostPlayerPanel(playerData)
-                : GenerateClientPlayerPanel(playerData);
+                ? GenerateLocalPlayerPanel(playerData)
+                : Instantiate(playerPanelPrefab, playerListContainer);
         }
 
-        protected GameObject GenerateHostPlayerPanel(LobbyPlayerData playerData)
+        protected GameObject GenerateLocalPlayerPanel(LobbyPlayerData playerData)
         {
-            GameObject playerPanel = Instantiate(hostPlayerPanelPrefab, playerListContainer);
-            PlayerEntryHost entry = playerPanel.GetComponent<PlayerEntryHost>();
-            if (entry != null) { entry.SetPlayerData(playerData); }
+            GameObject playerPanel = Instantiate(localPlayerPanelPrefab, playerListContainer);
+            PlayerPanel entry = playerPanel.GetComponent<PlayerPanel>();
+            entry?.Inicialize(playerData);
             return playerPanel;
-        }
-
-        protected GameObject GenerateClientPlayerPanel(LobbyPlayerData playerData)
-        {
-            return Instantiate(playerPanelPrefab, playerListContainer);
         }
 
         protected void SetLobbyPlayer(GameObject playerPanel, LobbyPlayerData playerData)
         {
-            LobbyPlayerUI lobbyPlayer = playerPanel.GetComponent<LobbyPlayerUI>();
+            PlayerPanelUI lobbyPlayer = playerPanel.GetComponent<PlayerPanelUI>();
             lobbyPlayer.SetPlayerName(playerData.GameTag, playerData.IsReady);
         }
-
-        protected abstract void UpdateAction(LobbyPlayerData playerData);
     }
 }

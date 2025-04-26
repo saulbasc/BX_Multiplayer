@@ -1,14 +1,14 @@
 ﻿
 using Assets.Scripts.Lobbi.Data;
+using Assets.Scripts.Lobbi.Players;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Lobbi.UI.PlayerEntry
 {
-    public class VisitorPlayerEntryHost : PlayerEntryHost
+    public class VisitorPlayerEntryHost : PlayerPanel
     {
         [SerializeField] private Button leftButton;
-
         private void OnEnable()
         {
             leftButton.onClick.AddListener(OnLeftButtonClick);

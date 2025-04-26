@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace Assets.Scripts.Lobbi.Players
 {
-    public class LobbyPlayerUI : MonoBehaviour
+    public class PlayerPanelUI : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI playerNameText;
 
@@ -15,14 +12,7 @@ namespace Assets.Scripts.Lobbi.Players
             if(playerNameText != null)
             {
                 playerNameText.text = playerName;
-                if (isReady)
-                {
-                    playerNameText.color = Color.green;
-                }
-                else
-                {
-                    playerNameText.color = Color.red;
-                }
+                playerNameText.color = isReady ? Color.green : Color.red;
             }
         }
     }

@@ -32,55 +32,48 @@ namespace Assets.Scripts.Lobbi.UI.Config
         {
             upperTimeButton.onClick.AddListener(() => IncreaseMatchTime());
             lowerTimeButton.onClick.AddListener(() => DecreaseMatchTime());
+            GameLobbyEvents.OnLobbyUpdated += OnLobbyUpdated;
         }
+
         private void OnDisable()
         {
             upperTimeButton.onClick.RemoveListener(() => IncreaseMatchTime());
             lowerTimeButton.onClick.RemoveListener(() => DecreaseMatchTime());
+            GameLobbyEvents.OnLobbyUpdated -= OnLobbyUpdated;
         }
 
-        private void DecreaseMatchTime()
+        private void OnLobbyUpdated()
         {
-            MatchDuration newMatchDuration = decrease();
-            matchTimeText.text = newMatchDuration.ToString();
+            MatchDuration newMatchDuration = GameLobbyManager.Instance.GetMatchDuration();
+            matchTimeText.text = MatchDurationExtensions.ToString(newMatchDuration);
         }
 
-        private void IncreaseMatchTime()
+        private async void IncreaseMatchTime()
         {
-            Task<MatchDuration> newMatchDuration = increase();
-            matchTimeText.text = newMatchDuration.ToString();
-        }
-
-        private async Task<MatchDuration> increase()
-        {
-            MatchDuration[] durations = new MatchDuration[]
-            {
-                MatchDuration.matchDuration1,
-                MatchDuration.matchDuration3,
-                MatchDuration.matchDuration5,
-                MatchDuration.matchDuration7,
-                MatchDuration.matchDuration10
-            };
-
-            var currentLobbyData = LobbyManager.Instance.GetLobbyData();
-            var newLobbyData = new LobbyData(currentLobbyData);
-            MatchDuration currentMatchDuration = newLobbyData.MatchDuration; 
-
+            MatchDuration[] durations = MatchDurationExtensions.MatchDurationList();
+            MatchDuration currentMatchDuration = GameLobbyManager.Instance.GetMatchDuration();
             MatchDuration newMatchDuration = currentMatchDuration;
 
             int index = Array.IndexOf(durations, currentMatchDuration);
             if (index < durations.Length - 1)
             {
                 newMatchDuration = durations[index + 1];
-                newLobbyData.MatchDuration = newMatchDuration;
-                await LobbyManager.Instance.UpdateLobbyData(newLobbyData.Serialize());
+                await GameLobbyManager.Instance.SetMatchDuration(newMatchDuration);
             }
-            return newMatchDuration;
         }
 
-        private MatchDuration decrease()
+        private async void DecreaseMatchTime()
         {
-            throw new NotImplementedException();
+            MatchDuration[] durations = MatchDurationExtensions.MatchDurationList();
+            MatchDuration currentMatchDuration = GameLobbyManager.Instance.GetMatchDuration();
+            MatchDuration newMatchDuration = currentMatchDuration;
+
+            int index = Array.IndexOf(durations, currentMatchDuration);
+            if (index > 0)
+            {
+                newMatchDuration = durations[index - 1];
+                await GameLobbyManager.Instance.SetMatchDuration(newMatchDuration);
+            }
         }
     }
 }

@@ -10,6 +10,7 @@ using Assets.Scripts.Commons;
 using Assets.Scripts.Lobbi.Util;
 using System;
 using Assets.Scripts.Lobbi.Data;
+using System.Linq;
 
 namespace Assets.Scripts.Lobbi
 {
@@ -18,8 +19,6 @@ namespace Assets.Scripts.Lobbi
         private Lobby lobby;
         private Coroutine lobbyCoroutine;
         private Coroutine refreshLobbyCoroutine;
-
-        //---------------------------
 
         public async Task<bool> CreateLobby(int maxPlayers, bool isPrivate, Dictionary<string, string> data, Dictionary<string, string> lobbyData)
         {
@@ -34,13 +33,16 @@ namespace Assets.Scripts.Lobbi
                 Data = lobbyDataSerialized,
             };
 
-            try {lobby = await LobbyService.Instance.CreateLobbyAsync("MyLobby", maxPlayers, lobbyOptions);}
-            catch (Exception){ return false; }
-
-            lobbyCoroutine = StartCoroutine(LobbyUtil.LobbyCoroutine(lobby.Id, 2f));
-            refreshLobbyCoroutine = StartCoroutine(RefreshLobbyCoroutine(lobby.Id, 1f));
-
-            return true;
+            try {
+                lobby = await LobbyService.Instance.CreateLobbyAsync("MyLobby", maxPlayers, lobbyOptions);
+                lobbyCoroutine = StartCoroutine(LobbyCoroutine(lobby.Id, 2f));
+                refreshLobbyCoroutine = StartCoroutine(RefreshLobbyCoroutine(lobby.Id, 1f));
+                return true;
+            }
+            catch (Exception)
+            { 
+                return false; 
+            }
         }
 
         public async Task<bool> JoinLobby(string code, Dictionary<string, string> playerData)
@@ -49,19 +51,16 @@ namespace Assets.Scripts.Lobbi
             Player player = new Player(AuthenticationService.Instance.PlayerId, null, LobbyUtil.SerializePlayerData(playerData));
             options.Player = player;
 
-            try { lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(code, options); }
+            try {
+                lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(code, options);
+                refreshLobbyCoroutine = StartCoroutine(RefreshLobbyCoroutine(lobby.Id, 1f));
+                return true;
+            }
             catch (Exception e) 
             {
                 Debug.Log(e);
                 return false;
             }
-
-            if (refreshLobbyCoroutine != null)
-                StopCoroutine(refreshLobbyCoroutine);
-
-            refreshLobbyCoroutine = StartCoroutine(RefreshLobbyCoroutine(lobby.Id, 1f));
-
-            return true;
         }
 
         public void QuitLobby()
@@ -71,8 +70,6 @@ namespace Assets.Scripts.Lobbi
                 LobbyService.Instance.DeleteLobbyAsync(lobby.Id);
             }
         }
-
-        //---------------------------s
 
         private IEnumerator RefreshLobbyCoroutine(string lobbyId, float wait)
         {
@@ -88,53 +85,58 @@ namespace Assets.Scripts.Lobbi
                 }
                 yield return new WaitForSecondsRealtime(wait);
             }
-        }       
+        }
 
-        //---------------------------
+        public static IEnumerator LobbyCoroutine(string lobbyId, float wait)
+        {
+            while (true)
+            {
+                Debug.Log("Lobby coroutine");
+                LobbyService.Instance.SendHeartbeatPingAsync(lobbyId);
+                yield return new WaitForSecondsRealtime(wait);
+            }
+        }
 
         public async Task<bool> UpdatePlayerData(string id, Dictionary<string, string> data, string allocationId = default, string connectionData = default)
         {
-            Dictionary<string, PlayerDataObject> playerData = LobbyUtil.SerializePlayerData(data);
             UpdatePlayerOptions options = new UpdatePlayerOptions 
             { 
-                Data = playerData,
+                Data = LobbyUtil.SerializePlayerData(data),
                 AllocationId = allocationId,
                 ConnectionInfo = connectionData,
             };
 
-            try { lobby = await LobbyService.Instance.UpdatePlayerAsync(lobby.Id, id, options); }
+            try { 
+                lobby = await LobbyService.Instance.UpdatePlayerAsync(lobby.Id, id, options);
+                LobbyEvents.OnLobbyUpdated(lobby);
+                return true;
+            }
             catch (Exception e)
             {
                 Debug.LogError(e);
                 return false;
             }
-
-            LobbyEvents.OnLobbyUpdated(lobby);
-            return true;
         }
 
         public async Task<bool> UpdateLobbyData(Dictionary<string, string> data)
         {
-            Dictionary<string, DataObject> lobbyData = new Dictionary<string, DataObject>();
             UpdateLobbyOptions options = new UpdateLobbyOptions
             {
                 Data = LobbyUtil.SerializeLobbyData(data),
             };
 
-            Debug.Log("Updating lobby data");
-
-            try { lobby = await LobbyService.Instance.UpdateLobbyAsync(lobby.Id, options); }
+            try
+            {
+                lobby = await LobbyService.Instance.UpdateLobbyAsync(lobby.Id, options);
+                LobbyEvents.OnLobbyUpdated(lobby);
+                return true;
+            }
             catch (Exception e)
             {
                 Debug.LogError(e);
                 return false;
             }
-
-            LobbyEvents.OnLobbyUpdated(lobby);
-            return true;
         }
-
-        //---------------- GETTERS ----------------
 
         public List<Dictionary<string, PlayerDataObject>> GetPlayersData()
         {
@@ -145,38 +147,20 @@ namespace Assets.Scripts.Lobbi
 
         public Dictionary<string, PlayerDataObject> GetPlayerData(string id)
         {
-            foreach (var player in lobby.Players)
-            {
-                if (player.Id == id)
-                {
-                    return player.Data;
-                }
-            }
-            return null;
-        }
-
-        public Dictionary<string, DataObject> GetLobbyData()
-        {
-            return lobby.Data;
-        }
-
-        public string GetLobbyCode()
-        {
-            return lobby?.LobbyCode;
-        }
-
-        public string GetHostID()
-        {
-            return lobby?.HostId;
+            return lobby.Players.FirstOrDefault(player => player.Id == id)?.Data;
         }
 
         public string GetRelayCode()
         {
-            if (lobby != null && lobby.Data != null && lobby.Data.ContainsKey(LobbyDataKeys.JoinRelayCode))
-            {
-                return lobby.Data[LobbyDataKeys.JoinRelayCode].Value;
-            }
-            return null;
+            return lobby != null && lobby.Data != null && lobby.Data.ContainsKey(LobbyDataKeys.JoinRelayCode)
+                ? lobby.Data[LobbyDataKeys.JoinRelayCode].Value
+                : null;
         }
+
+        public Dictionary<string, DataObject> GetLobbyData() => lobby.Data;
+
+        public string GetLobbyCode() => lobby?.LobbyCode;
+
+        public string GetHostID() => lobby?.HostId;
     }
 }

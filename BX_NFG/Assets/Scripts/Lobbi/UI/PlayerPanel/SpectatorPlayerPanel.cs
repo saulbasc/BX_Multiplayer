@@ -1,13 +1,12 @@
-﻿
-using Assets.Scripts.Connection.Lobbi;
-using Assets.Scripts.Lobbi.Data;
+﻿using Assets.Scripts.Lobbi.Data;
+using Assets.Scripts.Lobbi.Players;
 using Assets.Scripts.Lobbi.UI.PlayerEntry;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Lobbi.UI
 {
-    public class SpectatorPlayerEntryHost : PlayerEntryHost
+    public class SpectatorPlayerPanel : PlayerPanel
     {
         [SerializeField] private Button leftButton;
         [SerializeField] private Button rightButton;
