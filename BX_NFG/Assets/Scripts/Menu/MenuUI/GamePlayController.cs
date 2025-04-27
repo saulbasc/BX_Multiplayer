@@ -10,7 +10,8 @@ namespace Assets.Scripts.Menu.MenuUI
     {
         [SerializeField] private Button startGameButton;
         [SerializeField] private Button joinGameButton;
-        [SerializeField] private Button backButton;
+        [SerializeField] private Button trainingButton;
+        [SerializeField] private Button gameButton;
 
         [SerializeField] private GameObject joinPanel;
 
@@ -18,29 +19,33 @@ namespace Assets.Scripts.Menu.MenuUI
         {
             startGameButton.onClick.AddListener(OnStartGameButtonClicked);
             joinGameButton.onClick.AddListener(OnJoinGameButtonClicked);
-            backButton.onClick.AddListener(OnBackButtonPressed);
+            trainingButton.onClick.AddListener(OnTrainingButtonPressed);
+            gameButton.onClick.AddListener(OnGameButtonPressed);
         }
 
         private void OnDisable()
         {
             startGameButton.onClick.RemoveListener(OnStartGameButtonClicked);
             joinGameButton.onClick.RemoveListener(OnJoinGameButtonClicked);
-            backButton.onClick.RemoveListener(OnBackButtonPressed);
+            trainingButton.onClick.RemoveListener(OnTrainingButtonPressed);
+            gameButton.onClick.RemoveListener(OnGameButtonPressed);
         }
 
-        private void OnBackButtonPressed()
-        {
-            gameObject.SetActive(false);
+        private void OnTrainingButtonPressed() { }
+
+        private void OnGameButtonPressed() {
+            if (gameObject.activeSelf)
+            {
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                gameObject.SetActive(true);
+            }
         }
 
-        private void OnJoinGameButtonClicked()
-        {
-            joinPanel.SetActive(true);
-        }
+        private void OnJoinGameButtonClicked() => joinPanel.SetActive(true);
 
-        private async void OnStartGameButtonClicked()
-        {
-            await GameLobbyManager.Instance.CreateLobby();
-        }
+        private async void OnStartGameButtonClicked() => await GameLobbyManager.Instance.CreateLobby();
     }
 }
