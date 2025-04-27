@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Assets.Scripts.Connection.Lobbi;
 using Assets.Scripts.GameManager.GameEvents.Timer;
-using Assets.Scripts.Lobbi.Datas;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 

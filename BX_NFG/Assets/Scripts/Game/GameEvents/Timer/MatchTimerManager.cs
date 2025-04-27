@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.GameManager.GameEvents.State;
+﻿using Assets.Scripts.Game.Manager;
+using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -7,8 +8,8 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
     public class MatchTimerManager : NetworkBehaviour
     {
         [SerializeField] private MatchStateManager matchStateManager;
-        [SerializeField] private MatchDuration matchDuration;
-        private bool isRunning = true;
+        private MatchDuration matchDuration;
+        private bool isRunning = false;
 
         private NetworkVariable<float> timeRemaining = new NetworkVariable<float>(
             writePerm: NetworkVariableWritePermission.Server);
@@ -34,10 +35,14 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
         {
             if (!IsServer) return;
 
-            if (isRunning)
-            {
-                PlayingTimer();
-            }
+            Debug.Log("Allo, estoy updateando el tiempo como servidor");
+
+            if (!isRunning) return;
+
+            Debug.Log("Allo, estoy updateando el tiempo");
+
+            //SetMatchDuration();
+            PlayingTimer();
             
             if (timeRemaining.Value <= 0)
             {
@@ -67,7 +72,7 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
         {
             switch (matchDuration)
             {
-                case MatchDuration.matchDuration1: timeRemaining.Value = 20f; break;
+                case MatchDuration.matchDuration1: timeRemaining.Value = 60f; break;
                 case MatchDuration.matchDuration3: timeRemaining.Value = 180f; break;
                 case MatchDuration.matchDuration5: timeRemaining.Value = 300f; break;
                 case MatchDuration.matchDuration7: timeRemaining.Value = 420f; break;
@@ -80,9 +85,12 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
             timeRemaining.Value -= Time.deltaTime;
         }
 
-        public float GetTime()
+        private void SetMatchDuration()
         {
-            return timeRemaining.Value;
+            matchDuration = MatchInfo.Instance.MatchDuration;
+            TimeAsignment();
         }
+
+        public float GetTime() => timeRemaining.Value;
     }
 }

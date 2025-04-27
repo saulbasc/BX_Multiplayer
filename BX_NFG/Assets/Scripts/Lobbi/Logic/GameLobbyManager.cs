@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Assets.Scripts.Commons;
+using Assets.Scripts.Game.Manager;
 using Assets.Scripts.GameManager.GameEvents.Timer;
 using Assets.Scripts.Lobbi;
 using Assets.Scripts.Lobbi.Data;
@@ -75,16 +76,19 @@ namespace Assets.Scripts.Connection.Lobbi
             string relayCode = await RelayManager.Instance.CreateRelay(maxPlayers);
             inGame = true;
 
+            setTotalPlayersInTeams();
+
             LobbyData lobbyData = new LobbyData(relayCode, "GameScene", MatchDuration.matchDuration1);
             await LobbyManager.Instance.UpdateLobbyData(lobbyData.Serialize());
 
+            Debug.Log("Hola desde el HOST");
+            MatchInfo.Instance.AddNewPlayerConnectedServerRpc();
+            MatchInfo.Instance.MatchDuration = LobbyManager.Instance.GetMatchDuration();
+
             string allocationId = RelayManager.Instance.GetAllocatorId();
             string connectionData = RelayManager.Instance.GetConnectionData();
-
-            LobbyPlayerData localPlayerData = LobbyUtil.DeserializePlayerDataWithID(GetLocalID());
-
-            await LobbyManager.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize(), allocationId, connectionData);
-
+            
+            await SetLocalPlayerData(allocationId, connectionData);
             await SceneManager.LoadSceneAsync("GameScene");
         }
 
@@ -93,18 +97,30 @@ namespace Assets.Scripts.Connection.Lobbi
             await RelayManager.Instance.JoinRelay(LobbyManager.Instance.GetRelayCode());
             inGame = true;
 
+            Debug.Log("Hola desde el CLIENT");
+            MatchInfo.Instance.AddNewPlayerConnectedServerRpc();
+
             string allocationId = RelayManager.Instance.GetAllocatorId();
             string connectionData = RelayManager.Instance.GetConnectionData();
 
-            LobbyPlayerData localPlayerData = LobbyUtil.DeserializePlayerDataWithID(GetLocalID());
-
             await Task.Delay(200);
-            await LobbyManager.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize(), allocationId, connectionData);
+            await SetLocalPlayerData(allocationId, connectionData);
 
             return true;
         }
 
-        public bool IsHost() => AuthenticationService.Instance.PlayerId == LobbyManager.Instance.GetHostID();
+        private void setTotalPlayersInTeams()
+        {
+            int numberOfLocalPlayers = LobbyManager.Instance.GetNumberOfPlayersInTeams(PlayerTeam.Local);
+            int numberOfVisitorPlayers = LobbyManager.Instance.GetNumberOfPlayersInTeams(PlayerTeam.Visitor);
+            MatchInfo.Instance.NumberOfPlayersInTeams = numberOfLocalPlayers + numberOfVisitorPlayers;
+        }
+
+        private async Task SetLocalPlayerData(string allocationId = default, string connectionData = default)
+        {
+            LobbyPlayerData localPlayerData = LobbyUtil.DeserializePlayerDataWithID(GetLocalID());
+            await LobbyManager.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize(), allocationId, connectionData);
+        }
 
         public async Task<bool> SetPlayerReady()
         {
@@ -155,5 +171,6 @@ namespace Assets.Scripts.Connection.Lobbi
         }
 
         public string GetLocalID() => AuthenticationService.Instance.PlayerId;
+        public bool IsHost() => AuthenticationService.Instance.PlayerId == LobbyManager.Instance.GetHostID();
     }
 }

@@ -7,7 +7,7 @@ namespace Assets.Scripts.GameManager.GameEvents.State
     public class MatchStateManager : NetworkBehaviour
     {
         public event Action<MatchState> OnMatchStateChanged;
-        [SerializeField] private MatchState matchState;
+        private MatchState matchState;
 
         public void SetMatchState(MatchState matchState)
         {

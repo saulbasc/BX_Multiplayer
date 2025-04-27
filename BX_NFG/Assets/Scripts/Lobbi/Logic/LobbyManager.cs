@@ -11,6 +11,7 @@ using Assets.Scripts.Lobbi.Util;
 using System;
 using Assets.Scripts.Lobbi.Data;
 using System.Linq;
+using Assets.Scripts.GameManager.GameEvents.Timer;
 
 namespace Assets.Scripts.Lobbi
 {
@@ -145,6 +146,20 @@ namespace Assets.Scripts.Lobbi
             return playersData;
         }
 
+        public int GetNumberOfPlayersInTeams(PlayerTeam playerTeam)
+        {
+            int numberOfPlayers = 0;
+            List<Dictionary<string, PlayerDataObject>> playersData = GetPlayersData();
+            playersData.ForEach(playerData =>
+            {
+                if (playerData.ContainsKey(PlayerDataKeys.PlayerTeam) && playerData[PlayerDataKeys.PlayerTeam].Value == playerTeam.ToString())
+                {
+                    numberOfPlayers++;
+                }
+            });
+            return numberOfPlayers;
+        }
+
         public Dictionary<string, PlayerDataObject> GetPlayerData(string id)
         {
             return lobby.Players.FirstOrDefault(player => player.Id == id)?.Data;
@@ -162,5 +177,14 @@ namespace Assets.Scripts.Lobbi
         public string GetLobbyCode() => lobby?.LobbyCode;
 
         public string GetHostID() => lobby?.HostId;
+
+        public MatchDuration GetMatchDuration()
+        {
+            if (lobby.Data != null && lobby.Data.ContainsKey(LobbyDataKeys.MatchDuration))
+            {
+                return (MatchDuration)Enum.Parse(typeof(MatchDuration), lobby.Data[LobbyDataKeys.MatchDuration].Value);
+            }
+            return MatchDuration.matchDuration1;
+        }
     }
 }
