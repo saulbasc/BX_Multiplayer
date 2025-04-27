@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Connection.Lobbi;
+﻿using System;
+using Assets.Scripts.Connection.Lobbi;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,12 +11,11 @@ namespace Assets.Scripts.UI.MenuUI
     {
         [SerializeField] private GameObject menuPanel;
         [SerializeField] private GameObject joinPanel;
-        [SerializeField] private Button hostButton;
-        [SerializeField] private Button joinButton;
-        [SerializeField] private Button backButton;
-
+        [SerializeField] private GameObject profilePanel;
+        [SerializeField] private GameObject gamePlayPanel;
+        [SerializeField] private Button profileButton;
         [SerializeField] private Button joinCodeButton;
-        [SerializeField] private TextMeshProUGUI codeText;
+        [SerializeField] private Button gamePlayButton;
 
         private void Start()
         {
@@ -24,51 +24,22 @@ namespace Assets.Scripts.UI.MenuUI
 
         private void OnEnable()
         {
-            hostButton.onClick.AddListener(OnHostButtonClicked);
-            joinButton.onClick.AddListener(OnJoinButtonClicked);
-            backButton.onClick.AddListener(OnBackButtonClicked);
+            gamePlayButton.onClick.AddListener(OnGamePlayButtonClicked);
             joinCodeButton.onClick.AddListener(OnJoinCodeButtonClicked);
+            profileButton.onClick.AddListener(OnProfileButtonClicked);
         }
 
         private void OnDisable()
         {
-            hostButton.onClick.RemoveListener(OnHostButtonClicked);
-            joinButton.onClick.RemoveListener(OnJoinButtonClicked);
-            backButton.onClick.RemoveListener(OnBackButtonClicked);
+            gamePlayButton.onClick.RemoveListener(OnGamePlayButtonClicked);
             joinCodeButton.onClick.RemoveListener(OnJoinCodeButtonClicked);
+            profileButton.onClick.RemoveListener(OnProfileButtonClicked);
         }
 
+        private void OnGamePlayButtonClicked() => gamePlayPanel.SetActive(true);
 
-        private async void OnHostButtonClicked()
-        {
-            bool success = await GameLobbyManager.Instance.CreateLobby();
-            if (success)
-            {
-                await SceneManager.LoadSceneAsync("Lobby");
-            }
-        }
+        private void OnJoinCodeButtonClicked() => joinPanel.SetActive(true);
 
-        private void OnJoinButtonClicked()
-        {
-            menuPanel.SetActive(false);
-            joinPanel.SetActive(true);
-        }
-
-        private void OnBackButtonClicked()
-        {
-            menuPanel.SetActive(true);
-            joinPanel.SetActive(false);
-        }
-
-        private async void OnJoinCodeButtonClicked()
-        {
-            string code = codeText.text;
-            code = code.Substring(0, code.Length - 1);
-            bool success = await GameLobbyManager.Instance.JoinLobby(code);
-            if(success)
-            {
-                await SceneManager.LoadSceneAsync("Lobby");
-            }
-        }
+        private void OnProfileButtonClicked() => profilePanel.SetActive(true);
     }
 }
