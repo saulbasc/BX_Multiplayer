@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\menu\\menuui\\settingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menu\\menuui\\settingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\commons\\scenes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\commons\\scenes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\menu\\menuui\\mainmenucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menu\\menuui\\mainmenucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\menu\\menuui\\buttons\\newscenebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menu\\menuui\\buttons\\newscenebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\menu\\menuui\\gameplaycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menu\\menuui\\gameplaycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\menu\\menuui\\buttons\\showpanelbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menu\\menuui\\buttons\\showpanelbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\menu\\menuui\\buttons\\hidepanelbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menu\\menuui\\buttons\\hidepanelbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\menu\\menuui\\buttons\\basebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menu\\menuui\\buttons\\basebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,40 +35,64 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "SettingsController.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\SettingsController.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Menu\\MenuUI\\SettingsController.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\SettingsController.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Menu\\MenuUI\\SettingsController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Title": "Scenes.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Commons\\Scenes.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Commons\\Scenes.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Commons\\Scenes.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Commons\\Scenes.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T22:59:10.572Z",
+              "WhenOpened": "2025-04-28T18:48:47.018Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "MainMenuController.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\MainMenuController.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Menu\\MenuUI\\MainMenuController.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\MainMenuController.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Menu\\MenuUI\\MainMenuController.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAkwC4AAAAVAAAAAAAAAA==",
+              "Title": "NewSceneButton.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\Buttons\\NewSceneButton.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Menu\\MenuUI\\Buttons\\NewSceneButton.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\Buttons\\NewSceneButton.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Menu\\MenuUI\\Buttons\\NewSceneButton.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T22:39:35.789Z",
+              "WhenOpened": "2025-04-28T18:33:42.972Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GamePlayController.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\GamePlayController.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Menu\\MenuUI\\GamePlayController.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\GamePlayController.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Menu\\MenuUI\\GamePlayController.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAgwCMAAAAsAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "HidePanelButton.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\Buttons\\HidePanelButton.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Menu\\MenuUI\\Buttons\\HidePanelButton.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\Buttons\\HidePanelButton.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Menu\\MenuUI\\Buttons\\HidePanelButton.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-27T22:21:19.605Z",
+              "WhenOpened": "2025-04-28T18:32:36.057Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BaseButton.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\Buttons\\BaseButton.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Menu\\MenuUI\\Buttons\\BaseButton.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\Buttons\\BaseButton.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Menu\\MenuUI\\Buttons\\BaseButton.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAoAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-28T18:06:20.185Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ShowPanelButton.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\Buttons\\ShowPanelButton.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Menu\\MenuUI\\Buttons\\ShowPanelButton.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\Buttons\\ShowPanelButton.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Menu\\MenuUI\\Buttons\\ShowPanelButton.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-28T18:05:33.514Z",
               "EditorCaption": ""
             }
           ]
