@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace Assets.Scripts.Menu.MenuUI
 {
@@ -6,12 +7,18 @@ namespace Assets.Scripts.Menu.MenuUI
     {
         public static void OnPressDownButton(GameObject gameObject)
         {
-            LeanTween.scale(gameObject, new Vector3(0.9f, 0.9f, 1.0f), 0.1f).setEaseInOutBack();
+            LeanTween.scale(gameObject, Vector3.one, 0.1f).setEaseInOutBack();
         }
 
         public static void OnPressUpButton(GameObject gameObject)
         {
-            LeanTween.scale(gameObject, new Vector3(1.0f, 1.0f, 1.0f), 0.1f).setEaseInOutBack();
+            LeanTween.scale(gameObject, Vector3.one, 0.1f).setEaseInOutBack();
+        }
+
+        public static void SimpleRebound(GameObject gameObject)
+        {
+            LeanTween.scale(gameObject, Vector3.one, 0.5f)
+            .setEase(LeanTweenType.easeOutBounce);
         }
     }
 }

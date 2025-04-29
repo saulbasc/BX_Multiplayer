@@ -1,55 +1,63 @@
-﻿
-using Firebase;
-using Firebase.Extensions;
+﻿using Firebase;
+using Firebase.Auth;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Core.FireB
 {
-    public class FirebaseInit : MonoBehaviour
+    public static class FirebaseInit
     {
-        private void Start()
+        public static async Task<bool> Init()
         {
-            FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task => {
-                var dependencyStatus = task.Result;
-                if (dependencyStatus == DependencyStatus.Available)
-                {
-                    Debug.Log("Firebase listo para usar.");
-                    Login();
-                }
-                else
-                {
-                    Debug.LogError($"No se pudieron resolver todas las dependencias de Firebase: {dependencyStatus}");
-                }
-            });
+            var result = await InitializeFirebaseAsync();
+            if (result)
+            {
+                return true;
+            }
+            else
+            {
+                Debug.LogError("Falló la inicialización o el login de firebase.");
+                return false;
+            }
         }
 
-        private void Login()
+        private static async Task<bool> InitializeFirebaseAsync()
         {
-            Firebase.Auth.FirebaseAuth auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
-
-            if(auth.CurrentUser != null)
+            var dependencyResult = await FirebaseApp.CheckAndFixDependenciesAsync();
+            if (dependencyResult != DependencyStatus.Available)
             {
-                Debug.Log("Ya hay un usuario autenticado.");
-                return;
+                Debug.LogError($"No se pudieron resolver todas las dependencias de Firebase: {dependencyResult}");
+                return false;
+            }
+            return await LoginAsync();
+        }
+
+        private static async Task<bool> LoginAsync()
+        {
+            FirebaseAuth auth = FirebaseAuth.DefaultInstance;
+
+            if (auth.CurrentUser != null)
+            {
+                Debug.Log("Ya hay un usuario autenticado en firebase => "+ FirebaseAuth.DefaultInstance.CurrentUser.UserId);
+                return true;
             }
 
-            auth.SignInAnonymouslyAsync().ContinueWith(task => {
-                if (task.IsCanceled)
-                {
-                    Debug.LogError("SignInAnonymouslyAsync was canceled.");
-                    return;
-                }
-                if (task.IsFaulted)
-                {
-                    Debug.LogError("SignInAnonymouslyAsync encountered an error: " + task.Exception);
-                    return;
-                }
+            try
+            {
+                var result = await auth.SignInAnonymouslyAsync();
+                Debug.LogFormat("Usuario registrado con éxito: {0}", result.User.UserId);
+                return true;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("Error al iniciar sesión anónimamente: " + e);
+                return false;
+            }
+        }
 
-                Firebase.Auth.AuthResult result = task.Result;
-                Debug.LogFormat("User signed in successfully: {0} ({1})",
-                    result.User.DisplayName, result.User.UserId);
-            });
+        public static string GetCurrentID()
+        {
+            return FirebaseAuth.DefaultInstance.CurrentUser.UserId;
         }
     }
 }
-

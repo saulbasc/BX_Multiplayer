@@ -3,24 +3,96 @@
   "WorkspaceRootPath": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\commons\\scenes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\core\\models\\attributes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\models\\attributes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\core\\daos\\idao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\daos\\idao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\core\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\core\\daos\\userdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\daos\\userdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\init\\authenticator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\init\\authenticator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\menu\\menuui\\joinlobbycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menu\\menuui\\joinlobbycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\init\\unityservicesinit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\init\\unityservicesinit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\init\\firebaseinit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\init\\firebaseinit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\camera\\matchcamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\camera\\matchcamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\menu\\menuui\\commonanimations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menu\\menuui\\commonanimations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\menu\\menuui\\sceneanimator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menu\\menuui\\sceneanimator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\commons\\buttonbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\commons\\buttonbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\game\\gameevents\\player\\playerrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\gameevents\\player\\playerrole.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\game\\gameevents\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\gameevents\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\game\\gameevents\\player\\playermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\gameevents\\player\\playermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\commons\\forcemenuineditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\commons\\forcemenuineditor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\commons\\scenes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\commons\\scenes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\menu\\menuui\\buttons\\newscenebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menu\\menuui\\buttons\\newscenebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\commons\\jsonconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\commons\\jsonconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\menu\\menuui\\buttons\\showpanelbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menu\\menuui\\buttons\\showpanelbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\menu\\menuui\\buttons\\playbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menu\\menuui\\buttons\\playbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\menu\\menuui\\buttons\\basebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menu\\menuui\\buttons\\basebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\menu\\menuui\\buttons\\hidepanelbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menu\\menuui\\buttons\\hidepanelbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\menu\\menuui\\buttons\\basebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menu\\menuui\\buttons\\basebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\menu\\menuui\\buttons\\showpanelbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menu\\menuui\\buttons\\showpanelbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\menu\\menuui\\buttons\\newscenebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\menu\\menuui\\buttons\\newscenebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,6 +107,223 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Attributes.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Core\\Models\\Attributes.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\Models\\Attributes.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Core\\Models\\Attributes.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Core\\Models\\Attributes.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAmwBIAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T23:16:40.654Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "JoinLobbyController.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\JoinLobbyController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Menu\\MenuUI\\JoinLobbyController.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\JoinLobbyController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Menu\\MenuUI\\JoinLobbyController.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABkAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T22:48:34.203Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserDAO.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Core\\Daos\\UserDAO.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\Daos\\UserDAO.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Core\\Daos\\UserDAO.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Core\\Daos\\UserDAO.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAQwBsAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T22:07:15.49Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IDAO.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Core\\Daos\\IDAO.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\Daos\\IDAO.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Core\\Daos\\IDAO.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Core\\Daos\\IDAO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T22:03:40.401Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UnityServicesInit.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Init\\UnityServicesInit.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Init\\UnityServicesInit.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Init\\UnityServicesInit.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Init\\UnityServicesInit.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAgwB0AAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T21:36:57.268Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Authenticator.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Init\\Authenticator.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Init\\Authenticator.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Init\\Authenticator.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Init\\Authenticator.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAowCIAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T21:27:44.164Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Core\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Core\\Models\\User.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Core\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T21:21:56.647Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "SceneAnimator.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\SceneAnimator.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Menu\\MenuUI\\SceneAnimator.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\SceneAnimator.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Menu\\MenuUI\\SceneAnimator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T18:35:44.949Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "CommonAnimations.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\CommonAnimations.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Menu\\MenuUI\\CommonAnimations.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\CommonAnimations.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Menu\\MenuUI\\CommonAnimations.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T18:34:11.389Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Player.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\Player\\Player.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\GameEvents\\Player\\Player.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\Player\\Player.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Game\\GameEvents\\Player\\Player.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T18:34:01.29Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "PlayerManager.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerManager.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T18:18:21.315Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "PlayerRole.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerRole.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerRole.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerRole.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerRole.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T18:18:12.324Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MatchCamera.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Camera\\MatchCamera.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Camera\\MatchCamera.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Camera\\MatchCamera.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Camera\\MatchCamera.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T18:18:06.342Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ButtonBase.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Commons\\ButtonBase.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Commons\\ButtonBase.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Commons\\ButtonBase.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Commons\\ButtonBase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T18:18:03.852Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "JsonConverter.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Commons\\JsonConverter.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Commons\\JsonConverter.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Commons\\JsonConverter.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Commons\\JsonConverter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T18:18:00.834Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ForceMenuInEditor.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Commons\\ForceMenuInEditor.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Commons\\ForceMenuInEditor.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Commons\\ForceMenuInEditor.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Commons\\ForceMenuInEditor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T18:17:59.353Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "PlayButton.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\Buttons\\PlayButton.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Menu\\MenuUI\\Buttons\\PlayButton.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\Buttons\\PlayButton.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Menu\\MenuUI\\Buttons\\PlayButton.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T17:58:18.26Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FirebaseInit.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Init\\FirebaseInit.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Init\\FirebaseInit.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Init\\FirebaseInit.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Init\\FirebaseInit.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAwwDcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T17:12:54.437Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
               "Title": "Scenes.cs",
               "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Commons\\Scenes.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Commons\\Scenes.cs",
@@ -42,12 +331,11 @@
               "RelativeToolTip": "Assets\\Scripts\\Commons\\Scenes.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T18:48:47.018Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-28T18:48:47.018Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 22,
               "Title": "NewSceneButton.cs",
               "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\Buttons\\NewSceneButton.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Menu\\MenuUI\\Buttons\\NewSceneButton.cs",
@@ -55,12 +343,11 @@
               "RelativeToolTip": "Assets\\Scripts\\Menu\\MenuUI\\Buttons\\NewSceneButton.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T18:33:42.972Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-28T18:33:42.972Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 20,
               "Title": "HidePanelButton.cs",
               "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\Buttons\\HidePanelButton.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Menu\\MenuUI\\Buttons\\HidePanelButton.cs",
@@ -72,7 +359,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 19,
               "Title": "BaseButton.cs",
               "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\Buttons\\BaseButton.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Menu\\MenuUI\\Buttons\\BaseButton.cs",
@@ -84,7 +371,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 21,
               "Title": "ShowPanelButton.cs",
               "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Menu\\MenuUI\\Buttons\\ShowPanelButton.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Menu\\MenuUI\\Buttons\\ShowPanelButton.cs",
@@ -92,8 +379,7 @@
               "RelativeToolTip": "Assets\\Scripts\\Menu\\MenuUI\\Buttons\\ShowPanelButton.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-28T18:05:33.514Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-28T18:05:33.514Z"
             }
           ]
         }

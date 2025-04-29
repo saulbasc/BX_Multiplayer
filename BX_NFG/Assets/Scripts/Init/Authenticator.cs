@@ -1,39 +1,66 @@
-﻿
-using Unity.Services.Authentication;
-using Unity.Services.Core;
+﻿using Assets.Scripts.Core.FireB;
+using Assets.Scripts.Core.Models;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Init
 {
     public class Authenticator : MonoBehaviour
     {
+
+        [SerializeField] private GameObject namePanel;
+        [SerializeField] private TMP_InputField nameInput;
+        [SerializeField] private Button confirmButton;
+
+        private void Awake()
+        {
+            confirmButton.onClick.AddListener(OnConfirmName);
+        }
+
         async void Start()
         {
-            await UnityServices.InitializeAsync();
-
-            if(UnityServices.State == ServicesInitializationState.Initialized)
+            bool unityServices = await UnityServicesInit.Init();
+            bool firebaseServices = await FirebaseInit.Init();
+            if ( unityServices && firebaseServices )
             {
-                AuthenticationService.Instance.SignedIn += OnSignedIn;
-                await AuthenticationService.Instance.SignInAnonymouslyAsync();
-
-                if (AuthenticationService.Instance.IsSignedIn)
+                UserDAO userDao = new UserDAO();
+                string firebaseId = FirebaseInit.GetCurrentID();
+                string unityId = UnityServicesInit.GetCurrentID();
+                if(await userDao.exists(firebaseId, unityId))
                 {
-                    string playerName = PlayerPrefs.GetString("Username");
-                    if (playerName == "")
-                    {
-                        playerName = "player";
-                        PlayerPrefs.SetString("Username", playerName);
-                    }
                     await SceneManager.LoadSceneAsync("MenuScene");
+                }else
+                {
+                    namePanel.SetActive(true);
                 }
             }
         }
 
-        private void OnSignedIn()
+        private async void OnConfirmName()
         {
-            Debug.Log("Signed in as: " + AuthenticationService.Instance.PlayerId);
-            Debug.Log("Token: " + AuthenticationService.Instance.AccessToken);
+            string username = nameInput.text.Trim();
+
+            if (!string.IsNullOrEmpty(username))
+            {
+                UserDAO userDAO = new UserDAO();
+
+                string firebaseId = FirebaseInit.GetCurrentID();
+                string unityId = UnityServicesInit.GetCurrentID();
+
+                var newUser = new User(firebaseId, unityId, username);
+                bool success = await userDAO.insert(newUser);
+
+                if (success)
+                {
+                    await SceneManager.LoadSceneAsync("MenuScene");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("El nombre no puede estar vacío.");
+            }
         }
     }
 }
