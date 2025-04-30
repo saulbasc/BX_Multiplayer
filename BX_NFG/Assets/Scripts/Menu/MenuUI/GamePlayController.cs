@@ -11,16 +11,12 @@ namespace Assets.Scripts.Menu.MenuUI
         [SerializeField] private Button startGameButton;
         [SerializeField] private Button joinGameButton;
         [SerializeField] private Button trainingButton;
-        [SerializeField] private Button gameButton;
-
-        [SerializeField] private GameObject joinPanel;
 
         private void OnEnable()
         {
             startGameButton.onClick.AddListener(OnStartGameButtonClicked);
             joinGameButton.onClick.AddListener(OnJoinGameButtonClicked);
             trainingButton.onClick.AddListener(OnTrainingButtonPressed);
-            gameButton.onClick.AddListener(OnGameButtonPressed);
         }
 
         private void OnDisable()
@@ -28,7 +24,6 @@ namespace Assets.Scripts.Menu.MenuUI
             startGameButton.onClick.RemoveListener(OnStartGameButtonClicked);
             joinGameButton.onClick.RemoveListener(OnJoinGameButtonClicked);
             trainingButton.onClick.RemoveListener(OnTrainingButtonPressed);
-            gameButton.onClick.RemoveListener(OnGameButtonPressed);
         }
 
         private void OnTrainingButtonPressed() { }

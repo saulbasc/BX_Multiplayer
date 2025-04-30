@@ -15,6 +15,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Profile.unity
     guid: e0185535edc31ff49b9188f072169497
   - enabled: 1
+    path: Assets/Scenes/PlayerInfo.unity
+    guid: 127664bc122ed2b4e8c72f85ce879444
+  - enabled: 1
+    path: Assets/Scenes/PlayModesScene.unity
+    guid: 56e01f352c5a56d48adb9802c5e9eea2
+  - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: 5a541fbe17de11049bb6514f4916d9c5
   - enabled: 1

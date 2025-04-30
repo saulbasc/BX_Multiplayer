@@ -38,7 +38,7 @@ namespace Assets.Scripts.Core.FireB
 
             if (auth.CurrentUser != null)
             {
-                Debug.Log("Ya hay un usuario autenticado en firebase => "+ FirebaseAuth.DefaultInstance.CurrentUser.UserId);
+                Debug.Log("Ya hay un usuario autenticado en firebase => " + FirebaseAuth.DefaultInstance.CurrentUser.UserId);
                 return true;
             }
 

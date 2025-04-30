@@ -9,5 +9,6 @@ namespace Assets.Scripts.Commons
         GameScene,
         Profile,
         PlayerInfo,
+        PlayModesScene,
     }
 }

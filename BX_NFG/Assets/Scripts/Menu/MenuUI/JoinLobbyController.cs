@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using Assets.Scripts.Connection.Lobbi;
 using TMPro;
 using UnityEngine;
@@ -9,7 +9,7 @@ namespace Assets.Scripts.Menu.MenuUI
 {
     public class JoinLobbyController : MonoBehaviour
     {
-        [SerializeField] private InputField codeText;
+        [SerializeField] private TMP_InputField codeText;
         [SerializeField] private Button joinButton;
         [SerializeField] private Button backButton;
 
