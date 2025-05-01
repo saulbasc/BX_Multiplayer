@@ -6,6 +6,10 @@ namespace Assets.Scripts.Menu.MenuUI
     {
         [SerializeField] private GameObject panel;
 
-        protected override void action() => panel.SetActive(true);
+        protected override void action()
+        {
+            panel.SetActive(true);
+            CommonAnimations.ShowPanel(panel);
+        }
     }
 }

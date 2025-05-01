@@ -22,13 +22,12 @@ namespace Assets.Scripts.Init
         async void Start()
         {
             bool unityServices = await UnityServicesInit.Init();
-            bool firebaseServices = await FirebaseInit.Init();
+            bool firebaseServices = await FirebaseActions.Init();
             if ( unityServices && firebaseServices )
             {
-                UserDAO userDao = new UserDAO();
-                string firebaseId = FirebaseInit.GetCurrentID();
+                string firebaseId = FirebaseActions.GetCurrentID();
                 string unityId = UnityServicesInit.GetCurrentID();
-                if(await userDao.exists(firebaseId, unityId))
+                if(await UserDAO.Instance.exists(firebaseId, unityId))
                 {
                     await SceneManager.LoadSceneAsync("MenuScene");
                 }else
@@ -44,13 +43,11 @@ namespace Assets.Scripts.Init
 
             if (!string.IsNullOrEmpty(username))
             {
-                UserDAO userDAO = new UserDAO();
-
-                string firebaseId = FirebaseInit.GetCurrentID();
+                string firebaseId = FirebaseActions.GetCurrentID();
                 string unityId = UnityServicesInit.GetCurrentID();
 
                 var newUser = new User(firebaseId, unityId, username);
-                bool success = await userDAO.insert(newUser);
+                bool success = await UserDAO.Instance.insert(newUser);
 
                 if (success)
                 {

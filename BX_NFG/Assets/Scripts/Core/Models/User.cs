@@ -19,6 +19,12 @@ namespace Assets.Scripts.Core.Models
             Username = username;
         }
 
+        public User(string firebaseId, string username)
+        {
+            FirebaseId = firebaseId;
+            Username = username;
+        }
+
         public User() { }
 
         public void SetUsername(string username)

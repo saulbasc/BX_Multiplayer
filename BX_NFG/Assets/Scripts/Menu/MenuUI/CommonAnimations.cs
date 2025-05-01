@@ -1,4 +1,4 @@
-﻿using UnityEditor;
+﻿
 using UnityEngine;
 
 namespace Assets.Scripts.Menu.MenuUI
@@ -19,6 +19,17 @@ namespace Assets.Scripts.Menu.MenuUI
         {
             LeanTween.scale(gameObject, Vector3.one, 0.5f)
             .setEase(LeanTweenType.easeOutBounce);
+        }
+
+        public static void ShowPanel(GameObject gameObject)
+        { 
+            gameObject.transform.localScale = Vector3.zero;
+            LeanTween.scale(gameObject, Vector3.one, 0.3f).setEaseOutBack();
+        }
+
+        public static void HidePanel(GameObject gameObject)
+        {
+            LeanTween.scale(gameObject, Vector3.zero, 0.3f).setEaseOutBack();
         }
     }
 }

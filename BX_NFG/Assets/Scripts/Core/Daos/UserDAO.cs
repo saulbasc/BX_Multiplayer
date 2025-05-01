@@ -1,18 +1,14 @@
-﻿using Assets.Scripts.Core.Daos;
+﻿using Assets.Scripts.Commons;
+using Assets.Scripts.Core.Daos;
 using Assets.Scripts.Core.Models;
 using Firebase.Firestore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class UserDAO : IDAO<User, string>
+public class UserDAO : Singleton<UserDAO>, IDAO<User, string>
 {
-    private FirebaseFirestore firestore;
-
-    public UserDAO()
-    {
-        firestore = FirebaseFirestore.DefaultInstance;
-    }
+    private FirebaseFirestore firestore = FirebaseFirestore.DefaultInstance;
 
     public async Task<bool> insert(User entity)
     {

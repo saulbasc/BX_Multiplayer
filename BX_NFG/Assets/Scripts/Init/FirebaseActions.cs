@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Core.FireB
 {
-    public static class FirebaseInit
+    public static class FirebaseActions
     {
         public static async Task<bool> Init()
         {
