@@ -21,6 +21,11 @@ namespace Assets.Scripts.Lobbi
         private Coroutine lobbyCoroutine;
         private Coroutine refreshLobbyCoroutine;
 
+        private void OnDisable()
+        {
+            Destroy(gameObject);
+        }
+
         public async Task<bool> CreateLobby(int maxPlayers, bool isPrivate, Dictionary<string, string> data, Dictionary<string, string> lobbyData)
         {
             Dictionary<string, PlayerDataObject> playerData = LobbyUtil.SerializePlayerData(data);
@@ -40,8 +45,9 @@ namespace Assets.Scripts.Lobbi
                 refreshLobbyCoroutine = StartCoroutine(RefreshLobbyCoroutine(lobby.Id, 1f));
                 return true;
             }
-            catch (Exception)
-            { 
+            catch (Exception e)
+            {
+                Debug.LogError(e);
                 return false; 
             }
         }
@@ -59,16 +65,8 @@ namespace Assets.Scripts.Lobbi
             }
             catch (Exception e) 
             {
-                Debug.Log(e);
+                Debug.LogError(e);
                 return false;
-            }
-        }
-
-        public void QuitLobby()
-        {
-            if (lobby != null && lobby.HostId == AuthenticationService.Instance.PlayerId)
-            {
-                LobbyService.Instance.DeleteLobbyAsync(lobby.Id);
             }
         }
 
@@ -76,15 +74,50 @@ namespace Assets.Scripts.Lobbi
         {
             while (true)
             {
-                Task<Lobby> task = LobbyService.Instance.GetLobbyAsync(lobbyId);
-                yield return new WaitUntil(() => task.IsCompleted);
-                Lobby newLobby = task.Result;
-                if(newLobby.LastUpdated > lobby.LastUpdated)
+                yield return StartCoroutine(TryUpdateLobby(lobbyId));
+                yield return new WaitForSecondsRealtime(wait);
+            }
+        }
+
+        private IEnumerator TryUpdateLobby(string lobbyId)
+        {
+            Task<Lobby> task = null;
+
+            try
+            {
+                task = LobbyService.Instance.GetLobbyAsync(lobbyId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+                yield break;
+            }
+
+            yield return new WaitUntil(() => task.IsCompleted);
+
+            if (task.IsCompletedSuccessfully)
+            {
+                HandleLobbyResult(task.Result);
+            }
+            else
+            {
+                Debug.LogError($"Error al obtener el lobby: {task.Exception?.Flatten().InnerException}");
+            }
+        }
+
+        private void HandleLobbyResult(Lobby newLobby)
+        {
+            try
+            {
+                if (newLobby.LastUpdated > lobby.LastUpdated)
                 {
                     lobby = newLobby;
                     LobbyEvents.OnLobbyUpdated?.Invoke(lobby);
                 }
-                yield return new WaitForSecondsRealtime(wait);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
             }
         }
 
@@ -92,9 +125,42 @@ namespace Assets.Scripts.Lobbi
         {
             while (true)
             {
-                Debug.Log("Lobby coroutine");
-                LobbyService.Instance.SendHeartbeatPingAsync(lobbyId);
+                try
+                {
+                    LobbyService.Instance.SendHeartbeatPingAsync(lobbyId);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e);
+                }
                 yield return new WaitForSecondsRealtime(wait);
+            }
+        }
+
+        private void DeleteCorroutines()
+        {
+            if (lobbyCoroutine != null)
+            {
+                StopCoroutine(lobbyCoroutine);
+                lobbyCoroutine = null;
+            }
+            if (refreshLobbyCoroutine != null)
+            {
+                StopCoroutine(refreshLobbyCoroutine);
+                refreshLobbyCoroutine = null;
+            }
+        }
+
+        public async Task Disconnect()
+        {
+            try
+            {
+                DeleteCorroutines();
+                await LobbyService.Instance.DeleteLobbyAsync(lobby.Id);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
             }
         }
 
@@ -173,6 +239,8 @@ namespace Assets.Scripts.Lobbi
         }
 
         public Dictionary<string, DataObject> GetLobbyData() => lobby.Data;
+
+        public string GetLobbyID => lobby.Id;
 
         public string GetLobbyCode() => lobby?.LobbyCode;
 

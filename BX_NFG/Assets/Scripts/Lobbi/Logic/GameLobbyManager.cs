@@ -9,7 +9,10 @@ using Assets.Scripts.Lobbi.Datas;
 using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Lobbi.Players;
 using Assets.Scripts.Lobbi.Util;
+using Assets.Scripts.UI.LobbyUI;
+using Unity.Netcode;
 using Unity.Services.Authentication;
+using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -31,6 +34,7 @@ namespace Assets.Scripts.Connection.Lobbi
         private void OnDisable()
         {
             LobbyEvents.OnLobbyUpdated -= OnLobbyUpdated;
+            Destroy(gameObject);
         }
 
         public async Task<bool> CreateLobby()
@@ -46,6 +50,23 @@ namespace Assets.Scripts.Connection.Lobbi
             LobbyPlayerData playerData = new LobbyPlayerData(GetLocalID(), "JoinPlayer");
             bool success = await LobbyManager.Instance.JoinLobby(code, playerData.Serialize());
             return success;
+        }
+
+        public async Task<bool> DisconnectFromLobby()
+        {
+            try
+            {
+                string playerId = AuthenticationService.Instance.PlayerId;
+                //await LobbyService.Instance.RemovePlayerAsync(LobbyManager.Instance.GetLobbyID, playerId);
+                await LobbyManager.Instance.Disconnect();
+                await SceneManager.LoadSceneAsync(Scenes.MenuScene.ToString());
+                return true;
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.Log(e);
+                return false;
+            }
         }
 
         private async void OnLobbyUpdated(Lobby lobby)

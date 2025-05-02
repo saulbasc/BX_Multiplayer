@@ -1,4 +1,5 @@
 ﻿
+using System;
 using Assets.Scripts.Connection.Lobbi;
 using Assets.Scripts.Lobbi;
 using Unity.Services.Authentication;
@@ -10,12 +11,14 @@ namespace Assets.Scripts.UI.LobbyUI
 {
     public class LobbyController : MonoBehaviour
     {
+        [SerializeField] private Button exitButton;
         [SerializeField] private Button readyButton;
         [SerializeField] private Button cancelButton;
         [SerializeField] private Button startButton;
 
         private void OnEnable()
         {
+            exitButton.onClick.AddListener(OnExitButtonClicked);
             readyButton.onClick.AddListener(OnReadyButtonClicked);
             cancelButton.onClick.AddListener(OnCancelButtonClicked);
 
@@ -29,6 +32,7 @@ namespace Assets.Scripts.UI.LobbyUI
 
         private void OnDisable()
         {
+            exitButton.onClick.RemoveListener(OnExitButtonClicked);
             readyButton.onClick.RemoveListener(OnReadyButtonClicked);
             cancelButton.onClick.RemoveListener(OnCancelButtonClicked);
             startButton.onClick.RemoveListener(OnStartButtonClick);
@@ -45,6 +49,11 @@ namespace Assets.Scripts.UI.LobbyUI
         private void OnLobbyCancel()
         {
             startButton.gameObject.SetActive(false);
+        }
+
+        private async void OnExitButtonClicked()
+        {
+            await GameLobbyManager.Instance.DisconnectFromLobby();
         }
 
         private async void OnReadyButtonClicked()

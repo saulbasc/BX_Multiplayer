@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Assets.Scripts.Core.FireB;
 using Assets.Scripts.Core.Models;
 using Assets.Scripts.Menu.MenuUI;
@@ -15,6 +16,7 @@ namespace Assets.Scripts.Profile
         [SerializeField] private Button changeName;
         [SerializeField] private Button confirmName;
         [SerializeField] private GameObject changeNamePanel;
+        [SerializeField] private GameObject loadingPanel;
 
         private void OnEnable()
         {
@@ -34,18 +36,20 @@ namespace Assets.Scripts.Profile
             CommonAnimations.ShowPanel(changeNamePanel);
         }
 
-        private void OnConfirmNameButtonClicked()
+        private async void OnConfirmNameButtonClicked()
         {
-            changeNamePlayer(inputField.text);
-            setNamePlayer();
+            await changeNamePlayer(inputField.text);
+            await setNamePlayer();
         }
 
-        private void Start()
+        private async void Start()
         {
-            setNamePlayer();
+            loadingPanel.SetActive(true);
+            await setNamePlayer();
+            loadingPanel.SetActive(false);
         }
 
-        private async void setNamePlayer()
+        private async Task setNamePlayer()
         {
             User user = await UserDAO.Instance.select(FirebaseActions.GetCurrentID());
             if (user != null)
@@ -54,7 +58,7 @@ namespace Assets.Scripts.Profile
             }
         }
 
-        private async void changeNamePlayer(string newName)
+        private async Task changeNamePlayer(string newName)
         {
             User updateUser = new User(FirebaseActions.GetCurrentID(), newName);
             bool success = await UserDAO.Instance.update(updateUser);

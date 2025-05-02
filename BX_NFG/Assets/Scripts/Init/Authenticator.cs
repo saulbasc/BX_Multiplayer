@@ -30,7 +30,8 @@ namespace Assets.Scripts.Init
                 if(await UserDAO.Instance.exists(firebaseId, unityId))
                 {
                     await SceneManager.LoadSceneAsync("MenuScene");
-                }else
+                }
+                else
                 {
                     namePanel.SetActive(true);
                 }

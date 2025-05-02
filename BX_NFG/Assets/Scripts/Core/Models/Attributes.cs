@@ -1,8 +1,7 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Firebase.Firestore;
 
 namespace Assets.Scripts.Core.Models
@@ -13,20 +12,20 @@ namespace Assets.Scripts.Core.Models
         [FirestoreProperty]
         public string FirebaseID { get; private set; }
         [FirestoreProperty]
-        public int Speed { get; private set; }
-        [FirestoreProperty]
-        public int Power { get; private set; }
-        [FirestoreProperty]
-        public int Weigth { get; private set; }
+        public List<Attribute> Attributs { get; private set; }
 
-        public Attributes(string firebaseID, int speed, int power, int weigth)
+        public Attributes(string firebaseID, List<Attribute> attributes)
         {
             FirebaseID = firebaseID;
-            Speed = speed;
-            Power = power;
-            Weigth = weigth;
+            Attributs = attributes;
         }
 
-        public Attributes() { }
+        public Attributes(string firebaseID) {
+            FirebaseID = firebaseID;
+            Attributs = Enum.GetValues(typeof(AttributeEnum))
+                .Cast<AttributeEnum>()
+                .Select(attrEnum => new Attribute(attrEnum, 3))
+                .ToList();
+        }
     }
 }
