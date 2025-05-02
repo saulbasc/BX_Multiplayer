@@ -1962,6 +1962,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ConnectionLostPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 2164636947317936284, guid: de70ea66098cde84692d601391f3e055, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4751035769648682314, guid: de70ea66098cde84692d601391f3e055, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

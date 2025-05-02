@@ -57,7 +57,6 @@ namespace Assets.Scripts.Connection.Lobbi
             try
             {
                 string playerId = AuthenticationService.Instance.PlayerId;
-                //await LobbyService.Instance.RemovePlayerAsync(LobbyManager.Instance.GetLobbyID, playerId);
                 await LobbyManager.Instance.Disconnect();
                 await SceneManager.LoadSceneAsync(Scenes.MenuScene.ToString());
                 return true;

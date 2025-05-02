@@ -28,7 +28,7 @@ namespace Assets.Scripts.Menu.MenuUI
         private async void OnJoinButtonClicked()
         {
             string code = codeText.text;
-            code = code.Substring(0, code.Length - 1);
+            code = code.Substring(0, code.Length);
             bool success = await GameLobbyManager.Instance.JoinLobby(code);
             if (success)
             {

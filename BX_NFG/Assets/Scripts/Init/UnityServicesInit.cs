@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using UnityEngine;
@@ -7,27 +8,52 @@ namespace Assets.Scripts.Init
 {
     public static class UnityServicesInit
     {
-        public static async Task<bool> Init()
+        private static bool eventsRegistred = false;
+
+        public static async Task Init()
         {
-            await UnityServices.InitializeAsync();
-
-            if (UnityServices.State == ServicesInitializationState.Initialized)
+            try
             {
-                AuthenticationService.Instance.SignedIn += OnSignedIn;
-                await AuthenticationService.Instance.SignInAnonymouslyAsync();
-
-                if (AuthenticationService.Instance.IsSignedIn)
+                if (UnityServices.State != ServicesInitializationState.Initialized)
                 {
-                    return true;
+                    await UnityServices.InitializeAsync();
                 }
-            }
 
-            return false;
+                RegisterAuthEvents(); 
+
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Error inicializando Unity Services: " + e.Message);
+            }
         }
 
-        private static void OnSignedIn()
+        private static void RegisterAuthEvents()
         {
-            Debug.Log("Id del usuario de AuthService de unity => " + AuthenticationService.Instance.PlayerId);
+            if (eventsRegistred) return;
+
+            AuthenticationService.Instance.SignedIn += () =>
+            {
+                InitEvents.OnUnityServicesSignIn?.Invoke();
+            };
+
+            AuthenticationService.Instance.SignedOut += () =>
+            {
+                Debug.Log("[Auth] Usuario desconectado");
+            };
+
+            AuthenticationService.Instance.Expired += () =>
+            {
+                Debug.LogWarning("[Auth] La sesión ha expirado. Se requiere nueva autenticación.");
+            };
+
+            AuthenticationService.Instance.SignInFailed += error =>
+            {
+                Debug.LogError("[Auth] Falló el login: " + error);
+            };
+
+            eventsRegistred = true;
         }
 
         public static string GetCurrentID()

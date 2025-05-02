@@ -54,6 +54,7 @@ namespace Assets.Scripts.Lobbi
 
         public async Task<bool> JoinLobby(string code, Dictionary<string, string> playerData)
         {
+            Debug.Log("Lobby introduced code => " + code);
             JoinLobbyByCodeOptions options = new JoinLobbyByCodeOptions();
             Player player = new Player(AuthenticationService.Instance.PlayerId, null, LobbyUtil.SerializePlayerData(playerData));
             options.Player = player;
@@ -113,6 +114,7 @@ namespace Assets.Scripts.Lobbi
                 {
                     lobby = newLobby;
                     LobbyEvents.OnLobbyUpdated?.Invoke(lobby);
+                    Debug.Log($"Host actual: {lobby?.HostId}");
                 }
             }
             catch (Exception e)
@@ -156,7 +158,43 @@ namespace Assets.Scripts.Lobbi
             try
             {
                 DeleteCorroutines();
-                await LobbyService.Instance.DeleteLobbyAsync(lobby.Id);
+
+                if (AuthenticationService.Instance.PlayerId == lobby.HostId)
+                {
+                    var newHost = lobby.Players.FirstOrDefault(player => player.Id != AuthenticationService.Instance.PlayerId);
+                    if (newHost != null)
+                    {
+                        await LobbyService.Instance.UpdateLobbyAsync(lobby.Id, new UpdateLobbyOptions
+                        {
+                            HostId = newHost.Id
+                        });
+                        Debug.Log($"Nuevo host asignado: {newHost.Id}");
+                        await LobbyService.Instance.RemovePlayerAsync(lobby.Id, AuthenticationService.Instance.PlayerId);
+
+                    }
+                    else
+                    {
+                        await LobbyService.Instance.DeleteLobbyAsync(lobby.Id);
+                    }
+                }
+                else
+                {
+                    await LobbyService.Instance.RemovePlayerAsync(lobby.Id, AuthenticationService.Instance.PlayerId);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
+        }
+
+
+        public void LobbyClosed()
+        {
+            try
+            {
+                DeleteCorroutines();
+                lobby = null;
             }
             catch (Exception e)
             {
