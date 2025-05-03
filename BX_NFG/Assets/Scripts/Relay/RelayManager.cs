@@ -95,8 +95,8 @@ namespace Assets.Scripts.Lobbi.Logic
             MatchInfo.Instance.AddNewPlayerConnectedServerRpc();
             MatchInfo.Instance.MatchDuration = LobbyDataManager.Instance.GetMatchDuration();
 
-            string allocationId = RelayManager.Instance.GetAllocatorId();
-            string connectionData = RelayManager.Instance.GetConnectionData();
+            string allocationId = GetAllocatorId();
+            string connectionData = GetConnectionData();
 
             try
             {

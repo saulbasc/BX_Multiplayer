@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Assets.Scripts.Commons;
+using Assets.Scripts.Core.FireB;
+using Assets.Scripts.Core.Models;
 using Assets.Scripts.Lobbi.Datas;
 using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Lobbi.Players;
@@ -14,10 +16,11 @@ namespace Assets.Scripts.Connection.Lobbi
 
         public async Task<bool> CreateLobby()
         {
-            LobbyPlayerData playerData = new LobbyPlayerData(LobbyPlayersManager.Instance.GetLocalID(), "HostPlayer");
-            LobbyData lobbyData = new LobbyData();
             try
             {
+                User user = await UserDAO.Instance.select(FirebaseActions.GetCurrentID());
+                LobbyPlayerData playerData = new LobbyPlayerData(LobbyPlayersManager.Instance.GetLocalID(), user.Username);
+                LobbyData lobbyData = new LobbyData();
                 bool success = await LobbyServiceHandler.Instance.CreateLobby(maxPlayers, false, playerData.Serialize(), lobbyData.Serialize());
                 return success;
             }
@@ -30,9 +33,10 @@ namespace Assets.Scripts.Connection.Lobbi
 
         public async Task<bool> JoinLobby(string code)
         {
-            LobbyPlayerData playerData = new LobbyPlayerData(LobbyPlayersManager.Instance.GetLocalID(), "JoinPlayer");
             try
             {
+                User user = await UserDAO.Instance.select(FirebaseActions.GetCurrentID());
+                LobbyPlayerData playerData = new LobbyPlayerData(LobbyPlayersManager.Instance.GetLocalID(), user.Username);
                 bool success = await LobbyServiceHandler.Instance.JoinLobby(code, playerData.Serialize());
                 return success;
             }
