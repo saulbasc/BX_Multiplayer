@@ -1,9 +1,10 @@
 ﻿
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Scripts.Connection.Lobbi;
 using Assets.Scripts.Lobbi.UI.PlayerEntry;
 using Assets.Scripts.Lobbi.Players;
+using Assets.Scripts.Lobbi.Logic;
+using Assets.Scripts.Init;
 
 namespace Assets.Scripts.Lobbi.UI.TeamScroll
 {
@@ -23,7 +24,7 @@ namespace Assets.Scripts.Lobbi.UI.TeamScroll
 
         private void OnLobbyUpdated()
         {
-            List<LobbyPlayerData> playerDataList = GameLobbyManager.Instance.GetPlayerDataList();
+            List<LobbyPlayerData> playerDataList = LobbyPlayersManager.Instance.GetPlayerDataList();
             instantiatedPlayerPanels.ForEach(playerPanel => Destroy(playerPanel));
             instantiatedPlayerPanels.Clear();
             playerDataList.ForEach(playerData => UpdateAction(playerData));
@@ -38,7 +39,7 @@ namespace Assets.Scripts.Lobbi.UI.TeamScroll
 
         protected GameObject SetPlayerPanel(LobbyPlayerData playerData)
         {
-            return GameLobbyManager.Instance.GetLocalID() == playerData.Id
+            return UnityServicesActions.GetCurrentID() == playerData.Id
                 ? GenerateLocalPlayerPanel(playerData)
                 : Instantiate(playerPanelPrefab, playerListContainer);
         }

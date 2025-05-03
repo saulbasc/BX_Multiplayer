@@ -1,0 +1,85 @@
+﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Assets.Scripts.Commons;
+using Assets.Scripts.Lobbi.Data;
+using Assets.Scripts.Lobbi.Players;
+using Assets.Scripts.Lobbi.Util;
+using Unity.Services.Authentication;
+using Unity.Services.Lobbies.Models;
+using UnityEngine;
+
+namespace Assets.Scripts.Lobbi.Logic
+{
+    public class LobbyPlayersManager : DefaultSingleton<LobbyPlayersManager>
+    {
+        private Lobby GetLobby() => LobbyDataManager.Instance.Lobby;
+        public string GetLocalID() => AuthenticationService.Instance.PlayerId;
+        public bool IsHost() => AuthenticationService.Instance.PlayerId == LobbyDataManager.Instance.GetHostID();
+        public List<Player> GetPlayers() => GetLobby().Players;
+
+        public List<Dictionary<string, PlayerDataObject>> GetPlayersData()
+        {
+            List<Dictionary<string, PlayerDataObject>> playersData = GetLobby()?.Players.Select(player => player.Data).ToList();
+            return playersData;
+        }
+
+        public Dictionary<string, PlayerDataObject> GetSinglePlayerData(string playerId)
+        {
+            Dictionary<string, PlayerDataObject> playerData = GetLobby()?.Players.FirstOrDefault(player => player.Id == playerId)?.Data;  
+            return playerData;
+        }
+
+        public async Task<bool> SetPlayerReadyAsync(bool ready)
+        {
+            try
+            {
+                LobbyPlayerData localPlayerData = LobbyUtil.DeserializePlayerDataWithID(GetLocalID());
+                localPlayerData.IsReady = ready;
+                return await LobbyServiceHandler.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize());
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+                return false;
+            }
+        }
+
+        public async Task<bool> SetPlayerTeamAsync(LobbyPlayerData playerData, PlayerTeam playerTeam)
+        {
+            playerData.PlayerTeam = playerTeam;
+            try
+            {
+                return await LobbyServiceHandler.Instance.UpdatePlayerData(playerData.Id, playerData.Serialize());
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+                return false;
+            }
+        }
+
+        public List<LobbyPlayerData> GetPlayerDataList()
+        {
+            List<LobbyPlayerData> players = new List<LobbyPlayerData>();
+            List<Dictionary<string, PlayerDataObject>> playersData = GetPlayersData();
+            playersData.ForEach(playerData => players.Add(LobbyUtil.DeserializePlayerData(playerData)));
+            return players;
+        }
+
+        public async Task SetLocalPlayerData(string allocationId = default, string connectionData = default)
+        {
+            try
+            {
+                LobbyPlayerData localPlayerData = LobbyUtil.DeserializePlayerDataWithID(LobbyPlayersManager.Instance.GetLocalID());
+                await LobbyServiceHandler.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize(), allocationId, connectionData);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
+        }
+    }
+}

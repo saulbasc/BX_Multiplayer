@@ -31,7 +31,7 @@ namespace Assets.Scripts.Init
         private async void startInit()
         {
             await FirebaseActions.Init();
-            await UnityServicesInit.Init();
+            await UnityServicesActions.Init();
         }
 
         private void OnDestroy()
@@ -42,7 +42,6 @@ namespace Assets.Scripts.Init
 
         private void FirebaseSignIn()
         {
-            Debug.Log("Firebase usuario autenticado, procediendo...");
             signedInFirebase = true;
         }
 
@@ -53,7 +52,6 @@ namespace Assets.Scripts.Init
 
         private void Update()
         {
-            Debug.Log("Unity Services => " + signedInUnityService + " Firebase => " + signedInFirebase);
             if (signedInUnityService && signedInFirebase)
             {
                 signedInUnityService = false;
@@ -72,7 +70,7 @@ namespace Assets.Scripts.Init
         private async void checkRegistry()
         {
             string firebaseId = FirebaseActions.GetCurrentID();
-            string unityId = UnityServicesInit.GetCurrentID();
+            string unityId = UnityServicesActions.GetCurrentID();
             if (await UserDAO.Instance.exists(firebaseId, unityId))
             {
                 await SceneManager.LoadSceneAsync("MenuScene");
@@ -90,7 +88,7 @@ namespace Assets.Scripts.Init
             if (!string.IsNullOrEmpty(username) && username.Length >= 3 && username.Length <= 20)
             {
                 string firebaseId = FirebaseActions.GetCurrentID();
-                string unityId = UnityServicesInit.GetCurrentID();
+                string unityId = UnityServicesActions.GetCurrentID();
 
                 var newUser = new User(firebaseId, unityId, username);
                 bool success = await UserDAO.Instance.insert(newUser);

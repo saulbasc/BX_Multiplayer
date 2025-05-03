@@ -2,6 +2,7 @@
 using System;
 using Assets.Scripts.Connection.Lobbi;
 using Assets.Scripts.Lobbi;
+using Assets.Scripts.Lobbi.Logic;
 using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,12 +23,18 @@ namespace Assets.Scripts.UI.LobbyUI
             readyButton.onClick.AddListener(OnReadyButtonClicked);
             cancelButton.onClick.AddListener(OnCancelButtonClicked);
 
-            if (AuthenticationService.Instance.PlayerId == LobbyManager.Instance.GetHostID())
+            GameLobbyEvents.OnLobbyCancel += OnLobbyCancel;
+
+            inicializeLobbyController();
+        }
+
+        private void inicializeLobbyController()
+        {
+            if (AuthenticationService.Instance.PlayerId == LobbyDataManager.Instance.GetHostID())
             {
                 GameLobbyEvents.OnLobbyReady += OnLobbyReady;
                 startButton.onClick.AddListener(OnStartButtonClick);
             }
-            GameLobbyEvents.OnLobbyCancel += OnLobbyCancel;
         }
 
         private void OnDisable()
@@ -53,12 +60,12 @@ namespace Assets.Scripts.UI.LobbyUI
 
         private async void OnExitButtonClicked()
         {
-            await GameLobbyManager.Instance.DisconnectFromLobby();
+            await LobbyServiceHandler.Instance.DisconnectFromLobby();
         }
 
         private async void OnReadyButtonClicked()
         {
-            bool success = await GameLobbyManager.Instance.SetPlayerReady();
+            bool success = await LobbyPlayersManager.Instance.SetPlayerReadyAsync(true);
             if(success)
             {
                 readyButton.gameObject.SetActive(false);
@@ -68,7 +75,7 @@ namespace Assets.Scripts.UI.LobbyUI
 
         private async void OnCancelButtonClicked()
         {
-            bool success = await GameLobbyManager.Instance.SetPlayerNotReady();
+            bool success = await LobbyPlayersManager.Instance.SetPlayerReadyAsync(false);
             if (success)
             {
                 readyButton.gameObject.SetActive(true);
@@ -78,7 +85,7 @@ namespace Assets.Scripts.UI.LobbyUI
 
         private async void OnStartButtonClick()
         {
-            await GameLobbyManager.Instance.StartRelayServer();
+            await RelayManager.Instance.StartRelayServer();
         }
     }
 }

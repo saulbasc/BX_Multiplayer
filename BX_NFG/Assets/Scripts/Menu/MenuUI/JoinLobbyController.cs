@@ -29,7 +29,7 @@ namespace Assets.Scripts.Menu.MenuUI
         {
             string code = codeText.text;
             code = code.Substring(0, code.Length);
-            bool success = await GameLobbyManager.Instance.JoinLobby(code);
+            bool success = await GamePlayersManager.Instance.JoinLobby(code);
             if (success)
             {
                 await SceneManager.LoadSceneAsync("Lobby");

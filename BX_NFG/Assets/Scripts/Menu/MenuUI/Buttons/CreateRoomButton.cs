@@ -9,7 +9,7 @@ namespace Assets.Scripts.Menu.MenuUI.Buttons
     {
         protected async override void action()
         {
-            bool success = await GameLobbyManager.Instance.CreateLobby();
+            bool success = await GamePlayersManager.Instance.CreateLobby();
             if (success) SceneManager.LoadSceneAsync(Scenes.Lobby.ToString());
         }
     }

@@ -2,14 +2,23 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Assets.Scripts.Commons;
+using Assets.Scripts.Game.Manager;
+using Assets.Scripts.GameManager.GameEvents.Timer;
+using Assets.Scripts.Lobbi.Datas;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
+using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Lobbi.Logic
 {
     public class RelayManager : Singleton<RelayManager>
     {
+        private int maxPlayers = 10;
+
         private bool host = false;
         private string joinCode;
         private string ip;
@@ -70,6 +79,55 @@ namespace Assets.Scripts.Lobbi.Logic
             hostConnectionData = allocation.HostConnectionData;
             key = allocation.Key;
 
+            return true;
+        }
+
+        public async Task StartRelayServer()
+        {
+            string relayCode = await RelayManager.Instance.CreateRelay(maxPlayers);
+            PlayerStatus.Instance.InGame = true;
+
+            LobbyDataManager.Instance.SetTotalPlayersInTeamsAsync();
+
+            LobbyData lobbyData = new LobbyData(relayCode, "GameScene", MatchDuration.matchDuration1);
+            await LobbyServiceHandler.Instance.UpdateLobbyData(lobbyData.Serialize());
+
+            MatchInfo.Instance.AddNewPlayerConnectedServerRpc();
+            MatchInfo.Instance.MatchDuration = LobbyDataManager.Instance.GetMatchDuration();
+
+            string allocationId = RelayManager.Instance.GetAllocatorId();
+            string connectionData = RelayManager.Instance.GetConnectionData();
+
+            try
+            {
+                await LobbyPlayersManager.Instance.SetLocalPlayerData(allocationId, connectionData);
+                await SceneManager.LoadSceneAsync("GameScene");
+            }
+            catch(Exception e)
+            {
+                Debug.LogError(e);
+            }
+        }
+
+        public async Task<bool> JoinRelayServer()
+        {
+            await JoinRelay(LobbyDataManager.Instance.GetRelayCode());
+            PlayerStatus.Instance.InGame = true;
+
+            MatchInfo.Instance.AddNewPlayerConnectedServerRpc();
+
+            string allocationId = RelayManager.Instance.GetAllocatorId();
+            string connectionData = RelayManager.Instance.GetConnectionData();
+
+            try
+            {
+                await Task.Delay(200);
+                await LobbyPlayersManager.Instance.SetLocalPlayerData(allocationId, connectionData);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);  
+            }
             return true;
         }
 

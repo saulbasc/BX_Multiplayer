@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Init
 {
-    public static class UnityServicesInit
+    public static class UnityServicesActions
     {
         private static bool eventsRegistred = false;
 
@@ -14,9 +14,9 @@ namespace Assets.Scripts.Init
         {
             try
             {
-                if (UnityServices.State != ServicesInitializationState.Initialized)
+                if (Unity.Services.Core.UnityServices.State != ServicesInitializationState.Initialized)
                 {
-                    await UnityServices.InitializeAsync();
+                    await Unity.Services.Core.UnityServices.InitializeAsync();
                 }
 
                 RegisterAuthEvents(); 

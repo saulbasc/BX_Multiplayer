@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Scripts.Connection.Lobbi;
 using Assets.Scripts.GameManager.GameEvents.Timer;
+using Assets.Scripts.Lobbi.Logic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,7 +16,12 @@ namespace Assets.Scripts.Lobbi.UI.Config
 
         private void Awake()
         {
-            if (!GameLobbyManager.Instance.IsHost())
+            inicializeMatchTimerButtons();
+        }
+
+        private void inicializeMatchTimerButtons()
+        {
+            if (!LobbyPlayersManager.Instance.IsHost())
             {
                 upperTimeButton.gameObject.SetActive(false);
                 lowerTimeButton.gameObject.SetActive(false);
@@ -38,35 +44,42 @@ namespace Assets.Scripts.Lobbi.UI.Config
 
         private void OnLobbyUpdated()
         {
-            MatchDuration newMatchDuration = GameLobbyManager.Instance.GetMatchDuration();
+            MatchDuration newMatchDuration = LobbyDataManager.Instance.GetMatchDuration();
             matchTimeText.text = MatchDurationExtensions.ToString(newMatchDuration);
         }
 
         private async void IncreaseMatchTime()
         {
             MatchDuration[] durations = MatchDurationExtensions.MatchDurationList();
-            MatchDuration currentMatchDuration = GameLobbyManager.Instance.GetMatchDuration();
+            MatchDuration currentMatchDuration = LobbyDataManager.Instance.GetMatchDuration();
             MatchDuration newMatchDuration = currentMatchDuration;
 
             int index = Array.IndexOf(durations, currentMatchDuration);
             if (index < durations.Length - 1)
             {
                 newMatchDuration = durations[index + 1];
-                await GameLobbyManager.Instance.SetMatchDuration(newMatchDuration);
+                await LobbyDataManager.Instance.SetMatchDurationAsync(newMatchDuration);
             }
         }
 
         private async void DecreaseMatchTime()
         {
             MatchDuration[] durations = MatchDurationExtensions.MatchDurationList();
-            MatchDuration currentMatchDuration = GameLobbyManager.Instance.GetMatchDuration();
+            MatchDuration currentMatchDuration = LobbyDataManager.Instance.GetMatchDuration();
             MatchDuration newMatchDuration = currentMatchDuration;
 
             int index = Array.IndexOf(durations, currentMatchDuration);
             if (index > 0)
             {
                 newMatchDuration = durations[index - 1];
-                await GameLobbyManager.Instance.SetMatchDuration(newMatchDuration);
+                try
+                {
+                    await LobbyDataManager.Instance.SetMatchDurationAsync(newMatchDuration);
+                }
+                catch(Exception e)
+                {
+                    Debug.LogError(e);
+                }
             }
         }
     }

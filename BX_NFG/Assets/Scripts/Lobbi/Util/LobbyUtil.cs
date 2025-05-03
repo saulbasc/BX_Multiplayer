@@ -2,6 +2,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Lobbi.Players;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
@@ -45,7 +47,7 @@ namespace Assets.Scripts.Lobbi.Util
 
         public static LobbyPlayerData DeserializePlayerDataWithID(string playerID)
         {
-            Dictionary<string, PlayerDataObject> data = LobbyManager.Instance.GetPlayerData(playerID);
+            Dictionary<string, PlayerDataObject> data = LobbyPlayersManager.Instance.GetSinglePlayerData(playerID);
             LobbyPlayerData playerData = new LobbyPlayerData(data);
             return playerData;
         }

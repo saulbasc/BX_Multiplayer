@@ -1,6 +1,7 @@
 ﻿
 using Assets.Scripts.Connection.Lobbi;
 using Assets.Scripts.Lobbi.Data;
+using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Lobbi.Players;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace Assets.Scripts.Lobbi.UI.PlayerEntry
 
         protected async void ChangeTeam(PlayerTeam playerTeam)
         {
-            await GameLobbyManager.Instance.SetPlayerTeam(playerData, playerTeam);
+            await LobbyPlayersManager.Instance.SetPlayerTeamAsync(playerData, playerTeam);
         }
     }
 }

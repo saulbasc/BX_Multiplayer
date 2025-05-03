@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Assets.Scripts.Connection.Lobbi;
-using Assets.Scripts.Lobbi;
+﻿using Assets.Scripts.Lobbi.Logic;
 using TMPro;
 using UnityEngine;
 
@@ -12,7 +10,12 @@ namespace Assets.Scripts.UI.LobbyUI
 
         private void Start()
         {
-            lobbyNameText.text = GameLobbyManager.Instance.GetLobbyCode();   
+            InicialiceLobbyUI();
+        }
+
+        private void InicialiceLobbyUI()
+        {
+            lobbyNameText.text = LobbyDataManager.Instance.GetLobbyCode();
         }
     }
 }
