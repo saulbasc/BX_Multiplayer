@@ -46,5 +46,10 @@ namespace Assets.Scripts.Connection.Lobbi
                 return false;
             }
         }
+
+        public void Delete()
+        {
+            Destroy(gameObject);
+        }
     }
 }

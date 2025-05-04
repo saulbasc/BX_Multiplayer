@@ -10,6 +10,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
 using Assets.Scripts.Init;
+using Assets.Scripts.Connection.Lobbi;
 
 namespace Assets.Scripts.Lobbi.Logic
 {
@@ -155,7 +156,7 @@ namespace Assets.Scripts.Lobbi.Logic
             {
                 string playerId = UnityServicesActions.GetCurrentID();
                 await Disconnect();
-                await SceneManager.LoadSceneAsync(Scenes.MenuScene.ToString());
+                await SceneManager.LoadSceneAsync(Scenes.PlayModesScene.ToString());
                 return true;
             }
             catch (LobbyServiceException e)
@@ -171,6 +172,9 @@ namespace Assets.Scripts.Lobbi.Logic
             {
                 LobbyUpdater.Instance.StopUpdating();
                 HeartbeatManager.Instance.StopUpdating();
+                LobbyUpdater.Instance.Delete();
+                HeartbeatManager.Instance.Delete();
+                GamePlayersManager.Instance.Delete();
             }
             catch (Exception e)
             {

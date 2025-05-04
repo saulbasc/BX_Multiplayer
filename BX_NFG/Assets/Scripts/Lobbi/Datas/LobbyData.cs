@@ -11,7 +11,6 @@ namespace Assets.Scripts.Lobbi.Datas
     public class LobbyData
     {
         private string relayJoinCode;
-        private string sceneName;
         private MatchDuration matchDuration;
 
         public string RelayJoinCode
@@ -26,16 +25,9 @@ namespace Assets.Scripts.Lobbi.Datas
             set { matchDuration = value; }
         }
 
-        public string SceneName
-        {
-            get { return sceneName; }
-            set { sceneName = value; }
-        }
-
-        public LobbyData(string relayJoinCode, string sceneName, MatchDuration matchDuration)
+        public LobbyData(string relayJoinCode, MatchDuration matchDuration)
         {
             this.relayJoinCode = relayJoinCode;
-            this.sceneName = sceneName;
             this.matchDuration = matchDuration;
         }
 
@@ -57,10 +49,6 @@ namespace Assets.Scripts.Lobbi.Datas
             {
                 relayJoinCode = lobbyData[LobbyDataKeys.JoinRelayCode].Value?.ToString();
             }
-            if(lobbyData.ContainsKey(LobbyDataKeys.SceneName))
-            {
-                sceneName = lobbyData[LobbyDataKeys.SceneName].Value?.ToString();
-            }
             if (lobbyData.ContainsKey(LobbyDataKeys.MatchDuration))
             {
                 string matchDurationString = lobbyData[LobbyDataKeys.MatchDuration].Value?.ToString();
@@ -80,7 +68,6 @@ namespace Assets.Scripts.Lobbi.Datas
             return new Dictionary<string, string>
             {
                 { LobbyDataKeys.JoinRelayCode, relayJoinCode },
-                { LobbyDataKeys.SceneName, sceneName },
                 { LobbyDataKeys.MatchDuration, matchDuration.ToString() }
             };
         }

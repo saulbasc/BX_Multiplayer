@@ -1,12 +1,10 @@
-﻿
-using System;
-using Assets.Scripts.Connection.Lobbi;
+﻿using Assets.Scripts.Init;
 using Assets.Scripts.Lobbi;
 using Assets.Scripts.Lobbi.Logic;
+using Assets.Scripts.Relay;
 using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.UI;
-using static Assets.Scripts.Lobbi.GameLobbyEvents;
 
 namespace Assets.Scripts.UI.LobbyUI
 {
@@ -85,7 +83,14 @@ namespace Assets.Scripts.UI.LobbyUI
 
         private async void OnStartButtonClick()
         {
-            await RelayManager.Instance.StartRelayServer();
+            if (LobbyPlayersManager.Instance.IsHost())
+            {
+                await HostRelayManager.Instance.StartRelayServer();
+            }
+            else
+            {
+                await ClientRelayManager.Instance.JoinRelayServer();
+            }
         }
     }
 }

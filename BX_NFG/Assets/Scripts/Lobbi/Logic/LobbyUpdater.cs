@@ -7,7 +7,6 @@ using System.Collections;
 using Assets.Scripts.Commons;
 using Assets.Scripts.Lobbi.Util;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Lobbi.Logic
 {
@@ -129,6 +128,11 @@ namespace Assets.Scripts.Lobbi.Logic
                 PlayerStatus.Instance.JoinedGame = true;
             }
             */
+        }
+
+        public void Delete()
+        {
+            Destroy(gameObject);
         }
     }
 }

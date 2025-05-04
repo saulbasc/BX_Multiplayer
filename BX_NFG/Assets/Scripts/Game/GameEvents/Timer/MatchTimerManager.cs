@@ -1,11 +1,12 @@
-﻿using Assets.Scripts.Game.Manager;
+﻿using Assets.Scripts.Commons;
+using Assets.Scripts.Game.Manager;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
 using UnityEngine;
 
 namespace Assets.Scripts.GameManager.GameEvents.Timer
 {
-    public class MatchTimerManager : NetworkBehaviour
+    public class MatchTimerManager : NetworkSingleton<MatchTimerManager>
     {
         [SerializeField] private MatchStateManager matchStateManager;
         private MatchDuration matchDuration;
@@ -41,11 +42,11 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
 
             Debug.Log("Allo, estoy updateando el tiempo");
 
-            //SetMatchDuration();
             PlayingTimer();
             
             if (timeRemaining.Value <= 0)
             {
+                Debug.Log("SE ACABÓ EL TIEMPO");
                 StopTimer();
                 matchStateManager.SetMatchState(MatchState.gameOver);
             }
@@ -85,7 +86,7 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
             timeRemaining.Value -= Time.deltaTime;
         }
 
-        private void SetMatchDuration()
+        public void SetMatchDuration()
         {
             matchDuration = MatchInfo.Instance.MatchDuration;
             TimeAsignment();

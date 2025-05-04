@@ -65,11 +65,11 @@ namespace Assets.Scripts.Lobbi.Logic
                 && teamObj.Value == playerTeam.ToString());
         }
 
-        public void SetTotalPlayersInTeamsAsync()
+        public void SetTotalPlayersInTeams()
         {
             int numberOfLocalPlayers = GetNumberOfPlayersInTeams(PlayerTeam.Local);
             int numberOfVisitorPlayers = GetNumberOfPlayersInTeams(PlayerTeam.Visitor);
-            MatchInfo.Instance.NumberOfPlayersInTeams = numberOfLocalPlayers + numberOfVisitorPlayers;
+            MatchInfo.Instance.SetNumberOfPlayersInTeams(numberOfLocalPlayers + numberOfVisitorPlayers); 
         }
     }
 }

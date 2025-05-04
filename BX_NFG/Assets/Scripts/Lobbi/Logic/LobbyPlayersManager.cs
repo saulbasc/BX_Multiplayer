@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Assets.Scripts.Commons;
+using Assets.Scripts.Init;
 using Assets.Scripts.Lobbi.Data;
 using Assets.Scripts.Lobbi.Players;
 using Assets.Scripts.Lobbi.Util;
@@ -17,7 +18,7 @@ namespace Assets.Scripts.Lobbi.Logic
     {
         private Lobby GetLobby() => LobbyDataManager.Instance.Lobby;
         public string GetLocalID() => AuthenticationService.Instance.PlayerId;
-        public bool IsHost() => AuthenticationService.Instance.PlayerId == LobbyDataManager.Instance.GetHostID();
+        public bool IsHost() => UnityServicesActions.GetCurrentID() == LobbyDataManager.Instance.GetHostID();
         public List<Player> GetPlayers() => GetLobby().Players;
 
         public List<Dictionary<string, PlayerDataObject>> GetPlayersData()

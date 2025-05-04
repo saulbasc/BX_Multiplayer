@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using Assets.Scripts.GameManager.GameEvents.State;
 using Assets.Scripts.GameManager.GameEvents.Timer;
 using TMPro;

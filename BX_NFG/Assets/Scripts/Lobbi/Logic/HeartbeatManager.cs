@@ -48,5 +48,10 @@ namespace Assets.Scripts.Lobbi.Logic
                 yield return new WaitForSecondsRealtime(wait);
             }
         }
+
+        public void Delete()
+        {
+            Destroy(gameObject);
+        }
     }
 }
