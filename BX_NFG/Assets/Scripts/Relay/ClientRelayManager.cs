@@ -27,7 +27,6 @@ namespace Assets.Scripts.Relay
 
                 PlayerStatus.Instance.InGame = true;
 
-                MatchInfo.Instance.AddNewPlayerConnectedServerRpc();
                 await Task.Delay(200);
 
                 await LobbyPlayersManager.Instance.SetLocalPlayerData(GetAllocatorId(), GetConnectionData());

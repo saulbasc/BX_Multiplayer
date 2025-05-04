@@ -36,7 +36,6 @@ namespace Assets.Scripts.Relay
                 MatchInfo.Instance.SetMatchDuration(MatchDuration.matchDuration3);
                 await LobbyServiceHandler.Instance.UpdateLobbyData(lobbyData.Serialize());
 
-                MatchInfo.Instance.AddNewPlayerConnectedServerRpc();
                 MatchInfo.Instance.SetMatchDuration(LobbyDataManager.Instance.GetMatchDuration());
 
                 await LobbyPlayersManager.Instance.SetLocalPlayerData(GetAllocatorId(), GetConnectionData());

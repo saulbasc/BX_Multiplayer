@@ -14,12 +14,14 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
         [SerializeField] private MatchStateManager matchStateManager;
         [SerializeField] private TextMeshProUGUI timerText;
         [SerializeField] private Button pauseButton;
+        [SerializeField] private Button resumeButton;
 
         private void Start()
         {
             if(pauseButton != null)
             {
                 pauseButton.onClick.AddListener(OnPauseButtonClicked);
+                resumeButton.onClick.AddListener(OnResumeButtonClicked);
             }
         }
 
@@ -41,12 +43,27 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
         private void OnPauseButtonClicked()
         {
             RequestPauseServerRpc();
+            pauseButton.gameObject.SetActive(false);
+            resumeButton.gameObject.SetActive(true);
+        }
+
+        private void OnResumeButtonClicked()
+        {
+            RequestResumeServerRpc();
+            resumeButton.gameObject.SetActive(false);
+            pauseButton.gameObject.SetActive(true);
         }
 
         [Rpc(SendTo.Server)]
         private void RequestPauseServerRpc(RpcParams rpcParams = default)
         {
             matchStateManager.SetMatchState(MatchState.pause);
+        }
+
+        [Rpc(SendTo.Server)]
+        private void RequestResumeServerRpc(RpcParams rpcParams = default)
+        {
+            matchStateManager.SetMatchState(MatchState.playing);
         }
     }
 }

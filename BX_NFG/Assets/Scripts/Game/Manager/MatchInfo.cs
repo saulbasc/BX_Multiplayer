@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Game.Manager
 {
-    public class MatchInfo : Singleton<MatchInfo>
+    public class MatchInfo : NetworkSingleton<MatchInfo>
     {
         public MatchDuration MatchDuration { get; private set; }
         public void SetMatchDuration(MatchDuration matchDuration)
@@ -24,13 +24,6 @@ namespace Assets.Scripts.Game.Manager
         public void SetNumberOdPlayersInTeamsConnected(int numberOfPlayers)
         {
             NumberOfPlayersInTeamsConnected = numberOfPlayers;
-        }
-
-        [Rpc(SendTo.Server)]
-        public void AddNewPlayerConnectedServerRpc()
-        {
-            NumberOfPlayersInTeamsConnected++;
-            Debug.Log("Número de jugadores conectados actualizado a: " + NumberOfPlayersInTeamsConnected);
         }
 
         public bool GetAllConnected()
