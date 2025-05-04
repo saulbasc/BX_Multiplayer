@@ -3,7 +3,6 @@ using Assets.Scripts.Game.Manager;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 namespace Assets.Scripts.GameManager.GameEvents.Timer
 {

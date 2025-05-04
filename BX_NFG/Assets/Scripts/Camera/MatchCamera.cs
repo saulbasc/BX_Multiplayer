@@ -15,7 +15,7 @@ namespace Assets.Scripts.Camera
         {
             if (target == null)
             {
-                foreach (var player in FindObjectsByType<NetworkBehaviour>(FindObjectsSortMode.None))
+                foreach (var player in FindObjectsByType<PlayerNetwork>(FindObjectsSortMode.None))
                 {
                     if (player.IsOwner)
                     {
@@ -33,6 +33,7 @@ namespace Assets.Scripts.Camera
             {
                 Vector3 desiredPosition = target.position + offset;
                 transform.position = Vector3.Lerp(transform.position, desiredPosition, followSpeed * Time.deltaTime);
+                transform.LookAt(target);
             }
         }
     }
