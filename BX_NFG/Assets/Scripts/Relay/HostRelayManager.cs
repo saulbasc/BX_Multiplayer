@@ -32,8 +32,9 @@ namespace Assets.Scripts.Relay
                 PlayerStatus.Instance.InGame = true;
                 LobbyDataManager.Instance.SetTotalPlayersInTeamsInMatchInfo();
 
-                var lobbyData = new LobbyData(joinCode, MatchDuration.matchDuration3);
-                MatchInfo.Instance.SetMatchDuration(MatchDuration.matchDuration3);
+                LobbyData actualLobbyData = LobbyDataManager.Instance.GetLobbyDataObject();
+                var lobbyData = new LobbyData(joinCode, actualLobbyData.MatchDuration);
+                MatchInfo.Instance.SetMatchDuration(actualLobbyData.MatchDuration);
                 await LobbyServiceHandler.Instance.UpdateLobbyData(lobbyData.Serialize());
 
                 MatchInfo.Instance.SetMatchDuration(LobbyDataManager.Instance.GetMatchDuration());

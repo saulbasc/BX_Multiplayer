@@ -1,4 +1,6 @@
 ﻿
+using System;
+using Assets.Scripts.Game.GameEvents.Score;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Assets.Scripts.GameManager.GameEvents.Timer;
 using TMPro;
@@ -13,6 +15,8 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
         [SerializeField] private MatchTimerManager timerManager;
         [SerializeField] private MatchStateManager matchStateManager;
         [SerializeField] private TextMeshProUGUI timerText;
+        [SerializeField] private TextMeshProUGUI localGoalsText;
+        [SerializeField] private TextMeshProUGUI visitorGoalsText;
         [SerializeField] private Button pauseButton;
         [SerializeField] private Button resumeButton;
 
@@ -23,6 +27,30 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
                 pauseButton.onClick.AddListener(OnPauseButtonClicked);
                 resumeButton.onClick.AddListener(OnResumeButtonClicked);
             }
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            ScoreEvents.OnUpdateLocalGoalScored += OnUpdateLocalGoalScoredRpc;
+            ScoreEvents.OnUpdateVisitorGoalScored += OnUpdateVisitorGoalsScoredRpc;
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            ScoreEvents.OnUpdateLocalGoalScored -= OnUpdateLocalGoalScoredRpc;
+            ScoreEvents.OnUpdateVisitorGoalScored -= OnUpdateVisitorGoalsScoredRpc;
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void OnUpdateLocalGoalScoredRpc(int goals)
+        {
+            localGoalsText.text = goals.ToString();
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void OnUpdateVisitorGoalsScoredRpc(int goals)
+        {
+            visitorGoalsText.text = goals.ToString();
         }
 
         private void Update()
