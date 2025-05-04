@@ -3,6 +3,7 @@ using Assets.Scripts.Game.Manager;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace Assets.Scripts.GameManager.GameEvents.Timer
 {
@@ -14,12 +15,11 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
 
         private NetworkVariable<float> timeRemaining = new NetworkVariable<float>(
             writePerm: NetworkVariableWritePermission.Server);
-
         public override void OnNetworkSpawn()
         {
             if (IsServer)
             {
-                TimeAsignment();
+                SetMatchDuration();
                 matchStateManager.OnMatchStateChanged += HandleStateChanged;
             }
         }
@@ -34,19 +34,15 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
 
         private void Update()
         {
+            Debug.Log("UPDATING => "+isRunning);
             if (!IsServer) return;
-
-            Debug.Log("Allo, estoy updateando el tiempo como servidor");
 
             if (!isRunning) return;
 
-            Debug.Log("Allo, estoy updateando el tiempo");
-
             PlayingTimer();
             
-            if (timeRemaining.Value <= 0)
+            if (timeRemaining.Value <= 0f)
             {
-                Debug.Log("SE ACABÓ EL TIEMPO");
                 StopTimer();
                 matchStateManager.SetMatchState(MatchState.gameOver);
             }
@@ -86,10 +82,11 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
             timeRemaining.Value -= Time.deltaTime;
         }
 
-        public void SetMatchDuration()
+        private void SetMatchDuration()
         {
             matchDuration = MatchInfo.Instance.MatchDuration;
             TimeAsignment();
+            Debug.Log("Match duration in sec => " + timeRemaining.Value);
         }
 
         public float GetTime() => timeRemaining.Value;

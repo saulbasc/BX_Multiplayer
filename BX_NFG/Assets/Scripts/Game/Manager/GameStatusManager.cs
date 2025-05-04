@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Assets.Scripts.Commons;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace Assets.Scripts.Game.Manager
     public class GameStatusManager : NetworkBehaviour
     {
         [SerializeField] private MatchStateManager matchStateManager;
+        private Coroutine startingCoroutine;
+        private bool allConectedFirstTime;
 
         public override void OnNetworkSpawn()
         {
@@ -29,9 +32,10 @@ namespace Assets.Scripts.Game.Manager
         private void Update()
         {
             if (!IsServer) return;
-            if (MatchInfo.Instance.GetAllConnected())
+            if (MatchInfo.Instance.GetAllConnected() && !allConectedFirstTime)
             {
                 matchStateManager.SetMatchState(MatchState.starting);
+                allConectedFirstTime = true;
             }
         }
 
@@ -40,9 +44,12 @@ namespace Assets.Scripts.Game.Manager
             if(!IsServer) return;
 
             Debug.Log(state);
-            if(state == MatchState.starting) StartCoroutine(startMatchCountdown(5));
-            else if (state == MatchState.gameOver) SceneManager.LoadSceneAsync("GameOverScene");
-            else if (state == MatchState.exit) SceneManager.LoadSceneAsync("MenuScene");
+            if (state == MatchState.starting)
+            {
+                startingCoroutine = StartCoroutine(startMatchCountdown(5));
+            }
+            else if (state == MatchState.gameOver) SceneManager.LoadSceneAsync(Scenes.GameOverScene.ToString());
+            else if (state == MatchState.exit) SceneManager.LoadSceneAsync(Scenes.MenuScene.ToString());
         }
 
         private IEnumerator startMatchCountdown(int countdownTime)
@@ -55,6 +62,8 @@ namespace Assets.Scripts.Game.Manager
             }
 
             matchStateManager.SetMatchState(MatchState.playing);
+            StopCoroutine(startingCoroutine);
+            startingCoroutine = null;
         }
     }
 }

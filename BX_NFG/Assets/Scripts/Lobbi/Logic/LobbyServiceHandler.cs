@@ -39,21 +39,27 @@ namespace Assets.Scripts.Lobbi.Logic
             }
             catch (Exception e)
             {
-                Debug.LogError(e);
+                 Debug.LogError(e);
                 return false;
             }
         }
 
-        public async Task<bool> JoinLobby(string code, Dictionary<string, string> playerData)
+        public async Task<bool> JoinLobby(string code, Dictionary<string, string> data)
         {
-            JoinLobbyByCodeOptions options = new JoinLobbyByCodeOptions();
-            Player player = new Player(UnityServicesActions.GetCurrentID(), null, LobbyUtil.SerializePlayerData(playerData));
-            options.Player = player;
+            Dictionary<string, PlayerDataObject> playerData = LobbyUtil.SerializePlayerData(data);
+            Player player = new Player(UnityServicesActions.GetCurrentID(), null, playerData);
+
+            JoinLobbyByCodeOptions options = new JoinLobbyByCodeOptions
+            {
+                Player = player,
+            };
 
             try
             {
-                await LobbyService.Instance.JoinLobbyByCodeAsync(code, options);
-                HeartbeatManager.Instance.StartUpdating(LobbyDataManager.Instance.GetHostID(), 1f);
+                Lobby lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(code, options);
+                LobbyDataManager.Instance.SetLobby(lobby);
+                LobbyUpdater.Instance.StartUpdating(LobbyDataManager.Instance.GetLobbyID(), 1f);
+                HeartbeatManager.Instance.StartUpdating(LobbyDataManager.Instance.GetLobbyID(), 5f);
                 return true;
             }
             catch (Exception e)

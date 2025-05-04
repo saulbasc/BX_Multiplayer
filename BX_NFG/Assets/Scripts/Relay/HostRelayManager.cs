@@ -30,9 +30,10 @@ namespace Assets.Scripts.Relay
                 string joinCode = await relayHandler.CreateRelayAsync();
 
                 PlayerStatus.Instance.InGame = true;
-                LobbyDataManager.Instance.SetTotalPlayersInTeams();
+                LobbyDataManager.Instance.SetTotalPlayersInTeamsInMatchInfo();
 
-                var lobbyData = new LobbyData(joinCode, MatchDuration.matchDuration1);
+                var lobbyData = new LobbyData(joinCode, MatchDuration.matchDuration3);
+                MatchInfo.Instance.SetMatchDuration(MatchDuration.matchDuration3);
                 await LobbyServiceHandler.Instance.UpdateLobbyData(lobbyData.Serialize());
 
                 MatchInfo.Instance.AddNewPlayerConnectedServerRpc();

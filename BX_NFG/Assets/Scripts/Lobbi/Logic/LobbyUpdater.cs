@@ -7,6 +7,9 @@ using System.Collections;
 using Assets.Scripts.Commons;
 using Assets.Scripts.Lobbi.Util;
 using System.Collections.Generic;
+using Assets.Scripts.Relay;
+using UnityEngine.SceneManagement;
+using WebSocketSharp;
 
 namespace Assets.Scripts.Lobbi.Logic
 {
@@ -112,14 +115,13 @@ namespace Assets.Scripts.Lobbi.Logic
                 GameLobbyEvents.OnLobbyCancel?.Invoke();
             }
 
-            /*
-            if (LobbyPlayersManager.Instance.GetPlayersData() != null && !PlayerStatus.Instance.InGame && !PlayerStatus.Instance.JoinedGame)
+            if (!LobbyDataManager.Instance.GetLobbyDataObject().RelayJoinCode.IsNullOrEmpty() && !PlayerStatus.Instance.InGame && !PlayerStatus.Instance.JoinedGame)
             {
                 Debug.Log("ERRRR?");
                 try
                 {
-                    await RelayManager.Instance.JoinRelayServer();
-                    await SceneManager.LoadSceneAsync("GameScene");
+                    await ClientRelayManager.Instance.JoinRelayServer();
+                    await SceneManager.LoadSceneAsync(Scenes.GameScene.ToString());
                 }
                 catch(Exception e)
                 {
@@ -127,7 +129,6 @@ namespace Assets.Scripts.Lobbi.Logic
                 }
                 PlayerStatus.Instance.JoinedGame = true;
             }
-            */
         }
 
         public void Delete()

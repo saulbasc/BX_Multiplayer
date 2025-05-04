@@ -16,13 +16,10 @@ namespace Assets.Scripts.Lobbi.Logic
     {
         public Lobby Lobby { get; private set; }
         public void SetLobby(Lobby lobby) => Lobby = lobby;
-
         public string GetLobbyID() => Lobby.Id;
-
         public string GetLobbyCode() => Lobby.LobbyCode;
-
         public Dictionary<string, DataObject> GetLobbyData() => Lobby.Data;
-
+        public LobbyData GetLobbyDataObject() => new LobbyData(GetLobbyData());
         public string GetHostID() => Lobby.HostId;
 
         public string GetRelayCode()
@@ -65,7 +62,7 @@ namespace Assets.Scripts.Lobbi.Logic
                 && teamObj.Value == playerTeam.ToString());
         }
 
-        public void SetTotalPlayersInTeams()
+        public void SetTotalPlayersInTeamsInMatchInfo()
         {
             int numberOfLocalPlayers = GetNumberOfPlayersInTeams(PlayerTeam.Local);
             int numberOfVisitorPlayers = GetNumberOfPlayersInTeams(PlayerTeam.Visitor);
