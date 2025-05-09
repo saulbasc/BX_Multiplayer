@@ -1,80 +1,57 @@
-﻿using Assets.Scripts.Init;
+﻿using Assets.Scripts.Handlers;
 using Firebase;
 using Firebase.Auth;
-using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Core.FireB
 {
+    /// <summary>
+    /// Maneja la inicialización con firebase y los datos de autenticación.
+    /// </summary>
     public static class FirebaseActions
     {
-        private static bool eventsRegistered = false;
-
-        public static async Task Init()
-        {
-            var result = await InitializeFirebaseAsync();
-            if (!result)
-            {
-                Debug.LogError("Falló la inicialización o el login de Firebase.");
-            }
-        }
-
-        private static async Task<bool> InitializeFirebaseAsync()
+        /// <summary>
+        /// Comprueba que todas las dependencias de firebase estén correctas antes de proceder al registro.
+        /// </summary>
+        /// <returns></returns>
+        public static async Task InitializeFirebaseForUser()
         {
             var dependencyResult = await FirebaseApp.CheckAndFixDependenciesAsync();
             if (dependencyResult != DependencyStatus.Available)
             {
                 Debug.LogError($"No se pudieron resolver todas las dependencias de Firebase: {dependencyResult}");
-                return false;
             }
-
-            RegisterAuthEvents();
-            return await LoginAsync();
         }
 
-        private static async Task<bool> LoginAsync()
+        /// <summary>
+        /// Crea un nuevo usuario anónimo en el Authenticator de Firebase y lo guarda en local.
+        /// </summary>
+        public static async Task CreateNewFirebaseUser()
         {
-            FirebaseAuth auth = FirebaseAuth.DefaultInstance;
-
-            if (auth.CurrentUser != null)
+            await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
             {
-                InitEvents.OnFirebaseSignIn?.Invoke();
-                return true;
-            }
-
-            try
-            {
-                var result = await auth.SignInAnonymouslyAsync();
-                return true;
-            }
-            catch (Exception e)
-            {
-                Debug.LogError("Error al iniciar sesión anónimamente: " + e);
-                return false;
-            }
+                await FirebaseAuth.DefaultInstance.SignInAnonymouslyAsync();
+                Debug.Log("[Firebase] Usuario conectado: " + GetCurrentID());
+            });
         }
 
-        private static void RegisterAuthEvents()
-        {
-            if (eventsRegistered) return;
-
-            FirebaseAuth.DefaultInstance.StateChanged += (sender, args) =>
-            {
-                var auth = FirebaseAuth.DefaultInstance;
-                if (auth.CurrentUser != null)
-                {
-                    Debug.Log("[Firebase] Usuario conectado: " + auth.CurrentUser.UserId);
-                    InitEvents.OnFirebaseSignIn?.Invoke();
-                }
-            };
-
-            eventsRegistered = true;
-        }
-
+        /// <summary>
+        /// Obtener el ID de autenticación de firebase del usuario.
+        /// </summary>
+        /// <returns>El ID de firebase del usuario</returns>
         public static string GetCurrentID()
         {
-            return FirebaseAuth.DefaultInstance.CurrentUser?.UserId ?? "null";
+            Debug.Log("Current user firebase "+FirebaseAuth.DefaultInstance.CurrentUser?.UserId);
+            return FirebaseAuth.DefaultInstance.CurrentUser?.UserId ?? null;
+        }
+
+        /// <summary>
+        /// Elimina el id de firebase asociado al dispositivo
+        /// </summary>
+        public static void SignOutLocal()
+        {
+            FirebaseAuth.DefaultInstance.SignOut();
         }
     }
 }

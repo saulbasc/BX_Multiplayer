@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Game.Manager;
 using Unity.Netcode;
-using UnityEngine;
 
 public class PlayerNetwork : NetworkBehaviour
 {
@@ -8,7 +7,6 @@ public class PlayerNetwork : NetworkBehaviour
     {
         if (IsHost)
         {
-            Debug.Log("EEEEEEEEEEEEEEEEEEE");
             NotifyConnectedServerRpc();
         }
     }
@@ -16,10 +14,8 @@ public class PlayerNetwork : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void NotifyConnectedServerRpc()
     {
-        Debug.Log("OOOOOOOOOOOOOOOO");
         MatchInfo.Instance.SetNumberOdPlayersInTeamsConnected(
             MatchInfo.Instance.NumberOfPlayersInTeamsConnected + 1
         );
-        Debug.Log("Número de jugadores conectados actualizado a: " + MatchInfo.Instance.NumberOfPlayersInTeamsConnected);
     }
 }

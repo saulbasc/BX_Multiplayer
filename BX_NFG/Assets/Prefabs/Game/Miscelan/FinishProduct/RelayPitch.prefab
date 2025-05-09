@@ -1330,6 +1330,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4666469379668757928}
     m_Modifications:
+    - target: {fileID: 7655512869018415943, guid: 3b237735d5bbf3c4c872157b04365f3a, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911549216442064069, guid: 3b237735d5bbf3c4c872157b04365f3a, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7911549216442064069, guid: 3b237735d5bbf3c4c872157b04365f3a, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
@@ -1560,6 +1568,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4666469379668757928}
     m_Modifications:
+    - target: {fileID: 7655512869018415943, guid: 3b237735d5bbf3c4c872157b04365f3a, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911549216442064069, guid: 3b237735d5bbf3c4c872157b04365f3a, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7911549216442064069, guid: 3b237735d5bbf3c4c872157b04365f3a, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1

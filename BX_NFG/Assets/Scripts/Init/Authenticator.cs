@@ -1,103 +1,135 @@
-﻿using System;
-using System.Collections;
+﻿using System.Threading.Tasks;
+using Assets.Scripts.Commons;
 using Assets.Scripts.Core.FireB;
 using Assets.Scripts.Core.Models;
-using TMPro;
+using Assets.Scripts.Handlers;
+using Assets.Scripts.UI.InitUI;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.Init
 {
+    /// <summary>
+    /// Clase encargada de gestionar la autenticación del usuario en Firebase y Unity al entrar en la aplicación.
+    /// </summary>
     public class Authenticator : MonoBehaviour
     {
-
-        [SerializeField] private GameObject namePanel;
-        [SerializeField] private TMP_InputField nameInput;
-        [SerializeField] private Button confirmButton;
-
-        private bool signedInUnityService = false;
-        private bool signedInFirebase = false;
-
         private void Awake()
         {
-            InitEvents.OnUnityServicesSignIn += UnityServicesSignIn;
-            InitEvents.OnFirebaseSignIn += FirebaseSignIn;
-            startInit();
-            confirmButton.onClick.AddListener(OnConfirmName);
-        }
-
-        private async void startInit()
-        {
-            await FirebaseActions.Init();
-            await UnityServicesActions.Init();
+            InitUIEvents.Instance.onConfirmButtonClicked += RegisterNewUserInFirebase;
+            AuthenticationProcess();
         }
 
         private void OnDestroy()
         {
-            InitEvents.OnUnityServicesSignIn -= UnityServicesSignIn;
-            InitEvents.OnFirebaseSignIn -= FirebaseSignIn;
+            InitUIEvents.Instance.onConfirmButtonClicked -= RegisterNewUserInFirebase;
         }
 
-        private void FirebaseSignIn()
+        /// <summary>
+        /// Determina el proceso inicial del juego dependiendo del registro del usuario.
+        /// Si el usuario es válido continuará directamente a la pantalla del menú.
+        /// </summary>
+        private async void AuthenticationProcess()
         {
-            signedInFirebase = true;
-        }
-
-        private void UnityServicesSignIn()
-        {
-            signedInUnityService = true;
-        }
-
-        private void Update()
-        {
-            if (signedInUnityService && signedInFirebase)
+            await StartAuthenticationInitialize();
+            if (AreLocalUserIDs())
             {
-                signedInUnityService = false;
-                signedInFirebase = false;
-                StartCoroutine(DelayedCheckRegistry());
-            }
-        }
-
-        private IEnumerator DelayedCheckRegistry()
-        {
-            yield return null; 
-            checkRegistry();
-        }
-
-
-        private async void checkRegistry()
-        {
-            string firebaseId = FirebaseActions.GetCurrentID();
-            string unityId = UnityServicesActions.GetCurrentID();
-            if (await UserDAO.Instance.exists(firebaseId, unityId))
-            {
-                await SceneManager.LoadSceneAsync("MenuScene");
+                if (await CheckUserRegisteredInFirebase())
+                {
+                    await SceneManager.LoadSceneAsync(Scenes.MenuScene.ToString());
+                }
+                else
+                {
+                    FirebaseActions.SignOutLocal();
+                    await FirebaseActions.CreateNewFirebaseUser();
+                    InitEventManager.Instance.RaiseUserNotRegistered();
+                }
             }
             else
             {
-                namePanel.SetActive(true);
+                await FirebaseActions.CreateNewFirebaseUser();
+                InitEventManager.Instance.RaiseUserNotRegistered();
             }
         }
 
-        private async void OnConfirmName()
+        /// <summary>
+        /// Inicia el proceso de autenticación del usuario con Firebase y UnityServices
+        /// </summary>
+        private async Task StartAuthenticationInitialize()
         {
-            string username = nameInput.text.Trim();
-
-            if (!string.IsNullOrEmpty(username) && username.Length >= 3 && username.Length <= 20)
+            await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
             {
-                string firebaseId = FirebaseActions.GetCurrentID();
-                string unityId = UnityServicesActions.GetCurrentID();
+                await FirebaseActions.InitializeFirebaseForUser();
+                await UnityServicesActions.InicializeUnityServicesForUser();
+            });
+        }
 
-                var newUser = new User(firebaseId, unityId, username);
-                bool success = await UserDAO.Instance.insert(newUser);
+        /// <summary>
+        /// Comprueba si hay un id de firebase y unityServices guardados en el dispositivo local 
+        /// </summary>
+        /// <returns>True si hay un id de unityServices y de Firebase en local</returns>
+        private bool AreLocalUserIDs()
+        {
+            string firebaseID = FirebaseActions.GetCurrentID();
+            string unityServicesID = UnityServicesActions.GetCurrentUserID();
+            return !string.IsNullOrEmpty(firebaseID) && !string.IsNullOrEmpty(unityServicesID);
+        }
 
-                if (success)
+        /// <summary>
+        /// Comprueba si el usuario ya está registrado en Firebase.
+        /// </summary>
+        private async Task<bool> CheckUserRegisteredInFirebase()
+        {
+            string firebaseId = FirebaseActions.GetCurrentID();
+            string unityId = UnityServicesActions.GetCurrentUserID();
+
+            return await SafeAsyncFunctionsHandler.ExecuteAsync<bool>(async () =>
+            {
+                return await UserDAO.Instance.exists(firebaseId, unityId);
+            });
+        }
+
+        /// <summary>
+        /// Registra a un nuevo usuario en firebase.
+        /// También instancia la escena inicial del menú del juego.
+        /// </summary>
+        private async void RegisterNewUserInFirebase(string userName)
+        {
+            if (IsValidUserName(userName))
+            {
+                await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
                 {
-                    await SceneManager.LoadSceneAsync("MenuScene");
-                }
-            }
+                    bool success = await UserDAO.Instance.insert(GenerateNewDefaultUser(userName));
+
+                    if (success)
+                    {
+                        InitEventManager.Instance.RaiseUserRegisteredSuccessfully();
+                        await SceneManager.LoadSceneAsync(Scenes.MenuScene.ToString());
+                    }
+                });
+            } 
+        }
+
+        /// <summary>
+        /// Genera un nuevo objeto usuario con los ids por defecto.
+        /// </summary>
+        /// <param name="userName">El nombre del usuario</param>
+        /// <returns>El objeto usuario generado</returns>
+        private User GenerateNewDefaultUser(string userName)
+        {
+            string firebaseId = FirebaseActions.GetCurrentID();
+            string unityId = UnityServicesActions.GetCurrentUserID();
+            return new User(firebaseId, unityId, userName);
+        }
+
+        /// <summary>
+        /// Comprueba si el nombre del usuario introducido cumple los requisitos
+        /// </summary>
+        /// <param name="username">Nombre introducido por el usuario</param>
+        /// <returns></returns>
+        private bool IsValidUserName(string username)
+        {
+            return !string.IsNullOrEmpty(username) && username.Length >= 3 && username.Length <= 20;
         }
     }
 }

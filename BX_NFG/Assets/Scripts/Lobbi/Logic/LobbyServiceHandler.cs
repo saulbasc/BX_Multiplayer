@@ -20,7 +20,7 @@ namespace Assets.Scripts.Lobbi.Logic
         {
             Dictionary<string, PlayerDataObject> playerData = LobbyUtil.SerializePlayerData(data);
             Dictionary<string, DataObject> lobbyDataSerialized = LobbyUtil.SerializeLobbyData(lobbyData);
-            Player player = new Player(UnityServicesActions.GetCurrentID(), null, playerData);
+            Player player = new Player(UnityServicesActions.GetCurrentUserID(), null, playerData);
 
             CreateLobbyOptions lobbyOptions = new CreateLobbyOptions
             {
@@ -47,7 +47,7 @@ namespace Assets.Scripts.Lobbi.Logic
         public async Task<bool> JoinLobby(string code, Dictionary<string, string> data)
         {
             Dictionary<string, PlayerDataObject> playerData = LobbyUtil.SerializePlayerData(data);
-            Player player = new Player(UnityServicesActions.GetCurrentID(), null, playerData);
+            Player player = new Player(UnityServicesActions.GetCurrentUserID(), null, playerData);
 
             JoinLobbyByCodeOptions options = new JoinLobbyByCodeOptions
             {
@@ -116,13 +116,13 @@ namespace Assets.Scripts.Lobbi.Logic
             StopAllUpdaters();
             try
             {
-                if (UnityServicesActions.GetCurrentID() == LobbyDataManager.Instance.GetHostID())
+                if (UnityServicesActions.GetCurrentUserID() == LobbyDataManager.Instance.GetHostID())
                 {
                     await HostDisconnection();
                 }
                 else
                 {
-                    await LobbyService.Instance.RemovePlayerAsync(LobbyDataManager.Instance.GetLobbyID(), UnityServicesActions.GetCurrentID());
+                    await LobbyService.Instance.RemovePlayerAsync(LobbyDataManager.Instance.GetLobbyID(), UnityServicesActions.GetCurrentUserID());
                 }
             }
             catch (Exception e)
@@ -134,7 +134,7 @@ namespace Assets.Scripts.Lobbi.Logic
         private async Task HostDisconnection()
         {
             List<Player> players = LobbyPlayersManager.Instance.GetPlayers();
-            var newHost = players.FirstOrDefault(player => player.Id != UnityServicesActions.GetCurrentID());
+            var newHost = players.FirstOrDefault(player => player.Id != UnityServicesActions.GetCurrentUserID());
             if (newHost != null)
             {
                 try
@@ -143,7 +143,7 @@ namespace Assets.Scripts.Lobbi.Logic
                     {
                         HostId = newHost.Id
                     });
-                    await LobbyService.Instance.RemovePlayerAsync(LobbyDataManager.Instance.GetLobbyID(), UnityServicesActions.GetCurrentID());
+                    await LobbyService.Instance.RemovePlayerAsync(LobbyDataManager.Instance.GetLobbyID(), UnityServicesActions.GetCurrentUserID());
                 }
                 catch(Exception e)
                 {
@@ -160,7 +160,7 @@ namespace Assets.Scripts.Lobbi.Logic
         {
             try
             {
-                string playerId = UnityServicesActions.GetCurrentID();
+                string playerId = UnityServicesActions.GetCurrentUserID();
                 await Disconnect();
                 await SceneManager.LoadSceneAsync(Scenes.PlayModesScene.ToString());
                 return true;

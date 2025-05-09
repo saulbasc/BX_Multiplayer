@@ -39,7 +39,7 @@ namespace Assets.Scripts.Lobbi.UI.TeamScroll
 
         protected GameObject SetPlayerPanel(LobbyPlayerData playerData)
         {
-            return UnityServicesActions.GetCurrentID() == playerData.Id
+            return UnityServicesActions.GetCurrentUserID() == playerData.Id
                 ? GenerateLocalPlayerPanel(playerData)
                 : Instantiate(playerPanelPrefab, playerListContainer);
         }

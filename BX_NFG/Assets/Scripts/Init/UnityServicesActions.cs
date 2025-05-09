@@ -1,64 +1,52 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Assets.Scripts.Handlers;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
-using UnityEngine;
 
 namespace Assets.Scripts.Init
 {
+    /// <summary>
+    /// Clase que maneja la inicialización con UnityServices y los datos de autenticación.
+    /// </summary>
     public static class UnityServicesActions
     {
-        private static bool eventsRegistred = false;
-
-        public static async Task Init()
+        /// <summary>
+        /// Inicializa los servicios de Unity si no están inicializados y realiza el inicio de sesión anónimo.
+        /// También registra los eventos de autenticación.
+        /// </summary>
+        public static async Task InicializeUnityServicesForUser()
         {
-            try
+            await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
             {
-                if (Unity.Services.Core.UnityServices.State != ServicesInitializationState.Initialized)
+                if (UnityServices.State != ServicesInitializationState.Initialized)
                 {
-                    await Unity.Services.Core.UnityServices.InitializeAsync();
+                    await UnityServices.InitializeAsync();
                 }
 
-                RegisterAuthEvents(); 
+                if (!AuthenticationService.Instance.IsSignedIn && !AuthenticationService.Instance.IsAuthorized)
+                {
+                    await AuthenticationService.Instance.SignInAnonymouslyAsync();
+                }
 
-                await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            }
-            catch (Exception e)
-            {
-                Debug.LogError("Error inicializando Unity Services: " + e.Message);
-            }
+                //await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            });
         }
 
-        private static void RegisterAuthEvents()
-        {
-            if (eventsRegistred) return;
-
-            AuthenticationService.Instance.SignedIn += () =>
-            {
-                InitEvents.OnUnityServicesSignIn?.Invoke();
-            };
-
-            AuthenticationService.Instance.SignedOut += () =>
-            {
-                Debug.Log("[Auth] Usuario desconectado");
-            };
-
-            AuthenticationService.Instance.Expired += () =>
-            {
-                Debug.LogWarning("[Auth] La sesión ha expirado. Se requiere nueva autenticación.");
-            };
-
-            AuthenticationService.Instance.SignInFailed += error =>
-            {
-                Debug.LogError("[Auth] Falló el login: " + error);
-            };
-
-            eventsRegistred = true;
-        }
-
-        public static string GetCurrentID()
+        /// <summary>
+        /// Devuelve el ID del usuario autenticado actualmente en UnityServices.
+        /// </summary>
+        /// <returns>ID del jugador autenticado.</returns>
+        public static string GetCurrentUserID()
         {
             return AuthenticationService.Instance.PlayerId;
+        }
+
+        /// <summary>
+        /// Cierra la sesión del usuario en unityServices
+        /// </summary>
+        public static void SignOut() 
+        {
+            AuthenticationService.Instance.SignOut();
         }
     }
 }

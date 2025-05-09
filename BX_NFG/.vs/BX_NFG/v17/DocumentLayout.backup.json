@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\relay\\hostrelaymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\relay\\hostrelaymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\init\\connectionstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\init\\connectionstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\relay\\clientrelaymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\relay\\clientrelaymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\init\\unityservicesactions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\init\\unityservicesactions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\lobbi\\logic\\lobbydatamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\lobbi\\logic\\lobbydatamanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\handlers\\exceptionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\handlers\\exceptionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\managers\\corroutine\\coroutinemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\corroutine\\coroutinemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\managers\\corroutine\\coroutineindentifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\corroutine\\coroutineindentifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,45 +30,74 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "HostRelayManager.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Relay\\HostRelayManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Relay\\HostRelayManager.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Relay\\HostRelayManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Relay\\HostRelayManager.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAA5wCYAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "CoroutineIndentifier.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Managers\\Corroutine\\CoroutineIndentifier.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Corroutine\\CoroutineIndentifier.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Managers\\Corroutine\\CoroutineIndentifier.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Managers\\Corroutine\\CoroutineIndentifier.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T23:16:28.152Z",
+              "WhenOpened": "2025-05-09T22:25:04.458Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CoroutineManager.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Managers\\Corroutine\\CoroutineManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Corroutine\\CoroutineManager.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Managers\\Corroutine\\CoroutineManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Managers\\Corroutine\\CoroutineManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-09T22:25:02.908Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ConnectionState.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Init\\ConnectionState.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Init\\ConnectionState.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Init\\ConnectionState.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Init\\ConnectionState.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAwwEcAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-09T22:24:59.772Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ClientRelayManager.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Relay\\ClientRelayManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Relay\\ClientRelayManager.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Relay\\ClientRelayManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Relay\\ClientRelayManager.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
+              "Title": "UnityServicesActions.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Init\\UnityServicesActions.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Init\\UnityServicesActions.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Init\\UnityServicesActions.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Init\\UnityServicesActions.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAA1wAoAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T23:16:25.995Z",
+              "WhenOpened": "2025-05-09T22:43:48.832Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "LobbyDataManager.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Lobbi\\Logic\\LobbyDataManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Lobbi\\Logic\\LobbyDataManager.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Lobbi\\Logic\\LobbyDataManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Lobbi\\Logic\\LobbyDataManager.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAkwAAAAAAAAAAAAAAAAA==",
+              "Title": "ExceptionHandler.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Handlers\\ExceptionHandler.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Handlers\\ExceptionHandler.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Handlers\\ExceptionHandler.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Handlers\\ExceptionHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T23:15:52.881Z",
+              "WhenOpened": "2025-05-09T22:42:14.786Z",
               "EditorCaption": ""
             }
           ]

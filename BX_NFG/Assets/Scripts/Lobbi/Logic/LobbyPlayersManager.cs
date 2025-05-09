@@ -18,7 +18,7 @@ namespace Assets.Scripts.Lobbi.Logic
     {
         private Lobby GetLobby() => LobbyDataManager.Instance.Lobby;
         public string GetLocalID() => AuthenticationService.Instance.PlayerId;
-        public bool IsHost() => UnityServicesActions.GetCurrentID() == LobbyDataManager.Instance.GetHostID();
+        public bool IsHost() => UnityServicesActions.GetCurrentUserID() == LobbyDataManager.Instance.GetHostID();
         public List<Player> GetPlayers() => GetLobby().Players;
 
         public List<Dictionary<string, PlayerDataObject>> GetPlayersData()
@@ -31,6 +31,18 @@ namespace Assets.Scripts.Lobbi.Logic
         {
             Dictionary<string, PlayerDataObject> playerData = GetLobby()?.Players.FirstOrDefault(player => player.Id == playerId)?.Data;  
             return playerData;
+        }
+
+        public LobbyPlayerData GetPlayerDataObject(string playerId)
+        {
+            Dictionary<string, PlayerDataObject> playerData = GetSinglePlayerData(playerId);
+            return new LobbyPlayerData(playerData);
+        }
+
+        public PlayerTeam GetPlayerTeam (string playerId)
+        {
+            LobbyPlayerData playerData = GetPlayerDataObject(playerId);
+            return playerData.PlayerTeam;
         }
 
         public async Task<bool> SetPlayerReadyAsync(bool ready)

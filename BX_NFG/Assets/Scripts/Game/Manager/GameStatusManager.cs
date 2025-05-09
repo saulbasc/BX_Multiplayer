@@ -48,8 +48,26 @@ namespace Assets.Scripts.Game.Manager
             {
                 startingCoroutine = StartCoroutine(startMatchCountdown(5));
             }
-            else if (state == MatchState.gameOver) SceneManager.LoadSceneAsync(Scenes.GameOverScene.ToString());
-            else if (state == MatchState.exit) SceneManager.LoadSceneAsync(Scenes.MenuScene.ToString());
+            else if (state == MatchState.gameOver)
+            {
+                SetGameOverSceneRpc();
+            }
+            else if (state == MatchState.exit)
+            {
+                SetGameMenuSceneRpc();
+            }
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void SetGameOverSceneRpc()
+        {
+            SceneManager.LoadSceneAsync(Scenes.GameOverScene.ToString());
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void SetGameMenuSceneRpc()
+        {
+            SceneManager.LoadSceneAsync(Scenes.MenuScene.ToString());
         }
 
         private IEnumerator startMatchCountdown(int countdownTime)
