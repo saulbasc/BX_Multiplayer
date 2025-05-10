@@ -49,19 +49,17 @@ public class ConnectionState : MonoBehaviour
 
             bool isConnected = Application.internetReachability != NetworkReachability.NotReachable;
 
-            if (isConnected && !wasConnected)
-            {
-                OnReconnect();
-            }
-            else if (!isConnected && wasConnected)
-            {
-                OnConnectionLost();
-            }
+            if (isConnected && !wasConnected) OnReconnect();
+            else if (!isConnected && wasConnected) OnConnectionLost();
 
             wasConnected = isConnected;
         }
     }
 
+    /// <summary>
+    /// Gestiona la pérdida de conexión del dispositivo.
+    /// Si se pierde la cpnexión volverá a la pantalla de inicio
+    /// </summary>
     private void OnConnectionLost()
     {
         lostConnectionPanel.SetActive(true);
@@ -69,6 +67,9 @@ public class ConnectionState : MonoBehaviour
         SceneManager.LoadScene(Scenes.Init.ToString());
     }
 
+    /// <summary>
+    /// Gestiona la reconexión del dispositivo.
+    /// </summary>
     private void OnReconnect()
     {
         lostConnectionPanel.SetActive(false);

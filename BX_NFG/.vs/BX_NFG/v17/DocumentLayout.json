@@ -3,24 +3,52 @@
   "WorkspaceRootPath": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\init\\connectionstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\init\\connectionstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\ui\\menuui\\settingspanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\menuui\\settingspanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\init\\unityservicesactions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\init\\unityservicesactions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\lobbi\\logic\\lobbyservicehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\lobbi\\logic\\lobbyservicehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\handlers\\exceptionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\handlers\\exceptionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\lobbi\\ui\\logic\\lobbycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\lobbi\\ui\\logic\\lobbycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\managers\\corroutine\\coroutinemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\corroutine\\coroutinemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\lobbi\\logic\\lobbymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\lobbi\\logic\\lobbymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\managers\\corroutine\\coroutineindentifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\corroutine\\coroutineindentifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\ui\\menuui\\gamemodespanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\menuui\\gamemodespanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\ui\\menuui\\profilepanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\menuui\\profilepanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\ui\\common\\panelbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\common\\panelbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\ui\\common\\ipanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\common\\ipanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\ui\\menuui\\mainmenupanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\menuui\\mainmenupanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\ui\\menuui\\lobbynotfoundpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\menuui\\lobbynotfoundpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\ui\\menuui\\joinlobbypanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\menuui\\joinlobbypanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\ui\\common\\paneltype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\common\\paneltype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,75 +58,163 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CoroutineIndentifier.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Managers\\Corroutine\\CoroutineIndentifier.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Corroutine\\CoroutineIndentifier.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Managers\\Corroutine\\CoroutineIndentifier.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Managers\\Corroutine\\CoroutineIndentifier.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAcAAAAAAAAAA==",
+              "DocumentIndex": 10,
+              "Title": "JoinLobbyPanel.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\MenuUI\\JoinLobbyPanel.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\MenuUI\\JoinLobbyPanel.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\MenuUI\\JoinLobbyPanel.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\MenuUI\\JoinLobbyPanel.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T22:25:04.458Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CoroutineManager.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Managers\\Corroutine\\CoroutineManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\Corroutine\\CoroutineManager.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Managers\\Corroutine\\CoroutineManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Managers\\Corroutine\\CoroutineManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA/AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T22:25:02.908Z",
+              "WhenOpened": "2025-05-10T12:20:14.306Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ConnectionState.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Init\\ConnectionState.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Init\\ConnectionState.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Init\\ConnectionState.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Init\\ConnectionState.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAAAwwEcAAAAeAAAAAAAAAA==",
+              "Title": "SettingsPanel.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\MenuUI\\SettingsPanel.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\MenuUI\\SettingsPanel.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\MenuUI\\SettingsPanel.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\MenuUI\\SettingsPanel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T22:24:59.772Z",
-              "IsPinned": true,
+              "WhenOpened": "2025-05-10T13:02:48.42Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "UnityServicesActions.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Init\\UnityServicesActions.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Init\\UnityServicesActions.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Init\\UnityServicesActions.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Init\\UnityServicesActions.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAA1wAoAAAAsAAAAAAAAAA==",
+              "Title": "LobbyServiceHandler.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Lobbi\\Logic\\LobbyServiceHandler.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Lobbi\\Logic\\LobbyServiceHandler.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Lobbi\\Logic\\LobbyServiceHandler.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Lobbi\\Logic\\LobbyServiceHandler.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAArwHQAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T22:43:48.832Z",
+              "WhenOpened": "2025-05-10T13:00:52.489Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "ExceptionHandler.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Handlers\\ExceptionHandler.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Handlers\\ExceptionHandler.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Handlers\\ExceptionHandler.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Handlers\\ExceptionHandler.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAyAAAAAAAAAA==",
+              "Title": "LobbyController.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Lobbi\\UI\\Logic\\LobbyController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Lobbi\\UI\\Logic\\LobbyController.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Lobbi\\UI\\Logic\\LobbyController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Lobbi\\UI\\Logic\\LobbyController.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAIwDwAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T22:42:14.786Z",
+              "WhenOpened": "2025-05-10T13:00:04.38Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ProfilePanel.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\MenuUI\\ProfilePanel.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\MenuUI\\ProfilePanel.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\MenuUI\\ProfilePanel.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\MenuUI\\ProfilePanel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T12:52:00.13Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IPanel.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\Common\\IPanel.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\Common\\IPanel.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\Common\\IPanel.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\Common\\IPanel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T12:49:31.896Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PanelBase.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\Common\\PanelBase.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\Common\\PanelBase.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\Common\\PanelBase.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\Common\\PanelBase.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T12:49:27.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MainMenuPanel.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\MenuUI\\MainMenuPanel.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\MenuUI\\MainMenuPanel.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\MenuUI\\MainMenuPanel.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\MenuUI\\MainMenuPanel.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACEAAABnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T12:48:41.766Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GameModesPanel.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\MenuUI\\GameModesPanel.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\MenuUI\\GameModesPanel.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\MenuUI\\GameModesPanel.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\MenuUI\\GameModesPanel.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAABoAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T12:44:39.809Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LobbyManager.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Lobbi\\Logic\\LobbyManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Lobbi\\Logic\\LobbyManager.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Lobbi\\Logic\\LobbyManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Lobbi\\Logic\\LobbyManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T12:20:29.035Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "LobbyNotFoundPanel.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\MenuUI\\LobbyNotFoundPanel.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\MenuUI\\LobbyNotFoundPanel.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\MenuUI\\LobbyNotFoundPanel.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\MenuUI\\LobbyNotFoundPanel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T12:38:39.923Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "PanelType.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\Common\\PanelType.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\Common\\PanelType.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\Common\\PanelType.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\Common\\PanelType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T12:25:52.976Z"
             }
           ]
         }

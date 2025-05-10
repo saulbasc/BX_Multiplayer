@@ -73,7 +73,7 @@ public class UserDAO : Singleton<UserDAO>, IDAO<User, string>
         return users;
     }
 
-    public async Task<bool> update(User entity)
+    public async Task<bool> UpdateUser(User entity)
     {
         try
         {

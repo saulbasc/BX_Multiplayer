@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Connection.Lobbi
 {
-    public class GamePlayersManager : Singleton<GamePlayersManager>
+    public class LobbyManager : Singleton<LobbyManager>
     {
         int maxPlayers = 10;
 

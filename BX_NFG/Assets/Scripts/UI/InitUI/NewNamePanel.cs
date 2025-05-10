@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.InitUI
 {
+    /// <summary>
+    /// Gestiona la interfaz para que el usuario pueda poner su nuevo nombre al inicio
+    /// </summary>
     public class NewNamePanel : MonoBehaviour
     {
         /// <summary>
@@ -26,7 +29,6 @@ namespace Assets.Scripts.UI.InitUI
             InitEventManager.Instance.OnUserRegisteredSuccessfully += OnUserRegisteredSuccessfully;
             confirmUserNameButton.onClick.AddListener(OnConfirmButtonClicked);
         }
-
 
         private void OnDestroy()
         {

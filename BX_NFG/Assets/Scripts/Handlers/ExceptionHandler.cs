@@ -1,28 +1,16 @@
 ﻿using System;
+using Assets.Scripts.Commons;
 using UnityEngine;
 
 namespace Assets.Scripts.Handlers
 {
-    public class ExceptionHandler
+    /// <summary>
+    /// Encargado de procesar excepciones.
+    /// </summary>
+    public class ExceptionHandler : DefaultSingleton<ExceptionHandler>
     {
-        private static ExceptionHandler instance;
-
-        private ExceptionHandler() { }
-
-        public static ExceptionHandler Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new ExceptionHandler();
-                }
-                return instance;
-            }
-        }
-
         /// <summary>
-        /// Método que recoge la excepción y la muestra mediante debug.
+        /// Recoge la excepción y la muestra mediante debug.
         /// </summary>
         /// <param name="e">Excepción a mostrar</param>
         public void HandleException(Exception e)

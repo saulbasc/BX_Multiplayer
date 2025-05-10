@@ -9,8 +9,6 @@ namespace Assets.Scripts.Init
     /// </summary>
     public class InitEventManager : DefaultSingleton<InitEventManager>
     {
-        public event Action OnUnityServicesSignIn;
-        public event Action OnFirebaseSignIn;
         public event Action OnUserNotRegistered;
         public event Action OnUserRegisteredSuccessfully;
 

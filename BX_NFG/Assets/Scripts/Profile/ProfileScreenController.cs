@@ -61,7 +61,7 @@ namespace Assets.Scripts.Profile
         private async Task changeNamePlayer(string newName)
         {
             User updateUser = new User(FirebaseActions.GetCurrentID(), newName);
-            bool success = await UserDAO.Instance.update(updateUser);
+            bool success = await UserDAO.Instance.UpdateUser(updateUser);
             if (success)
             {
                 CommonAnimations.HidePanel(changeNamePanel);

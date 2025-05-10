@@ -162,7 +162,7 @@ namespace Assets.Scripts.Lobbi.Logic
             {
                 string playerId = UnityServicesActions.GetCurrentUserID();
                 await Disconnect();
-                await SceneManager.LoadSceneAsync(Scenes.PlayModesScene.ToString());
+                await SceneManager.LoadSceneAsync(Scenes.MenuScene.ToString());
                 return true;
             }
             catch (LobbyServiceException e)
@@ -180,7 +180,7 @@ namespace Assets.Scripts.Lobbi.Logic
                 HeartbeatManager.Instance.StopUpdating();
                 LobbyUpdater.Instance.Delete();
                 HeartbeatManager.Instance.Delete();
-                GamePlayersManager.Instance.Delete();
+                LobbyManager.Instance.Delete();
             }
             catch (Exception e)
             {
