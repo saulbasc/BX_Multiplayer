@@ -102,7 +102,7 @@ namespace Assets.Scripts.Lobbi.Logic
 
         private async void OnLobbyUpdated(Lobby lobby)
         {
-            List<Dictionary<string, PlayerDataObject>> players = LobbyPlayersManager.Instance.GetPlayersData();
+            List<Dictionary<string, PlayerDataObject>> players = LobbyPlayersManager.Instance.GetAllPlayersData();
 
             GameLobbyEvents.OnLobbyUpdated?.Invoke();
 

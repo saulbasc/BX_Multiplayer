@@ -1,6 +1,6 @@
 ﻿
 using Assets.Scripts.Commons;
-using Assets.Scripts.Connection.Lobbi;
+using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.UI.Common;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,7 +29,7 @@ namespace Assets.Scripts.UI.MenuUI
 
         private async void CreateLobby()
         {
-            await LobbyManager.Instance.CreateLobby();
+            await LobbyServiceManager.Instance.CreateLobby();
             await SceneManager.LoadSceneAsync(Scenes.Lobby.ToString());
         }
     }

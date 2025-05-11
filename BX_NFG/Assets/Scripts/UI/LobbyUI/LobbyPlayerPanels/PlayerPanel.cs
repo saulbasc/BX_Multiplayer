@@ -1,5 +1,4 @@
 ﻿
-using Assets.Scripts.Connection.Lobbi;
 using Assets.Scripts.Lobbi.Data;
 using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Lobbi.Players;

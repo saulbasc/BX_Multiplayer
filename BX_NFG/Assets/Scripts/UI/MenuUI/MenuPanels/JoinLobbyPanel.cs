@@ -1,6 +1,4 @@
-﻿using Assets.Scripts.Connection.Lobbi;
-using Assets.Scripts.Core.FireB;
-using Assets.Scripts.Core.Models;
+﻿using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.UI.Common;
 using TMPro;
 using UnityEngine;
@@ -28,7 +26,7 @@ namespace Assets.Scripts.UI.MenuUI
         {
             menuManager.RemoveFloatPanel(PanelType);
             string lobbyCode = lobbyCodeInput.text;
-            bool success = await LobbyManager.Instance.JoinLobby(lobbyCode);
+            bool success = await LobbyServiceManager.Instance.JoinLobby(lobbyCode);
             if (!success) menuManager.AddFloatPanel(PanelType.LobbyNotFoundPanel);
         }
     }

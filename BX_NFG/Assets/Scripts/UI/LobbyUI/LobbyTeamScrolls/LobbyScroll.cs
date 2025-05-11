@@ -24,7 +24,7 @@ namespace Assets.Scripts.Lobbi.UI.TeamScroll
 
         private void OnLobbyUpdated()
         {
-            List<LobbyPlayerData> playerDataList = LobbyPlayersManager.Instance.GetPlayerDataList();
+            List<LobbyPlayerData> playerDataList = LobbyPlayersManager.Instance.GetAllPlayersDataObject();
             instantiatedPlayerPanels.ForEach(playerPanel => Destroy(playerPanel));
             instantiatedPlayerPanels.Clear();
             playerDataList.ForEach(playerData => UpdateAction(playerData));

@@ -1,5 +1,4 @@
-﻿
-using Assets.Scripts.Lobbi.Data;
+﻿using Assets.Scripts.Lobbi.Data;
 using UnityEngine;
 using UnityEngine.UI;
 

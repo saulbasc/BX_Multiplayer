@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Assets.Scripts.Commons;
 using Assets.Scripts.Game.Manager;
+using Assets.Scripts.Init;
 using Assets.Scripts.Lobbi.Logic;
 using UnityEngine;
 
@@ -22,14 +23,14 @@ namespace Assets.Scripts.Relay
         {
             try
             {
-                string code = LobbyDataManager.Instance.GetRelayCode();
+                string code = LobbyDataManager.Instance.GetLobbyRelayCode();
                 await relayHandler.JoinRelayAsync(code);
 
                 PlayerStatus.Instance.InGame = true;
 
                 await Task.Delay(200);
 
-                await LobbyPlayersManager.Instance.SetLocalPlayerData(GetAllocatorId(), GetConnectionData());
+                await LobbyPlayersManager.Instance.UpdatePlayerOptions(UnityServicesActions.GetCurrentUserID(), GetAllocatorId(), GetConnectionData());
 
                 return true;
             }

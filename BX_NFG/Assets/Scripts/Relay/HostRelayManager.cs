@@ -2,6 +2,7 @@
 using Assets.Scripts.Commons;
 using Assets.Scripts.Game.Manager;
 using Assets.Scripts.GameManager.GameEvents.Timer;
+using Assets.Scripts.Init;
 using Assets.Scripts.Lobbi.Datas;
 using Assets.Scripts.Lobbi.Logic;
 using System;
@@ -35,11 +36,11 @@ namespace Assets.Scripts.Relay
                 LobbyData actualLobbyData = LobbyDataManager.Instance.GetLobbyDataObject();
                 var lobbyData = new LobbyData(joinCode, actualLobbyData.MatchDuration);
                 MatchInfo.Instance.SetMatchDuration(actualLobbyData.MatchDuration);
-                await LobbyServiceHandler.Instance.UpdateLobbyData(lobbyData.SerializeObjectToDictionary());
+                await LobbyDataManager.Instance.UpdateLobbyData(lobbyData.SerializeObjectToDictionary());
 
-                MatchInfo.Instance.SetMatchDuration(LobbyDataManager.Instance.GetMatchDuration());
+                MatchInfo.Instance.SetMatchDuration(LobbyDataManager.Instance.GetLobbyMatchDuration());
 
-                await LobbyPlayersManager.Instance.SetLocalPlayerData(GetAllocatorId(), GetConnectionData());
+                await LobbyPlayersManager.Instance.UpdatePlayerOptions(UnityServicesActions.GetCurrentUserID(), GetAllocatorId(), GetConnectionData());
 
                 await SceneManager.LoadSceneAsync(Scenes.GameScene.ToString());
             }

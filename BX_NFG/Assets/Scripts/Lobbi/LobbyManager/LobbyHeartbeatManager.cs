@@ -27,14 +27,6 @@ namespace Assets.Scripts.Lobbi.Logic
         }
 
         /// <summary>
-        /// Detiene la corrutina que mantiene la sala activa.
-        /// </summary>
-        public void StopHeartbeatCoroutine()
-        {
-            CoroutineManager.Instance.StopTrackedCoroutine(CoroutineIndentifier.LobbyHeartbeatCoroutine);
-        }
-
-        /// <summary>
         /// Corrutina que mantiene la sala activa.
         /// </summary>
         /// <param name="lobbyId">El identificador de la sala.</param>
@@ -61,7 +53,16 @@ namespace Assets.Scripts.Lobbi.Logic
         /// </summary>
         public void Delete()
         {
+            StopHeartbeatCoroutine();
             Destroy(gameObject);
+        }
+
+        /// <summary>
+        /// Detiene la corrutina que mantiene la sala activa.
+        /// </summary>
+        private void StopHeartbeatCoroutine()
+        {
+            CoroutineManager.Instance.StopTrackedCoroutine(CoroutineIndentifier.LobbyHeartbeatCoroutine);
         }
     }
 }

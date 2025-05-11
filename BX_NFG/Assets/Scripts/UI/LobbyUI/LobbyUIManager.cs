@@ -1,15 +1,18 @@
-﻿using Assets.Scripts.Init;
+﻿using Assets.Scripts.Handlers;
 using Assets.Scripts.Lobbi;
 using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Relay;
+using TMPro;
 using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.LobbyUI
 {
-    public class LobbyController : MonoBehaviour
+    public class LobbyUIManager : MonoBehaviour
     {
+        [SerializeField] private TextMeshProUGUI lobbyNameText;
+        
         [SerializeField] private Button exitButton;
         [SerializeField] private Button readyButton;
         [SerializeField] private Button cancelButton;
@@ -20,13 +23,14 @@ namespace Assets.Scripts.UI.LobbyUI
             exitButton.onClick.AddListener(OnExitButtonClicked);
             readyButton.onClick.AddListener(OnReadyButtonClicked);
             cancelButton.onClick.AddListener(OnCancelButtonClicked);
+            lobbyNameText.text = LobbyDataManager.Instance.GetLobbyCode();
 
             GameLobbyEvents.OnLobbyCancel += OnLobbyCancel;
 
-            inicializeLobbyController();
+            InitializeLobbyController();
         }
 
-        private void inicializeLobbyController()
+        private void InitializeLobbyController()
         {
             if (AuthenticationService.Instance.PlayerId == LobbyDataManager.Instance.GetHostID())
             {
@@ -58,39 +62,48 @@ namespace Assets.Scripts.UI.LobbyUI
 
         private async void OnExitButtonClicked()
         {
-            await LobbyServiceHandler.Instance.DisconnectFromLobby();
+            await LobbyServiceManager.Instance.DisconnectFromLobby();
         }
 
         private async void OnReadyButtonClicked()
         {
-            bool success = await LobbyPlayersManager.Instance.SetPlayerReadyAsync(true);
-            if(success)
+            await SafeAsyncFunctionsHandler.ExecuteAsync(async () => 
             {
-                readyButton.gameObject.SetActive(false);
-                cancelButton.gameObject.SetActive(true);
-            }
+                bool success = await LobbyPlayersManager.Instance.SetPlayerReadyAsync(true);
+                if (success)
+                {
+                    readyButton.gameObject.SetActive(false);
+                    cancelButton.gameObject.SetActive(true);
+                }
+            });
         }
 
         private async void OnCancelButtonClicked()
         {
-            bool success = await LobbyPlayersManager.Instance.SetPlayerReadyAsync(false);
-            if (success)
+            await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
             {
-                readyButton.gameObject.SetActive(true);
-                cancelButton.gameObject.SetActive(false);
-            }
+                bool success = await LobbyPlayersManager.Instance.SetPlayerReadyAsync(false);
+                if (success)
+                {
+                    readyButton.gameObject.SetActive(true);
+                    cancelButton.gameObject.SetActive(false);
+                }
+            });
         }
 
         private async void OnStartButtonClick()
         {
-            if (LobbyPlayersManager.Instance.IsHost())
+            await SafeAsyncFunctionsHandler.ExecuteAsync( async () =>
             {
-                await HostRelayManager.Instance.StartRelayServer();
-            }
-            else
-            {
-                await ClientRelayManager.Instance.JoinRelayServer();
-            }
+                if (LobbyDataManager.Instance.IsHost())
+                {
+                    await HostRelayManager.Instance.StartRelayServer();
+                }
+                else
+                {
+                    await ClientRelayManager.Instance.JoinRelayServer();
+                }
+            });
         }
     }
 }
