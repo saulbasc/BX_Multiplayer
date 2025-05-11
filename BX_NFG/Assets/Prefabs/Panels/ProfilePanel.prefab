@@ -671,7 +671,7 @@ GameObject:
   - component: {fileID: 8278565659482715554}
   - component: {fileID: 1256739572880937201}
   - component: {fileID: 4668295450219150244}
-  - component: {fileID: -4407571412864045766}
+  - component: {fileID: 1060496398837287928}
   m_Layer: 5
   m_Name: ProfilePanel
   m_TagString: Untagged
@@ -738,7 +738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b629b48f8d465741922a90d2c317f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-4407571412864045766
+--- !u!114 &1060496398837287928
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -747,7 +747,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2744390708180258836}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f90758e5c16f7f4886b5cca029e60d4, type: 3}
+  m_Script: {fileID: 11500000, guid: b8ef44ff7aec3d447a2cf1dff3dedda8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   backButton: {fileID: 7766580725914565184}

@@ -45,7 +45,7 @@ namespace Assets.Scripts.Lobbi.Logic
                 Dictionary<string, DataObject> getLobbyData = Lobby.Data;
                 LobbyData lobbyData = new LobbyData(getLobbyData);
                 lobbyData.MatchDuration = newMatchDuration;
-                return await LobbyServiceHandler.Instance.UpdateLobbyData(lobbyData.Serialize());
+                return await LobbyServiceHandler.Instance.UpdateLobbyData(lobbyData.SerializeObjectToDictionary());
             }
             catch (Exception e)
             {

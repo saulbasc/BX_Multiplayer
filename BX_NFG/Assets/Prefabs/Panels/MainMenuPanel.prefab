@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4669501496701488227}
   - component: {fileID: 5667084687522944278}
-  - component: {fileID: 4903361903797358170}
+  - component: {fileID: 6776541448347612635}
   m_Layer: 5
   m_Name: MainMenuPanel
   m_TagString: Untagged
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &4903361903797358170
+--- !u!114 &6776541448347612635
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 659857972864050094}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f9dfe66310ad4c4a95cf772524a3e56, type: 3}
+  m_Script: {fileID: 11500000, guid: 31d2d577425f76e4c98b1bea9694fa68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gameModesButton: {fileID: 9126248262298549498}

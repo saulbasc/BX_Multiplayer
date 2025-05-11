@@ -35,7 +35,7 @@ namespace Assets.Scripts.Relay
                 LobbyData actualLobbyData = LobbyDataManager.Instance.GetLobbyDataObject();
                 var lobbyData = new LobbyData(joinCode, actualLobbyData.MatchDuration);
                 MatchInfo.Instance.SetMatchDuration(actualLobbyData.MatchDuration);
-                await LobbyServiceHandler.Instance.UpdateLobbyData(lobbyData.Serialize());
+                await LobbyServiceHandler.Instance.UpdateLobbyData(lobbyData.SerializeObjectToDictionary());
 
                 MatchInfo.Instance.SetMatchDuration(LobbyDataManager.Instance.GetMatchDuration());
 

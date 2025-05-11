@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Assets.Scripts.Commons;
 using Assets.Scripts.Init;
 using Assets.Scripts.Lobbi.Data;
+using Assets.Scripts.Lobbi.Datas;
 using Assets.Scripts.Lobbi.Players;
 using Assets.Scripts.Lobbi.Util;
 using Unity.Services.Authentication;
@@ -17,7 +18,6 @@ namespace Assets.Scripts.Lobbi.Logic
     public class LobbyPlayersManager : DefaultSingleton<LobbyPlayersManager>
     {
         private Lobby GetLobby() => LobbyDataManager.Instance.Lobby;
-        public string GetLocalID() => AuthenticationService.Instance.PlayerId;
         public bool IsHost() => UnityServicesActions.GetCurrentUserID() == LobbyDataManager.Instance.GetHostID();
         public List<Player> GetPlayers() => GetLobby().Players;
 
@@ -49,9 +49,9 @@ namespace Assets.Scripts.Lobbi.Logic
         {
             try
             {
-                LobbyPlayerData localPlayerData = LobbyUtil.DeserializePlayerDataWithID(GetLocalID());
+                LobbyPlayerData localPlayerData = GetPlayerDataObject(UnityServicesActions.GetCurrentUserID());
                 localPlayerData.IsReady = ready;
-                return await LobbyServiceHandler.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize());
+                return await LobbyServiceHandler.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.SerializeObjectToDictionary());
             }
             catch (Exception e)
             {
@@ -65,7 +65,7 @@ namespace Assets.Scripts.Lobbi.Logic
             playerData.PlayerTeam = playerTeam;
             try
             {
-                return await LobbyServiceHandler.Instance.UpdatePlayerData(playerData.Id, playerData.Serialize());
+                return await LobbyServiceHandler.Instance.UpdatePlayerData(playerData.Id, playerData.SerializeObjectToDictionary());
             }
             catch (Exception e)
             {
@@ -78,7 +78,7 @@ namespace Assets.Scripts.Lobbi.Logic
         {
             List<LobbyPlayerData> players = new List<LobbyPlayerData>();
             List<Dictionary<string, PlayerDataObject>> playersData = GetPlayersData();
-            playersData.ForEach(playerData => players.Add(LobbyUtil.DeserializePlayerData(playerData)));
+            playersData.ForEach(playerData => players.Add(new LobbyPlayerData(playerData)));
             return players;
         }
 
@@ -86,8 +86,13 @@ namespace Assets.Scripts.Lobbi.Logic
         {
             try
             {
-                LobbyPlayerData localPlayerData = LobbyUtil.DeserializePlayerDataWithID(LobbyPlayersManager.Instance.GetLocalID());
-                await LobbyServiceHandler.Instance.UpdatePlayerData(localPlayerData.Id, localPlayerData.Serialize(), allocationId, connectionData);
+                LobbyPlayerData localPlayerData = GetPlayerDataObject(UnityServicesActions.GetCurrentUserID());
+                await LobbyServiceHandler.Instance.UpdatePlayerData(
+                    localPlayerData.Id, 
+                    localPlayerData.SerializeObjectToDictionary(), 
+                    allocationId, 
+                    connectionData
+                );
             }
             catch (Exception e)
             {

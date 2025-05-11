@@ -11,15 +11,16 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 using Assets.Scripts.Init;
 using Assets.Scripts.Connection.Lobbi;
+using Assets.Scripts.Lobbi.Datas;
 
 namespace Assets.Scripts.Lobbi.Logic
 {
     public class LobbyServiceHandler : DefaultSingleton<LobbyServiceHandler>
     {
-        public async Task<bool> CreateLobby(int maxPlayers, bool isPrivate, Dictionary<string, string> data, Dictionary<string, string> lobbyData)
+        public async Task<bool> CreateLobby(int maxPlayers, bool isPrivate, Dictionary<string, string> getPlayerData, Dictionary<string, string> getLobbyData)
         {
-            Dictionary<string, PlayerDataObject> playerData = LobbyUtil.SerializePlayerData(data);
-            Dictionary<string, DataObject> lobbyDataSerialized = LobbyUtil.SerializeLobbyData(lobbyData);
+            Dictionary<string, PlayerDataObject> playerData = DataUtil.ToPlayerDataObjectDictionary(getPlayerData);
+            Dictionary<string, DataObject> lobbyDataSerialized = DataUtil.ToLobbyDataObjectDictionary(getLobbyData);
             Player player = new Player(UnityServicesActions.GetCurrentUserID(), null, playerData);
 
             CreateLobbyOptions lobbyOptions = new CreateLobbyOptions
@@ -33,8 +34,8 @@ namespace Assets.Scripts.Lobbi.Logic
             {
                 Lobby newLobby = await LobbyService.Instance.CreateLobbyAsync("MyLobby", maxPlayers, lobbyOptions);
                 LobbyDataManager.Instance.SetLobby(newLobby);
-                LobbyUpdater.Instance.StartUpdating(LobbyDataManager.Instance.GetLobbyID(), 1f);
-                HeartbeatManager.Instance.StartUpdating(LobbyDataManager.Instance.GetLobbyID(), 5f);
+                LobbyUpdaterManager.Instance.StartUpdating(LobbyDataManager.Instance.GetLobbyID(), 1f);
+                LobbyHeartbeatManager.Instance.StartHeartbeatCororutine(LobbyDataManager.Instance.GetLobbyID(), 5f);
                 return true;
             }
             catch (Exception e)
@@ -44,9 +45,9 @@ namespace Assets.Scripts.Lobbi.Logic
             }
         }
 
-        public async Task<bool> JoinLobby(string code, Dictionary<string, string> data)
+        public async Task<bool> JoinLobby(string code, Dictionary<string, string> getPlayerData)
         {
-            Dictionary<string, PlayerDataObject> playerData = LobbyUtil.SerializePlayerData(data);
+            Dictionary<string, PlayerDataObject> playerData = DataUtil.ToPlayerDataObjectDictionary(getPlayerData);
             Player player = new Player(UnityServicesActions.GetCurrentUserID(), null, playerData);
 
             JoinLobbyByCodeOptions options = new JoinLobbyByCodeOptions
@@ -58,8 +59,8 @@ namespace Assets.Scripts.Lobbi.Logic
             {
                 Lobby lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(code, options);
                 LobbyDataManager.Instance.SetLobby(lobby);
-                LobbyUpdater.Instance.StartUpdating(LobbyDataManager.Instance.GetLobbyID(), 1f);
-                HeartbeatManager.Instance.StartUpdating(LobbyDataManager.Instance.GetLobbyID(), 5f);
+                LobbyUpdaterManager.Instance.StartUpdating(LobbyDataManager.Instance.GetLobbyID(), 1f);
+                LobbyHeartbeatManager.Instance.StartHeartbeatCororutine(LobbyDataManager.Instance.GetLobbyID(), 5f);
                 return true;
             }
             catch (Exception e)
@@ -69,11 +70,11 @@ namespace Assets.Scripts.Lobbi.Logic
             }
         }
 
-        public async Task<bool> UpdatePlayerData(string id, Dictionary<string, string> data, string allocationId = default, string connectionData = default)
+        public async Task<bool> UpdatePlayerData(string id, Dictionary<string, string> playerData, string allocationId = default, string connectionData = default)
         {
             UpdatePlayerOptions options = new UpdatePlayerOptions
             {
-                Data = LobbyUtil.SerializePlayerData(data),
+                Data = DataUtil.ToPlayerDataObjectDictionary(playerData),
                 AllocationId = allocationId,
                 ConnectionInfo = connectionData,
             };
@@ -91,11 +92,11 @@ namespace Assets.Scripts.Lobbi.Logic
             }
         }
 
-        public async Task<bool> UpdateLobbyData(Dictionary<string, string> data)
+        public async Task<bool> UpdateLobbyData(Dictionary<string, string> lobbyData)
         {
             UpdateLobbyOptions options = new UpdateLobbyOptions
             {
-                Data = LobbyUtil.SerializeLobbyData(data),
+                Data = DataUtil.ToLobbyDataObjectDictionary(lobbyData),
             };
 
             try
@@ -176,10 +177,10 @@ namespace Assets.Scripts.Lobbi.Logic
         {
             try
             {
-                LobbyUpdater.Instance.StopUpdating();
-                HeartbeatManager.Instance.StopUpdating();
-                LobbyUpdater.Instance.Delete();
-                HeartbeatManager.Instance.Delete();
+                LobbyUpdaterManager.Instance.StopUpdating();
+                LobbyHeartbeatManager.Instance.StopHeartbeatCoroutine();
+                LobbyUpdaterManager.Instance.Delete();
+                LobbyHeartbeatManager.Instance.Delete();
                 LobbyManager.Instance.Delete();
             }
             catch (Exception e)

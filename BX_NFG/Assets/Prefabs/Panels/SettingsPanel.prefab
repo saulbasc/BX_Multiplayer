@@ -1838,7 +1838,7 @@ GameObject:
   - component: {fileID: 4622203131553164530}
   - component: {fileID: 2011111093523052549}
   - component: {fileID: 3993691918318293120}
-  - component: {fileID: 7908908460360285820}
+  - component: {fileID: 7267737141506634530}
   m_Layer: 5
   m_Name: SettingsPanel
   m_TagString: Untagged
@@ -1905,7 +1905,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7908908460360285820
+--- !u!114 &7267737141506634530
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1914,7 +1914,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5569875809850948192}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2ab671af92941541ba927b095776253, type: 3}
+  m_Script: {fileID: 11500000, guid: c422df2688ec4fe4c9277d5551fc7b60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   backButton: {fileID: 7161156295362007285}

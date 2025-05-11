@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8186930990891266730}
   - component: {fileID: 1719661574622120474}
   - component: {fileID: 6209828728420841118}
-  - component: {fileID: 4811541695282881033}
+  - component: {fileID: 6190754700547518425}
   m_Layer: 5
   m_Name: ChangeProfileNamePanel
   m_TagString: Untagged
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &4811541695282881033
+--- !u!114 &6190754700547518425
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 988449033041846026}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4b20167f55d3794abcb2ed79a8127a1, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c5cbabf38e9f6649890c0f218f75567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   backButton: {fileID: 7132791115392775007}

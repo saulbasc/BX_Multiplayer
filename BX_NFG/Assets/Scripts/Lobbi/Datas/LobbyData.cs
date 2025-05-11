@@ -3,73 +3,55 @@ using System;
 using System.Collections.Generic;
 using Assets.Scripts.GameManager.GameEvents.Timer;
 using Assets.Scripts.Lobbi.Data;
+using Newtonsoft.Json;
 using Unity.Services.Lobbies.Models;
-using UnityEngine;
 
 namespace Assets.Scripts.Lobbi.Datas
 {
-    public class LobbyData
+    /// <summary>
+    /// Guarda los datos de la sala en un objeto serializable.
+    /// </summary>
+    public class LobbyData : SerializableLobbyModelBase<DataObject>
     {
-        private string relayJoinCode;
-        private MatchDuration matchDuration;
+        /// <summary>
+        /// El código para unirse al partido.
+        /// </summary>
+        [JsonProperty(LobbyDataKeys.JoinRelayCode)]
+        public string RelayJoinCode { get; set; }
+        /// <summary>
+        /// La duración del partido.
+        /// </summary>
+        [JsonProperty(LobbyDataKeys.MatchDuration)]
+        public MatchDuration MatchDuration { get; set; }
 
-        public string RelayJoinCode
-        {
-            get { return relayJoinCode; }
-            set { relayJoinCode = value; }
-        }
-
-        public MatchDuration MatchDuration
-        {
-            get { return matchDuration; }
-            set { matchDuration = value; }
-        }
-
+        /// <summary>
+        /// Constructor que crea un objeto con los datos aportados.
+        /// </summary>
+        /// <param name="relayJoinCode">El código para unirse al partido.</param>
+        /// <param name="matchDuration">La duración del partido.</param>
         public LobbyData(string relayJoinCode, MatchDuration matchDuration)
         {
-            this.relayJoinCode = relayJoinCode;
-            this.matchDuration = matchDuration;
+            this.RelayJoinCode = relayJoinCode;
+            this.MatchDuration = matchDuration;
         }
 
+        /// <summary>
+        /// Constructor que deserializa directamente los datos de la sala.
+        /// </summary>
+        /// <param name="lobbyData"></param>
         public LobbyData(Dictionary<string, DataObject> lobbyData)
         {
-            UpdateState(lobbyData);
+            DeserializeFromDictionary(lobbyData);
         }
 
+        /// <summary>
+        /// Constructor por defecto.
+        /// </summary>
         public LobbyData() { }
 
-        private void UpdateState(Dictionary<string, DataObject> lobbyData)
+        protected override string GetValueAsString(DataObject dataObject)
         {
-            if (lobbyData == null) 
-            {
-                Debug.Log("Lobby data is null");
-                return;
-            }
-            if (lobbyData.ContainsKey(LobbyDataKeys.JoinRelayCode))
-            {
-                relayJoinCode = lobbyData[LobbyDataKeys.JoinRelayCode].Value?.ToString();
-            }
-            if (lobbyData.ContainsKey(LobbyDataKeys.MatchDuration))
-            {
-                string matchDurationString = lobbyData[LobbyDataKeys.MatchDuration].Value?.ToString();
-                if (Enum.TryParse(matchDurationString, out MatchDuration parsedMatchDuration))
-                {
-                    matchDuration = parsedMatchDuration;
-                }
-                else
-                {
-                    Debug.LogWarning($"Failed to parse MatchDuration from string: {matchDurationString}");
-                }
-            }
-        }
-
-        public Dictionary<string, string> Serialize()
-        {
-            return new Dictionary<string, string>
-            {
-                { LobbyDataKeys.JoinRelayCode, relayJoinCode },
-                { LobbyDataKeys.MatchDuration, matchDuration.ToString() }
-            };
+            return dataObject?.Value?.ToString();
         }
     }
 }

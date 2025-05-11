@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 3434425488125831571}
   - component: {fileID: 3583771778379817036}
   - component: {fileID: 4400698050161498255}
-  - component: {fileID: 7031558613023999419}
+  - component: {fileID: 5706739034066862005}
   m_Layer: 5
   m_Name: GameModesPanel
   m_TagString: Untagged
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b629b48f8d465741922a90d2c317f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7031558613023999419
+--- !u!114 &5706739034066862005
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1575112664055627412}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29dcf8fdb46404b489785f4b1342aee0, type: 3}
+  m_Script: {fileID: 11500000, guid: 496b59d41a896c4479d37e219731f440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   backButton: {fileID: 6646329827992836863}

@@ -1,98 +1,67 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Assets.Scripts.Lobbi.Data;
-using Assets.Scripts.Lobbi.Players.Values;
+using Assets.Scripts.Lobbi.Datas;
+using Newtonsoft.Json;
 using Unity.Services.Lobbies.Models;
 
 namespace Assets.Scripts.Lobbi.Players
 {
-    public class LobbyPlayerData
+    /// <summary>
+    /// Guarda los datos de un jugador de la sala en un objeto serializable.
+    /// </summary>
+    public class LobbyPlayerData : SerializableLobbyModelBase<PlayerDataObject>
     {
-        private string id;
-        private string gameTag;
-        private bool isReady;
-        private PlayerTeam playerTeam;
-        private List<ValueApplier> valueAppliers;
+        /// <summary>
+        /// El id del usuario.
+        /// </summary>
+        [JsonProperty(PlayerDataKeys.Id)]
+        public string Id { get; set; }
 
-        public string Id => id;
-        public string GameTag => gameTag;
-        public bool IsReady { set => isReady = value; get => isReady; }
-        public PlayerTeam PlayerTeam { set => playerTeam = value; get => playerTeam; }
+        /// <summary>
+        /// El nombre del usuario.
+        /// </summary>
+        [JsonProperty(PlayerDataKeys.GameTag)]
+        public string GameTag { get; set; }
 
-        private class ValueApplier
-        {
-            public string Key;
-            public IValueGetter Getter;
-            public Action<object> Apply;
-        }
+        /// <summary>
+        /// Si el usuario está listo para jugar el partido.
+        /// </summary>
+        [JsonProperty(PlayerDataKeys.IsReady)]
+        public bool IsReady { get; set; }
 
+        /// <summary>
+        /// El equipo al que pertenece el usuario en el partido.
+        /// </summary>
+        [JsonProperty(PlayerDataKeys.PlayerTeam)]
+        public PlayerTeam PlayerTeam { get; set; }
+
+        /// <summary>
+        /// Constructor directo con propiedades.
+        /// </summary>
         public LobbyPlayerData(string id, string gameTag)
         {
-            this.id = id;
-            this.gameTag = gameTag;
-            isReady = false;
-            playerTeam = PlayerTeam.Spectator;
+            Id = id;
+            GameTag = gameTag;
+            IsReady = false;
+            PlayerTeam = PlayerTeam.Spectator;
         }
 
+        /// <summary>
+        /// Constructor que deserializa desde datos del lobby.
+        /// </summary>
         public LobbyPlayerData(Dictionary<string, PlayerDataObject> playerData)
-        {
-            InizialiceValueAppliers();
-            UpdateState(playerData);
+        { 
+            DeserializeFromDictionary(playerData);
         }
 
-        private void InizialiceValueAppliers()
-        {
-            valueAppliers = new List<ValueApplier>
-            {
-                new ValueApplier
-                {
-                    Key = PlayerDataKeys.Id,
-                    Getter = new StringValueGetter(),
-                    Apply = value => id = (string)value
-                },
-                new ValueApplier
-                {
-                    Key = PlayerDataKeys.GameTag,
-                    Getter = new StringValueGetter(),
-                    Apply = value => gameTag = (string)value
-                },
-                new ValueApplier
-                {
-                    Key = PlayerDataKeys.IsReady,
-                    Getter = new BoolValueGetter(),
-                    Apply = value => isReady = (bool)value
-                },
-                new ValueApplier
-                {
-                    Key = PlayerDataKeys.PlayerTeam,
-                    Getter = new EnumValueGetter<PlayerTeam>(),
-                    Apply = value => playerTeam = (PlayerTeam)value
-                }
-            };
-        }
+        /// <summary>
+        /// Constructor por defecto.
+        /// </summary>
+        public LobbyPlayerData() { }
 
-        private void UpdateState(Dictionary<string, PlayerDataObject> playerData)
+        protected override string GetValueAsString(PlayerDataObject dataObject)
         {
-            foreach (var applier in valueAppliers)
-            {
-                if (playerData.ContainsKey(applier.Key))
-                {
-                    object value = applier.Getter.GetValue(playerData, applier.Key);
-                    applier.Apply(value);
-                }
-            }
-        }
-
-        public Dictionary<string, string> Serialize()
-        {
-            return new Dictionary<string, string>
-            {
-                { PlayerDataKeys.Id, id },
-                { PlayerDataKeys.GameTag, gameTag },
-                { PlayerDataKeys.IsReady, isReady.ToString() },
-                { PlayerDataKeys.PlayerTeam, playerTeam.ToString() },
-            };
+            return dataObject.Value?.ToString();
         }
     }
 }

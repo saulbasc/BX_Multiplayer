@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2574000582358399699}
-  - component: {fileID: 8926917170859399981}
+  - component: {fileID: 8957854123370898158}
   m_Layer: 5
   m_Name: LobbyNotFoundPanel
   m_TagString: Untagged
@@ -39,7 +39,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8926917170859399981
+--- !u!114 &8957854123370898158
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 249798171464052031}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4af99c41900dd24fbd7677bf8a28646, type: 3}
+  m_Script: {fileID: 11500000, guid: 7adf3b89683013b4c9445d4d1109a369, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   backButton: {fileID: 7181604380574628133}

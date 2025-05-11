@@ -447,7 +447,7 @@ GameObject:
   - component: {fileID: 571235275046036040}
   - component: {fileID: 3514478538611287434}
   - component: {fileID: 3193813155651980036}
-  - component: {fileID: 1135743538441565757}
+  - component: {fileID: 5410789773275946826}
   m_Layer: 5
   m_Name: StatsPanel
   m_TagString: Untagged
@@ -514,7 +514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b629b48f8d465741922a90d2c317f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1135743538441565757
+--- !u!114 &5410789773275946826
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -523,7 +523,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3587317711985043743}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49b2942a730c27b42a4d35a8a15106ef, type: 3}
+  m_Script: {fileID: 11500000, guid: 40b8d57fca109d24cb896558af5a9077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   backButton: {fileID: 1958400840266462833}

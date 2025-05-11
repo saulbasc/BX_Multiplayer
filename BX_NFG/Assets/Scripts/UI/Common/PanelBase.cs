@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.UI.Common;
+﻿using Assets.Scripts.GameManager.GameEvents.UI;
+using Assets.Scripts.UI.Common;
 using UnityEngine;
 
 namespace Assets.Scripts.UI.MenuUI
@@ -11,14 +12,14 @@ namespace Assets.Scripts.UI.MenuUI
         /// <summary>
         /// Gestiona las acciones de los paneles
         /// </summary>
-        protected MenuUIManager menuManager;
+        protected IUIManager menuManager;
 
         public abstract PanelType PanelType { get; }
         /// <summary>
         /// Inicializa las acciones disponibles para el panel
         /// </summary>
         /// <param name="manager">El gestor de paneles</param>
-        public abstract void Initialize(MenuUIManager manager);
+        public abstract void Initialize(IUIManager manager);
 
         public void Show()
         {
