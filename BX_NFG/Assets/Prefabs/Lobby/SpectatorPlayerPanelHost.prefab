@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 1858498147904898828}
   - component: {fileID: 7907429491377679134}
   - component: {fileID: 603186450040271197}
-  - component: {fileID: 4418093503957608220}
   - component: {fileID: 5032118579381302350}
   - component: {fileID: 9055191186774429463}
+  - component: {fileID: 3112963444205767745}
   m_Layer: 5
-  m_Name: SpectatorPlayerEntryHost
+  m_Name: SpectatorPlayerPanelHost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,20 +64,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 7104525091615243796}
---- !u!114 &4418093503957608220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 193053701650911506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c908af3d9dd0a9f429c2c8118db66b7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftButton: {fileID: 5874974278553295234}
-  rightButton: {fileID: 3807499335944190388}
 --- !u!114 &5032118579381302350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,6 +102,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8cb7fe63ee35f743acc1b67eedc38ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3112963444205767745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193053701650911506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ebf6445944c2f4ca068dce67961030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamButtons:
+  - button: {fileID: 5874974278553295234}
+    team: 1
+  - button: {fileID: 3807499335944190388}
+    team: 2
 --- !u!1 &986305598110017592
 GameObject:
   m_ObjectHideFlags: 0

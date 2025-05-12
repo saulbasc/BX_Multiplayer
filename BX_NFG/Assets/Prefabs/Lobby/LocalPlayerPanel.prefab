@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2079498463599907867}
   - component: {fileID: -319059277972153527}
   m_Layer: 5
-  m_Name: LocalPlayerEntry
+  m_Name: LocalPlayerPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

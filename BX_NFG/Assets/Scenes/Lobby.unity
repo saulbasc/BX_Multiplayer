@@ -1508,7 +1508,7 @@ GameObject:
   - component: {fileID: 905406404}
   - component: {fileID: 905406403}
   m_Layer: 5
-  m_Name: MaxDuration
+  m_Name: MaxDurationButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2469,11 +2469,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1158026559}
+  - component: {fileID: 1158026560}
   - component: {fileID: 1158026561}
-  - component: {fileID: 1158026562}
-  - component: {fileID: 1158026563}
   m_Layer: 5
-  m_Name: LobbyController
+  m_Name: LobbyManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2498,6 +2497,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1158026560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158026558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d730cb893872b7489af568f1f98201d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _matchTimeText: {fileID: 791001628}
+  _upperTimeButton: {fileID: 905406403}
+  _lowerTimeButton: {fileID: 1168210035}
 --- !u!114 &1158026561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2507,41 +2521,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1158026558}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3989150069206be4baae7ca3fa31bdc7, type: 3}
+  m_Script: {fileID: 11500000, guid: e1c10f9e2a826574bb6beca43ff640e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  matchTimeText: {fileID: 791001628}
-  upperTimeButton: {fileID: 905406403}
-  lowerTimeButton: {fileID: 1168210035}
---- !u!114 &1158026562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1158026558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a72b9a5398004d4cbac5327a667a7a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  lobbyNameText: {fileID: 1691560459}
   exitButton: {fileID: 122620345}
   readyButton: {fileID: 1080823856}
   cancelButton: {fileID: 113867741}
   startButton: {fileID: 1674501564}
---- !u!114 &1158026563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1158026558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d2263f1cef5d064ab0dbbf20ff206d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lobbyNameText: {fileID: 1691560459}
 --- !u!1 &1168210033
 GameObject:
   m_ObjectHideFlags: 0
@@ -2555,7 +2542,7 @@ GameObject:
   - component: {fileID: 1168210036}
   - component: {fileID: 1168210035}
   m_Layer: 5
-  m_Name: MinDuration
+  m_Name: MinDurationButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2874,7 +2861,7 @@ GameObject:
   - component: {fileID: 1238613803}
   - component: {fileID: 1238613802}
   m_Layer: 5
-  m_Name: ScrollController
+  m_Name: ScrollManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2908,9 +2895,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1238613800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bacd8fe962161db4fa7ed79e36499309, type: 3}
+  m_Script: {fileID: 11500000, guid: 24578bb9edfe8bc4f8b0efd38546d0e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teamPlayersToAdd: 2
   localPlayerPanelPrefab: {fileID: 193053701650911506, guid: e36d2696ea44bbe46b64b1a850852464, type: 3}
   playerPanelPrefab: {fileID: 193053701650911506, guid: 4896f0d2548d2cf468e47cdabef57c80, type: 3}
   playerListContainer: {fileID: 1229635903}
@@ -2923,9 +2911,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1238613800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4bacb1613ef8be4dae50b0437b99984, type: 3}
+  m_Script: {fileID: 11500000, guid: 24578bb9edfe8bc4f8b0efd38546d0e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teamPlayersToAdd: 0
   localPlayerPanelPrefab: {fileID: 193053701650911506, guid: 27b45b8e585f1ae4888ccbf7f8463990, type: 3}
   playerPanelPrefab: {fileID: 193053701650911506, guid: 2febb5cc61608cc41ac938fb619aca33, type: 3}
   playerListContainer: {fileID: 15663107}
@@ -2938,9 +2927,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1238613800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14b74988a186c8c4e972927c365805e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 24578bb9edfe8bc4f8b0efd38546d0e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teamPlayersToAdd: 1
   localPlayerPanelPrefab: {fileID: 193053701650911506, guid: 99e8dad216e970a40b8ea198f648f275, type: 3}
   playerPanelPrefab: {fileID: 193053701650911506, guid: 5356a5a7fe10a834f9b4bc49464fd382, type: 3}
   playerListContainer: {fileID: 560311454}

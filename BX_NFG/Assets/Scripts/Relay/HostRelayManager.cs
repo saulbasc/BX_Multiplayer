@@ -24,7 +24,7 @@ namespace Assets.Scripts.Relay
             relayHandler = new HostRelayHandler();
         }
 
-        public async Task StartRelayServer()
+        public async Task<bool> StartRelayServer()
         {
             try
             {
@@ -43,10 +43,13 @@ namespace Assets.Scripts.Relay
                 await LobbyPlayerManager.Instance.UpdatePlayerOptions(UnityServicesActions.GetCurrentUserID(), GetAllocatorId(), GetConnectionData());
 
                 await SceneManager.LoadSceneAsync(Scenes.GameScene.ToString());
+
+                return true;
             }
             catch (Exception e)
             {
                 Debug.LogError($"Error starting relay server: {e}");
+                return false;
             }
         }
 

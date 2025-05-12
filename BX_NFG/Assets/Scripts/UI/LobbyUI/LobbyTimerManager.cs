@@ -1,85 +1,48 @@
-﻿using System;
-using Assets.Scripts.GameManager.GameEvents.Timer;
-using Assets.Scripts.Handlers;
+﻿using Assets.Scripts.GameManager.GameEvents.Timer;
 using Assets.Scripts.Lobbi.Logic;
+using Assets.Scripts.UI.LobbyUI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Lobbi.UI.Config
 {
+    /// <summary>
+    /// Clase dedicada a gestionar los cambios en la duración del partido.
+    /// </summary>
     public class LobbyTimerManager : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI matchTimeText;
-        [SerializeField] private Button upperTimeButton;
-        [SerializeField] private Button lowerTimeButton;
+        [SerializeField] private TextMeshProUGUI _matchTimeText;
+        [SerializeField] private Button _upperTimeButton;
+        [SerializeField] private Button _lowerTimeButton;
 
         private void Awake()
         {
-            inicializeMatchTimerButtons();
-        }
-
-        private void inicializeMatchTimerButtons()
-        {
-            if (!LobbyDataManager.Instance.IsHost())
+            if (!LobbyDataManager.Instance.IsLocalPlayerHost())
             {
-                upperTimeButton.gameObject.SetActive(false);
-                lowerTimeButton.gameObject.SetActive(false);
+                _upperTimeButton.gameObject.SetActive(false);
+                _lowerTimeButton.gameObject.SetActive(false);
             }
         }
 
         private void OnEnable()
         {
-            upperTimeButton.onClick.AddListener(() => IncreaseMatchTime());
-            lowerTimeButton.onClick.AddListener(() => DecreaseMatchTime());
+            _upperTimeButton.onClick.AddListener( async () => await LobbyActionsManager.Instance.ChangeMatchDuration(true));
+            _lowerTimeButton.onClick.AddListener(async () => await LobbyActionsManager.Instance.ChangeMatchDuration(false));
             LobbyEvents.Instance.OnLobbyUpdated += OnLobbyUpdated;
         }
 
         private void OnDisable()
         {
-            upperTimeButton.onClick.RemoveListener(() => IncreaseMatchTime());
-            lowerTimeButton.onClick.RemoveListener(() => DecreaseMatchTime());
+            _upperTimeButton.onClick.AddListener(async () => await LobbyActionsManager.Instance.ChangeMatchDuration(true));
+            _lowerTimeButton.onClick.RemoveListener(async () => await LobbyActionsManager.Instance.ChangeMatchDuration(false));
             LobbyEvents.Instance.OnLobbyUpdated -= OnLobbyUpdated;
         }
 
         private void OnLobbyUpdated()
         {
             MatchDuration newMatchDuration = LobbyDataManager.Instance.GetLobbyMatchDuration();
-            matchTimeText.text = MatchDurationExtensions.ToString(newMatchDuration);
-        }
-
-        private async void IncreaseMatchTime()
-        {
-            MatchDuration[] durations = MatchDurationExtensions.MatchDurationList();
-            MatchDuration currentMatchDuration = LobbyDataManager.Instance.GetLobbyMatchDuration();
-            MatchDuration newMatchDuration = currentMatchDuration;
-
-            int index = Array.IndexOf(durations, currentMatchDuration);
-            if (index < durations.Length - 1)
-            {
-                newMatchDuration = durations[index + 1];
-                await SafeAsyncFunctionsHandler.ExecuteAsync( async () =>
-                {
-                    await LobbyDataManager.Instance.SetLobbyMatchDurationAsync(newMatchDuration);
-                });
-            }
-        }
-
-        private async void DecreaseMatchTime()
-        {
-            MatchDuration[] durations = MatchDurationExtensions.MatchDurationList();
-            MatchDuration currentMatchDuration = LobbyDataManager.Instance.GetLobbyMatchDuration();
-            MatchDuration newMatchDuration = currentMatchDuration;
-
-            int index = Array.IndexOf(durations, currentMatchDuration);
-            if (index > 0)
-            {
-                newMatchDuration = durations[index - 1];
-                await SafeAsyncFunctionsHandler.ExecuteAsync( async () =>
-                {
-                    await LobbyDataManager.Instance.SetLobbyMatchDurationAsync(newMatchDuration);
-                });
-            }
+            _matchTimeText.text = MatchDurationExtensions.ToString(newMatchDuration);
         }
     }
 }

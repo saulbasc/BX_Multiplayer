@@ -44,7 +44,7 @@ namespace Assets.Scripts.Lobbi.Logic
         /// Comprueba si el usuario local es el host de la Lobby.
         /// </summary>
         /// <returns>True si el usuario local es host.</returns>
-        public bool IsHost() => UnityServicesActions.GetCurrentUserID() == Lobby.HostId;
+        public bool IsLocalPlayerHost() => UnityServicesActions.GetCurrentUserID() == Lobby.HostId;
         /// <summary>
         /// Obtiene los datos de la Lobby en formato string y DataObject.
         /// </summary>

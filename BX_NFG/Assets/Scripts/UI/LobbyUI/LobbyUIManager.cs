@@ -1,9 +1,6 @@
-﻿using Assets.Scripts.Handlers;
-using Assets.Scripts.Lobbi;
+﻿using Assets.Scripts.Lobbi;
 using Assets.Scripts.Lobbi.Logic;
-using Assets.Scripts.Relay;
 using TMPro;
-using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,16 +22,11 @@ namespace Assets.Scripts.UI.LobbyUI
             cancelButton.onClick.AddListener(OnCancelButtonClicked);
             lobbyNameText.text = LobbyDataManager.Instance.GetLobbyCode();
 
-            LobbyEvents.Instance.OnLobbyCancel += OnLobbyCancel;
+            LobbyEvents.Instance.OnLobbyCancel += () => startButton.gameObject.SetActive(false);
 
-            InitializeLobbyController();
-        }
-
-        private void InitializeLobbyController()
-        {
-            if (AuthenticationService.Instance.PlayerId == LobbyDataManager.Instance.GetHostID())
+            if (LobbyDataManager.Instance.IsLocalPlayerHost())
             {
-                LobbyEvents.Instance.OnLobbyReady += OnLobbyReady;
+                LobbyEvents.Instance.OnLobbyReady += () => startButton.gameObject.SetActive(true);
                 startButton.onClick.AddListener(OnStartButtonClick);
             }
         }
@@ -46,64 +38,38 @@ namespace Assets.Scripts.UI.LobbyUI
             cancelButton.onClick.RemoveListener(OnCancelButtonClicked);
             startButton.onClick.RemoveListener(OnStartButtonClick);
 
-            LobbyEvents.Instance.OnLobbyReady -= OnLobbyReady;
-            LobbyEvents.Instance.OnLobbyCancel -= OnLobbyCancel;
-        }
-
-        private void OnLobbyReady()
-        {
-            startButton.gameObject.SetActive(true);
-        }
-
-        private void OnLobbyCancel()
-        {
-            startButton.gameObject.SetActive(false);
+            LobbyEvents.Instance.OnLobbyReady -= () => startButton.gameObject.SetActive(true);
+            LobbyEvents.Instance.OnLobbyCancel -= () => startButton.gameObject.SetActive(false);
         }
 
         private async void OnExitButtonClicked()
         {
-            await LobbyServiceManager.Instance.DisconnectFromLobby();
+            await LobbyActionsManager.Instance.ExitLobby();
         }
 
         private async void OnReadyButtonClicked()
         {
-            await SafeAsyncFunctionsHandler.ExecuteAsync(async () => 
+            bool success = await LobbyActionsManager.Instance.SetLocalLobbyPlayerReadyStatus(true);
+            if (success)
             {
-                bool success = await LobbyPlayerManager.Instance.SetPlayerReadyAsync(true);
-                if (success)
-                {
-                    readyButton.gameObject.SetActive(false);
-                    cancelButton.gameObject.SetActive(true);
-                }
-            });
+                readyButton.gameObject.SetActive(false);
+                cancelButton.gameObject.SetActive(true);
+            }
         }
 
         private async void OnCancelButtonClicked()
         {
-            await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
+            bool success = await LobbyActionsManager.Instance.SetLocalLobbyPlayerReadyStatus(false);
+            if (success)
             {
-                bool success = await LobbyPlayerManager.Instance.SetPlayerReadyAsync(false);
-                if (success)
-                {
-                    readyButton.gameObject.SetActive(true);
-                    cancelButton.gameObject.SetActive(false);
-                }
-            });
+                readyButton.gameObject.SetActive(true);
+                cancelButton.gameObject.SetActive(false);
+            }
         }
 
         private async void OnStartButtonClick()
         {
-            await SafeAsyncFunctionsHandler.ExecuteAsync( async () =>
-            {
-                if (LobbyDataManager.Instance.IsHost())
-                {
-                    await HostRelayManager.Instance.StartRelayServer();
-                }
-                else
-                {
-                    await ClientRelayManager.Instance.JoinRelayServer();
-                }
-            });
+            await LobbyActionsManager.Instance.StartLobbyMatch();
         }
     }
 }

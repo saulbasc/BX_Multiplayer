@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Assets.Scripts.Commons;
-using Assets.Scripts.Game.Manager;
 using Assets.Scripts.Init;
 using Assets.Scripts.Lobbi.Logic;
 using UnityEngine;

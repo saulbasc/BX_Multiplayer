@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
-using System.Threading.Tasks;
 using Assets.Scripts.Commons;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Managers.Corroutine;
 using Unity.Services.Lobbies;
-using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
 namespace Assets.Scripts.Lobbi.Logic

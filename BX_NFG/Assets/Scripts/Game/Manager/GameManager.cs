@@ -12,7 +12,7 @@ namespace Assets.Scripts.Game.Manager
         private void Start()
         {
             NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
-            if (LobbyDataManager.Instance.IsHost())
+            if (LobbyDataManager.Instance.IsLocalPlayerHost())
             {
                 HostConnection();
             }
