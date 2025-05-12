@@ -17,7 +17,7 @@ namespace Assets.Scripts.Lobbi.UI.PlayerEntry
 
         protected async void ChangeTeam(PlayerTeam playerTeam)
         {
-            await LobbyPlayersManager.Instance.SetPlayerTeamAsync(playerData, playerTeam);
+            await LobbyPlayerManager.Instance.SetPlayerTeamAsync(playerData, playerTeam);
         }
     }
 }

@@ -1,136 +1,75 @@
-﻿using System.Threading.Tasks;
-using System;
-using Unity.Services.Lobbies.Models;
-using Unity.Services.Lobbies;
+﻿using Unity.Services.Lobbies.Models;
 using UnityEngine;
-using System.Collections;
 using Assets.Scripts.Commons;
-using Assets.Scripts.Lobbi.Util;
-using System.Collections.Generic;
 using Assets.Scripts.Relay;
 using UnityEngine.SceneManagement;
 using WebSocketSharp;
+using Assets.Scripts.Handlers;
 
 namespace Assets.Scripts.Lobbi.Logic
 {
+    /// <summary>
+    /// Clase dedicada a la actualización periódica de la Lobby
+    /// </summary>
     public class LobbyUpdaterManager : Singleton<LobbyUpdaterManager>
     {
-        private Coroutine lobbyCoroutine;
-
         private void OnEnable()
         {
-            LobbyEvents.OnLobbyUpdated += OnLobbyUpdated;
+            LobbyEvents.Instance.OnNewLobbyUpdated += OnLobbyUpdated;
         }
 
         private void OnDisable()
         {
-            LobbyEvents.OnLobbyUpdated -= OnLobbyUpdated;
+            LobbyEvents.Instance.OnNewLobbyUpdated -= OnLobbyUpdated;
             Destroy(gameObject);
         }
 
-        public void StartUpdating(string lobbyId, float interval)
+        private void OnLobbyUpdated(Lobby lobby)
         {
-            if (lobbyCoroutine == null)
-            {
-                lobbyCoroutine = StartCoroutine(RefreshLobbyCoroutine(lobbyId, interval));
-            }
+            LobbyEvents.Instance.RaiserLobbyUpdated();
+
+            CheckIfNumberOfPlayersReadyInLobby();
+
+            CheckIfLocalPlayerIsReadyToEnterInGame();
         }
 
-        public void StopUpdating()
+        /// <summary>
+        /// Comprueba si todos los jugadores de la Lobby están listos.
+        /// Si todos los jugadores están listos lanza un evento de Lobby lista para jugar.
+        /// </summary>
+        private void CheckIfNumberOfPlayersReadyInLobby()
         {
-            if (lobbyCoroutine != null)
+            if (LobbyDataManager.Instance.NumberOfPlayersReady() == LobbyDataManager.Instance.GetNumberOfPlayers())
             {
-                StopCoroutine(lobbyCoroutine);
-                lobbyCoroutine = null;
-            }
-        }
-
-        private void OnDestroy()
-        {
-            StopUpdating();
-        }
-
-        private IEnumerator RefreshLobbyCoroutine(string lobbyId, float wait)
-        {
-            while (true)
-            {
-                yield return TryUpdateLobby(lobbyId);
-                yield return new WaitForSecondsRealtime(wait);
-            }
-        }
-
-        private IEnumerator TryUpdateLobby(string lobbyId)
-        {
-            Task<Lobby> task = null;
-
-            try
-            {
-                task = LobbyService.Instance.GetLobbyAsync(lobbyId);
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e);
-                yield break;
-            }
-
-            yield return new WaitUntil(() => task.IsCompleted);
-
-            if (task.IsCompletedSuccessfully)
-            {
-                HandleLobbyResult(task.Result);
+                LobbyEvents.Instance.RaiserLobbyReady();
             }
             else
             {
-                Debug.LogError($"Error al obtener el lobby: {task.Exception?.Flatten().InnerException}");
+                LobbyEvents.Instance.RaiserLobbyCancel();
             }
         }
 
-        private void HandleLobbyResult(Lobby newLobby)
+        /// <summary>
+        /// Comprueba si el jugador es apto para entrar en la escena del juego.
+        /// Si es apto se une al RelayServer y entra en la escena del juego.
+        /// </summary>
+        private async void CheckIfLocalPlayerIsReadyToEnterInGame()
         {
-            try
+            string joinRelayCode = LobbyDataManager.Instance.GetLobbyDataObject().RelayJoinCode;
+
+            if (joinRelayCode.IsNullOrEmpty() || PlayerStatus.Instance.InGame || PlayerStatus.Instance.JoinedGame) return;
+
+            await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
             {
-                if (newLobby.LastUpdated > LobbyDataManager.Instance.Lobby.LastUpdated)
-                {
-                    LobbyEvents.OnLobbyUpdated?.Invoke(newLobby);
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e);
-            }
+                await ClientRelayManager.Instance.JoinRelayServer();
+                await SceneManager.LoadSceneAsync(Scenes.GameScene.ToString());
+            });
+            PlayerStatus.Instance.JoinedGame = true;
         }
 
-        private async void OnLobbyUpdated(Lobby lobby)
-        {
-            List<Dictionary<string, PlayerDataObject>> players = LobbyPlayersManager.Instance.GetAllPlayersData();
-
-            GameLobbyEvents.OnLobbyUpdated?.Invoke();
-
-            if (LobbyUtil.NumberOfPlayersReady(players) == players.Count)
-            {
-                GameLobbyEvents.OnLobbyReady?.Invoke();
-            }
-            else
-            {
-                GameLobbyEvents.OnLobbyCancel?.Invoke();
-            }
-
-            if (!LobbyDataManager.Instance.GetLobbyDataObject().RelayJoinCode.IsNullOrEmpty() && !PlayerStatus.Instance.InGame && !PlayerStatus.Instance.JoinedGame)
-            {
-                Debug.Log("ERRRR?");
-                try
-                {
-                    await ClientRelayManager.Instance.JoinRelayServer();
-                    await SceneManager.LoadSceneAsync(Scenes.GameScene.ToString());
-                }
-                catch(Exception e)
-                {
-                    Debug.LogError(e);
-                }
-                PlayerStatus.Instance.JoinedGame = true;
-            }
-        }
-
+        /// <summary>
+        /// Elimina la instancia gameObject de ka clase.
+        /// </summary>
         public void Delete()
         {
             Destroy(gameObject);

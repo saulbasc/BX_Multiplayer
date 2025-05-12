@@ -8,6 +8,6 @@ namespace Assets.Scripts.Managers.Corroutine
     {
         ConnectionStateCorrutine,
         LobbyHeartbeatCoroutine,
-        LobbyRefreshCoroutine,
+        LobbyUpdateCoroutine,
     }
 }

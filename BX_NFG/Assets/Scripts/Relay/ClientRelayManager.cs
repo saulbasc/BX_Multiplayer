@@ -30,7 +30,7 @@ namespace Assets.Scripts.Relay
 
                 await Task.Delay(200);
 
-                await LobbyPlayersManager.Instance.UpdatePlayerOptions(UnityServicesActions.GetCurrentUserID(), GetAllocatorId(), GetConnectionData());
+                await LobbyPlayerManager.Instance.UpdatePlayerOptions(UnityServicesActions.GetCurrentUserID(), GetAllocatorId(), GetConnectionData());
 
                 return true;
             }

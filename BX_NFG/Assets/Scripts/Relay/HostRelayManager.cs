@@ -40,7 +40,7 @@ namespace Assets.Scripts.Relay
 
                 MatchInfo.Instance.SetMatchDuration(LobbyDataManager.Instance.GetLobbyMatchDuration());
 
-                await LobbyPlayersManager.Instance.UpdatePlayerOptions(UnityServicesActions.GetCurrentUserID(), GetAllocatorId(), GetConnectionData());
+                await LobbyPlayerManager.Instance.UpdatePlayerOptions(UnityServicesActions.GetCurrentUserID(), GetAllocatorId(), GetConnectionData());
 
                 await SceneManager.LoadSceneAsync(Scenes.GameScene.ToString());
             }

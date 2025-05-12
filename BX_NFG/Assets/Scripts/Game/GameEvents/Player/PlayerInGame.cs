@@ -21,7 +21,7 @@ namespace Assets.Scripts.Game.GameEvents.Player
             {
                 string id = PlayerConnectionMap.Instance.GetByClientId(OwnerClientId)?.Id;
                 PlayerId = id;
-                PlayerTeam team = LobbyPlayersManager.Instance.GetPlayerTeam(PlayerId);
+                PlayerTeam team = LobbyPlayerManager.Instance.GetPlayerTeam(PlayerId);
                 Team = team;
 
                 Vector3 spawn = SpawnPositions.GetNextSpawn(Team);

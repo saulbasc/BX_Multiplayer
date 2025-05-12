@@ -15,7 +15,7 @@ namespace Assets.Scripts.Lobbi.Logic
     /// <summary>
     /// Clase que gestiona los datos de los jugadores en la Lobby.
     /// </summary>
-    public class LobbyPlayersManager : DefaultSingleton<LobbyPlayersManager>
+    public class LobbyPlayerManager : DefaultSingleton<LobbyPlayerManager>
     {
         /// <summary>
         /// Obtiene los datos de todos los jugadores de la Lobby en formato string y PlayerDataObject.
@@ -145,7 +145,7 @@ namespace Assets.Scripts.Lobbi.Logic
             return await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
             {
                 await LobbyService.Instance.UpdatePlayerAsync(LobbyDataManager.Instance.GetLobbyID(), playerId, options);
-                LobbyEvents.OnLobbyUpdated(LobbyDataManager.Instance.Lobby);
+                LobbyEvents.Instance.RaiseNewLobbyUpdated(LobbyDataManager.Instance.Lobby);
                 return true;
             }, false);
         }

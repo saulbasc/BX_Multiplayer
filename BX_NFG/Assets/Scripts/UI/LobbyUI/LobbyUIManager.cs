@@ -25,7 +25,7 @@ namespace Assets.Scripts.UI.LobbyUI
             cancelButton.onClick.AddListener(OnCancelButtonClicked);
             lobbyNameText.text = LobbyDataManager.Instance.GetLobbyCode();
 
-            GameLobbyEvents.OnLobbyCancel += OnLobbyCancel;
+            LobbyEvents.Instance.OnLobbyCancel += OnLobbyCancel;
 
             InitializeLobbyController();
         }
@@ -34,7 +34,7 @@ namespace Assets.Scripts.UI.LobbyUI
         {
             if (AuthenticationService.Instance.PlayerId == LobbyDataManager.Instance.GetHostID())
             {
-                GameLobbyEvents.OnLobbyReady += OnLobbyReady;
+                LobbyEvents.Instance.OnLobbyReady += OnLobbyReady;
                 startButton.onClick.AddListener(OnStartButtonClick);
             }
         }
@@ -46,8 +46,8 @@ namespace Assets.Scripts.UI.LobbyUI
             cancelButton.onClick.RemoveListener(OnCancelButtonClicked);
             startButton.onClick.RemoveListener(OnStartButtonClick);
 
-            GameLobbyEvents.OnLobbyReady -= OnLobbyReady;
-            GameLobbyEvents.OnLobbyCancel -= OnLobbyCancel;
+            LobbyEvents.Instance.OnLobbyReady -= OnLobbyReady;
+            LobbyEvents.Instance.OnLobbyCancel -= OnLobbyCancel;
         }
 
         private void OnLobbyReady()
@@ -69,7 +69,7 @@ namespace Assets.Scripts.UI.LobbyUI
         {
             await SafeAsyncFunctionsHandler.ExecuteAsync(async () => 
             {
-                bool success = await LobbyPlayersManager.Instance.SetPlayerReadyAsync(true);
+                bool success = await LobbyPlayerManager.Instance.SetPlayerReadyAsync(true);
                 if (success)
                 {
                     readyButton.gameObject.SetActive(false);
@@ -82,7 +82,7 @@ namespace Assets.Scripts.UI.LobbyUI
         {
             await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
             {
-                bool success = await LobbyPlayersManager.Instance.SetPlayerReadyAsync(false);
+                bool success = await LobbyPlayerManager.Instance.SetPlayerReadyAsync(false);
                 if (success)
                 {
                     readyButton.gameObject.SetActive(true);

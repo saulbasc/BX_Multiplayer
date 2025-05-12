@@ -3,6 +3,9 @@ using Assets.Scripts.Commons;
 
 namespace Assets.Scripts.Lobbi.Logic
 {
+    /// <summary>
+    /// Guarda el status en la partida del jugador local.
+    /// </summary>
     public class PlayerStatus : DefaultSingleton<PlayerStatus>
     {
         /// <summary>

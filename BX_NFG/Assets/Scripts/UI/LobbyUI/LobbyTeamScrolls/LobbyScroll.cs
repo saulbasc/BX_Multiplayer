@@ -16,15 +16,15 @@ namespace Assets.Scripts.Lobbi.UI.TeamScroll
 
         protected List<GameObject> instantiatedPlayerPanels = new List<GameObject>();
 
-        private void OnEnable(){ GameLobbyEvents.OnLobbyUpdated += OnLobbyUpdated; }
+        private void OnEnable(){ LobbyEvents.Instance.OnLobbyUpdated += OnLobbyUpdated; }
 
-        private void OnDisable(){ GameLobbyEvents.OnLobbyUpdated -= OnLobbyUpdated; }
+        private void OnDisable(){ LobbyEvents.Instance.OnLobbyUpdated -= OnLobbyUpdated; }
 
         protected abstract void UpdateAction(LobbyPlayerData playerData);
 
         private void OnLobbyUpdated()
         {
-            List<LobbyPlayerData> playerDataList = LobbyPlayersManager.Instance.GetAllPlayersDataObject();
+            List<LobbyPlayerData> playerDataList = LobbyPlayerManager.Instance.GetAllPlayersDataObject();
             instantiatedPlayerPanels.ForEach(playerPanel => Destroy(playerPanel));
             instantiatedPlayerPanels.Clear();
             playerDataList.ForEach(playerData => UpdateAction(playerData));

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
+using System.Threading.Tasks;
 using Assets.Scripts.Commons;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Managers.Corroutine;
 using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
 namespace Assets.Scripts.Lobbi.Logic
@@ -11,10 +13,10 @@ namespace Assets.Scripts.Lobbi.Logic
     /// <summary>
     /// Permite gestionar la corrutina que matiene la sala activa.
     /// </summary>
-    public class LobbyHeartbeatManager : Singleton<LobbyHeartbeatManager>
+    public class LobbyCoroutineManager : Singleton<LobbyCoroutineManager>
     {
         /// <summary>
-        /// Crea una nueva corrutina para matener activa la sala y la guarda en el CoroutineManager.
+        /// Crea una nueva corrutina para matener activa la Lobby y la guarda en el CoroutineManager.
         /// </summary>
         /// <param name="lobbyId">El identificador de la sala</param>
         /// <param name="interval">El intervalo en el que se ejecutará la corrutina</param>
@@ -27,7 +29,20 @@ namespace Assets.Scripts.Lobbi.Logic
         }
 
         /// <summary>
-        /// Corrutina que mantiene la sala activa.
+        /// Crea una nueva corrutina para actualizar la Lobby y la guarda en el CoroutineManager.
+        /// </summary>
+        /// <param name="lobbyId">El identificador de la sala</param>
+        /// <param name="interval">El intervalo en el que se ejecutará la corrutina</param>
+        public void StartUpdateLobbyCororutine(string lobbyId, float interval)
+        {
+            CoroutineManager.Instance.StartTrackedCoroutine(
+                CoroutineIndentifier.LobbyUpdateCoroutine,
+                UpdateLobbyCoroutine(lobbyId, interval)
+            );
+        }
+
+        /// <summary>
+        /// Corrutina que mantiene la Lobby activa.
         /// </summary>
         /// <param name="lobbyId">El identificador de la sala.</param>
         /// <param name="wait">El intervalo en el que se ejecutará la corrutina.</param>
@@ -47,6 +62,37 @@ namespace Assets.Scripts.Lobbi.Logic
                 yield return new WaitForSecondsRealtime(wait);
             }
         }
+
+
+        /// <summary>
+        /// Corrutina que actualiza la Lobby.
+        /// </summary>
+        /// <param name="lobbyId">El identificador de la sala.</param>
+        /// <param name="wait">El intervalo en el que se ejecutará la corrutina.</param>
+        /// <returns>La corrutina definida.</returns>
+        private IEnumerator UpdateLobbyCoroutine(string lobbyId, float wait)
+        {
+            var lobbyTask = LobbyService.Instance.GetLobbyAsync(lobbyId);
+
+            yield return new WaitUntil(() => lobbyTask.IsCompleted);
+
+            if (lobbyTask.IsCompletedSuccessfully)
+            {
+                var latestLobby = lobbyTask.Result;
+                if (latestLobby.LastUpdated > LobbyDataManager.Instance.Lobby.LastUpdated)
+                {
+                    LobbyEvents.Instance.RaiseNewLobbyUpdated(latestLobby);
+                }
+            }
+            else
+            {
+                Debug.LogError($"Error al obtener el lobby: {lobbyTask.Exception?.Flatten().InnerException}");
+            }
+
+            yield return new WaitForSecondsRealtime(wait);
+        }
+
+
 
         /// <summary>
         /// Elimina la instancia de la clase como gameObject.

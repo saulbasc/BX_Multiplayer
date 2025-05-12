@@ -49,8 +49,8 @@ namespace Assets.Scripts.Lobbi.Logic
             {
                 Lobby newLobby = await LobbyService.Instance.CreateLobbyAsync("MyLobby", maxPlayers, lobbyOptions);
                 LobbyDataManager.Instance.SetLobby(newLobby);
-                LobbyUpdaterManager.Instance.StartUpdating(LobbyDataManager.Instance.GetLobbyID(), 1f);
-                LobbyHeartbeatManager.Instance.StartHeartbeatCororutine(LobbyDataManager.Instance.GetLobbyID(), 5f);
+                LobbyCoroutineManager.Instance.StartUpdateLobbyCororutine(LobbyDataManager.Instance.GetLobbyID(), 1f);
+                LobbyCoroutineManager.Instance.StartHeartbeatCororutine(LobbyDataManager.Instance.GetLobbyID(), 5f);
                 return true;
             }, false);
         }
@@ -77,7 +77,7 @@ namespace Assets.Scripts.Lobbi.Logic
             {
                 Lobby lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(code, options);
                 LobbyDataManager.Instance.SetLobby(lobby);
-                LobbyUpdaterManager.Instance.StartUpdating(LobbyDataManager.Instance.GetLobbyID(), 1f);
+                LobbyCoroutineManager.Instance.StartUpdateLobbyCororutine(LobbyDataManager.Instance.GetLobbyID(), 1f);
                 return true;
             }, false);
         }
@@ -129,9 +129,8 @@ namespace Assets.Scripts.Lobbi.Logic
         {
             try
             {
-                LobbyUpdaterManager.Instance.StopUpdating();;
                 LobbyUpdaterManager.Instance.Delete();
-                LobbyHeartbeatManager.Instance.Delete();
+                LobbyCoroutineManager.Instance.Delete();
             }
             catch (Exception e)
             {

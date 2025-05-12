@@ -32,14 +32,14 @@ namespace Assets.Scripts.Lobbi.UI.Config
         {
             upperTimeButton.onClick.AddListener(() => IncreaseMatchTime());
             lowerTimeButton.onClick.AddListener(() => DecreaseMatchTime());
-            GameLobbyEvents.OnLobbyUpdated += OnLobbyUpdated;
+            LobbyEvents.Instance.OnLobbyUpdated += OnLobbyUpdated;
         }
 
         private void OnDisable()
         {
             upperTimeButton.onClick.RemoveListener(() => IncreaseMatchTime());
             lowerTimeButton.onClick.RemoveListener(() => DecreaseMatchTime());
-            GameLobbyEvents.OnLobbyUpdated -= OnLobbyUpdated;
+            LobbyEvents.Instance.OnLobbyUpdated -= OnLobbyUpdated;
         }
 
         private void OnLobbyUpdated()

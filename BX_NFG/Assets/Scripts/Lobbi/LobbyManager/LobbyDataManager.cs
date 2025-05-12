@@ -11,6 +11,7 @@ using System.Linq;
 using Assets.Scripts.Init;
 using Assets.Scripts.Handlers;
 using Unity.Services.Lobbies;
+using Assets.Scripts.Lobbi.Players;
 
 namespace Assets.Scripts.Lobbi.Logic
 {
@@ -34,6 +35,11 @@ namespace Assets.Scripts.Lobbi.Logic
         /// </summary>
         /// <returns>La lista de jugadores de la Lobby.</returns>
         public List<Player> GetPlayers() => Lobby.Players;
+        /// <summary>
+        /// Obtiene el número actual de jugadores totales que tiene la Lobby.
+        /// </summary>
+        /// <returns>El número total de jugadores.</returns>
+        public int GetNumberOfPlayers() => Lobby.Players.Count;
         /// <summary>
         /// Comprueba si el usuario local es el host de la Lobby.
         /// </summary>
@@ -97,7 +103,7 @@ namespace Assets.Scripts.Lobbi.Logic
         /// <returns>El número de jugadores en el equipo.</returns>
         public int GetNumberOfPlayersInLobbyTeams(PlayerTeam playerTeam)
         {
-            List<Dictionary<string, PlayerDataObject>> playersData = LobbyPlayersManager.Instance.GetAllPlayersData();
+            List<Dictionary<string, PlayerDataObject>> playersData = LobbyPlayerManager.Instance.GetAllPlayersData();
             return playersData.Count(playerData
                 => playerData.TryGetValue(PlayerDataKeys.PlayerTeam, out var teamObj)
                 && teamObj.Value == playerTeam.ToString());
@@ -113,6 +119,11 @@ namespace Assets.Scripts.Lobbi.Logic
             MatchInfo.Instance.SetNumberOfPlayersInTeams(numberOfLocalPlayers + numberOfVisitorPlayers); 
         }
 
+        /// <summary>
+        /// Actualiza los datos de la Lobby.
+        /// </summary>
+        /// <param name="lobbyData">Los datos de la lobby en formato string.</param>
+        /// <returns>True si se actualiza correctamente.</returns>
         public async Task<bool> UpdateLobbyData(Dictionary<string, string> lobbyData)
         {
             UpdateLobbyOptions options = new UpdateLobbyOptions
@@ -124,9 +135,30 @@ namespace Assets.Scripts.Lobbi.Logic
             {
                 Lobby newLobby = await LobbyService.Instance.UpdateLobbyAsync(Lobby.Id, options);
                 Lobby = newLobby;
-                LobbyEvents.OnLobbyUpdated(newLobby);
+                LobbyEvents.Instance.RaiseNewLobbyUpdated(Lobby);
                 return true;
             }, false);
+        }
+
+        /// <summary>
+        /// Calcula el número de jugadores que están listos en la Lobby.
+        /// </summary>
+        /// <param name="players"></param>
+        /// <returns></returns>
+        public int NumberOfPlayersReady()
+        {
+            List<Dictionary<string, PlayerDataObject>> players = LobbyPlayerManager.Instance.GetAllPlayersData();
+            int numberOfPlayersReady = 0;
+            players.ForEach(player => { numberOfPlayersReady = SumPlayerReady(player, numberOfPlayersReady); });
+            return numberOfPlayersReady;
+        }
+
+        private int SumPlayerReady(Dictionary<string, PlayerDataObject> playerData, int playersReady)
+        {
+            LobbyPlayerData player = new LobbyPlayerData(playerData);
+            return player.IsReady
+                ? playersReady + 1
+                : playersReady;
         }
     }
 }
