@@ -3,7 +3,6 @@ using Assets.Scripts.Lobbi.Logic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using Assets.Scripts.Lobbi.Players;
 using Assets.Scripts.Init;
 
 namespace Assets.Scripts.Lobbi.UI.PlayerEntry

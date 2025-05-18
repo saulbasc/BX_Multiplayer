@@ -32,7 +32,6 @@ namespace Assets.Scripts.Core.FireB
             await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
             {
                 await FirebaseAuth.DefaultInstance.SignInAnonymouslyAsync();
-                Debug.Log("[Firebase] Usuario conectado: " + GetCurrentID());
             });
         }
 
@@ -42,7 +41,6 @@ namespace Assets.Scripts.Core.FireB
         /// <returns>El ID de firebase del usuario</returns>
         public static string GetCurrentID()
         {
-            Debug.Log("Current user firebase "+FirebaseAuth.DefaultInstance.CurrentUser?.UserId);
             return FirebaseAuth.DefaultInstance.CurrentUser?.UserId ?? null;
         }
 

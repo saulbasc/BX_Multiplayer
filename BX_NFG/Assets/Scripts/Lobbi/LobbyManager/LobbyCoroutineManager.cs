@@ -61,7 +61,6 @@ namespace Assets.Scripts.Lobbi.Logic
             }
         }
 
-
         /// <summary>
         /// Corrutina que actualiza la Lobby.
         /// </summary>
@@ -70,27 +69,27 @@ namespace Assets.Scripts.Lobbi.Logic
         /// <returns>La corrutina definida.</returns>
         private IEnumerator UpdateLobbyCoroutine(string lobbyId, float wait)
         {
-            var lobbyTask = LobbyService.Instance.GetLobbyAsync(lobbyId);
-
-            yield return new WaitUntil(() => lobbyTask.IsCompleted);
-
-            if (lobbyTask.IsCompletedSuccessfully)
+            while (true)
             {
-                var latestLobby = lobbyTask.Result;
-                if (latestLobby.LastUpdated > LobbyDataManager.Instance.Lobby.LastUpdated)
+                var lobbyTask = LobbyService.Instance.GetLobbyAsync(lobbyId);
+                yield return new WaitUntil(() => lobbyTask.IsCompleted);
+
+                if (lobbyTask.IsCompletedSuccessfully)
                 {
-                    LobbyEvents.Instance.RaiseNewLobbyUpdated(latestLobby);
+                    var latestLobby = lobbyTask.Result;
+                    if (latestLobby.LastUpdated > LobbyDataManager.Instance.Lobby.LastUpdated)
+                    {
+                        LobbyEvents.Instance.RaiseNewLobbyUpdated(latestLobby);
+                    }
                 }
-            }
-            else
-            {
-                Debug.LogError($"Error al obtener el lobby: {lobbyTask.Exception?.Flatten().InnerException}");
-            }
+                else
+                {
+                    Debug.LogError($"Error al obtener el lobby: {lobbyTask.Exception?.Flatten().InnerException}");
+                }
 
-            yield return new WaitForSecondsRealtime(wait);
+                yield return new WaitForSecondsRealtime(wait);
+            }
         }
-
-
 
         /// <summary>
         /// Elimina la instancia de la clase como gameObject.

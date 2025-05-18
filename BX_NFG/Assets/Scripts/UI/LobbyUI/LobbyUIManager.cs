@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Lobbi;
 using Assets.Scripts.Lobbi.Logic;
+using Assets.Scripts.Relay;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -69,7 +70,14 @@ namespace Assets.Scripts.UI.LobbyUI
 
         private async void OnStartButtonClick()
         {
-            await LobbyActionsManager.Instance.StartLobbyMatch();
+            if (LobbyDataManager.Instance.IsLocalPlayerHost())
+            {
+                await LobbyActionsManager.Instance.StartLobbyMatchAsHost();
+            }
+            else
+            {
+                await LobbyActionsManager.Instance.StartLobbyMatchAsClient();
+            }
         }
     }
 }

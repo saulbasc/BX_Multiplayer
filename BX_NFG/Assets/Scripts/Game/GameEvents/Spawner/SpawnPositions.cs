@@ -8,18 +8,18 @@ namespace Assets.Scripts.Game.GameEvents.Spawner
     {
         private static List<Vector3> localTeamSpawns = new()
         {
-            new Vector3(-30, 0, -15),
-            new Vector3(-30, 0, -7),
-            new Vector3(-30, 0,  0),
-            new Vector3(-30, 0,  7),
+            new Vector3(-30, 1, -15),
+            new Vector3(-30, 1, -7),
+            new Vector3(-30, 1,  0),
+            new Vector3(-30, 1,  7),
         };
 
         private static List<Vector3> visitorTeamSpawns = new()
         {
-            new Vector3(30, 0, -15),
-            new Vector3(30, 0, -7),
-            new Vector3(30, 0, 0),
-            new Vector3(30, 0, 7),
+            new Vector3(30, 1, -15),
+            new Vector3(30, 1, -7),
+            new Vector3(30, 1, 0),
+            new Vector3(30, 1, 7),
         };
 
         private static Dictionary<PlayerTeam, int> spawnIndices = new()

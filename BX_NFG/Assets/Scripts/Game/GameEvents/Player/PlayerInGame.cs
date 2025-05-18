@@ -1,6 +1,5 @@
 ﻿
 using Assets.Scripts.Game.GameEvents.Spawner;
-using Assets.Scripts.Init;
 using Assets.Scripts.Lobbi.Data;
 using Assets.Scripts.Lobbi.Logic;
 using Unity.Netcode;
@@ -24,7 +23,7 @@ namespace Assets.Scripts.Game.GameEvents.Player
                 PlayerTeam team = LobbyPlayerManager.Instance.GetPlayerTeam(PlayerId);
                 Team = team;
 
-                Vector3 spawn = SpawnPositions.GetNextSpawn(Team);
+                Vector3 spawn = SpawnPositions.GetNextSpawn(PlayerTeam.Visitor);
                 spawnPosition.Value = spawn;
                 transform.position = spawn;
             }

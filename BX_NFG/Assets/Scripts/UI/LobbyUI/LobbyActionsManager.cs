@@ -32,20 +32,24 @@ namespace Assets.Scripts.UI.LobbyUI
         }
 
         /// <summary>
-        /// Empieza la partida en el jugador local mediante Relay.
-        /// Si es host crea la partida y si es cliente se une.
+        /// Crea la partida en el jugador local mediante Relay.
+        /// Aplicar sólamente cuando el jugador local sea el host.
         /// </summary>
-        /// <returns>True si crea o se conecta exítosamente a la partida con Relay.</returns>
-        public async Task<bool> StartLobbyMatch()
+        /// <returns>True si crea exítosamente la partida mediante Relay.</returns>
+        public async Task<bool> StartLobbyMatchAsHost()
         {
-            if (LobbyDataManager.Instance.IsLocalPlayerHost())
-            {
-                return await HostRelayManager.Instance.StartRelayServer();
-            }
-            else
-            {
-                return await ClientRelayManager.Instance.JoinRelayServer();
-            }
+            return await HostRelayManager.Instance.StartRelayServer();
+        }
+
+
+        /// <summary>
+        /// Se une a la partida en el jugador local mediante Relay.
+        /// Aplicar sólamente cuando el jugador local sea cliente.
+        /// </summary>
+        /// <returns>True si se une exítosamente a la partida mediante Relay.</returns>
+        public async Task<bool> StartLobbyMatchAsClient()
+        {
+            return await ClientRelayManager.Instance.JoinRelayServer();
         }
 
         /// <summary>

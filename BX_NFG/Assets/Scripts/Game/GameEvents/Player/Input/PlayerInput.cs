@@ -34,8 +34,11 @@ namespace Assets.Scripts.Input
 
         public override void OnNetworkDespawn()
         {
-            shootButton.onClick.RemoveAllListeners();
-            passButton.onClick.RemoveAllListeners();
+            if (shootButton != null)
+                shootButton.onClick.RemoveAllListeners();
+
+            if (passButton != null)
+                passButton.onClick.RemoveAllListeners();
         }
 
         private void OnPassButton()

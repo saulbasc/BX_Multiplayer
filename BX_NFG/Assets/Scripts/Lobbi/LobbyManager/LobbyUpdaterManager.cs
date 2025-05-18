@@ -59,9 +59,10 @@ namespace Assets.Scripts.Lobbi.Logic
 
             if (joinRelayCode.IsNullOrEmpty() || PlayerStatus.Instance.InGame || PlayerStatus.Instance.JoinedGame) return;
 
+            await ClientRelayManager.Instance.JoinRelayServer();
+
             await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
             {
-                await ClientRelayManager.Instance.JoinRelayServer();
                 await SceneManager.LoadSceneAsync(Scenes.GameScene.ToString());
             });
             PlayerStatus.Instance.JoinedGame = true;

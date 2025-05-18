@@ -12,6 +12,7 @@ using Assets.Scripts.Init;
 using Assets.Scripts.Handlers;
 using Unity.Services.Lobbies;
 using Assets.Scripts.Lobbi.Players;
+using UnityEngine;
 
 namespace Assets.Scripts.Lobbi.Logic
 {
@@ -25,7 +26,6 @@ namespace Assets.Scripts.Lobbi.Logic
         /// </summary>
         public Lobby Lobby { get; private set; }
         public void SetLobby(Lobby lobby) => Lobby = lobby;
-
         public string GetLobbyID() => Lobby.Id;
         public string GetLobbyCode() => Lobby.LobbyCode;
         public string GetHostID() => Lobby.HostId;
@@ -87,13 +87,10 @@ namespace Assets.Scripts.Lobbi.Logic
         /// <returns>True si se cambia la duración del partido correctamente.</returns>
         public async Task<bool> SetLobbyMatchDurationAsync(MatchDuration newMatchDuration)
         {
-            return await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
-            {
-                Dictionary<string, DataObject> getLobbyData = Lobby.Data;
-                LobbyData lobbyData = new LobbyData(getLobbyData);
-                lobbyData.MatchDuration = newMatchDuration;
-                return await UpdateLobbyData(lobbyData.SerializeObjectToDictionary());
-            });
+            Dictionary<string, DataObject> getLobbyData = Lobby.Data;
+            LobbyData lobbyData = new LobbyData(getLobbyData);
+            lobbyData.MatchDuration = newMatchDuration;
+            return await UpdateLobbyData(lobbyData.SerializeObjectToDictionary());
         }
 
         /// <summary>
@@ -104,19 +101,10 @@ namespace Assets.Scripts.Lobbi.Logic
         public int GetNumberOfPlayersInLobbyTeams(PlayerTeam playerTeam)
         {
             List<Dictionary<string, PlayerDataObject>> playersData = LobbyPlayerManager.Instance.GetAllPlayersData();
-            return playersData.Count(playerData
-                => playerData.TryGetValue(PlayerDataKeys.PlayerTeam, out var teamObj)
-                && teamObj.Value == playerTeam.ToString());
-        }
 
-        /// <summary>
-        /// Establece el número total de jugadores en Local y Visitante en MatchInfo.
-        /// </summary>
-        public void SetTotalPlayersInTeamsInMatchInfo()
-        {
-            int numberOfLocalPlayers = GetNumberOfPlayersInLobbyTeams(PlayerTeam.Local);
-            int numberOfVisitorPlayers = GetNumberOfPlayersInLobbyTeams(PlayerTeam.Visitor);
-            MatchInfo.Instance.SetNumberOfPlayersInTeams(numberOfLocalPlayers + numberOfVisitorPlayers); 
+            return playersData.Count(playerData =>
+                playerData.TryGetValue(PlayerDataKeys.PlayerTeam, out var teamObj)
+                && teamObj.Value == ((int)playerTeam).ToString());
         }
 
         /// <summary>
@@ -143,8 +131,7 @@ namespace Assets.Scripts.Lobbi.Logic
         /// <summary>
         /// Calcula el número de jugadores que están listos en la Lobby.
         /// </summary>
-        /// <param name="players"></param>
-        /// <returns></returns>
+        /// <returns>El número de jugadores que están listos en la Lobby.</returns>
         public int NumberOfPlayersReady()
         {
             List<Dictionary<string, PlayerDataObject>> players = LobbyPlayerManager.Instance.GetAllPlayersData();

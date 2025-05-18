@@ -1,5 +1,4 @@
 ﻿
-using System;
 using System.Collections.Generic;
 using Assets.Scripts.GameManager.GameEvents.Timer;
 using Assets.Scripts.Lobbi.Data;
@@ -31,8 +30,8 @@ namespace Assets.Scripts.Lobbi.Datas
         /// <param name="matchDuration">La duración del partido.</param>
         public LobbyData(string relayJoinCode, MatchDuration matchDuration)
         {
-            this.RelayJoinCode = relayJoinCode;
-            this.MatchDuration = matchDuration;
+            RelayJoinCode = relayJoinCode;
+            MatchDuration = matchDuration;
         }
 
         /// <summary>

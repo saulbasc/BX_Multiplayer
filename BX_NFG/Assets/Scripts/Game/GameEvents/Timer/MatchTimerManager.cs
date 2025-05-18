@@ -33,7 +33,6 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
 
         private void Update()
         {
-            Debug.Log("UPDATING => "+isRunning);
             if (!IsServer) return;
 
             if (!isRunning) return;

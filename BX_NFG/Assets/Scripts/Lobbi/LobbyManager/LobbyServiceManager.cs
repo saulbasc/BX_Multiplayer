@@ -36,8 +36,8 @@ namespace Assets.Scripts.Lobbi.Logic
 
             Dictionary<string, PlayerDataObject> playerDataObject = DataUtil.ToPlayerDataObjectDictionary(dictionaryPlayerData);
             Dictionary<string, DataObject> lobbyDataObject = DataUtil.ToLobbyDataObjectDictionary(dictionaryLobbyData);
+            
             Player player = new Player(UnityServicesActions.GetCurrentUserID(), null, playerDataObject);
-
             CreateLobbyOptions lobbyOptions = new CreateLobbyOptions
             {
                 IsPrivate = false,

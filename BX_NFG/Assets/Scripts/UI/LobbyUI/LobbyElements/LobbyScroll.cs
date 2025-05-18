@@ -42,6 +42,7 @@ namespace Assets.Scripts.Lobbi.UI.TeamScroll
             instantiatedPlayerPanels.ForEach(playerPanel => Destroy(playerPanel));
             instantiatedPlayerPanels.Clear();
             playerDataList.ForEach(playerData => {
+                Debug.Log($"PlayerData: {playerData.GameTag} - {playerData.PlayerTeam}");
                 if (playerData.PlayerTeam == teamPlayersToAdd)
                 {
                     SetUIPanelPlayer(playerData);

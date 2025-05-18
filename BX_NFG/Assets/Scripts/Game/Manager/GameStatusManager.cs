@@ -13,8 +13,15 @@ namespace Assets.Scripts.Game.Manager
         private Coroutine startingCoroutine;
         private bool allConectedFirstTime;
 
+        void Start()
+        {
+            Debug.Log($"[GameStatusManager] Start() in client: enabled={enabled}, active={gameObject.activeInHierarchy}");
+        }
+
+
         public override void OnNetworkSpawn()
         {
+            Debug.Log($"[GameStatusManager] OnNetworkSpawn. IsServer: {IsServer}, IsClient: {IsClient}, IsHost: {IsHost}");
             if (IsServer)
             {
                 matchStateManager.OnMatchStateChanged += HandleStateChanged;
@@ -31,7 +38,8 @@ namespace Assets.Scripts.Game.Manager
 
         private void Update()
         {
-            if (!IsServer) return;
+            Debug.Log($"[GameStatusManager] Update check - IsClient: {IsClient}, IsServer: {IsServer}, IsHost: {IsHost}");
+            if (!IsHost) return;
             if (MatchInfo.Instance.GetAllConnected() && !allConectedFirstTime)
             {
                 matchStateManager.SetMatchState(MatchState.starting);

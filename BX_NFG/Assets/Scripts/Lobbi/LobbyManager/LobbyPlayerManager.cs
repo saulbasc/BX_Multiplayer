@@ -9,6 +9,7 @@ using Assets.Scripts.Lobbi.Datas;
 using Assets.Scripts.Lobbi.Players;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using UnityEngine;
 
 namespace Assets.Scripts.Lobbi.Logic
 {
@@ -77,12 +78,9 @@ namespace Assets.Scripts.Lobbi.Logic
         /// <returns>True si se completa el cambio correctamente.</returns>
         public async Task<bool> SetPlayerReadyAsync(bool ready)
         {
-            return await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
-            {
-                LobbyPlayerData localPlayerData = GetSinglePlayerDataObject(UnityServicesActions.GetCurrentUserID());
-                localPlayerData.IsReady = ready;
-                return await UpdatePlayerData(localPlayerData.Id, localPlayerData.SerializeObjectToDictionary());
-            });
+            LobbyPlayerData localPlayerData = GetSinglePlayerDataObject(UnityServicesActions.GetCurrentUserID());
+            localPlayerData.IsReady = ready;
+            return await UpdatePlayerData(localPlayerData.Id, localPlayerData.SerializeObjectToDictionary());
         }
 
         /// <summary>
@@ -94,10 +92,7 @@ namespace Assets.Scripts.Lobbi.Logic
         public async Task<bool> SetPlayerTeamAsync(LobbyPlayerData playerData, PlayerTeam playerTeam)
         {
             playerData.PlayerTeam = playerTeam;
-            return await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
-            {
-                return await UpdatePlayerData(playerData.Id, playerData.SerializeObjectToDictionary());
-            });
+            return await UpdatePlayerData(playerData.Id, playerData.SerializeObjectToDictionary());
         }
 
         /// <summary>
@@ -115,11 +110,9 @@ namespace Assets.Scripts.Lobbi.Logic
         /// <returns>True si los datos del jugador se actualizan correctamente.</returns>
         public async Task<bool> UpdatePlayerData(string playerId, Dictionary<string, string> playerData, string allocationId = default, string connectionData = default)
         {
-            return await SafeAsyncFunctionsHandler.ExecuteAsync( async () =>
-            {
-                UpdatePlayerOptions options = CreateUpdatePlayerOptions(playerData, allocationId, connectionData);
-                return await InternalUpdatePlayer(playerId, options);
-            });
+            LobbyPlayerData lb = new LobbyPlayerData(DataUtil.ToPlayerDataObjectDictionary(playerData));
+            UpdatePlayerOptions options = CreateUpdatePlayerOptions(playerData, allocationId, connectionData);
+            return await InternalUpdatePlayer(playerId, options);
         }
 
         /// <summary>
@@ -132,19 +125,17 @@ namespace Assets.Scripts.Lobbi.Logic
         /// <returns>True si se completa la actualización correctamente</returns>
         public async Task<bool> UpdatePlayerOptions(string playerId, string allocationId, string connectionData)
         {
-            return await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
-            {
-                Dictionary<string, string> dictionaryPlayerData = GetSinglePlayerDataObject(playerId).SerializeObjectToDictionary();
-                UpdatePlayerOptions options = CreateUpdatePlayerOptions(dictionaryPlayerData, allocationId, connectionData);
-                return await InternalUpdatePlayer(playerId, options);
-            }, false);
+            Dictionary<string, string> dictionaryPlayerData = GetSinglePlayerDataObject(playerId).SerializeObjectToDictionary();
+            UpdatePlayerOptions options = CreateUpdatePlayerOptions(dictionaryPlayerData, allocationId, connectionData);
+            return await InternalUpdatePlayer(playerId, options);
         }
 
         private async Task<bool> InternalUpdatePlayer(string playerId, UpdatePlayerOptions options)
         {
             return await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
             {
-                await LobbyService.Instance.UpdatePlayerAsync(LobbyDataManager.Instance.GetLobbyID(), playerId, options);
+                Lobby newLobby = await LobbyService.Instance.UpdatePlayerAsync(LobbyDataManager.Instance.GetLobbyID(), playerId, options);
+                LobbyDataManager.Instance.SetLobby(newLobby);
                 LobbyEvents.Instance.RaiseNewLobbyUpdated(LobbyDataManager.Instance.Lobby);
                 return true;
             }, false);

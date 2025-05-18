@@ -2,6 +2,7 @@
 using Assets.Scripts.Handlers;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
+using UnityEngine;
 
 namespace Assets.Scripts.Init
 {
@@ -27,9 +28,9 @@ namespace Assets.Scripts.Init
                 {
                     await AuthenticationService.Instance.SignInAnonymouslyAsync();
                 }
-
-                //await AuthenticationService.Instance.SignInAnonymouslyAsync();
             });
+
+            Debug.Log("Current user id => " +GetCurrentUserID());
         }
 
         /// <summary>
