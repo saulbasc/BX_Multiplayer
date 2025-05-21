@@ -2,6 +2,7 @@
 using Assets.Scripts.Commons;
 using Assets.Scripts.Lobbi.Players;
 using Unity.Netcode;
+using UnityEngine;
 
 public class PlayerConnectionMap : Singleton<PlayerConnectionMap>
 {
@@ -19,6 +20,7 @@ public class PlayerConnectionMap : Singleton<PlayerConnectionMap>
     {
         clientIdToLobbyData[clientId] = lobbyData;
         playerIdToClientId[lobbyData.Id] = clientId;
+        Debug.Log($"Registering host {clientId} with player ID {lobbyData.Id}");
     }
 
     public LobbyPlayerData GetByClientId(ulong clientId)

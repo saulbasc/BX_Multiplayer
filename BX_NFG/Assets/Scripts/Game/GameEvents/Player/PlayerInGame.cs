@@ -1,5 +1,4 @@
-﻿
-using Assets.Scripts.Game.GameEvents.Spawner;
+﻿using Assets.Scripts.Game.GameEvents.Spawner;
 using Assets.Scripts.Lobbi.Data;
 using Assets.Scripts.Lobbi.Logic;
 using Unity.Netcode;
@@ -18,6 +17,7 @@ namespace Assets.Scripts.Game.GameEvents.Player
         {
             if (IsServer)
             {
+                Debug.Log("PlayerInGame: OnNetworkSpawn => " + OwnerClientId);
                 string id = PlayerConnectionMap.Instance.GetByClientId(OwnerClientId)?.Id;
                 PlayerId = id;
                 PlayerTeam team = LobbyPlayerManager.Instance.GetPlayerTeam(PlayerId);
@@ -26,6 +26,8 @@ namespace Assets.Scripts.Game.GameEvents.Player
                 Vector3 spawn = SpawnPositions.GetNextSpawn(PlayerTeam.Visitor);
                 spawnPosition.Value = spawn;
                 transform.position = spawn;
+
+                Debug.Log("Spawned player " + PlayerId + " at position " + spawnPosition.Value);
             }
             else
             {

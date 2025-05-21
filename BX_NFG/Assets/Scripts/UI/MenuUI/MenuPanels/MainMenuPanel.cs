@@ -4,7 +4,6 @@ using Assets.Scripts.Core.FireB;
 using Assets.Scripts.Core.Models;
 using Assets.Scripts.UI.Common;
 using TMPro;
-using Unity.Android.Types;
 using UnityEngine;
 using UnityEngine.UI;
 

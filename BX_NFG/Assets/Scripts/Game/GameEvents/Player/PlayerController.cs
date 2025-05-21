@@ -16,6 +16,14 @@ public class PlayerController : NetworkBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    public override void OnNetworkSpawn()
+    {
+        if (IsOwner)
+        {
+            playerInput.enabled = true;
+        }
+    }
+
     private void FixedUpdate()
     {
         if (IsOwner)
@@ -44,13 +52,5 @@ public class PlayerController : NetworkBehaviour
     private void UpdateInputServerRpc(Vector3 input)
     {
         latestInput = input;
-    }
-
-    public override void OnNetworkSpawn()
-    {
-        if (IsOwner)
-        {
-            playerInput.enabled = true;
-        }
     }
 }

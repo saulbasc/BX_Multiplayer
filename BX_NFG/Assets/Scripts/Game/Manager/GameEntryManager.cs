@@ -9,8 +9,14 @@ namespace Assets.Scripts.Game.Manager
 {
     public class GameEntryManager : NetworkBehaviour
     {
+        private void Awake()
+        {
+            Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        }
+
         public override void OnNetworkSpawn()
         {
+            Debug.Log("BBBBBBBBBBBBBBBBBBBBBBBBBB");
             NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
             if (LobbyDataManager.Instance.IsLocalPlayerHost())
             {
@@ -18,7 +24,6 @@ namespace Assets.Scripts.Game.Manager
             }
             else
             {
-                Debug.Log("Ejecutando ClientConnection");
                 ClientConnection();
             }
         }

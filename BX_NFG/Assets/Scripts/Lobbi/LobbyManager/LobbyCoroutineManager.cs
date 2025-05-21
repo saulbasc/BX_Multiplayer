@@ -80,6 +80,7 @@ namespace Assets.Scripts.Lobbi.Logic
                     if (latestLobby.LastUpdated > LobbyDataManager.Instance.Lobby.LastUpdated)
                     {
                         LobbyEvents.Instance.RaiseNewLobbyUpdated(latestLobby);
+                        LobbyDataManager.Instance.SetLobby(latestLobby);
                     }
                 }
                 else

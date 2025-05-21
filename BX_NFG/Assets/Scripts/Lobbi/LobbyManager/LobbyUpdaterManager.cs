@@ -5,6 +5,7 @@ using Assets.Scripts.Relay;
 using UnityEngine.SceneManagement;
 using WebSocketSharp;
 using Assets.Scripts.Handlers;
+using Unity.Netcode;
 
 namespace Assets.Scripts.Lobbi.Logic
 {
@@ -59,12 +60,8 @@ namespace Assets.Scripts.Lobbi.Logic
 
             if (joinRelayCode.IsNullOrEmpty() || PlayerStatus.Instance.InGame || PlayerStatus.Instance.JoinedGame) return;
 
+            Debug.Log("LobbyUpdaterManager: CheckIfLocalPlayerIsReadyToEnterInGame => " + joinRelayCode);
             await ClientRelayManager.Instance.JoinRelayServer();
-
-            await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
-            {
-                await SceneManager.LoadSceneAsync(Scenes.GameScene.ToString());
-            });
             PlayerStatus.Instance.JoinedGame = true;
         }
 

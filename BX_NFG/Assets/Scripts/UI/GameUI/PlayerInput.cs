@@ -1,6 +1,6 @@
-﻿using System;
+﻿using System.Collections;
 using Assets.Scripts.Game.GameEvents.Player;
-using Assets.Scripts.UI.MatchUI;
+using Assets.Scripts.UI.GameUI;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,21 +16,29 @@ namespace Assets.Scripts.Input
         public override void OnNetworkSpawn()
         {
             if (!IsOwner) return;
+            StartCoroutine(SetupInput());
+        }
+
+        private IEnumerator SetupInput()
+        {
+            yield return new WaitForSeconds(0.5f); 
+
             joystick = FindAnyObjectByType<FloatingJoystick>();
             foreach (var button in FindObjectsByType<Button>(FindObjectsSortMode.None))
             {
-                if (button.name == "ShootButton")
+                if (button.name == InputButton.ShootButton.ToString())
                 {
                     shootButton = button;
                     shootButton.onClick.AddListener(OnShootButton);
                 }
-                else if (button.name == "PassButton")
+                else if (button.name == InputButton.PassButton.ToString())
                 {
                     passButton = button;
                     passButton.onClick.AddListener(OnPassButton);
                 }
             }
         }
+
 
         public override void OnNetworkDespawn()
         {

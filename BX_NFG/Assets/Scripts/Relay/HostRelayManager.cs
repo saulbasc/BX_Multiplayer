@@ -13,6 +13,7 @@ using Assets.Scripts.Handlers;
 using Unity.Netcode;
 using UnityEngine;
 using Assets.Scripts.Lobbi.Data;
+using Unity.Netcode.Transports.UTP;
 
 namespace Assets.Scripts.Relay
 {
@@ -20,46 +21,56 @@ namespace Assets.Scripts.Relay
     {
         private int maxConnections = 10;
         private HostRelayData hostRelayData;
-        public string GetAllocatorId() => hostRelayData.AllocationId.ToString();
-        public string GetConnectionData() => Convert.ToBase64String(hostRelayData.ConnectionData);
 
+        private void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
 
         public async Task<bool> StartRelayServer()
         {
             return await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
             {
+                PlayerStatus.Instance.InGame = true;
+                string code = await InitializeHostRelayData();
+                await UpdateLobbyData(code);
+                await UpdateLobbyPlayerData();
+
+                NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(
+                    hostRelayData.Ip,
+                    (ushort)hostRelayData.Port,
+                    hostRelayData.AllocationIdBytes,
+                    hostRelayData.Key,
+                    hostRelayData.ConnectionData
+                );
+
+                bool started = NetworkManager.Singleton.StartHost();
+                LoadGameScene();
+                return true;
+
+            }, false);
+        }
+
+        private async Task<string> InitializeHostRelayData()
+        {
+            return await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
+            {
                 Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
-
                 string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-
                 RelayServerEndpoint dtlsEndpoint = allocation.ServerEndpoints.FirstOrDefault(connection => connection.ConnectionType == "dtls");
-
-                if (dtlsEndpoint == null)
-                {
-                    throw new Exception("No se encontró endpoint DTLS");
-                }
 
                 hostRelayData = new HostRelayData(
                     dtlsEndpoint.Host, dtlsEndpoint.Port, allocation.ConnectionData,
                     allocation.Key, allocation.AllocationIdBytes, allocation.AllocationId
                 );
 
-                PlayerStatus.Instance.InGame = true;
-                await UpdateLobbyData(joinCode);
-                await UpdateLobbyPlayerData();
-
-                NetworkManager.Singleton.StartHost();
-                LoadGameScene();
-
-                return true;
-
-            }, false);
+                return joinCode;
+            }, "");
         }
 
         private async Task<bool> UpdateLobbyData(string joinCode)
         {
-            SetTotalPlayersInTeamsInMatchInfo();
-            MatchInfo.Instance.SetMatchDuration(LobbyDataManager.Instance.GetLobbyMatchDuration());
+            SetMatchInfo();
             LobbyData actualLobbyData = LobbyDataManager.Instance.GetLobbyDataObject();
             var lobbyData = new LobbyData(joinCode, actualLobbyData.MatchDuration);
             return await LobbyDataManager.Instance.UpdateLobbyData(lobbyData.SerializeObjectToDictionary());
@@ -68,24 +79,26 @@ namespace Assets.Scripts.Relay
         /// <summary>
         /// Establece el número total de jugadores en Local y Visitante en MatchInfo.
         /// </summary>
-        private void SetTotalPlayersInTeamsInMatchInfo()
+        private void SetMatchInfo()
         {
             int numberOfLocalPlayers = LobbyDataManager.Instance.GetNumberOfPlayersInLobbyTeams(PlayerTeam.Local);
             int numberOfVisitorPlayers = LobbyDataManager.Instance.GetNumberOfPlayersInLobbyTeams(PlayerTeam.Visitor);
             MatchInfo.Instance.SetNumberOfPlayersInTeams(numberOfLocalPlayers + numberOfVisitorPlayers);
+            MatchInfo.Instance.SetMatchDuration(LobbyDataManager.Instance.GetLobbyMatchDuration());
         }
 
         private async Task<bool> UpdateLobbyPlayerData()
         {
-            return await LobbyPlayerManager.Instance.UpdatePlayerOptions(UnityServicesActions.GetCurrentUserID(), GetAllocatorId(), GetConnectionData());
+            return await LobbyPlayerManager.Instance.UpdatePlayerOptions(
+                UnityServicesActions.GetCurrentUserID(), 
+                hostRelayData.AllocationId.ToString(),
+                Convert.ToBase64String(hostRelayData.ConnectionData)
+            );
         }
 
         private void LoadGameScene()
         {
-            NetworkManager.Singleton.SceneManager.LoadScene(
-                Scenes.GameScene.ToString(),
-                LoadSceneMode.Single
-            );
+            NetworkManager.Singleton.SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
         }
 
         public (byte[] allocationId, byte[] key, byte[] connectionData, string ip, int port) GetHostConnectionData()

@@ -15,7 +15,6 @@ public class PlayerNetwork : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void NotifyConnectedServerRpc()
     {
-        Debug.Log("Recibido aviso de nueva conexión");
         MatchInfo.Instance.SetNumberOdPlayersInTeamsConnected(
             MatchInfo.Instance.NumberOfPlayersInTeamsConnected + 1
         );

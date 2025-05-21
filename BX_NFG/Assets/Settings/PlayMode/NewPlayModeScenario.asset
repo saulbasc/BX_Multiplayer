@@ -19,7 +19,7 @@ MonoBehaviour:
     <CorrespondingNodeId>k__BackingField: 
     m_Nodes: []
     m_PlayerTag: 
-    m_InitialScene: {fileID: 102900000, guid: c863bc1d4e09edd4d97effb811a03ff7, type: 3}
+    m_InitialScene: {fileID: 102900000, guid: 3da50228981100f4189e3711abfcb122, type: 3}
   m_EditorInstances: []
   m_LocalInstances: []
   m_RemoteInstances: []

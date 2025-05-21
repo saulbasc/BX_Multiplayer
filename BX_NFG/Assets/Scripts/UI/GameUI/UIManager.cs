@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using Assets.Scripts.Game.GameEvents.Score;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Assets.Scripts.GameManager.GameEvents.Timer;
@@ -17,6 +16,7 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
         [SerializeField] private TextMeshProUGUI timerText;
         [SerializeField] private TextMeshProUGUI localGoalsText;
         [SerializeField] private TextMeshProUGUI visitorGoalsText;
+        [SerializeField] private Button exitButton;
         [SerializeField] private Button pauseButton;
         [SerializeField] private Button resumeButton;
 
@@ -26,6 +26,7 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
             {
                 pauseButton.onClick.AddListener(OnPauseButtonClicked);
                 resumeButton.onClick.AddListener(OnResumeButtonClicked);
+                exitButton.onClick.AddListener(OnExitButtonClicked);
             }
         }
 
@@ -80,6 +81,11 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
             RequestResumeServerRpc();
             resumeButton.gameObject.SetActive(false);
             pauseButton.gameObject.SetActive(true);
+        }
+
+        private void OnExitButtonClicked()
+        {
+            
         }
 
         [Rpc(SendTo.Server)]

@@ -13,15 +13,8 @@ namespace Assets.Scripts.Game.Manager
         private Coroutine startingCoroutine;
         private bool allConectedFirstTime;
 
-        void Start()
-        {
-            Debug.Log($"[GameStatusManager] Start() in client: enabled={enabled}, active={gameObject.activeInHierarchy}");
-        }
-
-
         public override void OnNetworkSpawn()
         {
-            Debug.Log($"[GameStatusManager] OnNetworkSpawn. IsServer: {IsServer}, IsClient: {IsClient}, IsHost: {IsHost}");
             if (IsServer)
             {
                 matchStateManager.OnMatchStateChanged += HandleStateChanged;
@@ -38,7 +31,6 @@ namespace Assets.Scripts.Game.Manager
 
         private void Update()
         {
-            Debug.Log($"[GameStatusManager] Update check - IsClient: {IsClient}, IsServer: {IsServer}, IsHost: {IsHost}");
             if (!IsHost) return;
             if (MatchInfo.Instance.GetAllConnected() && !allConectedFirstTime)
             {
@@ -54,7 +46,7 @@ namespace Assets.Scripts.Game.Manager
             Debug.Log(state);
             if (state == MatchState.starting)
             {
-                startingCoroutine = StartCoroutine(startMatchCountdown(5));
+                startingCoroutine = StartCoroutine(StartMatchCountdown(5));
             }
             else if (state == MatchState.gameOver)
             {
@@ -63,6 +55,10 @@ namespace Assets.Scripts.Game.Manager
             else if (state == MatchState.exit)
             {
                 SetGameMenuSceneRpc();
+            }
+            else if(state == MatchState.onGoal)
+            {
+                StartCoroutine(OnGoal());
             }
         }
 
@@ -78,7 +74,20 @@ namespace Assets.Scripts.Game.Manager
             SceneManager.LoadSceneAsync(Scenes.MenuScene.ToString());
         }
 
-        private IEnumerator startMatchCountdown(int countdownTime)
+        private IEnumerator OnGoal()
+        {
+            int countdownTime = 5;
+            while(countdownTime > 0)
+            {
+                Debug.Log("Dejando de celebrar en => " + countdownTime);
+                yield return new WaitForSeconds(1);
+                countdownTime--;
+            }
+
+            matchStateManager.SetMatchState(MatchState.starting);
+        }
+
+        private IEnumerator StartMatchCountdown(int countdownTime)
         {
             while (countdownTime > 0)
             {

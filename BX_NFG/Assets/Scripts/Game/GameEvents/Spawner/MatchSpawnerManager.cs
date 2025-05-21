@@ -27,13 +27,9 @@ namespace Assets.Scripts.GameManager.GameEvents
 
         private void HandleStateChanged(MatchState state)
         {
-            if(state == MatchState.postGoal)
+            if(state == MatchState.starting)
             {
-
-            }
-            else if(state == MatchState.starting)
-            {
-
+                
             }
         }
     }
