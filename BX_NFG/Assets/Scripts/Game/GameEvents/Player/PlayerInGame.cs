@@ -14,8 +14,7 @@ namespace Assets.Scripts.Game.GameEvents.Player
         public ulong PlayerConnectionID { get; private set; }
         public string PlayerId { get; private set; }
         public PlayerTeam Team { get; private set; }
-
-        private NetworkVariable<Vector3> spawnPosition = new(new Vector3() ,NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+        public Vector3 spawnPosition { get; private set; }
 
         public override void OnNetworkSpawn()
         {
@@ -26,14 +25,7 @@ namespace Assets.Scripts.Game.GameEvents.Player
             Team = playerData.PlayerTeam;
 
             Vector3 spawn = SpawnPositions.GetNextSpawn(Team);
-
-            if (IsServer)
-            {
-                spawnPosition.Value = spawn;
-                transform.position = spawn;
-            }
-
-            Debug.Log(spawnPosition.Value + " " + PlayerId + " " + PlayerConnectionID + " " + Team);  
+            spawnPosition = spawn;
         }
 
         public void SetPlayerConnected()

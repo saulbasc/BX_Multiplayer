@@ -1,5 +1,4 @@
-﻿
-using Unity.Netcode;
+﻿using Unity.Netcode;
 using UnityEngine;
 
 namespace Assets.Scripts.Game.GameEvents.Player.Input
@@ -10,14 +9,20 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
 
         public override void OnNetworkSpawn()
         {
-            PlayerEvents.OnShootAction += TryShoot;
-            PlayerEvents.OnPassAction += TryPass;
+            if (IsOwner)
+            {
+                PlayerEvents.OnShootAction += TryShoot;
+                PlayerEvents.OnPassAction += TryPass;
+            }
         }
 
         public override void OnNetworkDespawn()
         {
-            PlayerEvents.OnShootAction -= TryShoot;
-            PlayerEvents.OnPassAction -= TryPass;
+            if (IsOwner)
+            {
+                PlayerEvents.OnShootAction -= TryShoot;
+                PlayerEvents.OnPassAction -= TryPass;
+            }
         }
 
         private void OnTriggerEnter(Collider other)
@@ -40,7 +45,7 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
         {
             if (IsOwner)
             {
-                ShootServerRpc(45);
+                ShootServerRpc(40);
             }
         }
 
@@ -58,12 +63,9 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
             if (ballInRange != null)
             {
                 Rigidbody ballRb = ballInRange.GetComponent<Rigidbody>();
-
                 Vector3 direction = (ballRb.position - transform.position).normalized;
-
                 ballRb.AddForce(direction * shootForce, ForceMode.Impulse);
             }
         }
-
     }
 }

@@ -1,10 +1,8 @@
 ﻿using Assets.Scripts.Game.GameEvents.Player;
-using Assets.Scripts.Init;
 using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Relay;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
-using UnityEngine;
 
 namespace Assets.Scripts.Game.Manager
 {

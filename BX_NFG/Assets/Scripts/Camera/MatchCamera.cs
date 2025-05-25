@@ -9,7 +9,7 @@ namespace Assets.Scripts.Camera
     {
         private Transform target;
 
-        public Vector3 offset = new Vector3(0, 5, -7);
+        public Vector3 offset = new Vector3(0, 5, -1);
         public float followSpeed = 5f;
 
         void LateUpdate()

@@ -1303,6 +1303,7 @@ GameObject:
   - component: {fileID: 1026469689}
   - component: {fileID: 1026469688}
   - component: {fileID: 1026469687}
+  - component: {fileID: 1026469690}
   m_Layer: 5
   m_Name: ShootButton
   m_TagString: Untagged
@@ -1412,6 +1413,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1026469685}
   m_CullTransparentMesh: 1
+--- !u!114 &1026469690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026469685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b639f378b04acfa47ab4ef9343e5e4e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1141716957 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4666469379668757928, guid: 63d6a7d688df897438358b9bf0b643ed, type: 3}
@@ -1815,6 +1828,7 @@ GameObject:
   - component: {fileID: 1520917363}
   - component: {fileID: 1520917362}
   - component: {fileID: 1520917361}
+  - component: {fileID: 1520917364}
   m_Layer: 5
   m_Name: PassButton
   m_TagString: Untagged
@@ -1924,6 +1938,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1520917359}
   m_CullTransparentMesh: 1
+--- !u!114 &1520917364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520917359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc0a391463da61b4b9c268b2f003ed8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1537501386
 GameObject:
   m_ObjectHideFlags: 0
@@ -2540,6 +2566,7 @@ GameObject:
   - component: {fileID: 1769640370}
   - component: {fileID: 1769640371}
   - component: {fileID: 1769640372}
+  - component: {fileID: 1769640373}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2706,6 +2733,20 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   matchStateManager: {fileID: 1769640364}
   ballPrefab: {fileID: 4456816674747940328, guid: d2c99368304408947b00a6387c7eb5fa, type: 3}
+--- !u!114 &1769640373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769640362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb9fd45c9c0a81a42b313f753e20d388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  matchStateManager: {fileID: 1769640364}
 --- !u!1 &1798569738
 GameObject:
   m_ObjectHideFlags: 0

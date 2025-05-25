@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : NetworkBehaviour
 {
     private readonly float moveSpeed = 10f;
-    [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private GameJoystick playerInput;
     private Rigidbody rb;
 
     private Vector3 latestInput;

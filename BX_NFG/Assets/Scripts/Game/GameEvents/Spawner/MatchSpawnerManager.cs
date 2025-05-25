@@ -1,5 +1,4 @@
-﻿
-using Assets.Scripts.GameManager.GameEvents.State;
+﻿using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -27,9 +26,14 @@ namespace Assets.Scripts.GameManager.GameEvents
 
         private void HandleStateChanged(MatchState state)
         {
-            if(state == MatchState.starting)
+            Debug.Log("Ahora mismo hay " + PlayerConnectionMap.Instance.PlayerInGameList.Count + " jugadores en el mapa.");
+            if ( state == MatchState.starting)
             {
-                
+                foreach (var (playerId, playerInGame) in PlayerConnectionMap.Instance.PlayerInGameList)
+                {
+                    Debug.Log($"Spawning player {playerId} at their spawn position: {playerInGame.spawnPosition}");
+                    playerInGame.gameObject.transform.position = playerInGame.spawnPosition;
+                }
             }
         }
     }

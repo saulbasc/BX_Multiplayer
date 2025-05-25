@@ -10,7 +10,6 @@ namespace Assets.Scripts.Game.Manager
     public class GameStatusManager : NetworkBehaviour
     {
         [SerializeField] private MatchStateManager matchStateManager;
-        private Coroutine startingCoroutine;
         private bool allConectedFirstTime;
 
         public override void OnNetworkSpawn()
@@ -46,7 +45,7 @@ namespace Assets.Scripts.Game.Manager
             Debug.Log(state);
             if (state == MatchState.starting)
             {
-                startingCoroutine = StartCoroutine(StartMatchCountdown(5));
+                StartCoroutine(StartMatchCountdown(5));
             }
             else if (state == MatchState.gameOver)
             {
@@ -97,7 +96,6 @@ namespace Assets.Scripts.Game.Manager
             }
 
             matchStateManager.SetMatchState(MatchState.playing);
-            startingCoroutine = null;
         }
     }
 }

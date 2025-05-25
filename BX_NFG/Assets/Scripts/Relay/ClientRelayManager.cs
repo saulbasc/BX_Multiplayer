@@ -10,7 +10,6 @@ using Assets.Scripts.Handlers;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Relay
 {
@@ -31,7 +30,6 @@ namespace Assets.Scripts.Relay
             {
                 string code = LobbyDataManager.Instance.GetLobbyRelayCode();
 
-                Debug.Log("ClientRelayManager: JoinRelayServer => " + code);
                 JoinAllocation allocation = await RelayService.Instance.JoinAllocationAsync(code);
                 RelayServerEndpoint dtlsEndpoint = allocation.ServerEndpoints.First(connection => connection.ConnectionType == "udp");
 
@@ -42,13 +40,6 @@ namespace Assets.Scripts.Relay
 
                 PlayerStatus.Instance.InGame = true;
                 await Task.Delay(200);
-                
-
-                Debug.Log("ClientRelayManager: JoinRelayServer => " +
-                    $"IP: {clientRelayData.Ip}, Port: {clientRelayData.Port}, " +
-                    $"AllocationId: {clientRelayData.AllocationId}, Key: {clientRelayData.Key}, " +
-                    $"ConnectionData: {clientRelayData.ConnectionData}, HostConnectionData: {clientRelayData.HostConnectionData}"
-                );
 
                 NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(
                     clientRelayData.Ip,
@@ -61,8 +52,6 @@ namespace Assets.Scripts.Relay
 
                 await Task.Delay(500);
 
-                Debug.Log("Cliente conectado: " + NetworkManager.Singleton.IsClient);
-                Debug.Log("Network manager => " + NetworkManager.Singleton.name);
                 await LobbyPlayerManager.Instance.UpdatePlayerOptions(UnityServicesActions.GetCurrentUserID(), GetAllocatorId(), GetConnectionData());
                 NetworkManager.Singleton.StartClient();
                 return true;

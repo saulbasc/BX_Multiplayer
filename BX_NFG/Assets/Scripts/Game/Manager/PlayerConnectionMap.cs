@@ -5,7 +5,12 @@ using UnityEngine;
 
 public class PlayerConnectionMap : Singleton<PlayerConnectionMap>
 {
-    private readonly Dictionary<ulong, PlayerInGame> playerInGameList = new();
+    private Dictionary<ulong, PlayerInGame> playerInGameList = new();
+
+    public Dictionary<ulong, PlayerInGame> PlayerInGameList
+    {
+        get { return playerInGameList; }
+    }
 
     public void RegisterPlayer(ulong clientId, PlayerInGame playerInGame)
     {

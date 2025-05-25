@@ -1,8 +1,9 @@
 ﻿namespace Assets.Scripts.UI.GameUI
 {
-    public enum InputButton
+    public enum GameController
     {
         ShootButton,
         PassButton,
+        FloatingJoystick
     }
 }
