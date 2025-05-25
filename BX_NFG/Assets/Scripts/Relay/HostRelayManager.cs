@@ -11,9 +11,9 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 using Assets.Scripts.Handlers;
 using Unity.Netcode;
-using UnityEngine;
 using Assets.Scripts.Lobbi.Data;
 using Unity.Netcode.Transports.UTP;
+using UnityEngine;
 
 namespace Assets.Scripts.Relay
 {
@@ -25,10 +25,12 @@ namespace Assets.Scripts.Relay
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
+            NetworkManager.Singleton.ConnectionApprovalCallback += ConnectionApproval;
         }
 
         public async Task<bool> StartRelayServer()
         {
+            Debug.Log("Funcionas o no host");
             return await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
             {
                 PlayerStatus.Instance.InGame = true;
@@ -44,7 +46,7 @@ namespace Assets.Scripts.Relay
                     hostRelayData.ConnectionData
                 );
 
-                bool started = NetworkManager.Singleton.StartHost();
+                NetworkManager.Singleton.StartHost();
                 LoadGameScene();
                 return true;
 
@@ -57,12 +59,17 @@ namespace Assets.Scripts.Relay
             {
                 Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
                 string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-                RelayServerEndpoint dtlsEndpoint = allocation.ServerEndpoints.FirstOrDefault(connection => connection.ConnectionType == "dtls");
+                RelayServerEndpoint dtlsEndpoint = allocation.ServerEndpoints.FirstOrDefault(connection => connection.ConnectionType == "udp");
 
                 hostRelayData = new HostRelayData(
                     dtlsEndpoint.Host, dtlsEndpoint.Port, allocation.ConnectionData,
                     allocation.Key, allocation.AllocationIdBytes, allocation.AllocationId
                 );
+
+                Debug.Log($"Relay Allocation Created: {allocation.AllocationId}");
+                Debug.Log($"Join Code: {joinCode}");
+                Debug.Log($"Relay Endpoint: {dtlsEndpoint.Host}:{dtlsEndpoint.Port}");
+
 
                 return joinCode;
             }, "");
@@ -104,6 +111,13 @@ namespace Assets.Scripts.Relay
         public (byte[] allocationId, byte[] key, byte[] connectionData, string ip, int port) GetHostConnectionData()
         {
             return hostRelayData.GetConnectionData();
+        }
+
+        private void ConnectionApproval(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
+        {
+            response.Approved = true;
+            response.CreatePlayerObject = true;
+            response.Pending = false;
         }
     }
 }

@@ -98,6 +98,7 @@ namespace Assets.Scripts.Lobbi.Logic
         public void Delete()
         {
             StopHeartbeatCoroutine();
+            StopUodateLobbyCoroutine();
             Destroy(gameObject);
         }
 
@@ -107,6 +108,14 @@ namespace Assets.Scripts.Lobbi.Logic
         private void StopHeartbeatCoroutine()
         {
             CoroutineManager.Instance.StopTrackedCoroutine(CoroutineIndentifier.LobbyHeartbeatCoroutine);
+        }
+
+        /// <summary>
+        /// Detiene la corrutina que mantiene la sala actualizada.
+        /// </summary>
+        private void StopUodateLobbyCoroutine()
+        {
+            CoroutineManager.Instance.StopTrackedCoroutine(CoroutineIndentifier.LobbyUpdateCoroutine);
         }
     }
 }

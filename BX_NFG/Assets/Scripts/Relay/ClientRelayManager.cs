@@ -33,7 +33,7 @@ namespace Assets.Scripts.Relay
 
                 Debug.Log("ClientRelayManager: JoinRelayServer => " + code);
                 JoinAllocation allocation = await RelayService.Instance.JoinAllocationAsync(code);
-                RelayServerEndpoint dtlsEndpoint = allocation.ServerEndpoints.First(connection => connection.ConnectionType == "dtls");
+                RelayServerEndpoint dtlsEndpoint = allocation.ServerEndpoints.First(connection => connection.ConnectionType == "udp");
 
                 clientRelayData = new ClientRelayData(
                     dtlsEndpoint.Host, dtlsEndpoint.Port, allocation.ConnectionData, allocation.Key,
@@ -63,9 +63,8 @@ namespace Assets.Scripts.Relay
 
                 Debug.Log("Cliente conectado: " + NetworkManager.Singleton.IsClient);
                 Debug.Log("Network manager => " + NetworkManager.Singleton.name);
-                NetworkManager.Singleton.StartClient();
                 await LobbyPlayerManager.Instance.UpdatePlayerOptions(UnityServicesActions.GetCurrentUserID(), GetAllocatorId(), GetConnectionData());
-                await SceneManager.LoadSceneAsync(Scenes.GameScene.ToString());
+                NetworkManager.Singleton.StartClient();
                 return true;
             }, false);
         }

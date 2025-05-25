@@ -22,8 +22,8 @@ public class BallController : NetworkBehaviour
         var player = collision.gameObject.GetComponent<PlayerController>();
         if (player != null)
         {
-            LastPlayerTouched.Value = player.NetworkObjectId;
-            Debug.Log($"Ball touched by player: {player.NetworkObjectId}");
+            LastPlayerTouched.Value = player.OwnerClientId;
+            Debug.Log($"Ball touched by player: {player.OwnerClientId}");
         }
     }
 

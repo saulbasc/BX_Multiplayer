@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Init;
+﻿using Assets.Scripts.Game.GameEvents.Player;
+using Assets.Scripts.Init;
 using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Relay;
 using Unity.Netcode;
@@ -9,14 +10,8 @@ namespace Assets.Scripts.Game.Manager
 {
     public class GameEntryManager : NetworkBehaviour
     {
-        private void Awake()
-        {
-            Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        }
-
         public override void OnNetworkSpawn()
         {
-            Debug.Log("BBBBBBBBBBBBBBBBBBBBBBBBBB");
             NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
             if (LobbyDataManager.Instance.IsLocalPlayerHost())
             {
@@ -30,25 +25,28 @@ namespace Assets.Scripts.Game.Manager
 
         private void HostConnection()
         {
-            NetworkManager.Singleton.ConnectionApprovalCallback += ConnectionApproval;
             (byte[] allocationId, byte[] key, byte[] connectionData, string ip, int port) = HostRelayManager.Instance.GetHostConnectionData();
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetHostRelayData(ip, (ushort)port, allocationId, key, connectionData, true);
             ulong localClientId = NetworkManager.Singleton.LocalClientId;
-            PlayerConnectionMap.Instance.RegisterForHost(localClientId, LobbyPlayerManager.Instance.GetSinglePlayerDataObject(UnityServicesActions.GetCurrentUserID()));
+            var playerObject = NetworkManager.Singleton.ConnectedClients[localClientId].PlayerObject;
+            var playerInGame = playerObject.GetComponent<PlayerInGame>();
+            PlayerConnectionMap.Instance.RegisterPlayer(localClientId, playerInGame);
         }
 
         private void ClientConnection()
         {
             (byte[] allocationId, byte[] key, byte[] connectionData, byte[] hostConnectionData, string ip, int port) = ClientRelayManager.Instance.GetClientConnectionData();
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetClientRelayData(ip, (ushort)port, allocationId, key, connectionData, hostConnectionData, true);
-            PlayerConnectionMap.Instance.RegisterForClientsRpc(OwnerClientId, LobbyPlayerManager.Instance.GetSinglePlayerDataObject(UnityServicesActions.GetCurrentUserID()));
+            ulong localClientId = NetworkManager.Singleton.LocalClientId;
+            RegisterPlayerConnectionServerRpc(localClientId);
         }
 
-        private void ConnectionApproval(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
+        [ServerRpc(RequireOwnership = false)]
+        public void RegisterPlayerConnectionServerRpc(ulong clientId)
         {
-            response.Approved = true;
-            response.CreatePlayerObject = true;
-            response.Pending = false;
+            var playerObject = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject;
+            var playerInGame = playerObject.GetComponent<PlayerInGame>();
+            PlayerConnectionMap.Instance.RegisterPlayer(clientId, playerInGame);
         }
     }
 }

@@ -16,19 +16,26 @@ namespace Assets.Scripts.UI.LobbyUI
         [SerializeField] private Button cancelButton;
         [SerializeField] private Button startButton;
 
+        private System.Action onLobbyCancelAction;
+        private System.Action onLobbyReadyAction;
+
         private void OnEnable()
         {
             exitButton.onClick.AddListener(OnExitButtonClicked);
             readyButton.onClick.AddListener(OnReadyButtonClicked);
             cancelButton.onClick.AddListener(OnCancelButtonClicked);
+            startButton.onClick.AddListener(OnStartButtonClick);
             lobbyNameText.text = LobbyDataManager.Instance.GetLobbyCode();
 
-            LobbyEvents.Instance.OnLobbyCancel += () => startButton.gameObject.SetActive(false);
+            onLobbyCancelAction = () => startButton.gameObject.SetActive(false);
+            LobbyEvents.Instance.OnLobbyCancel += onLobbyCancelAction;
+
+            Debug.Log("LocalPlayerIsHost? => " + LobbyDataManager.Instance.IsLocalPlayerHost());
 
             if (LobbyDataManager.Instance.IsLocalPlayerHost())
             {
-                LobbyEvents.Instance.OnLobbyReady += () => startButton.gameObject.SetActive(true);
-                startButton.onClick.AddListener(OnStartButtonClick);
+                onLobbyReadyAction = () => startButton.gameObject.SetActive(true);
+                LobbyEvents.Instance.OnLobbyReady += onLobbyReadyAction;
             }
         }
 
@@ -39,8 +46,11 @@ namespace Assets.Scripts.UI.LobbyUI
             cancelButton.onClick.RemoveListener(OnCancelButtonClicked);
             startButton.onClick.RemoveListener(OnStartButtonClick);
 
-            LobbyEvents.Instance.OnLobbyReady -= () => startButton.gameObject.SetActive(true);
-            LobbyEvents.Instance.OnLobbyCancel -= () => startButton.gameObject.SetActive(false);
+            if (onLobbyCancelAction != null)
+                LobbyEvents.Instance.OnLobbyCancel -= onLobbyCancelAction;
+
+            if (onLobbyReadyAction != null)
+                LobbyEvents.Instance.OnLobbyReady -= onLobbyReadyAction;
         }
 
         private async void OnExitButtonClicked()
@@ -70,13 +80,14 @@ namespace Assets.Scripts.UI.LobbyUI
 
         private async void OnStartButtonClick()
         {
+            Debug.Log("Start button clicked");
             if (LobbyDataManager.Instance.IsLocalPlayerHost())
             {
-                await LobbyActionsManager.Instance.StartLobbyMatchAsHost();
+                await HostRelayManager.Instance.StartRelayServer();
             }
             else
             {
-                await LobbyActionsManager.Instance.StartLobbyMatchAsClient();
+                await ClientRelayManager.Instance.JoinRelayServer();
             }
         }
     }

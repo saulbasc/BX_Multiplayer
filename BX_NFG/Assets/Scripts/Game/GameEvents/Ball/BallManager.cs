@@ -52,9 +52,15 @@ namespace Assets.Scripts.Game.GameEvents.Ball
 
         private void InitialBallSpawn()
         {
+            Debug.Log("Bola vuelve a base?");
             if (ballPrefab != null)
             {
-                ball.GetComponent<NetworkObject>().Spawn();
+                Debug.Log("Bola vuelve a base?");
+                var networkBall = ball.GetComponent<NetworkObject>();
+                if(!networkBall.IsSpawned)
+                {
+                    ball.GetComponent<NetworkObject>().Spawn();
+                }
                 StartCoroutine(ApplyInitialVelocity(ball));
             }
         }
@@ -62,7 +68,7 @@ namespace Assets.Scripts.Game.GameEvents.Ball
         private IEnumerator ApplyInitialVelocity(GameObject ball)
         {
             yield return new WaitForFixedUpdate();
-
+            ball.transform.position = new Vector3(0, 1.75f, 0);
             Rigidbody rb = ball.GetComponent<Rigidbody>();
             Vector3 ballForce = new Vector3(0, 0, 1);
         }

@@ -30,6 +30,7 @@ namespace Assets.Scripts.Game.GameEvents.Spawner
 
         public static Vector3 GetNextSpawn(PlayerTeam team)
         {
+            Debug.Log("Player TEAMMMMMMMMMMMMMM => " + team);
             var list = team == PlayerTeam.Local ? localTeamSpawns : visitorTeamSpawns;
             int index = spawnIndices[team];
 
@@ -41,6 +42,7 @@ namespace Assets.Scripts.Game.GameEvents.Spawner
 
             Vector3 spawn = list[index];
             spawnIndices[team]++;
+            Debug.Log($"Spawn para el equipo {team}: {spawn} (Índice: {index})");
             return spawn;
         }
 

@@ -1,6 +1,7 @@
 ﻿
 namespace Assets.Scripts.Camera
 {
+    using Assets.Scripts.Game.GameEvents.Player;
     using Unity.Netcode;
     using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace Assets.Scripts.Camera
         {
             if (target == null)
             {
-                foreach (var player in FindObjectsByType<PlayerNetwork>(FindObjectsSortMode.None))
+                foreach (var player in FindObjectsByType<PlayerInGame>(FindObjectsSortMode.None))
                 {
                     if (player.IsOwner)
                     {

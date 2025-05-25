@@ -97,7 +97,6 @@ namespace Assets.Scripts.Game.Manager
             }
 
             matchStateManager.SetMatchState(MatchState.playing);
-            StopCoroutine(startingCoroutine);
             startingCoroutine = null;
         }
     }

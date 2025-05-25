@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Game.GameEvents.Player.Input
 {
-    public class PlayerTriggerInput : PlayerNetwork
+    public class PlayerTriggerInput : NetworkBehaviour
     {
         private GameObject ballInRange;
 
@@ -40,7 +40,7 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
         {
             if (IsOwner)
             {
-                ShootServerRpc(30);
+                ShootServerRpc(45);
             }
         }
 
@@ -48,7 +48,7 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
         {
             if (IsOwner)
             {
-                ShootServerRpc(15);
+                ShootServerRpc(20);
             }
         }
 

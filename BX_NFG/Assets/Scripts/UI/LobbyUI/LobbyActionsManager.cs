@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Assets.Scripts.Commons;
 using Assets.Scripts.GameManager.GameEvents.Timer;
 using Assets.Scripts.Lobbi.Logic;
-using Assets.Scripts.Relay;
 
 namespace Assets.Scripts.UI.LobbyUI
 {
@@ -18,6 +17,7 @@ namespace Assets.Scripts.UI.LobbyUI
         /// <returns>True si abandona con éxito la Lobby.</returns>
         public async Task<bool> ExitLobby()
         {
+            LobbyCoroutineManager.Instance.Delete();
             return await LobbyServiceManager.Instance.DisconnectFromLobby();
         }
 
@@ -29,27 +29,6 @@ namespace Assets.Scripts.UI.LobbyUI
         public async Task<bool> SetLocalLobbyPlayerReadyStatus(bool isReady)
         { 
             return await LobbyPlayerManager.Instance.SetPlayerReadyAsync(isReady);
-        }
-
-        /// <summary>
-        /// Crea la partida en el jugador local mediante Relay.
-        /// Aplicar sólamente cuando el jugador local sea el host.
-        /// </summary>
-        /// <returns>True si crea exítosamente la partida mediante Relay.</returns>
-        public async Task<bool> StartLobbyMatchAsHost()
-        {
-            return await HostRelayManager.Instance.StartRelayServer();
-        }
-
-
-        /// <summary>
-        /// Se une a la partida en el jugador local mediante Relay.
-        /// Aplicar sólamente cuando el jugador local sea cliente.
-        /// </summary>
-        /// <returns>True si se une exítosamente a la partida mediante Relay.</returns>
-        public async Task<bool> StartLobbyMatchAsClient()
-        {
-            return await ClientRelayManager.Instance.JoinRelayServer();
         }
 
         /// <summary>
