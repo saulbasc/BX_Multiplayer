@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 using System;
-using Unity.Netcode;
+using Assets.Scripts.Commons;
 
 namespace Assets.Scripts.GameManager.GameEvents.State
 {
-    public class MatchStateManager : NetworkBehaviour
+    public class MatchStateManager : NetworkSingleton<MatchStateManager>
     {
         public event Action<MatchState> OnMatchStateChanged;
         private MatchState matchState;
 
         public void SetMatchState(MatchState matchState)
         {
-            if(this.matchState != matchState)
+            if (this.matchState != matchState)
             {
                 this.matchState = matchState;
                 OnMatchStateChanged?.Invoke(matchState);

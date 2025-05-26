@@ -11,6 +11,11 @@ namespace Assets.Scripts.Game.Manager
         public int NumberOfPlayersInTeamsConnected { get; private set; }
         public Match Match { get; private set; }
 
+        private void Awake()
+        {
+            DontDestroyOnLoad(this);
+        }
+
         public void SetMatchDuration(MatchDuration matchDuration)
         {
             Match = new Match(MatchDurationExtensions.ToInt(matchDuration));

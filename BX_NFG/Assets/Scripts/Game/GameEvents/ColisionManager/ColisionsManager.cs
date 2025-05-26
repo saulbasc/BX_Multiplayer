@@ -8,11 +8,10 @@ namespace Assets.Scripts.Game.GameEvents
     public class ColisionsManager : NetworkBehaviour
     {
         [SerializeField] private GameObject restartColision;
-        [SerializeField] private MatchStateManager matchStateManager;
 
         public override void OnNetworkSpawn()
         {
-            matchStateManager.OnMatchStateChanged += HandleStateChanged;
+            MatchStateManager.Instance.OnMatchStateChanged += HandleStateChanged;
         }
 
         private void HandleStateChanged(MatchState state)

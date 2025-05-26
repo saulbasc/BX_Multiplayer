@@ -19,9 +19,9 @@ namespace Assets.Scripts.UI.MenuUI
 
         public override void Initialize(IUIManager manager)
         {
-            menuManager = manager;
+            base.manager = manager;
 
-            backButton.onClick.AddListener(() => menuManager.RemoveFloatPanel(PanelType));
+            backButton.onClick.AddListener(() => base.manager.RemoveFloatPanel(PanelType));
             confirmNameButton.onClick.AddListener(OnConfirmButtonClicked);
         }
 
@@ -30,7 +30,7 @@ namespace Assets.Scripts.UI.MenuUI
             string newName = nameInput.text;
             User updatedUser = new User(FirebaseActions.GetCurrentID(), newName);
             await UserDAO.Instance.updates(updatedUser);
-            menuManager.RemoveFloatPanel(PanelType);
+            manager.RemoveFloatPanel(PanelType);
         }
     }
 }

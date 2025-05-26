@@ -19,12 +19,12 @@ namespace Assets.Scripts.UI.MenuUI
 
         public override void Initialize(IUIManager manager)
         {
-            menuManager = manager;
+            base.manager = manager;
 
-            backButton.onClick.AddListener(() => menuManager.ShowPanel(PanelType.MainMenuPanel));
+            backButton.onClick.AddListener(() => base.manager.ShowPanel(PanelType.MainMenuPanel));
             trainingButton.onClick.AddListener(() => Debug.Log("Training selected"));
             hostButton.onClick.AddListener(() => CreateLobby());
-            joinButton.onClick.AddListener(() => menuManager.AddFloatPanel(PanelType.JoinLobbyPanel));
+            joinButton.onClick.AddListener(() => base.manager.AddFloatPanel(PanelType.JoinLobbyPanel));
         }
 
         private async void CreateLobby()

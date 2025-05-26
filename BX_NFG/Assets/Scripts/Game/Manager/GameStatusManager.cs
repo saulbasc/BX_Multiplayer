@@ -10,14 +10,13 @@ namespace Assets.Scripts.Game.Manager
 {
     public class GameStatusManager : NetworkBehaviour
     {
-        [SerializeField] private MatchStateManager matchStateManager;
         private bool allConectedFirstTime;
 
         public override void OnNetworkSpawn()
         {
             if (IsServer)
             {
-                matchStateManager.OnMatchStateChanged += HandleStateChanged;
+                MatchStateManager.Instance.OnMatchStateChanged += HandleStateChanged;
             }
         }
 
@@ -25,7 +24,7 @@ namespace Assets.Scripts.Game.Manager
         {
             if (IsServer)
             {
-                matchStateManager.OnMatchStateChanged -= HandleStateChanged;
+                MatchStateManager.Instance.OnMatchStateChanged -= HandleStateChanged;
             }
         }
 
@@ -34,7 +33,7 @@ namespace Assets.Scripts.Game.Manager
             if (!IsHost) return;
             if (MatchInfo.Instance.GetAllConnected() && !allConectedFirstTime)
             {
-                matchStateManager.SetMatchState(MatchState.starting);
+                MatchStateManager.Instance.SetMatchState(MatchState.starting);
                 allConectedFirstTime = true;
             }
         }
@@ -78,7 +77,7 @@ namespace Assets.Scripts.Game.Manager
                 countdownTime--;
             }
 
-            matchStateManager.SetMatchState(MatchState.starting);
+            MatchStateManager.Instance.SetMatchState(MatchState.starting);
         }
 
         private IEnumerator StartMatchCountdown(int countdownTime)
@@ -90,7 +89,7 @@ namespace Assets.Scripts.Game.Manager
                 countdownTime--;
             }
 
-            matchStateManager.SetMatchState(MatchState.playing);
+            MatchStateManager.Instance.SetMatchState(MatchState.playing);
         }
     }
 }

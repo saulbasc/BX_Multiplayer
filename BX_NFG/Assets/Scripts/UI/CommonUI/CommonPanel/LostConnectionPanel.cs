@@ -12,10 +12,10 @@ namespace Assets.Scripts.UI.Common.CommonPanel
 
         public override void Initialize (IUIManager manager)
         { 
-            menuManager = manager;
+            base.manager = manager;
 
-            backButton.onClick.AddListener(() => menuManager.RemoveFloatPanel(PanelType));
-            confirmButton.onClick.AddListener(() => menuManager.RemoveFloatPanel(PanelType));
+            backButton.onClick.AddListener(() => base.manager.RemoveFloatPanel(PanelType));
+            confirmButton.onClick.AddListener(() => base.manager.RemoveFloatPanel(PanelType));
         }
     }
 }

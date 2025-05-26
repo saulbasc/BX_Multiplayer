@@ -14,5 +14,7 @@ namespace Assets.Scripts.UI.Common
         GameModesPanel,
         JoinLobbyPanel,
         LobbyNotFoundPanel,
+        PlayingPanel,
+        GameOverPanel,
     }
 }

@@ -8,8 +8,6 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
 {
     public class MatchTimerManager : NetworkSingleton<MatchTimerManager>
     {
-        [SerializeField] private MatchStateManager matchStateManager;
-        private MatchDuration matchDuration;
         private bool isRunning = false;
 
         private NetworkVariable<float> timeRemaining = new NetworkVariable<float>(
@@ -20,15 +18,15 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
             if (IsServer)
             {
                 SetMatchDuration();
-                matchStateManager.OnMatchStateChanged += HandleStateChanged;
+                MatchStateManager.Instance.OnMatchStateChanged += HandleStateChanged;
             }
         }
 
         private void OnDisable()
         {
-            if (IsServer && matchStateManager != null)
+            if (IsServer && MatchStateManager.Instance != null)
             {
-                matchStateManager.OnMatchStateChanged -= HandleStateChanged;
+                MatchStateManager.Instance.OnMatchStateChanged -= HandleStateChanged;
             }
         }
 
@@ -43,7 +41,7 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
             if (timeRemaining.Value <= 0f)
             {
                 StopTimer();
-                matchStateManager.SetMatchState(MatchState.gameOver);
+                MatchStateManager.Instance.SetMatchState(MatchState.gameOver);
             }
         }
 
@@ -72,7 +70,6 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
         private void SetMatchDuration()
         {
             timeRemaining.Value = MatchInfo.Instance.Match.MatchDuration;
-            Debug.Log("Match duration in sec => " + timeRemaining.Value);
         }
 
         public float GetTime() => timeRemaining.Value;

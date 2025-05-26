@@ -9,7 +9,6 @@ namespace Assets.Scripts.Game.GameEvents.Ball
 {
     public class BallManager : NetworkSingleton<BallManager>
     {
-        [SerializeField] private MatchStateManager matchStateManager;
         [SerializeField] private GameObject ballPrefab;
         private GameObject ball;
         private BallController ballController;
@@ -18,7 +17,7 @@ namespace Assets.Scripts.Game.GameEvents.Ball
         {
             if (IsServer)
             {
-                matchStateManager.OnMatchStateChanged += HandleStateChanged;
+                MatchStateManager.Instance.OnMatchStateChanged += HandleStateChanged;
                 ball = Instantiate(ballPrefab, new Vector3(0, 1.75f, 0), Quaternion.identity);
                 ballController = ball.GetComponent<BallController>();
             }
@@ -28,7 +27,7 @@ namespace Assets.Scripts.Game.GameEvents.Ball
         {
             if (IsServer)
             {
-                matchStateManager.OnMatchStateChanged -= HandleStateChanged;
+                MatchStateManager.Instance.OnMatchStateChanged -= HandleStateChanged;
             }
         }
 
@@ -40,22 +39,18 @@ namespace Assets.Scripts.Game.GameEvents.Ball
             }
             else if(state == MatchState.pause)
             {
-                Debug.Log("Bola pausada?");
                 ballController.PauseBall();
             }
             else if (state == MatchState.playing)
             {
-                Debug.Log("Bola activa?");
                 ballController.ResumeBall();
             }
         }
 
         private void InitialBallSpawn()
         {
-            Debug.Log("Bola vuelve a base?");
             if (ballPrefab != null)
             {
-                Debug.Log("Bola vuelve a base?");
                 var networkBall = ball.GetComponent<NetworkObject>();
                 if(!networkBall.IsSpawned)
                 {

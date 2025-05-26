@@ -11,9 +11,9 @@ namespace Assets.Scripts.UI.MenuUI
 
         public override void Initialize(IUIManager manager)
         {
-            menuManager = manager;
+            base.manager = manager;
 
-            backButton.onClick.AddListener(() => menuManager.RemoveFloatPanel(PanelType));
+            backButton.onClick.AddListener(() => base.manager.RemoveFloatPanel(PanelType));
         }
     }
 }

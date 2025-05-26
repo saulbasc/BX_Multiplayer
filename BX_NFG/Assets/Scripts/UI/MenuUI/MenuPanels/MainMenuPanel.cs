@@ -1,5 +1,4 @@
-﻿
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Assets.Scripts.Core.FireB;
 using Assets.Scripts.Core.Models;
 using Assets.Scripts.UI.Common;
@@ -28,13 +27,13 @@ namespace Assets.Scripts.UI.MenuUI
 
         public override void Initialize(IUIManager manager)
         {
-            menuManager = manager;
+            base.manager = manager;
 
-            gameModesButton.onClick.AddListener(() => menuManager.ShowPanel(PanelType.GameModesPanel));
-            settingsButton.onClick.AddListener(() => menuManager.AddFloatPanel(PanelType.SettingsPanel));
-            statsButton.onClick.AddListener(() => menuManager.ShowPanel(PanelType.StatsPanel));
-            profileButton.onClick.AddListener(() => menuManager.ShowPanel(PanelType.ProfilePanel));
-            rankingButton.onClick.AddListener(() => menuManager.ShowPanel(PanelType.RankingPanel));
+            gameModesButton.onClick.AddListener(() => base.manager.ShowPanel(PanelType.GameModesPanel));
+            settingsButton.onClick.AddListener(() => base.manager.AddFloatPanel(PanelType.SettingsPanel));
+            statsButton.onClick.AddListener(() => base.manager.ShowPanel(PanelType.StatsPanel));
+            profileButton.onClick.AddListener(() => base.manager.ShowPanel(PanelType.ProfilePanel));
+            rankingButton.onClick.AddListener(() => base.manager.ShowPanel(PanelType.RankingPanel));
         }
 
         private async Task<User> GetUser()

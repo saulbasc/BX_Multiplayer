@@ -14,10 +14,10 @@ namespace Assets.Scripts.UI.MenuUI
 
         public override void Initialize(IUIManager manager)
         {
-            menuManager = manager;
+            base.manager = manager;
 
-            backButton.onClick.AddListener(() => menuManager.ShowPanel(PanelType.MainMenuPanel));
-            changeNameButton.onClick.AddListener(() => menuManager.AddFloatPanel(PanelType.ChangeProfileNamePanel));
+            backButton.onClick.AddListener(() => base.manager.ShowPanel(PanelType.MainMenuPanel));
+            changeNameButton.onClick.AddListener(() => base.manager.AddFloatPanel(PanelType.ChangeProfileNamePanel));
         }
     }
 }

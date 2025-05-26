@@ -12,7 +12,7 @@ namespace Assets.Scripts.UI.MenuUI
         /// <summary>
         /// Gestiona las acciones de los paneles
         /// </summary>
-        protected IUIManager menuManager;
+        protected IUIManager manager;
 
         public abstract PanelType PanelType { get; }
         /// <summary>

@@ -18,15 +18,15 @@ namespace Assets.Scripts.UI.MenuUI
 
         public override void Initialize(IUIManager manager)
         {
-            menuManager = manager;
+            base.manager = manager;
 
-            backButton.onClick.AddListener(() => menuManager.RemoveFloatPanel(PanelType));
+            backButton.onClick.AddListener(() => base.manager.RemoveFloatPanel(PanelType));
             confirmLobbyCodeButton.onClick.AddListener(OnConfirmButtonClicked);
         }
 
         private async void OnConfirmButtonClicked()
         {
-            menuManager.RemoveFloatPanel(PanelType);
+            manager.RemoveFloatPanel(PanelType);
             string lobbyCode = lobbyCodeInput.text;
             bool success = await LobbyServiceManager.Instance.JoinLobby(lobbyCode);
             if (success)
@@ -35,7 +35,7 @@ namespace Assets.Scripts.UI.MenuUI
             }
             else
             {
-                menuManager.AddFloatPanel(PanelType.LobbyNotFoundPanel);
+                manager.AddFloatPanel(PanelType.LobbyNotFoundPanel);
             }
         }
     }
