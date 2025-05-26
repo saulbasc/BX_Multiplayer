@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Assets.Scripts.Commons;
+using Assets.Scripts.Core.Daos;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
 using UnityEngine;
@@ -49,7 +50,7 @@ namespace Assets.Scripts.Game.Manager
             }
             else if (state == MatchState.gameOver)
             {
-                SetGameOverSceneRpc();
+                MatchDAO.Instance.insert(MatchInfo.Instance.Match);
             }
             else if (state == MatchState.exit)
             {
@@ -59,12 +60,6 @@ namespace Assets.Scripts.Game.Manager
             {
                 StartCoroutine(OnGoal());
             }
-        }
-
-        [Rpc(SendTo.ClientsAndHost)]
-        private void SetGameOverSceneRpc()
-        {
-            SceneManager.LoadSceneAsync(Scenes.GameOverScene.ToString());
         }
 
         [Rpc(SendTo.ClientsAndHost)]

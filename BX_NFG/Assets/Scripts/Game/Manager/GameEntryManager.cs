@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Game.GameEvents.Player;
+using Assets.Scripts.Lobbi.Data;
 using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Relay;
 using Unity.Netcode;
@@ -29,6 +30,13 @@ namespace Assets.Scripts.Game.Manager
             var playerObject = NetworkManager.Singleton.ConnectedClients[localClientId].PlayerObject;
             var playerInGame = playerObject.GetComponent<PlayerInGame>();
             PlayerConnectionMap.Instance.RegisterPlayer(localClientId, playerInGame);
+            if(playerInGame.Team == PlayerTeam.Local)
+            {
+                MatchInfo.Instance.Match.LocalTeam.AddNewPlayer(playerInGame.PlayerId);
+            }else if(playerInGame.Team == PlayerTeam.Visitor)
+            {
+                MatchInfo.Instance.Match.VisitorTeam.AddNewPlayer(playerInGame.PlayerId);
+            }
         }
 
         private void ClientConnection()
@@ -45,6 +53,14 @@ namespace Assets.Scripts.Game.Manager
             var playerObject = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject;
             var playerInGame = playerObject.GetComponent<PlayerInGame>();
             PlayerConnectionMap.Instance.RegisterPlayer(clientId, playerInGame);
+            if (playerInGame.Team == PlayerTeam.Local)
+            {
+                MatchInfo.Instance.Match.LocalTeam.AddNewPlayer(playerInGame.PlayerId);
+            }
+            else if (playerInGame.Team == PlayerTeam.Visitor)
+            {
+                MatchInfo.Instance.Match.VisitorTeam.AddNewPlayer(playerInGame.PlayerId);
+            }
         }
     }
 }

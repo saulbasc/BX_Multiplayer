@@ -9,7 +9,7 @@ namespace Assets.Scripts.Core.Daos
         public Task<T> select(ID id);
         public Task<List<T>> selectAll();
         public Task<bool> insert(T entity);
-        public Task<bool> UpdateUser(T entity);
+        public Task<bool> updates(T entity);
         public Task<bool> delete(ID id);
     }
 }

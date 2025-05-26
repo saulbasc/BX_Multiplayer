@@ -24,6 +24,19 @@
             };
         }
 
+        public static int ToInt(MatchDuration duration)
+        {
+            return duration switch
+            {
+                MatchDuration.matchDuration1 => 20,
+                MatchDuration.matchDuration3 => 180,
+                MatchDuration.matchDuration5 => 300,
+                MatchDuration.matchDuration7 => 420,
+                MatchDuration.matchDuration10 => 600,
+                _ => throw new System.NotImplementedException(),
+            };
+        }
+
         public static MatchDuration[] MatchDurationList()
         {
             return new MatchDuration[]

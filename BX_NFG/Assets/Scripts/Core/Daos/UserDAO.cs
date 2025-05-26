@@ -6,15 +6,16 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class UserDAO : Singleton<UserDAO>, IDAO<User, string>
+public class UserDAO : Singleton <UserDAO>, IDAO<User, string>
 {
     private FirebaseFirestore firestore = FirebaseFirestore.DefaultInstance;
+    private const string COLLECTION_NAME = "users";
 
     public async Task<bool> insert(User entity)
     {
         try
         {
-            DocumentReference docRef = firestore.Collection("users").Document(entity.FirebaseId);
+            DocumentReference docRef = firestore.Collection(COLLECTION_NAME).Document(entity.FirebaseId);
             await docRef.SetAsync(entity);
             Debug.Log($"Usuario {entity.Username} insertado correctamente.");
             return true;
@@ -30,7 +31,7 @@ public class UserDAO : Singleton<UserDAO>, IDAO<User, string>
     {
         try
         {
-            DocumentReference docRef = firestore.Collection("users").Document(id);
+            DocumentReference docRef = firestore.Collection(COLLECTION_NAME).Document(id);
             DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
 
             if (snapshot.Exists)
@@ -57,7 +58,7 @@ public class UserDAO : Singleton<UserDAO>, IDAO<User, string>
 
         try
         {
-            QuerySnapshot querySnapshot = await firestore.Collection("users").GetSnapshotAsync();
+            QuerySnapshot querySnapshot = await firestore.Collection(COLLECTION_NAME).GetSnapshotAsync();
 
             foreach (DocumentSnapshot documentSnapshot in querySnapshot.Documents)
             {
@@ -73,11 +74,11 @@ public class UserDAO : Singleton<UserDAO>, IDAO<User, string>
         return users;
     }
 
-    public async Task<bool> UpdateUser(User entity)
+    public async Task<bool> updates(User entity)
     {
         try
         {
-            DocumentReference docRef = firestore.Collection("users").Document(entity.FirebaseId);
+            DocumentReference docRef = firestore.Collection(COLLECTION_NAME).Document(entity.FirebaseId);
             Dictionary<string, object> updates = new Dictionary<string, object>
             {
                 { "Username", entity.Username }
@@ -98,7 +99,7 @@ public class UserDAO : Singleton<UserDAO>, IDAO<User, string>
     {
         try
         {
-            DocumentReference docRef = firestore.Collection("users").Document(id);
+            DocumentReference docRef = firestore.Collection(COLLECTION_NAME).Document(id);
             await docRef.DeleteAsync();
             Debug.Log($"Usuario con FirebaseId {id} eliminado correctamente.");
             return true;
@@ -114,7 +115,7 @@ public class UserDAO : Singleton<UserDAO>, IDAO<User, string>
     {
         try
         {
-            CollectionReference usersRef = firestore.Collection("users");
+            CollectionReference usersRef = firestore.Collection(COLLECTION_NAME);
 
             Query query = usersRef
                 .WhereEqualTo("FirebaseId", firebaseId)

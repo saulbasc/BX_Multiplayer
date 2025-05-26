@@ -29,7 +29,7 @@ namespace Assets.Scripts.UI.MenuUI
         {
             string newName = nameInput.text;
             User updatedUser = new User(FirebaseActions.GetCurrentID(), newName);
-            await UserDAO.Instance.UpdateUser(updatedUser);
+            await UserDAO.Instance.updates(updatedUser);
             menuManager.RemoveFloatPanel(PanelType);
         }
     }
