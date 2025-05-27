@@ -1,12 +1,12 @@
 ﻿
+using Assets.Scripts.Game.GameEvents.Player;
+using UnityEngine;
+
 namespace Assets.Scripts.Camera
 {
-    using Assets.Scripts.Game.GameEvents.Player;
-    using UnityEngine;
-
-    public class MatchCamera : MonoBehaviour
+    public class SingleMatchCamera : MonoBehaviour
     {
-        private Transform target;
+        [SerializeField] private GameObject player;
 
         float zoom;
         float angle;
@@ -17,6 +17,11 @@ namespace Assets.Scripts.Camera
         private void Awake()
         {
             GetSettings();
+        }
+
+        void LateUpdate()
+        {
+            UpdateCameraPosition();
         }
 
         private void GetSettings()
@@ -31,26 +36,10 @@ namespace Assets.Scripts.Camera
             }
         }
 
-        void LateUpdate()
-        {
-            if (target == null)
-            {
-                foreach (var player in FindObjectsByType<PlayerInGame>(FindObjectsSortMode.None))
-                {
-                    if (player.IsOwner)
-                    {
-                        target = player.transform;
-                        break;
-                    }
-                }
-            }
-            UpdateCameraPosition();
-        }
-
         private void UpdateCameraPosition()
         {
-            float zoom = this.zoom * 10f; 
-            float angleX = Mathf.Lerp(90f, 45f, angle); 
+            float zoom = this.zoom * 10f;
+            float angleX = Mathf.Lerp(90f, 45f, angle);
 
             float rad = Mathf.Deg2Rad * angleX;
 
@@ -58,9 +47,9 @@ namespace Assets.Scripts.Camera
             float z = -Mathf.Cos(rad) * zoom;
 
             Vector3 offset = new Vector3(0, y, z);
-            transform.position = target.transform.position + offset;
+            transform.position = player.transform.position + offset;
 
-            transform.LookAt(target.transform.position);
+            transform.LookAt(player.transform.position);
         }
     }
 }
