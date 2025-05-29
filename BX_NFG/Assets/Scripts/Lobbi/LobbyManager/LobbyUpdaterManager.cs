@@ -60,7 +60,6 @@ namespace Assets.Scripts.Lobbi.Logic
 
             if (joinRelayCode.IsNullOrEmpty() || PlayerStatus.Instance.InGame || PlayerStatus.Instance.JoinedGame) return;
 
-            Debug.Log("LobbyUpdaterManager: CheckIfLocalPlayerIsReadyToEnterInGame => " + joinRelayCode);
             await ClientRelayManager.Instance.JoinRelayServer();
             PlayerStatus.Instance.JoinedGame = true;
         }

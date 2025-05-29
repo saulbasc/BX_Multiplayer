@@ -36,7 +36,6 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
             {
                 if (key.Equals(id))
                 {
-                    Debug.Log("Touch NECONTRADO");
                     player.AddTouch();
                     return;
                 }
@@ -46,7 +45,6 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
             {
                 if (key.Equals(id))
                 {
-                    Debug.Log("Touch NECONTRADO");
                     player.AddTouch();
                     return;
                 }
@@ -81,18 +79,26 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
 
         public void TryShoot()
         {
-            if (IsOwner)
-            {
-                ShootServerRpc(40);
-            }
+            if (!IsOwner) return;
+
+            Rigidbody ballRb = ballInRange.GetComponent<Rigidbody>();
+            Vector3 direction = (ballRb.position - transform.position).normalized;
+            float shootForce = 8f;
+
+            ballRb.AddForce(direction * shootForce, ForceMode.Impulse);
+            ShootServerRpc(shootForce);
         }
 
         public void TryPass()
         {
-            if (IsOwner)
-            {
-                ShootServerRpc(20);
-            }
+            if (!IsOwner) return;
+
+            Rigidbody ballRb = ballInRange.GetComponent<Rigidbody>();
+            Vector3 direction = (ballRb.position - transform.position).normalized;
+            float shootForce = 2f;
+
+            ballRb.AddForce(direction * shootForce, ForceMode.Impulse);
+            ShootServerRpc(shootForce);
         }
 
         [Rpc(SendTo.Server)]

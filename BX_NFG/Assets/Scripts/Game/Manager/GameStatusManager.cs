@@ -31,11 +31,18 @@ namespace Assets.Scripts.Game.Manager
         private void Update()
         {
             if (!IsHost) return;
+
             if (MatchInfo.Instance.GetAllConnected() && !allConectedFirstTime)
             {
-                MatchStateManager.Instance.SetMatchState(MatchState.starting);
-                allConectedFirstTime = true;
+                StartCoroutine(HandleAllConnected());
             }
+        }
+
+        private IEnumerator HandleAllConnected()
+        {
+            yield return new WaitForSeconds(1);
+            MatchStateManager.Instance.SetMatchState(MatchState.starting);
+            allConectedFirstTime = true;
         }
 
         private void HandleStateChanged(MatchState state)

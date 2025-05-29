@@ -30,7 +30,6 @@ namespace Assets.Scripts.Relay
 
         public async Task<bool> StartRelayServer()
         {
-            Debug.Log("Funcionas o no host");
             return await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
             {
                 PlayerStatus.Instance.InGame = true;

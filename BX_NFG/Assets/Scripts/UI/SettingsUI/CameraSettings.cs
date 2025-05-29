@@ -20,7 +20,7 @@ namespace Assets.Scripts.UI.SettingsUI
         {
             saveButton.onClick.AddListener(SaveSettings);
             cameraZoom.minValue = 2f;
-            cameraZoom.maxValue = 5f;
+            cameraZoom.maxValue = 7f;
             cameraAngle.onValueChanged.AddListener(OnAngleChanged);
             cameraZoom.onValueChanged.AddListener(OnZoomChanged);
             GetSettings();
@@ -34,15 +34,13 @@ namespace Assets.Scripts.UI.SettingsUI
         }
         private void UpdateCameraPosition()
         {
-            float zoom = cameraZoom.value * 10f; // distancia desde el jugador
-            float angleX = Mathf.Lerp(90f, 45f, cameraAngle.value); // de top-down a 45°
+            float zoom = cameraZoom.value * 10f; 
+            float angleX = Mathf.Lerp(90f, 45f, cameraAngle.value); 
 
-            // Convertimos el ángulo a radianes para trigonometría
             float rad = Mathf.Deg2Rad * angleX;
 
-            // Calculamos offset en un arco vertical
             float y = Mathf.Sin(rad) * zoom;
-            float z = -Mathf.Cos(rad) * zoom; // hacia atrás
+            float z = -Mathf.Cos(rad) * zoom; 
 
             Vector3 offset = new Vector3(0, y, z);
             settingsCamera.transform.position = player.transform.position + offset;

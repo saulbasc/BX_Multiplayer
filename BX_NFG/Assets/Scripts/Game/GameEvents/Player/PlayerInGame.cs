@@ -13,14 +13,16 @@ namespace Assets.Scripts.Game.GameEvents.Player
     {
         public ulong PlayerConnectionID { get; private set; }
         public string PlayerId { get; private set; }
+        public string TagName { get; private set; }
         public PlayerTeam Team { get; private set; }
         public Vector3 spawnPosition { get; private set; }
 
         public override void OnNetworkSpawn()
         {
             SetPlayerConnected();
-            PlayerConnectionID = OwnerClientId;
             LobbyPlayerData playerData = LobbyPlayerManager.Instance.GetSinglePlayerDataObject(UnityServicesActions.GetCurrentUserID());
+            PlayerConnectionID = OwnerClientId;
+            TagName = playerData.GameTag;
             PlayerId = playerData.Id;
             Team = playerData.PlayerTeam;
 

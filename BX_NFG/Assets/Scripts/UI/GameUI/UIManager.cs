@@ -1,9 +1,12 @@
-﻿using Assets.Scripts.Game.GameEvents.Score;
+﻿using Assets.Scripts.Commons;
+using Assets.Scripts.Game.GameEvents.Score;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Assets.Scripts.GameManager.GameEvents.Timer;
+using Assets.Scripts.UI.LobbyUI;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.GameManager.GameEvents.UI
@@ -11,7 +14,6 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
     public class UIManager : NetworkBehaviour
     {
         [SerializeField] private MatchTimerManager timerManager;
-        [SerializeField] private MatchStateManager matchStateManager;
         [SerializeField] private TextMeshProUGUI timerText;
         [SerializeField] private TextMeshProUGUI localGoalsText;
         [SerializeField] private TextMeshProUGUI visitorGoalsText;
@@ -82,21 +84,23 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
             pauseButton.gameObject.SetActive(true);
         }
 
-        private void OnExitButtonClicked()
+        private async void OnExitButtonClicked()
         {
-            
+            NetworkManager.Singleton.Shutdown();
+            await LobbyActionsManager.Instance.ExitLobby();
+            SceneManager.LoadScene(Scenes.MenuScene.ToString());
         }
 
         [Rpc(SendTo.Server)]
         private void RequestPauseServerRpc(RpcParams rpcParams = default)
         {
-            matchStateManager.SetMatchState(MatchState.pause);
+            MatchStateManager.Instance.SetMatchState(MatchState.pause);
         }
 
         [Rpc(SendTo.Server)]
         private void RequestResumeServerRpc(RpcParams rpcParams = default)
         {
-            matchStateManager.SetMatchState(MatchState.playing);
+            MatchStateManager.Instance.SetMatchState(MatchState.playing);
         }
     }
 }

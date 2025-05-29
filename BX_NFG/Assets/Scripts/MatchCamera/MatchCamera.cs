@@ -1,5 +1,5 @@
 ﻿
-namespace Assets.Scripts.Camera
+namespace Assets.Scripts.MatchCamera
 {
     using Assets.Scripts.Game.GameEvents.Player;
     using UnityEngine;
@@ -25,9 +25,17 @@ namespace Assets.Scripts.Camera
             {
                 zoom = PlayerPrefs.GetFloat(ZoomKey);
             }
+            else
+            {
+                zoom = 3f;
+            }
             if (PlayerPrefs.HasKey(AngleKey))
             {
                 angle = PlayerPrefs.GetFloat(AngleKey);
+            }
+            else
+            {
+                angle = 0.5f;
             }
         }
 

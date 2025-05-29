@@ -2,7 +2,7 @@
 using Assets.Scripts.Game.GameEvents.Player;
 using UnityEngine;
 
-namespace Assets.Scripts.Camera
+namespace Assets.Scripts.MatchCamera
 {
     public class SingleMatchCamera : MonoBehaviour
     {
