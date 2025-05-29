@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Game.Manager;
 using Assets.Scripts.Init;
 using Unity.Netcode;
-using Unity.Services.Core;
 using UnityEngine;
 
 namespace Assets.Scripts.Game.GameEvents.Player.Input
@@ -79,11 +78,11 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
 
         public void TryShoot()
         {
-            if (!IsOwner) return;
+            if (!IsOwner || !ballInRange) return;
 
             Rigidbody ballRb = ballInRange.GetComponent<Rigidbody>();
             Vector3 direction = (ballRb.position - transform.position).normalized;
-            float shootForce = 8f;
+            float shootForce = 6f;
 
             ballRb.AddForce(direction * shootForce, ForceMode.Impulse);
             ShootServerRpc(shootForce);
@@ -91,7 +90,7 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
 
         public void TryPass()
         {
-            if (!IsOwner) return;
+            if (!IsOwner || !ballInRange) return;
 
             Rigidbody ballRb = ballInRange.GetComponent<Rigidbody>();
             Vector3 direction = (ballRb.position - transform.position).normalized;

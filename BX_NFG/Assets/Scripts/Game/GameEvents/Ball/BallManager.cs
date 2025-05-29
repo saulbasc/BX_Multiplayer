@@ -18,7 +18,7 @@ namespace Assets.Scripts.Game.GameEvents.Ball
             if (IsServer)
             {
                 MatchStateManager.Instance.OnMatchStateChanged += HandleStateChanged;
-                ball = Instantiate(ballPrefab, new Vector3(0, 1.75f, 0), Quaternion.identity);
+                ball = Instantiate(ballPrefab, new Vector3(0, 2.5f, 0), Quaternion.identity);
                 ballController = ball.GetComponent<BallController>();
             }
         }
@@ -37,7 +37,7 @@ namespace Assets.Scripts.Game.GameEvents.Ball
             {
                 InitialBallSpawn();
             }
-            else if(state == MatchState.pause)
+            else if (state == MatchState.pause)
             {
                 ballController.PauseBall();
             }
@@ -52,11 +52,11 @@ namespace Assets.Scripts.Game.GameEvents.Ball
             if (ballPrefab != null)
             {
                 var networkBall = ball.GetComponent<NetworkObject>();
-                if(!networkBall.IsSpawned)
+                if (!networkBall.IsSpawned)
                 {
                     ball.GetComponent<NetworkObject>().Spawn();
                 }
-                StartCoroutine(ApplyInitialVelocity(ball));
+                //StartCoroutine(ApplyInitialVelocity(ball));
             }
         }
 
@@ -67,6 +67,5 @@ namespace Assets.Scripts.Game.GameEvents.Ball
             Rigidbody rb = ball.GetComponent<Rigidbody>();
             Vector3 ballForce = new Vector3(0, 0, 1);
         }
-
     }
 }

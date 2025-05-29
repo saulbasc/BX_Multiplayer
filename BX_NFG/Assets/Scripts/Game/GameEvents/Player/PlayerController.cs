@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class PlayerController : NetworkBehaviour
 {
-    private readonly float moveSpeed = 10f;
+    private readonly float moveSpeed = 12f;
 
     [SerializeField] private GameJoystick playerInput;
     private Rigidbody rb;
-
-    // Último input procesado por el servidor
     private Vector3 latestInput;
-
-    // Posición sincronizada desde el servidor
     private NetworkVariable<Vector3> serverPosition = new(writePerm: NetworkVariableWritePermission.Server);
 
     private void Start()
@@ -41,8 +37,7 @@ public class PlayerController : NetworkBehaviour
             {
                 UpdateInputServerRpc(input);
             }
-
-            latestInput = input; // guardar localmente para reconciliación si es necesario
+            latestInput = input;
         }
 
         if (IsServer)
@@ -57,7 +52,6 @@ public class PlayerController : NetworkBehaviour
     {
         if (IsOwner && !IsServer)
         {
-            // Reconciliación suave con la posición del servidor
             float dist = Vector3.Distance(transform.position, serverPosition.Value);
             if (dist > 0.5f)
             {
