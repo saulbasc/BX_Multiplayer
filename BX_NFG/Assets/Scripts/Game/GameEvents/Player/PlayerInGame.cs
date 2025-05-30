@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Game.GameEvents.Spawner;
+﻿using Assets.Scripts.Core.Models;
+using Assets.Scripts.Game.GameEvents.Spawner;
 using Assets.Scripts.Game.Manager;
 using Assets.Scripts.Init;
 using Assets.Scripts.Lobbi.Data;
@@ -19,15 +20,28 @@ namespace Assets.Scripts.Game.GameEvents.Player
 
         public override void OnNetworkSpawn()
         {
+            if (IsOwner)
+            {
+                string userId = UnityServicesActions.GetCurrentUserID();
+                SendDataServerRpc(userId);
+            }
+        }
+
+        [ServerRpc(RequireOwnership = true)]
+        public void SendDataServerRpc(string userId, ServerRpcParams rpcParams = default)
+        {
             SetPlayerConnected();
-            LobbyPlayerData playerData = LobbyPlayerManager.Instance.GetSinglePlayerDataObject(UnityServicesActions.GetCurrentUserID());
-            PlayerConnectionID = OwnerClientId;
+            PlayerConnectionID = rpcParams.Receive.SenderClientId;
+            PlayerId = userId;
+
+            LobbyPlayerData playerData = LobbyPlayerManager.Instance.GetSinglePlayerDataObject(userId);
+
             TagName = playerData.GameTag;
-            PlayerId = playerData.Id;
             Team = playerData.PlayerTeam;
 
-            Vector3 spawn = SpawnPositions.GetNextSpawn(Team);
-            spawnPosition = spawn;
+            spawnPosition = SpawnPositions.GetNextSpawn(Team);
+
+            Debug.Log("Lobby Player DATA Id => " + playerData.Id + ", Tag => " + playerData.GameTag + ", Team => " + playerData.PlayerTeam);
         }
 
         public void SetPlayerConnected()

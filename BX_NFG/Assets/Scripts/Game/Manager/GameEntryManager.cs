@@ -47,7 +47,7 @@ namespace Assets.Scripts.Game.Manager
             RegisterPlayerConnectionServerRpc(localClientId);
         }
 
-        [ServerRpc]
+        [ServerRpc(RequireOwnership = false)]
         public void RegisterPlayerConnectionServerRpc(ulong clientId)
         {
             var playerObject = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject;

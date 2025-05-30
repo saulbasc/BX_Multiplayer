@@ -5,6 +5,7 @@ namespace Assets.Scripts.UI.CommonUI
     public class LookAtCamera : MonoBehaviour
     {
         private Camera mainCamera;
+        private const float fixedYRotation = 0f;
 
         private void Awake()
         {
@@ -13,18 +14,17 @@ namespace Assets.Scripts.UI.CommonUI
 
         private void Update()
         {
-            if(mainCamera != null)
+            if (mainCamera == null)
             {
-                transform.LookAt(mainCamera.transform);
-                transform.rotation = Quaternion.LookRotation(transform.position - mainCamera.transform.position);
+                mainCamera = Camera.main;
+                if (mainCamera == null)
+                    return;
             }
-            else
-            {
-                if(Camera.main != null)
-                {
-                    mainCamera = Camera.main;
-                }
-            }
+
+            Vector3 camEuler = mainCamera.transform.rotation.eulerAngles;
+
+            Quaternion fixedRotation = Quaternion.Euler(camEuler.x, fixedYRotation, 0f);
+            transform.rotation = fixedRotation;
         }
     }
 }

@@ -56,7 +56,7 @@ namespace Assets.Scripts.Game.GameEvents.Ball
                 {
                     ball.GetComponent<NetworkObject>().Spawn();
                 }
-                //StartCoroutine(ApplyInitialVelocity(ball));
+                StartCoroutine(ApplyInitialVelocity(ball));
             }
         }
 

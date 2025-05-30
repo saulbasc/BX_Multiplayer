@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Init;
+﻿using Assets.Scripts.Game.GameEvents.Player;
+using Assets.Scripts.Init;
 using Assets.Scripts.Lobbi.Logic;
 using TMPro;
 using Unity.Collections;
@@ -20,8 +21,8 @@ public class GamePlayerInfo : NetworkBehaviour
 
         if (IsOwner)
         {
-            var data = LobbyPlayerManager.Instance.GetSinglePlayerDataObject(UnityServicesActions.GetCurrentUserID());
-            SetPlayerNameServerRpc(new FixedString32Bytes(data.GameTag));
+            PlayerInGame playerInGame = GetComponent<PlayerInGame>();
+            SetPlayerNameServerRpc(new FixedString32Bytes(playerInGame.TagName));
         }
     }
 

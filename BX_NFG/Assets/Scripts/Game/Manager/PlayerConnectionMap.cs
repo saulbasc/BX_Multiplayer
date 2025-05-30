@@ -13,10 +13,10 @@ public class PlayerConnectionMap : Singleton<PlayerConnectionMap>
         get { return playerInGameList; }
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void RegisterPlayer(ulong clientId, PlayerInGame playerInGame)
     {
         playerInGameList[clientId] = playerInGame;
-        Debug.Log("Client registered in PlayerConnectionMap: " + clientId);
+        Debug.Log("Client registered in PlayerConnectionMap: " + clientId+ "with team: "+playerInGame.Team+" Name: "+playerInGame.TagName);
     }
 }
