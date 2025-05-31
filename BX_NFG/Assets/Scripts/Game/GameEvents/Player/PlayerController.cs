@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using Assets.Scripts.GameManager.GameEvents;
 using Assets.Scripts.Input;
 using Unity.Netcode;
 using UnityEngine;
@@ -7,13 +10,14 @@ public class PlayerController : NetworkBehaviour
     private readonly float moveSpeed = 12f;
 
     [SerializeField] private GameJoystick playerInput;
-    private Rigidbody rb;
+    private Rigidbody playerRb;
     private Vector3 latestInput;
-    private NetworkVariable<Vector3> serverPosition = new(writePerm: NetworkVariableWritePermission.Server);
+
+    private bool updateable;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        playerRb = GetComponent<Rigidbody>();
         playerInput.enabled = false;
     }
 
@@ -23,41 +27,57 @@ public class PlayerController : NetworkBehaviour
         {
             playerInput.enabled = true;
         }
+
+        if (IsServer)
+        {
+            MatchSpawnerManager.OnTeleportingChanged += OnTeleportingChanged;
+            updateable = true;
+        }
     }
+
+    private void OnTeleportingChanged(bool isTeleporting)
+    {
+        updateable = !isTeleporting;
+
+        if (!isTeleporting)
+        {
+            StartCoroutine(ReenableMovement());
+        }
+    }
+
+    private IEnumerator ReenableMovement()
+    {
+        yield return new WaitForSeconds(0.1f);
+        updateable = true;
+    }
+
 
     private void FixedUpdate()
     {
         if (IsOwner)
         {
             Vector3 input = playerInput.GetPlayerInput();
-            Vector3 moveDirection = new Vector3(input.x, 0, input.y);
-            rb.linearVelocity = moveDirection * moveSpeed;
 
-            if (!IsHost)
+            if (IsServer)
+            {
+                latestInput = input; 
+            }
+            else
             {
                 UpdateInputServerRpc(input);
             }
-            latestInput = input;
         }
 
-        if (IsServer)
+        if (IsServer && updateable)
         {
             Vector3 moveDirection = new Vector3(latestInput.x, 0, latestInput.y);
-            rb.linearVelocity = moveDirection * moveSpeed;
-            serverPosition.Value = transform.position;
+            playerRb.linearVelocity = moveDirection * moveSpeed;
         }
     }
 
     private void Update()
     {
-        if (IsOwner && !IsServer)
-        {
-            float dist = Vector3.Distance(transform.position, serverPosition.Value);
-            if (dist > 0.5f)
-            {
-                transform.position = Vector3.Lerp(transform.position, serverPosition.Value, 0.25f);
-            }
-        }
+        
     }
 
     [Rpc(SendTo.Server)]

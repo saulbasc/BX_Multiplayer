@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.GameManager.GameEvents.State;
+﻿using System;
+using System.Collections;
+using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine;
@@ -7,6 +9,8 @@ namespace Assets.Scripts.GameManager.GameEvents
 {
     public class MatchSpawnerManager : NetworkBehaviour
     {
+        public static event Action<bool> OnTeleportingChanged;
+
         public override void OnNetworkSpawn()
         {
             if (IsServer)
@@ -19,26 +23,55 @@ namespace Assets.Scripts.GameManager.GameEvents
         {
             if (IsServer)
             {
-                MatchStateManager.Instance.OnMatchStateChanged -= HandleStateChanged;    
+                MatchStateManager.Instance.OnMatchStateChanged -= HandleStateChanged;
             }
         }
 
         private void HandleStateChanged(MatchState state)
         {
-            if(!IsServer) return;
+            if (!IsServer) return;
 
             if (state == MatchState.starting || state == MatchState.preMatch)
             {
-                foreach (var (playerId, playerInGame) in PlayerConnectionMap.Instance.PlayerInGameList)
+                StartCoroutine(TeleportPlayers());
+            }
+        }
+
+        private IEnumerator TeleportPlayers()
+        {
+            OnTeleportingChanged?.Invoke(true);
+
+            yield return new WaitForSeconds(0.05f); 
+
+            foreach (var (playerId, playerInGame) in PlayerConnectionMap.Instance.PlayerInGameList)
+            {
+                var rb = playerInGame.GetComponent<Rigidbody>();
+                var networkTransform = playerInGame.GetComponent<NetworkTransform>();
+
+                if (networkTransform != null) networkTransform.enabled = false;
+
+                if (rb != null)
                 {
-                    var networkTransform = playerInGame.GetComponent<NetworkTransform>();
-                    if (networkTransform != null)
-                    {
-                        Debug.Log($"Teleporting player {playerId} to spawn position {playerInGame.spawnPosition}");
-                        networkTransform.Teleport(playerInGame.spawnPosition, Quaternion.identity, new Vector3(1.5f, 1.5f, 1.5f));
-                    }
+                    rb.linearVelocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                    rb.position = playerInGame.spawnPosition;
+                }
+
+                if (networkTransform != null)
+                {
+                    StartCoroutine(ReenableTransform(networkTransform));
                 }
             }
+
+            yield return new WaitForSeconds(0.1f); 
+            OnTeleportingChanged?.Invoke(false);
+            Debug.Log("✅ Teleport finalizado");
+        }
+
+        private IEnumerator ReenableTransform(NetworkTransform netTransform)
+        {
+            yield return null;
+            netTransform.enabled = true;
         }
     }
 }
