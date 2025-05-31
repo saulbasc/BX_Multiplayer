@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Core.Models;
+﻿using System;
+using Assets.Scripts.Core.Models;
 using Assets.Scripts.Game.GameEvents.Spawner;
 using Assets.Scripts.Game.Manager;
 using Assets.Scripts.Init;
@@ -27,6 +28,8 @@ namespace Assets.Scripts.Game.GameEvents.Player
             }
         }
 
+        public static event Action<PlayerInGame> OnPlayerDataInitialized;
+
         [ServerRpc(RequireOwnership = true)]
         public void SendDataServerRpc(string userId, ServerRpcParams rpcParams = default)
         {
@@ -42,6 +45,8 @@ namespace Assets.Scripts.Game.GameEvents.Player
             spawnPosition = SpawnPositions.GetNextSpawn(Team);
 
             Debug.Log("Lobby Player DATA Id => " + playerData.Id + ", Tag => " + playerData.GameTag + ", Team => " + playerData.PlayerTeam);
+
+            GamePlayerInfo gamePlayerInfo = GetComponent<GamePlayerInfo>();
         }
 
         public void SetPlayerConnected()

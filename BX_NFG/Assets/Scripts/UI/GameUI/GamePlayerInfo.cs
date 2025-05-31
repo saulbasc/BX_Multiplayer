@@ -1,6 +1,4 @@
 ﻿using Assets.Scripts.Game.GameEvents.Player;
-using Assets.Scripts.Init;
-using Assets.Scripts.Lobbi.Logic;
 using TMPro;
 using Unity.Collections;
 using Unity.Netcode;
@@ -13,32 +11,40 @@ public class GamePlayerInfo : NetworkBehaviour
     private NetworkVariable<FixedString32Bytes> playerName = new NetworkVariable<FixedString32Bytes>(
         "", NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
+    private PlayerInGame playerInGame;
+    private bool setPlayerInfo = false;
+
     public override void OnNetworkSpawn()
     {
         playerName.OnValueChanged += OnPlayerNameChanged;
 
-        playerNameTag.text = playerName.Value.ToString();
-
-        if (IsOwner)
+        if (IsServer)
         {
-            PlayerInGame playerInGame = GetComponent<PlayerInGame>();
-            SetPlayerNameServerRpc(new FixedString32Bytes(playerInGame.TagName));
+            playerInGame = GetComponent<PlayerInGame>();
+        }
+
+        playerNameTag.text = playerName.Value.ToString();
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        playerName.OnValueChanged -= OnPlayerNameChanged;
+    }
+
+    private void Update()
+    {
+        if (IsServer && !setPlayerInfo)
+        {
+            if (playerInGame.TagName != null)
+            {
+                playerName.Value = playerInGame.TagName;
+                setPlayerInfo = true;
+            }
         }
     }
 
     private void OnPlayerNameChanged(FixedString32Bytes oldValue, FixedString32Bytes newValue)
     {
         playerNameTag.text = newValue.ToString();
-    }
-
-    [ServerRpc]
-    private void SetPlayerNameServerRpc(FixedString32Bytes name)
-    {
-        playerName.Value = name;
-    }
-
-    public override void OnNetworkDespawn()
-    {
-        playerName.OnValueChanged -= OnPlayerNameChanged;
     }
 }
