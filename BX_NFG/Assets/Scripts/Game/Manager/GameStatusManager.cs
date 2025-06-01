@@ -87,6 +87,9 @@ namespace Assets.Scripts.Game.Manager
             MatchStateManager.Instance.SetMatchState(MatchState.starting);
         }
 
+        public delegate void UpdateSecondsLeft(int secondsLeft);
+        public static UpdateSecondsLeft OnUpdateSecondsLeft;
+
         private IEnumerator StartMatchCountdown(int countdownTime)
         {
             while (countdownTime > 0)
@@ -94,6 +97,7 @@ namespace Assets.Scripts.Game.Manager
                 Debug.Log("Comenzando en " + countdownTime);
                 yield return new WaitForSeconds(1);
                 countdownTime--;
+                OnUpdateSecondsLeft?.Invoke(countdownTime);
             }
 
             MatchStateManager.Instance.SetMatchState(MatchState.playing);

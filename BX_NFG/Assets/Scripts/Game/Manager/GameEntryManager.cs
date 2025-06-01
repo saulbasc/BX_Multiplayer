@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Game.GameEvents.Player;
+﻿using System.Diagnostics;
+using Assets.Scripts.Game.GameEvents.Player;
 using Assets.Scripts.Lobbi.Data;
 using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Relay;
@@ -32,10 +33,10 @@ namespace Assets.Scripts.Game.Manager
             PlayerConnectionMap.Instance.RegisterPlayer(localClientId, playerInGame);
             if(playerInGame.Team == PlayerTeam.Local)
             {
-                MatchInfo.Instance.Match.LocalTeam.AddNewPlayer(playerInGame.PlayerId);
+                MatchInfo.Instance.Match.LocalTeam.AddNewPlayer(OwnerClientId, playerInGame.PlayerId);
             }else if(playerInGame.Team == PlayerTeam.Visitor)
             {
-                MatchInfo.Instance.Match.VisitorTeam.AddNewPlayer(playerInGame.PlayerId);
+                MatchInfo.Instance.Match.VisitorTeam.AddNewPlayer(OwnerClientId, playerInGame.PlayerId);
             }
         }
 
@@ -44,22 +45,22 @@ namespace Assets.Scripts.Game.Manager
             (byte[] allocationId, byte[] key, byte[] connectionData, byte[] hostConnectionData, string ip, int port) = ClientRelayManager.Instance.GetClientConnectionData();
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetClientRelayData(ip, (ushort)port, allocationId, key, connectionData, hostConnectionData, true);
             ulong localClientId = NetworkManager.Singleton.LocalClientId;
-            RegisterPlayerConnectionServerRpc(localClientId);
+            RegisterPlayerConnectionServerRpc(OwnerClientId, localClientId);
         }
 
         [ServerRpc(RequireOwnership = false)]
-        public void RegisterPlayerConnectionServerRpc(ulong clientId)
+        public void RegisterPlayerConnectionServerRpc(ulong playerGameId, ulong clientId)
         {
             var playerObject = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject;
             var playerInGame = playerObject.GetComponent<PlayerInGame>();
             PlayerConnectionMap.Instance.RegisterPlayer(clientId, playerInGame);
             if (playerInGame.Team == PlayerTeam.Local)
             {
-                MatchInfo.Instance.Match.LocalTeam.AddNewPlayer(playerInGame.PlayerId);
+                MatchInfo.Instance.Match.LocalTeam.AddNewPlayer(playerGameId, playerInGame.PlayerId);
             }
             else if (playerInGame.Team == PlayerTeam.Visitor)
             {
-                MatchInfo.Instance.Match.VisitorTeam.AddNewPlayer(playerInGame.PlayerId);
+                MatchInfo.Instance.Match.VisitorTeam.AddNewPlayer(playerGameId, playerInGame.PlayerId);
             }
         }
     }

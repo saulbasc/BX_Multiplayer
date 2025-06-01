@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using Assets.Scripts.GameManager.GameEvents;
+using Assets.Scripts.GameManager.GameEvents.State;
 using Assets.Scripts.Input;
 using Unity.Netcode;
 using UnityEngine;
 
 public class PlayerController : NetworkBehaviour
 {
-    private readonly float moveSpeed = 12f;
+    private readonly float moveSpeed = 18f;
 
     [SerializeField] private GameJoystick playerInput;
     private Rigidbody playerRb;
@@ -30,7 +31,29 @@ public class PlayerController : NetworkBehaviour
 
         if (IsServer)
         {
+            MatchStateManager.Instance.OnMatchStateChanged += HandleStateChanged;
             MatchSpawnerManager.OnTeleportingChanged += OnTeleportingChanged;
+            updateable = true;
+        }
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        if (IsServer)
+        {
+            MatchStateManager.Instance.OnMatchStateChanged -= HandleStateChanged;
+            MatchSpawnerManager.OnTeleportingChanged -= OnTeleportingChanged;
+        }
+    }
+
+    private void HandleStateChanged(MatchState state)
+    {
+        if (state == MatchState.pause || state == MatchState.gameOver)
+        {
+            updateable = false;
+        } 
+        else
+        {
             updateable = true;
         }
     }
@@ -50,7 +73,6 @@ public class PlayerController : NetworkBehaviour
         yield return new WaitForSeconds(0.1f);
         updateable = true;
     }
-
 
     private void FixedUpdate()
     {
@@ -73,11 +95,6 @@ public class PlayerController : NetworkBehaviour
             Vector3 moveDirection = new Vector3(latestInput.x, 0, latestInput.y);
             playerRb.linearVelocity = moveDirection * moveSpeed;
         }
-    }
-
-    private void Update()
-    {
-        
     }
 
     [Rpc(SendTo.Server)]

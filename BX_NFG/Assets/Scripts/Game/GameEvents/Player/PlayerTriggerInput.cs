@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Game.Manager;
+﻿using Assets.Scripts.Game.GameEvents.Ball;
+using Assets.Scripts.Game.Manager;
 using Assets.Scripts.Init;
 using Unity.Netcode;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
 {
     public class PlayerTriggerInput : NetworkBehaviour
     {
-        private GameObject ballInRange;
+        private bool ballInRange;
 
         public override void OnNetworkSpawn()
         {
@@ -18,6 +19,7 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
             }
         }
 
+        /*
         private void OnCollisionEnter(Collision collision)
         {
             Debug.Log("Collision detected with: " + collision.gameObject.name);
@@ -26,6 +28,7 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
                 RegisterTouchServerRpc(UnityServicesActions.GetCurrentUserID());
             }
         }
+        */
 
         [ServerRpc(RequireOwnership = false)]
         private void RegisterTouchServerRpc(string id)
@@ -63,52 +66,56 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
         {
             if (other.CompareTag("Ball"))
             {
-                ballInRange = other.gameObject;
-                RegisterTouchServerRpc(UnityServicesActions.GetCurrentUserID());
+                if (IsServer)
+                {
+                    ballInRange = true;
+                }
+                else
+                {
+                    RegisterTouchServerRpc(UnityServicesActions.GetCurrentUserID());
+                }
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Ball") && ballInRange == other.gameObject)
+            if(!IsServer) return;
+
+            if (other.CompareTag("Ball"))
             {
-                ballInRange = null;
+                ballInRange = false;
             }
         }
 
         public void TryShoot()
         {
-            if (!IsOwner || !ballInRange) return;
+            Debug.Log("ENTRA EN SHOOT");
+            if (!IsOwner) return;
 
-            Rigidbody ballRb = ballInRange.GetComponent<Rigidbody>();
-            Vector3 direction = (ballRb.position - transform.position).normalized;
-            float shootForce = 6f;
-
-            ballRb.AddForce(direction * shootForce, ForceMode.Impulse);
-            ShootServerRpc(shootForce);
+            if (ballInRange)
+            {
+                Debug.Log("ENTRA EN SHOOT Y ESTA EN RANGO");
+                ShootServerRpc(transform.position);
+            }
         }
 
         public void TryPass()
         {
-            if (!IsOwner || !ballInRange) return;
+            if (!IsOwner) return;
 
-            Rigidbody ballRb = ballInRange.GetComponent<Rigidbody>();
-            Vector3 direction = (ballRb.position - transform.position).normalized;
-            float shootForce = 2f;
-
-            ballRb.AddForce(direction * shootForce, ForceMode.Impulse);
-            ShootServerRpc(shootForce);
+            PassServerRpc(transform.position);
         }
 
-        [Rpc(SendTo.Server)]
-        private void ShootServerRpc(float shootForce)
+        [ServerRpc]
+        private void ShootServerRpc(Vector3 playerPosition)
         {
-            if (ballInRange != null)
-            {
-                Rigidbody ballRb = ballInRange.GetComponent<Rigidbody>();
-                Vector3 direction = (ballRb.position - transform.position).normalized;
-                ballRb.AddForce(direction * shootForce, ForceMode.Impulse);
-            }
+            BallManager.Instance.ShootBall(playerPosition);
+        }
+
+        [ServerRpc]
+        private void PassServerRpc(Vector3 playerPosition)
+        {
+            BallManager.Instance.PassBall(playerPosition);
         }
     }
 }

@@ -5,6 +5,8 @@ namespace Assets.Scripts.Core.Models
     [FirestoreData]
     public class GamePlayer
     {
+        public ulong PlayerGameId {  get; set; }
+
         [FirestoreProperty]
         public string PlayerId { get; set; }
 
@@ -17,16 +19,18 @@ namespace Assets.Scripts.Core.Models
         [FirestoreProperty]
         public int Goals { get; set; }
 
-        public GamePlayer(string playerId, int secondsPlayed, int touches, int goals)
+        public GamePlayer(ulong playerGameId, string playerId, int secondsPlayed, int touches, int goals)
         {
+            PlayerGameId = playerGameId;
             PlayerId = playerId;
             SecondsPlayed = secondsPlayed;
             Touches = touches;
             Goals = goals;
         }
 
-        public GamePlayer(string playerId)
+        public GamePlayer(ulong playerGameId, string playerId)
         {
+            PlayerGameId = playerGameId;
             PlayerId = playerId;
             SecondsPlayed = 0;
             Touches = 0;

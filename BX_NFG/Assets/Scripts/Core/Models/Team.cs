@@ -1,6 +1,6 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Firebase.Firestore;
+using UnityEngine;
 
 namespace Assets.Scripts.Core.Models
 {
@@ -25,9 +25,10 @@ namespace Assets.Scripts.Core.Models
             Players = new Dictionary<string, GamePlayer>();
         }
 
-        public void AddNewPlayer(string id)
+        public void AddNewPlayer(ulong playerGameId,string id)
         {
-            Players[id] = new GamePlayer(id);
+            Debug.Log("Adding new player to team: " + id+ " Y GAME ID => "+playerGameId);
+            Players[id] = new GamePlayer(playerGameId, id);
         }
 
         public void AddGoal()

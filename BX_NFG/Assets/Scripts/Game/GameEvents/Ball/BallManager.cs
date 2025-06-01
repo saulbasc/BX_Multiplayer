@@ -1,6 +1,4 @@
-﻿
-using System.Collections;
-using Assets.Scripts.Commons;
+﻿using Assets.Scripts.Commons;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
 using UnityEngine;
@@ -55,17 +53,24 @@ namespace Assets.Scripts.Game.GameEvents.Ball
                 if (!networkBall.IsSpawned)
                 {
                     ball.GetComponent<NetworkObject>().Spawn();
+                    ball.transform.position = new Vector3(0, 1.75f, 0);
                 }
-                StartCoroutine(ApplyInitialVelocity(ball));
             }
         }
 
-        private IEnumerator ApplyInitialVelocity(GameObject ball)
+        public void ShootBall(Vector3 playerPosition)
         {
-            yield return new WaitForFixedUpdate();
-            ball.transform.position = new Vector3(0, 1.75f, 0);
-            Rigidbody rb = ball.GetComponent<Rigidbody>();
-            Vector3 ballForce = new Vector3(0, 0, 1);
+            if(!IsServer || ballController == null) return;
+
+            Debug.Log("Shoot in ball manager");
+            ballController.ShootBall(8f, playerPosition, OwnerClientId);
+        }
+
+        public void PassBall(Vector3 playerPosition)
+        {
+            if (!IsServer || ballController == null) return;
+
+            ballController.ShootBall(2f, playerPosition, OwnerClientId);
         }
     }
 }
