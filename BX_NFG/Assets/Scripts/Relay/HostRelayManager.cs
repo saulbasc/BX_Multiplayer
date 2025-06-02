@@ -14,6 +14,8 @@ using Unity.Netcode;
 using Assets.Scripts.Lobbi.Data;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
+using Assets.Scripts.Lobbi.Players;
+using System.Collections;
 
 namespace Assets.Scripts.Relay
 {
@@ -21,6 +23,7 @@ namespace Assets.Scripts.Relay
     {
         private int maxConnections = 10;
         private HostRelayData hostRelayData;
+        private string playerType;
 
         private void Awake()
         {
@@ -114,6 +117,7 @@ namespace Assets.Scripts.Relay
 
         private void ConnectionApproval(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
         {
+            string payload = System.Text.Encoding.UTF8.GetString(request.Payload);
             response.Approved = true;
             response.CreatePlayerObject = true;
             response.Pending = false;

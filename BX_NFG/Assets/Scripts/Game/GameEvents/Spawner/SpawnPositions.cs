@@ -30,6 +30,10 @@ namespace Assets.Scripts.Game.GameEvents.Spawner
 
         public static Vector3 GetNextSpawn(PlayerTeam team)
         {
+            if (team == PlayerTeam.Spectator)
+            {
+                return Vector3.zero;
+            }
             var list = team == PlayerTeam.Local ? localTeamSpawns : visitorTeamSpawns;
             int index = spawnIndices[team];
 

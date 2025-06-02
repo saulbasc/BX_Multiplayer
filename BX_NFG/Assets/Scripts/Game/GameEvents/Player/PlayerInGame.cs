@@ -33,11 +33,16 @@ namespace Assets.Scripts.Game.GameEvents.Player
         [ServerRpc(RequireOwnership = true)]
         public void SendDataServerRpc(string userId, ServerRpcParams rpcParams = default)
         {
+            LobbyPlayerData playerData = LobbyPlayerManager.Instance.GetSinglePlayerDataObject(userId);
+            if(playerData.PlayerTeam == PlayerTeam.Spectator)
+            {
+                Debug.LogWarning("Player is a spectator and cannot join the game.");
+                return;
+            }
+
             SetPlayerConnected();
             PlayerConnectionID = rpcParams.Receive.SenderClientId;
             PlayerId = userId;
-
-            LobbyPlayerData playerData = LobbyPlayerManager.Instance.GetSinglePlayerDataObject(userId);
 
             TagName = playerData.GameTag;
             Team = playerData.PlayerTeam;

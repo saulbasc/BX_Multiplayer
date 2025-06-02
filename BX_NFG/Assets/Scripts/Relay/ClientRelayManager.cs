@@ -10,6 +10,8 @@ using Assets.Scripts.Handlers;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
+using Assets.Scripts.Lobbi.Players;
+using Assets.Scripts.Lobbi.Data;
 
 namespace Assets.Scripts.Relay
 {
@@ -29,6 +31,7 @@ namespace Assets.Scripts.Relay
             return await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
             {
                 string code = LobbyDataManager.Instance.GetLobbyRelayCode();
+                LobbyPlayerData lpd = LobbyPlayerManager.Instance.GetSinglePlayerDataObject(UnityServicesActions.GetCurrentUserID());
 
                 JoinAllocation allocation = await RelayService.Instance.JoinAllocationAsync(code);
                 RelayServerEndpoint dtlsEndpoint = allocation.ServerEndpoints.First(connection => connection.ConnectionType == "udp");

@@ -10,6 +10,7 @@ namespace Assets.Scripts.Lobbi
         public event Action OnLobbyUpdated;
         public event Action OnLobbyReady;
         public event Action OnLobbyCancel;
+        public event Action OnLobbyStart;
 
         /// <summary>
         /// Evento que manda la nueva Lobby actualizada.
@@ -28,5 +29,10 @@ namespace Assets.Scripts.Lobbi
         /// Evento que indica que la sala ya no está lista para entrar al juego.
         /// </summary>
         public void RaiserLobbyCancel() => OnLobbyCancel?.Invoke();
+
+        /// <summary>
+        /// Evento que indica que el partido va a comenzar.
+        /// </summary>
+        public void RaiserLobbyStart() => OnLobbyStart?.Invoke();
     }
 }

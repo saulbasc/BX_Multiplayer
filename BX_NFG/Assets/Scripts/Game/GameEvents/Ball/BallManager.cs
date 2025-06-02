@@ -47,13 +47,13 @@ namespace Assets.Scripts.Game.GameEvents.Ball
 
         private void InitialBallSpawn()
         {
-            if (ballPrefab != null)
+            if (ballPrefab != null && IsServer)
             {
                 var networkBall = ball.GetComponent<NetworkObject>();
+                ball.transform.position = new Vector3(0, 1.75f, 0);
                 if (!networkBall.IsSpawned)
                 {
                     ball.GetComponent<NetworkObject>().Spawn();
-                    ball.transform.position = new Vector3(0, 1.75f, 0);
                 }
             }
         }

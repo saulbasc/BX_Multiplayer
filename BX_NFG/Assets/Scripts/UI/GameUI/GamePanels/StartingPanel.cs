@@ -1,5 +1,4 @@
-﻿using System;
-using Assets.Scripts.Game.Manager;
+﻿using Assets.Scripts.Game.Manager;
 using Assets.Scripts.GameManager.GameEvents.State;
 using TMPro;
 using UnityEngine;
@@ -15,12 +14,19 @@ namespace Assets.Scripts.UI.GameUI.GamePanels
         {
             MatchStateManager.Instance.OnMatchStateChanged += HandleMatchStateChanged;
             GameStatusManager.OnUpdateSecondsLeft += UpdateStartingText;
-            startingText.text = "Empezando...";
+            startingText.text = "Esperando a todos los jugadores...";
         }
 
         private void UpdateStartingText(int secondsLeft)
         {
-            startingText.text = secondsLeft.ToString();
+            if(secondsLeft > 0)
+            {
+                startingText.text = secondsLeft.ToString();
+            }
+            else
+            {
+                startingText.text = "";
+            }
         }
 
         private void HandleMatchStateChanged(MatchState state)

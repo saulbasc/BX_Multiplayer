@@ -16,10 +16,6 @@ namespace Assets.Scripts.UI.GameUI.GamePanels
             {
                 gameObject.SetActive(false);
             }
-            else
-            {
-                gameObject.SetActive(true);
-            }
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
         [SerializeField] private TextMeshProUGUI localGoalsText;
         [SerializeField] private TextMeshProUGUI visitorGoalsText;
         [SerializeField] private Button exitButton;
+        [SerializeField] private Button spectatorExitButton;
         [SerializeField] private Button pauseButton;
         [SerializeField] private Button resumeButton;
 
@@ -28,6 +29,7 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
                 pauseButton.onClick.AddListener(OnPauseButtonClicked);
                 resumeButton.onClick.AddListener(OnResumeButtonClicked);
                 exitButton.onClick.AddListener(OnExitButtonClicked);
+                spectatorExitButton.onClick.AddListener(OnExitButtonClicked);
             }
         }
 

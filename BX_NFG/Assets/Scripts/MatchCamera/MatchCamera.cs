@@ -45,14 +45,23 @@ namespace Assets.Scripts.MatchCamera
             {
                 foreach (var player in FindObjectsByType<PlayerInGame>(FindObjectsSortMode.None))
                 {
-                    if (player.IsOwner)
+                    if (player.IsOwner && player.PlayerId != null)
                     {
                         target = player.transform;
                         break;
                     }
                 }
+
+                if( target == null)
+                {
+                    target = GameObject.FindGameObjectWithTag("Ball")?.transform;
+                }
             }
-            UpdateCameraPosition();
+
+            if (target != null)
+            {
+                UpdateCameraPosition();
+            }
         }
 
         private void UpdateCameraPosition()

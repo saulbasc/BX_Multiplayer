@@ -30,10 +30,11 @@ namespace Assets.Scripts.Game.Manager
 
         private void Update()
         {
-            if (!IsHost) return;
+            if (!IsServer) return;
 
             if (MatchInfo.Instance.GetAllConnected() && !allConectedFirstTime)
             {
+                allConectedFirstTime = true;
                 StartCoroutine(HandleAllConnected());
             }
         }
@@ -42,7 +43,7 @@ namespace Assets.Scripts.Game.Manager
         {
             yield return new WaitForSeconds(1);
             MatchStateManager.Instance.SetMatchState(MatchState.starting);
-            allConectedFirstTime = true;
+            Debug.Log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
         }
 
         private void HandleStateChanged(MatchState state)
@@ -94,12 +95,12 @@ namespace Assets.Scripts.Game.Manager
         {
             while (countdownTime > 0)
             {
-                Debug.Log("Comenzando en " + countdownTime);
                 yield return new WaitForSeconds(1);
                 countdownTime--;
                 OnUpdateSecondsLeft?.Invoke(countdownTime);
             }
 
+            OnUpdateSecondsLeft?.Invoke(0);
             MatchStateManager.Instance.SetMatchState(MatchState.playing);
         }
     }

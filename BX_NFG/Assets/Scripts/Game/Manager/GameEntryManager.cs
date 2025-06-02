@@ -1,15 +1,20 @@
-﻿using System.Diagnostics;
-using Assets.Scripts.Game.GameEvents.Player;
+﻿using Assets.Scripts.Game.GameEvents.Player;
+using Assets.Scripts.Init;
 using Assets.Scripts.Lobbi.Data;
 using Assets.Scripts.Lobbi.Logic;
+using Assets.Scripts.Lobbi.Players;
 using Assets.Scripts.Relay;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
+using UnityEngine;
 
 namespace Assets.Scripts.Game.Manager
 {
     public class GameEntryManager : NetworkBehaviour
     {
+        [SerializeField] private GameObject playerPanel;
+        [SerializeField] private GameObject spectatorPanel;
+
         public override void OnNetworkSpawn()
         {
             NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
@@ -27,6 +32,14 @@ namespace Assets.Scripts.Game.Manager
         {
             (byte[] allocationId, byte[] key, byte[] connectionData, string ip, int port) = HostRelayManager.Instance.GetHostConnectionData();
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetHostRelayData(ip, (ushort)port, allocationId, key, connectionData, true);
+            LobbyPlayerData lpd = LobbyPlayerManager.Instance.GetSinglePlayerDataObject(UnityServicesActions.GetCurrentUserID());
+            Debug.Log("HOST TEAM => " + lpd.PlayerTeam);
+            if (lpd.PlayerTeam == PlayerTeam.Spectator)
+            {
+                playerPanel.SetActive(false);
+                spectatorPanel.SetActive(true);
+                return;
+            }
             ulong localClientId = NetworkManager.Singleton.LocalClientId;
             var playerObject = NetworkManager.Singleton.ConnectedClients[localClientId].PlayerObject;
             var playerInGame = playerObject.GetComponent<PlayerInGame>();
@@ -38,6 +51,8 @@ namespace Assets.Scripts.Game.Manager
             {
                 MatchInfo.Instance.Match.VisitorTeam.AddNewPlayer(OwnerClientId, playerInGame.PlayerId);
             }
+            playerPanel.SetActive(true);
+            spectatorPanel.SetActive(false);
         }
 
         private void ClientConnection()

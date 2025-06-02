@@ -103,7 +103,10 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
         {
             if (!IsOwner) return;
 
-            PassServerRpc(transform.position);
+            if (ballInRange)
+            {
+                PassServerRpc(transform.position);
+            }
         }
 
         [ServerRpc]
