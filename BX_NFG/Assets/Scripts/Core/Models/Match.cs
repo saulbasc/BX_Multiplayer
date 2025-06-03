@@ -1,33 +1,32 @@
 ﻿using Firebase.Firestore;
+using Unity.Netcode;
 
 namespace Assets.Scripts.Core.Models
 {
-    [FirestoreData]
     public class Match
     {
-        [FirestoreProperty]
-        public float MatchDuration { get; private set; }
+        private float matchDuration;
+        private int localScore;
+        private int visitorScore;
 
-        [FirestoreProperty]
-        public Team LocalTeam { get; private set; }
+        public float MatchDuration => matchDuration;
+        public int LocalScore => localScore;
+        public int VisitorScore => visitorScore;
 
-        [FirestoreProperty]
-        public Team VisitorTeam { get; private set; }
+        public void AddLocalGoal() => localScore++;
+        public void AddVisitorGoal() => visitorScore++;
 
-        public Match(float matchDuration, Team localTeam, Team visitorTeam)
+        public Match(float matchDuration)
         {
-            MatchDuration = matchDuration;
-            LocalTeam = localTeam;
-            VisitorTeam = visitorTeam;
+            this.matchDuration = matchDuration;
+            localScore = 0;
+            visitorScore = 0;
         }
 
-        public Match(float matchDuration) 
+        [ServerRpc]
+        public Match GetMatchServerRpc()
         {
-            MatchDuration = matchDuration;
-            LocalTeam = new Team();
-            VisitorTeam = new Team();
+            return this;
         }
-
-        public Match() { }
     }
 }

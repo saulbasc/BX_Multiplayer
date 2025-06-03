@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Commons;
 using Assets.Scripts.Core.Models;
 using Assets.Scripts.GameManager.GameEvents.Timer;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Assets.Scripts.Game.Manager
@@ -9,16 +10,51 @@ namespace Assets.Scripts.Game.Manager
     {
         public int NumberOfPlayersInTeams { get; private set; }
         public int NumberOfPlayersInTeamsConnected { get; private set; }
-        public Match Match { get; private set; }
+
+        private NetworkVariable<int> localScore = new();
+        private NetworkVariable<int> visitorScore = new();
+        private NetworkVariable<float> matchDuration = new();
+
+        public int GetLocalScore() => localScore.Value;
+        public int GetVisitorScore() => visitorScore.Value;
+        public float GetMatchDuration() => matchDuration.Value;
+
+        public void AddLocalGoal()
+        {
+            if (IsServer)
+            {
+                localScore.Value++;
+            }
+        }
+
+        public void AddVisitorGoal()
+        {
+            if (IsServer)
+            {
+                visitorScore.Value++;
+            }
+        }
+
+        public void SetMatchDuration(MatchDuration matchDuration)
+        {
+            this.matchDuration.Value = MatchDurationExtensions.ToFloat(matchDuration);
+            Debug.Log("SEEEEEEEEEEEEEEEET MATCH DURATION");
+        }
 
         private void Awake()
         {
             DontDestroyOnLoad(this);
         }
 
-        public void SetMatchDuration(MatchDuration matchDuration)
+        public override void OnNetworkSpawn()
         {
-            Match = new Match(MatchDurationExtensions.ToInt(matchDuration));
+            base.OnNetworkSpawn();
+            if (IsServer)
+            {
+                localScore.Value = 0;
+                visitorScore.Value = 0;
+                matchDuration.Value = 50;
+            }
         }
         
         public void SetNumberOfPlayersInTeams(int numberOfPlayers)

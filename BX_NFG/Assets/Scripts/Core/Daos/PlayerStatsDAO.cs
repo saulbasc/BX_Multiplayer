@@ -16,7 +16,7 @@ namespace Assets.Scripts.Core.Daos
             try
             {
                 DocumentReference docRef = firestore
-                    .Collection("users")
+                    .Collection("usersData")
                     .Document(playerId)
                     .Collection("data")
                     .Document("player_stats");
@@ -49,7 +49,7 @@ namespace Assets.Scripts.Core.Daos
                 currentStats.MatchesPlayed += deltaStats.MatchesPlayed;
                 currentStats.Goals += deltaStats.Goals;
                 currentStats.Touches += deltaStats.Touches;
-                currentStats.MinutesPlayed += deltaStats.MinutesPlayed;
+                currentStats.SecondsPlayed += deltaStats.SecondsPlayed;
 
                 DocumentReference docRef = firestore
                     .Collection("usersData")

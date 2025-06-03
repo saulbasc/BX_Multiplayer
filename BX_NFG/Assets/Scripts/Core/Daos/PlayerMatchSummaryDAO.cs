@@ -11,15 +11,15 @@ namespace Assets.Scripts.Core.Daos
     {
         private FirebaseFirestore firestore = FirebaseFirestore.DefaultInstance;
 
-        public async Task Insert(string playerId, string matchId, PlayerMatchSummary summary)
+        public async Task Insert(string playerId,  PlayerMatchSummary summary)
         {
             try
             {
                 DocumentReference docRef = firestore
-                    .Collection("users")
+                    .Collection("usersData")
                     .Document(playerId)
                     .Collection("match_summaries")
-                    .Document(matchId);
+                    .Document();
 
                 await docRef.SetAsync(summary);
             }

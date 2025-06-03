@@ -37,6 +37,19 @@
             };
         }
 
+        public static float ToFloat(MatchDuration duration)
+        {
+            return duration switch
+            {
+                MatchDuration.matchDuration1 => 20f,
+                MatchDuration.matchDuration3 => 180f,
+                MatchDuration.matchDuration5 => 300f,
+                MatchDuration.matchDuration7 => 420f,
+                MatchDuration.matchDuration10 => 600f,
+                _ => throw new System.NotImplementedException(),
+            };
+        }
+
         public static MatchDuration[] MatchDurationList()
         {
             return new MatchDuration[]

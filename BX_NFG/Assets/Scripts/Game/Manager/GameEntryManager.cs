@@ -44,6 +44,7 @@ namespace Assets.Scripts.Game.Manager
             var playerObject = NetworkManager.Singleton.ConnectedClients[localClientId].PlayerObject;
             var playerInGame = playerObject.GetComponent<PlayerInGame>();
             PlayerConnectionMap.Instance.RegisterPlayer(localClientId, playerInGame);
+            /*
             if(playerInGame.Team == PlayerTeam.Local)
             {
                 MatchInfo.Instance.Match.LocalTeam.AddNewPlayer(OwnerClientId, playerInGame.PlayerId);
@@ -51,6 +52,7 @@ namespace Assets.Scripts.Game.Manager
             {
                 MatchInfo.Instance.Match.VisitorTeam.AddNewPlayer(OwnerClientId, playerInGame.PlayerId);
             }
+            */
             playerPanel.SetActive(true);
             spectatorPanel.SetActive(false);
         }
@@ -69,6 +71,7 @@ namespace Assets.Scripts.Game.Manager
             var playerObject = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject;
             var playerInGame = playerObject.GetComponent<PlayerInGame>();
             PlayerConnectionMap.Instance.RegisterPlayer(clientId, playerInGame);
+            /*
             if (playerInGame.Team == PlayerTeam.Local)
             {
                 MatchInfo.Instance.Match.LocalTeam.AddNewPlayer(playerGameId, playerInGame.PlayerId);
@@ -77,6 +80,7 @@ namespace Assets.Scripts.Game.Manager
             {
                 MatchInfo.Instance.Match.VisitorTeam.AddNewPlayer(playerGameId, playerInGame.PlayerId);
             }
+            */
         }
     }
 }

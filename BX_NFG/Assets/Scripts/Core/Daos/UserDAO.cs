@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class UserDAO : Singleton <UserDAO>, IDAO<User, string>
+public class UserDAO : Singleton<UserDAO>, IDAO<User, string>
 {
     private FirebaseFirestore firestore = FirebaseFirestore.DefaultInstance;
     private const string COLLECTION_NAME = "users";

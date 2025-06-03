@@ -28,15 +28,15 @@ namespace Assets.Scripts.GameManager.GameEvents
 
         private void OnLocalGoalScored()
         {
-            MatchInfo.Instance.Match.LocalTeam.AddGoal();
-            ScoreEvents.OnUpdateLocalGoalScored?.Invoke(MatchInfo.Instance.Match.LocalTeam.Score);
+            MatchInfo.Instance.AddLocalGoal();
+            ScoreEvents.OnUpdateLocalGoalScored?.Invoke(MatchInfo.Instance.GetLocalScore());
             MatchStateManager.Instance.SetMatchState(MatchState.onGoal);
         }
 
         private void OnVisitorGoalScored()
         {
-            MatchInfo.Instance.Match.VisitorTeam.AddGoal();
-            ScoreEvents.OnUpdateVisitorGoalScored?.Invoke(MatchInfo.Instance.Match.VisitorTeam.Score);
+            MatchInfo.Instance.AddVisitorGoal();
+            ScoreEvents.OnUpdateVisitorGoalScored?.Invoke(MatchInfo.Instance.GetVisitorScore());
             MatchStateManager.Instance.SetMatchState(MatchState.onGoal);
         }
     }

@@ -8,6 +8,6 @@ namespace Assets.Scripts.Core.Models
         [FirestoreProperty] public int MatchesPlayed { get; set; }
         [FirestoreProperty] public int Goals { get; set; }
         [FirestoreProperty] public int Touches { get; set; }
-        [FirestoreProperty] public float MinutesPlayed { get; set; }
+        [FirestoreProperty] public float SecondsPlayed { get; set; }
     }
 }

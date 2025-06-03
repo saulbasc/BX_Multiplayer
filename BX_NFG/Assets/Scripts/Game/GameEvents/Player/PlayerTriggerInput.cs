@@ -19,40 +19,6 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
             }
         }
 
-        /*
-        private void OnCollisionEnter(Collision collision)
-        {
-            Debug.Log("Collision detected with: " + collision.gameObject.name);
-            if (collision.gameObject.CompareTag("Ball"))
-            {
-                RegisterTouchServerRpc(UnityServicesActions.GetCurrentUserID());
-            }
-        }
-        */
-
-        [ServerRpc(RequireOwnership = false)]
-        private void RegisterTouchServerRpc(string id)
-        {
-            Debug.Log("Touch registrado para el jugador con ID: " + id);
-            foreach (var (key, player) in MatchInfo.Instance.Match.LocalTeam.Players)
-            {
-                if (key.Equals(id))
-                {
-                    player.AddTouch();
-                    return;
-                }
-            }
-
-            foreach (var (key, player) in MatchInfo.Instance.Match.VisitorTeam.Players)
-            {
-                if (key.Equals(id))
-                {
-                    player.AddTouch();
-                    return;
-                }
-            }
-        }
-
         public override void OnNetworkDespawn()
         {
             if (IsOwner)
@@ -69,10 +35,6 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
                 if (IsServer)
                 {
                     ballInRange = true;
-                }
-                else
-                {
-                    RegisterTouchServerRpc(UnityServicesActions.GetCurrentUserID());
                 }
             }
         }

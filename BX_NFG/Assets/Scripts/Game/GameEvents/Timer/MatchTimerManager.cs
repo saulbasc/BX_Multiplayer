@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Commons;
+﻿using System.Collections;
+using Assets.Scripts.Commons;
 using Assets.Scripts.Game.Manager;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
@@ -17,7 +18,7 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
         {
             if (IsServer)
             {
-                SetMatchDuration();
+                StartCoroutine(SetMatchDuration());
                 MatchStateManager.Instance.OnMatchStateChanged += HandleStateChanged;
             }
         }
@@ -67,9 +68,10 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
             timeRemaining.Value -= Time.deltaTime;
         }
 
-        private void SetMatchDuration()
+        private IEnumerator SetMatchDuration()
         {
-            timeRemaining.Value = MatchInfo.Instance.Match.MatchDuration;
+            yield return new WaitForSeconds(1f);
+            timeRemaining.Value = MatchInfo.Instance.GetMatchDuration();
         }
 
         public float GetTime() => timeRemaining.Value;

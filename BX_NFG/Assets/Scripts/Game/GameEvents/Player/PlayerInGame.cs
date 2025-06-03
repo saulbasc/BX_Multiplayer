@@ -6,6 +6,7 @@ using Assets.Scripts.Init;
 using Assets.Scripts.Lobbi.Data;
 using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Lobbi.Players;
+using Assets.Scripts.UI.MenuUI.Components;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -25,7 +26,7 @@ namespace Assets.Scripts.Game.GameEvents.Player
 
         public int Goals => goals;
         public int Touches => touches;
-        public int MinutesPlayed => Mathf.FloorToInt(secondsPlayed / 60f);
+        public float SecondsPlayed => secondsPlayed;
 
         public void AddGoal() => goals++;
         public void RegisterTouch() => touches++;
@@ -87,7 +88,38 @@ namespace Assets.Scripts.Game.GameEvents.Player
                 MatchesPlayed = 1,
                 Goals = goals,
                 Touches = touches,
-                MinutesPlayed = MinutesPlayed
+                SecondsPlayed = SecondsPlayed
+            };
+        }
+
+        public PlayerMatchSummary GetSummary()
+        {
+            MatchResult matchResult = MatchResult.Draw;
+            if (MatchInfo.Instance.GetLocalScore() > MatchInfo.Instance.GetVisitorScore() && Team == PlayerTeam.Local)
+            {
+                matchResult = MatchResult.Win;
+            }
+            else if (MatchInfo.Instance.GetLocalScore() < MatchInfo.Instance.GetVisitorScore() && Team == PlayerTeam.Visitor)
+            {
+                matchResult = MatchResult.Win;
+            }
+            else if(MatchInfo.Instance.GetLocalScore() < MatchInfo.Instance.GetVisitorScore() && Team == PlayerTeam.Local)
+            {
+                matchResult = MatchResult.Lose;
+            }
+            else if (MatchInfo.Instance.GetLocalScore() > MatchInfo.Instance.GetVisitorScore() && Team == PlayerTeam.Visitor)
+            {
+                matchResult = MatchResult.Lose;
+            }
+            else if (MatchInfo.Instance.GetLocalScore() == MatchInfo.Instance.GetVisitorScore())
+            {
+                matchResult = MatchResult.Draw; ;
+            }
+            return new PlayerMatchSummary
+                {
+                LocalScore = MatchInfo.Instance.GetLocalScore(),
+                VisitorScore = MatchInfo.Instance.GetVisitorScore(),
+                Result = matchResult
             };
         }
     }
