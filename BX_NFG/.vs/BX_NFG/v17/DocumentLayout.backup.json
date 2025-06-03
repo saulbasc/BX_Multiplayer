@@ -3,36 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\core\\models\\playerstats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\models\\playerstats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\core\\daos\\rankingdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\daos\\rankingdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\game\\gameevents\\player\\playeringame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\gameevents\\player\\playeringame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\ui\\menuui\\menuactions\\rankingmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\menuui\\menuactions\\rankingmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\core\\daos\\playerstatsdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\daos\\playerstatsdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\ui\\menuui\\components\\rankingstatpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\menuui\\components\\rankingstatpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\core\\daos\\playermatchsummarydao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\daos\\playermatchsummarydao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\ui\\menuui\\components\\menuplayerstats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\menuui\\components\\menuplayerstats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\game\\manager\\matchinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\manager\\matchinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\game\\manager\\gamestatusmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\manager\\gamestatusmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\game\\gameevents\\timer\\matchtimermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\gameevents\\timer\\matchtimermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\relay\\hostrelaymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\relay\\hostrelaymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\core\\models\\rankingtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\core\\models\\rankingtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,111 +30,71 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "MatchTimerManager.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\Timer\\MatchTimerManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\GameEvents\\Timer\\MatchTimerManager.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\Timer\\MatchTimerManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Game\\GameEvents\\Timer\\MatchTimerManager.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAgwAoAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T00:47:48.225Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "PlayerStats.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Core\\Models\\PlayerStats.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\Models\\PlayerStats.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Core\\Models\\PlayerStats.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Core\\Models\\PlayerStats.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAAAAAAAAAAAAAA==",
+              "Title": "RankingDAO.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Core\\Daos\\RankingDAO.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\Daos\\RankingDAO.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Core\\Daos\\RankingDAO.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Core\\Daos\\RankingDAO.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAwwGEAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T01:08:56.64Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "HostRelayManager.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Relay\\HostRelayManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Relay\\HostRelayManager.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Relay\\HostRelayManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Relay\\HostRelayManager.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAvwDcAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T00:58:58.541Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MatchInfo.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\Manager\\MatchInfo.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\Manager\\MatchInfo.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\Manager\\MatchInfo.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Game\\Manager\\MatchInfo.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAuwD8AAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T00:46:48.276Z",
+              "WhenOpened": "2025-06-03T12:36:23.92Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "PlayerStatsDAO.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Core\\Daos\\PlayerStatsDAO.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\Daos\\PlayerStatsDAO.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Core\\Daos\\PlayerStatsDAO.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Core\\Daos\\PlayerStatsDAO.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABIAAAAsAAAAAAAAAA==",
+              "Title": "RankingStatPanel.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\MenuUI\\Components\\RankingStatPanel.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\MenuUI\\Components\\RankingStatPanel.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\MenuUI\\Components\\RankingStatPanel.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\MenuUI\\Components\\RankingStatPanel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T00:46:15.294Z",
+              "WhenOpened": "2025-06-03T12:35:39.792Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "PlayerMatchSummaryDAO.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Core\\Daos\\PlayerMatchSummaryDAO.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\Daos\\PlayerMatchSummaryDAO.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Core\\Daos\\PlayerMatchSummaryDAO.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Core\\Daos\\PlayerMatchSummaryDAO.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABsAAAA8AAAAAAAAAA==",
+              "Title": "MenuPlayerStats.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\MenuUI\\Components\\MenuPlayerStats.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\MenuUI\\Components\\MenuPlayerStats.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\MenuUI\\Components\\MenuPlayerStats.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\MenuUI\\Components\\MenuPlayerStats.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T00:44:06.304Z",
+              "WhenOpened": "2025-06-03T12:35:37.096Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "RankingType.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Core\\Models\\RankingType.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Core\\Models\\RankingType.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Core\\Models\\RankingType.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Core\\Models\\RankingType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-03T12:33:38.223Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "PlayerInGame.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerInGame.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerInGame.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerInGame.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerInGame.cs",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAiwFUAAAAiAAAAAAAAAA==",
+              "Title": "RankingManager.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\MenuUI\\MenuActions\\RankingManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\MenuUI\\MenuActions\\RankingManager.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\MenuUI\\MenuActions\\RankingManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\MenuUI\\MenuActions\\RankingManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T00:43:55.138Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "GameStatusManager.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\Manager\\GameStatusManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\Manager\\GameStatusManager.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\Manager\\GameStatusManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Game\\Manager\\GameStatusManager.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAcwFcAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-03T00:43:10.567Z",
+              "WhenOpened": "2025-06-03T12:33:21.203Z",
               "EditorCaption": ""
             }
           ]

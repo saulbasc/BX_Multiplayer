@@ -21,18 +21,14 @@ namespace Assets.Scripts.Game.Manager
 
         public void AddLocalGoal()
         {
-            if (IsServer)
-            {
-                localScore.Value++;
-            }
+            Debug.Log("GOAL AÑADIDO A MATCH INFO");
+            localScore.Value++;
         }
 
         public void AddVisitorGoal()
         {
-            if (IsServer)
-            {
-                visitorScore.Value++;
-            }
+            Debug.Log("GOAL AÑADIDO A MATCH INFO");
+            visitorScore.Value++;
         }
 
         public void SetMatchDuration(MatchDuration matchDuration)

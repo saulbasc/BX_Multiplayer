@@ -4,6 +4,7 @@ using Assets.Scripts.Commons;
 using Assets.Scripts.Core.Models;
 using Firebase.Firestore;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Core.Daos
 {
@@ -53,6 +54,29 @@ namespace Assets.Scripts.Core.Daos
             {
                 Debug.LogError($"Error retrieving match summary: {e.Message}");
                 return null;
+            }
+        }
+
+        public async Task<List<PlayerMatchSummary>> SelectAll(string playerId)
+        {
+            try
+            {
+                CollectionReference collectionRef = firestore
+                    .Collection("usersData")
+                    .Document(playerId)
+                    .Collection("match_summaries");
+                QuerySnapshot snapshot = await collectionRef.GetSnapshotAsync();
+                List<PlayerMatchSummary> summaries = new List<PlayerMatchSummary>();
+                foreach (DocumentSnapshot doc in snapshot.Documents)
+                {
+                    summaries.Add(doc.ConvertTo<PlayerMatchSummary>());
+                }
+                return summaries;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Error retrieving all match summaries: {e.Message}");
+                return new List<PlayerMatchSummary>();
             }
         }
     }

@@ -282,6 +282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6895066082547406961}
   - component: {fileID: 5354289502188591651}
+  - component: {fileID: 6818242242876428969}
   m_Layer: 5
   m_Name: MatchPanel
   m_TagString: Untagged
@@ -338,6 +339,22 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &6818242242876428969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4476473561667543428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597a410057ac4c342a7ace466a400f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resultPanelImage: {fileID: 328500165654101089}
+  result: {fileID: 8181632372458367608}
+  localScore: {fileID: 1870271875296642049}
+  visitorScore: {fileID: 6465083571790021709}
 --- !u!1 &4932386907377370541
 GameObject:
   m_ObjectHideFlags: 0

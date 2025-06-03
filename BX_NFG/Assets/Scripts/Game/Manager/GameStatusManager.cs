@@ -12,12 +12,14 @@ namespace Assets.Scripts.Game.Manager
     public class GameStatusManager : NetworkBehaviour
     {
         private bool allConectedFirstTime;
+        private bool gameEnded;
 
         public override void OnNetworkSpawn()
         {
             if (IsServer)
             {
                 MatchStateManager.Instance.OnMatchStateChanged += HandleStateChanged;
+                gameEnded = false;
             }
         }
 
@@ -58,7 +60,11 @@ namespace Assets.Scripts.Game.Manager
             }
             else if (state == MatchState.gameOver)
             {
-                GameOverActions();
+                if (!gameEnded)
+                {
+                    GameOverActions();
+                    gameEnded = true;
+                }
             }
             else if (state == MatchState.exit)
             {
@@ -86,6 +92,7 @@ namespace Assets.Scripts.Game.Manager
             {
                 await PlayerStatsDAO.Instance.Insert(player.PlayerId, player.GetStats());
                 await PlayerMatchSummaryDAO.Instance.Insert(player.PlayerId, player.GetSummary());
+                await RankingDAO.Instance.Insert(player.PlayerId, player.GetRankingStats());
             }
         }
 

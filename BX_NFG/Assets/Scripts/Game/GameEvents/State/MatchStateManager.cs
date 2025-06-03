@@ -50,7 +50,7 @@ namespace Assets.Scripts.GameManager.GameEvents.State
                 currentState = newState;
                 Debug.Log($"[SERVER] Match state changed to {newState}");
                 OnMatchStateChanged?.Invoke(newState); 
-                NotifyMatchStateChangedClientRpc(newState);
+                //NotifyMatchStateChangedClientRpc(newState);
             }
         }
     }

@@ -28,7 +28,11 @@ namespace Assets.Scripts.Game.GameEvents.Player
         public int Touches => touches;
         public float SecondsPlayed => secondsPlayed;
 
-        public void AddGoal() => goals++;
+        public void AddGoal()
+        {
+            Debug.Log("GOAL AÑADIDO A PLAYER IN GAME");
+            goals++;
+        }
         public void RegisterTouch() => touches++;
         public void AddTime(float deltaTime) => secondsPlayed += deltaTime;
 
@@ -85,6 +89,18 @@ namespace Assets.Scripts.Game.GameEvents.Player
         {
             return new PlayerStats
             {
+                MatchesPlayed = 1,
+                Goals = goals,
+                Touches = touches,
+                SecondsPlayed = SecondsPlayed
+            };
+        }
+
+        public RankingPlayerStats GetRankingStats()
+        {
+            return new RankingPlayerStats
+            {
+                PlayerName = TagName,
                 MatchesPlayed = 1,
                 Goals = goals,
                 Touches = touches,

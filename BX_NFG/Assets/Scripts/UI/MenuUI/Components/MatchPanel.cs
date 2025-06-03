@@ -1,12 +1,13 @@
 ﻿using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.MenuUI.Components
 {
-    public class MatchPanel : NetworkBehaviour
+    public class MatchPanel : MonoBehaviour
     {
-        [SerializeField] private GameObject resultPanel;
+        [SerializeField] private Image resultPanelImage;
         [SerializeField] private TextMeshProUGUI result;
         [SerializeField] private TextMeshProUGUI localScore;
         [SerializeField] private TextMeshProUGUI visitorScore;
@@ -17,17 +18,20 @@ namespace Assets.Scripts.UI.MenuUI.Components
             {
                 case MatchResult.Draw:
                     this.result.text = "E";
-                    this.result.color = Color.yellow;
+                    resultPanelImage.color = Color.yellow;
                     break;
                 case MatchResult.Win:
                     this.result.text = "V";
-                    this.result.color = Color.green;
+                    resultPanelImage.color = Color.green;
                     break;
                 case MatchResult.Lose:
                     this.result.text = "L";
-                    this.result.color = Color.red;
+                    resultPanelImage.color = Color.red;
                     break;
             }
+
+            this.localScore.text = localScore.ToString();
+            this.visitorScore.text = visitorScore.ToString();
         }
     }
 
