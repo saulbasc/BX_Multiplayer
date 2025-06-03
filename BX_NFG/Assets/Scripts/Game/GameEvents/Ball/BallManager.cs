@@ -62,7 +62,6 @@ namespace Assets.Scripts.Game.GameEvents.Ball
         {
             if(!IsServer || ballController == null) return;
 
-            Debug.Log("Shoot in ball manager");
             ballController.ShootBall(8f, playerPosition, OwnerClientId);
         }
 

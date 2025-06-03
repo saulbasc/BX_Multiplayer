@@ -55,6 +55,47 @@ namespace Assets.Scripts.Core.Daos
             throw new NotImplementedException();
         }
 
+        public Task<List<Match>> SelectAllWithPlayerID(string firebaseID)
+        {
+            CollectionReference collectionRef = firestore.Collection(COLLECTION_NAME);
+
+            return SafeAsyncFunctionsHandler.ExecuteAsync<List<Match>>(async () =>
+            {
+                QuerySnapshot snapshot = await collectionRef.GetSnapshotAsync();
+                List<Match> matches = new List<Match>();
+
+                foreach (DocumentSnapshot document in snapshot.Documents)
+                {
+                    Match match = document.ConvertTo<Match>();
+
+                    bool playerFound = false;
+
+                    if (match.LocalTeam != null && match.LocalTeam.Players != null)
+                    {
+                        if (match.LocalTeam.Players.ContainsKey(firebaseID))
+                        {
+                            playerFound = true;
+                        }
+                    }
+
+                    if (!playerFound && match.VisitorTeam != null && match.VisitorTeam.Players != null)
+                    {
+                        if (match.VisitorTeam.Players.ContainsKey(firebaseID))
+                        {
+                            playerFound = true;
+                        }
+                    }
+
+                    if (playerFound)
+                    {
+                        matches.Add(match);
+                    }
+                }
+
+                return matches;
+            }, new List<Match>());
+        }
+
         public Task<bool> updates(Match entity)
         {
             throw new NotImplementedException();

@@ -50,7 +50,7 @@ namespace Assets.Scripts.GameManager.GameEvents
 
                 if (networkTransform != null) networkTransform.enabled = false;
 
-                if (rb != null)
+                if (rb != null && playerInGame.PlayerId != null)
                 {
                     rb.linearVelocity = Vector3.zero;
                     rb.angularVelocity = Vector3.zero;

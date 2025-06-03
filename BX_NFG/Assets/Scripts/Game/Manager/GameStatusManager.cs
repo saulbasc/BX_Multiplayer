@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Assets.Scripts.Commons;
 using Assets.Scripts.Core.Daos;
+using Assets.Scripts.Game.GameEvents.Player;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
 using UnityEngine;
@@ -41,7 +42,7 @@ namespace Assets.Scripts.Game.Manager
 
         private IEnumerator HandleAllConnected()
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(5);
             MatchStateManager.Instance.SetMatchState(MatchState.starting);
             Debug.Log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
         }
@@ -57,7 +58,7 @@ namespace Assets.Scripts.Game.Manager
             }
             else if (state == MatchState.gameOver)
             {
-                MatchDAO.Instance.insert(MatchInfo.Instance.Match);
+                GameOverActions();
             }
             else if (state == MatchState.exit)
             {
@@ -73,6 +74,18 @@ namespace Assets.Scripts.Game.Manager
         private void SetGameMenuSceneRpc()
         {
             SceneManager.LoadSceneAsync(Scenes.MenuScene.ToString());
+        }
+
+        private async void GameOverActions()
+        {
+            if(!IsServer) return;
+
+            PlayerInGame[] players = FindObjectsByType<PlayerInGame>(FindObjectsSortMode.None);
+
+            foreach (var player in players)
+            {
+                await PlayerStatsDAO.Instance.Insert(player.PlayerId, player.GetStats());
+            }
         }
 
         private IEnumerator OnGoal()

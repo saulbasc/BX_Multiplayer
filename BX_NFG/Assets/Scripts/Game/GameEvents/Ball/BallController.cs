@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Game.Manager;
+﻿using Assets.Scripts.Game.GameEvents.Player;
+using Assets.Scripts.Game.Manager;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
 using UnityEngine;
@@ -46,10 +47,11 @@ public class BallController : NetworkBehaviour
     {
         if (!IsServer) return;
 
-        var player = collision.gameObject.GetComponent<PlayerController>();
+        var player = collision.gameObject.GetComponent<PlayerInGame>();
         if (player != null)
         {
             LastPlayerTouched.Value = player.OwnerClientId;
+            player.RegisterTouch();
             Debug.Log($"Ball touched by player: {player.OwnerClientId}");
         }
     }
@@ -57,25 +59,24 @@ public class BallController : NetworkBehaviour
     private void RegisterGoal()
     {
         if (!IsServer) return;
-        
-        foreach(var (key, player) in MatchInfo.Instance.Match.LocalTeam.Players)
+
+        ulong lastTouchedPlayerId = LastPlayerTouched.Value;
+
+        PlayerInGame[] players = FindObjectsByType<PlayerInGame>(FindObjectsSortMode.None);
+
+        foreach (var player in players)
         {
-            if (player.PlayerGameId == LastPlayerTouched.Value)
+            if (player.PlayerConnectionID == lastTouchedPlayerId)
             {
                 player.AddGoal();
+                Debug.Log($"Goal registered for player: {player.PlayerId} with ConnectionID: {lastTouchedPlayerId}");
                 return;
             }
         }
 
-        foreach (var (key, player) in MatchInfo.Instance.Match.VisitorTeam.Players)
-        {
-            if (player.PlayerGameId == LastPlayerTouched.Value)
-            {
-                player.AddGoal();
-                return;
-            }
-        }
+        Debug.LogWarning($"No player found with ConnectionID: {lastTouchedPlayerId} to register goal.");
     }
+
 
     public void PauseBall()
     {

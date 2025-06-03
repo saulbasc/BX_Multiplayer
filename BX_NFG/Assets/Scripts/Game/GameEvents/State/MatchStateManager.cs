@@ -8,46 +8,49 @@ namespace Assets.Scripts.GameManager.GameEvents.State
     public class MatchStateManager : NetworkSingleton<MatchStateManager>
     {
         public event Action<MatchState> OnMatchStateChanged;
-
-        public NetworkVariable<MatchState> MatchState = new(default,NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+        private MatchState currentState;
 
         private void Awake()
         {
-            var netObj = GetComponent<NetworkObject>();
-            if (netObj == null)
-            {
-                netObj = gameObject.AddComponent<NetworkObject>();
-            }
+            gameObject.AddComponent<NetworkObject>();
         }
 
         public override void OnNetworkSpawn()
         {
-            if (IsClient)
-            {
-                MatchState.OnValueChanged += HandleMatchStateChanged;
-            }
+            base.OnNetworkSpawn();
+            Debug.Log($"OnNetworkSpawn {gameObject.name} ID:{gameObject.GetInstanceID()} || isServer: {IsServer} || isClient: {IsClient} || isHost: {IsHost} || isOwner: {IsOwner}");
         }
 
-        private void HandleMatchStateChanged(MatchState oldState, MatchState newState)
+        public override void OnNetworkDespawn()
+        {
+            base.OnNetworkDespawn();
+        }
+
+        [ClientRpc]
+        private void NotifyMatchStateChangedClientRpc(MatchState newState)
         {
             Debug.Log($"[CLIENT] Match state changed to {newState}");
             OnMatchStateChanged?.Invoke(newState);
         }
 
-        // Solo el servidor puede cambiar el estado
         public void SetMatchState(MatchState newState)
         {
-            Debug.Log($"AAAAAAAA => {newState} || isServer: {IsServer} || isClient: {IsClient} || isHost: {IsHost} || isOwner: {IsOwner}");
-
+            Debug.Log($"SetMatchState {gameObject.name} ID:{gameObject.GetInstanceID()} => {newState} || isServer: {IsServer} || isClient: {IsClient} || isHost: {IsHost} || isOwner: {IsOwner}");
+            if (!IsSpawned)
+            {
+                Debug.LogWarning("SetMatchState called before NetworkSpawn!");
+                return;
+            }
             if (!IsServer)
             {
                 return;
             }
-            if (MatchState.Value != newState)
+            if (currentState != newState)
             {
-                MatchState.Value = newState;
+                currentState = newState;
                 Debug.Log($"[SERVER] Match state changed to {newState}");
                 OnMatchStateChanged?.Invoke(newState); 
+                NotifyMatchStateChangedClientRpc(newState);
             }
         }
     }
