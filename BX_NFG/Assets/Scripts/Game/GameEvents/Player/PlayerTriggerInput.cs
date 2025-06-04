@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Game.GameEvents.Ball;
-using Assets.Scripts.Game.Manager;
-using Assets.Scripts.Init;
+﻿using System;
+using Assets.Scripts.Game.GameEvents.Ball;
+using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -9,6 +9,7 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
     public class PlayerTriggerInput : NetworkBehaviour
     {
         private bool ballInRange;
+        private bool shootable;
 
         public override void OnNetworkSpawn()
         {
@@ -16,6 +17,23 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
             {
                 PlayerEvents.OnShootAction += TryShoot;
                 PlayerEvents.OnPassAction += TryPass;
+            }
+
+            if (IsServer)
+            {
+                MatchStateManager.Instance.OnMatchStateChanged += HandleStateChanged;
+            }
+        }
+
+        private void HandleStateChanged(MatchState state)
+        {
+            if (state == MatchState.playing)
+            {
+                shootable = true;
+            }
+            else
+            {
+                shootable = false;
             }
         }
 
@@ -53,34 +71,32 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
         {
             Debug.Log("ENTRA EN SHOOT");
             if (!IsOwner) return;
-
-            if (ballInRange)
-            {
-                Debug.Log("ENTRA EN SHOOT Y ESTA EN RANGO");
-                ShootServerRpc(transform.position);
-            }
+            Debug.Log("ENTRA EN SHOOT Y ESTA EN RANGO");
+            ShootServerRpc(transform.position);
         }
 
         public void TryPass()
         {
             if (!IsOwner) return;
-
-            if (ballInRange)
-            {
-                PassServerRpc(transform.position);
-            }
+            PassServerRpc(transform.position);
         }
 
         [ServerRpc]
         private void ShootServerRpc(Vector3 playerPosition)
         {
-            BallManager.Instance.ShootBall(playerPosition);
+            if (ballInRange && shootable)
+            {
+                BallManager.Instance.ShootBall(playerPosition);
+            }
         }
 
         [ServerRpc]
         private void PassServerRpc(Vector3 playerPosition)
         {
-            BallManager.Instance.PassBall(playerPosition);
+            if (ballInRange && shootable)
+            {
+                BallManager.Instance.PassBall(playerPosition);
+            }
         }
     }
 }

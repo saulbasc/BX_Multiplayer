@@ -33,7 +33,7 @@ public class PlayerController : NetworkBehaviour
         {
             MatchStateManager.Instance.OnMatchStateChanged += HandleStateChanged;
             MatchSpawnerManager.OnTeleportingChanged += OnTeleportingChanged;
-            updateable = true;
+            updateable = false;
         }
     }
 
@@ -48,7 +48,7 @@ public class PlayerController : NetworkBehaviour
 
     private void HandleStateChanged(MatchState state)
     {
-        if (state == MatchState.pause || state == MatchState.gameOver)
+        if (state == MatchState.pause || state == MatchState.gameOver || state == MatchState.preMatch)
         {
             updateable = false;
         } 
