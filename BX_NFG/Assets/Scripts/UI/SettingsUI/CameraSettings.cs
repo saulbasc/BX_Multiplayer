@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Commons;
+﻿using System;
+using Assets.Scripts.Commons;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,12 +13,14 @@ namespace Assets.Scripts.UI.SettingsUI
         [SerializeField] private Slider cameraZoom;
         [SerializeField] private Slider cameraAngle;
         [SerializeField] private Button saveButton;
+        [SerializeField] private Button exitButton;
 
         private const string ZoomKey = "CameraZoom";
         private const string AngleKey = "CameraAngle";
 
         private void OnEnable()
         {
+            exitButton.onClick.AddListener(OnExit);
             saveButton.onClick.AddListener(SaveSettings);
             cameraZoom.minValue = 2f;
             cameraZoom.maxValue = 7f;
@@ -28,6 +31,7 @@ namespace Assets.Scripts.UI.SettingsUI
 
         private void OnDisable()
         {
+            exitButton.onClick.RemoveListener(OnExit);
             saveButton.onClick.RemoveListener(SaveSettings);
             cameraAngle.onValueChanged.RemoveListener(OnAngleChanged);
             cameraZoom.onValueChanged.RemoveListener(OnZoomChanged);
@@ -58,7 +62,10 @@ namespace Assets.Scripts.UI.SettingsUI
             UpdateCameraPosition();
         }
 
-
+        private void OnExit()
+        {
+            SceneManager.LoadScene(Scenes.MenuScene.ToString());
+        }
 
         private void GetSettings()
         {
