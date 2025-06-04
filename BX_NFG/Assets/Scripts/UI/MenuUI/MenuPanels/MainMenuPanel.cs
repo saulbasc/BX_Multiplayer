@@ -32,7 +32,7 @@ namespace Assets.Scripts.UI.MenuUI
             gameModesButton.onClick.AddListener(() => base.manager.ShowPanel(PanelType.GameModesPanel));
             settingsButton.onClick.AddListener(() => base.manager.AddFloatPanel(PanelType.SettingsPanel));
             statsButton.onClick.AddListener(() => base.manager.ShowPanel(PanelType.StatsPanel));
-            profileButton.onClick.AddListener(() => base.manager.ShowPanel(PanelType.ProfilePanel));
+            profileButton.onClick.AddListener(() => base.manager.AddFloatPanel(PanelType.ProfilePanel));
             rankingButton.onClick.AddListener(() => base.manager.ShowPanel(PanelType.RankingPanel));
         }
 
