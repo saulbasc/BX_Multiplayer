@@ -14,6 +14,8 @@ namespace Assets.Scripts.UI.MenuUI.MenuActions
         [SerializeField] private RectTransform rankingScroll;
         [SerializeField] private GameObject rankingPrefab;
 
+        [SerializeField] private List<Sprite> rankingImages;
+
         private void Start()
         {
             rankingDropdown.onValueChanged.AddListener(async (index) => await OnRankingTypeChanged(index));
@@ -32,11 +34,13 @@ namespace Assets.Scripts.UI.MenuUI.MenuActions
             RankingType selectedType = (RankingType)index;
 
             List<RankingStat> rankingStats = await RankingDAO.Instance.GetRanking(selectedType, 10);
+            int position = 1;
 
             foreach (var stat in rankingStats)
             {
                 GameObject prefab = Instantiate(rankingPrefab, rankingScroll);
-                prefab.GetComponent<RankingStatPanel>().Initialize(stat);
+                prefab.GetComponent<RankingStatPanel>().Initialize(position, stat, rankingImages[index]);
+                position++;
             }
         }
 

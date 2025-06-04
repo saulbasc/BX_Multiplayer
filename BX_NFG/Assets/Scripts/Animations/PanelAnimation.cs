@@ -2,7 +2,7 @@
 
 namespace Assets.Scripts.Animations
 {
-    public class LobbyPanelAnimation : MonoBehaviour
+    public class PanelAnimation : MonoBehaviour
     {
         private void Start()
         {
