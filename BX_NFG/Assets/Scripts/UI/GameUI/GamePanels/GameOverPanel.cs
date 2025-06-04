@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Commons;
 using Assets.Scripts.GameManager.GameEvents.State;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,6 +14,14 @@ namespace Assets.Scripts.UI.GameUI.GamePanels
         private void Awake()
         {
             MatchStateManager.Instance.OnMatchStateChanged += OnMatchStateChanged;
+        }
+
+        private void OnDestroy()
+        {
+            if (MatchStateManager.Instance != null)
+            {
+                MatchStateManager.Instance.OnMatchStateChanged -= OnMatchStateChanged;
+            }
         }
 
         private void OnMatchStateChanged(MatchState state)

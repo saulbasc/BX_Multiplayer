@@ -6,6 +6,7 @@ using Assets.Scripts.UI.Common;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Assets.Scripts.UI.MenuUI.MenuPanels;
 
 namespace Assets.Scripts.UI.MenuUI
 {
@@ -24,6 +25,16 @@ namespace Assets.Scripts.UI.MenuUI
 
             backButton.onClick.AddListener(() => base.manager.RemoveFloatPanel(PanelType));
             changeNameButton.onClick.AddListener(() => base.manager.AddFloatPanel(PanelType.ChangeProfileNamePanel));
+        }
+
+        private void OnEnable()
+        {
+            MenuEvents.Instance.OnNameUpdated += SetUserText;
+        }
+
+        private void OnDisable()
+        {
+            MenuEvents.Instance.OnNameUpdated -= SetUserText;
         }
 
         private async Task<User> GetUser()

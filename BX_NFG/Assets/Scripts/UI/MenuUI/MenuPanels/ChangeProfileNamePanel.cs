@@ -3,6 +3,7 @@ using System;
 using Assets.Scripts.Core.FireB;
 using Assets.Scripts.Core.Models;
 using Assets.Scripts.UI.Common;
+using Assets.Scripts.UI.MenuUI.MenuPanels;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,6 +31,7 @@ namespace Assets.Scripts.UI.MenuUI
             string newName = nameInput.text;
             User updatedUser = new User(FirebaseActions.GetCurrentID(), newName);
             await UserDAO.Instance.updates(updatedUser);
+            MenuEvents.Instance.RaiseNameUpdated();
             manager.RemoveFloatPanel(PanelType);
         }
     }

@@ -1,6 +1,10 @@
-﻿using Assets.Scripts.Commons;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.Commons;
 using Assets.Scripts.Core.Models;
+using Assets.Scripts.Game.GameEvents.Player;
 using Assets.Scripts.GameManager.GameEvents.Timer;
+using NUnit.Framework;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -68,6 +72,15 @@ namespace Assets.Scripts.Game.Manager
             Debug.Log("NumberOfPlayersInTeamsConnected: " + NumberOfPlayersInTeamsConnected);
             Debug.Log("NumberOfPlayersInTeams: " + NumberOfPlayersInTeams);
             return NumberOfPlayersInTeamsConnected == NumberOfPlayersInTeams;
+        }
+
+        public List<PlayerInGame> GetPlayersInGame()
+        {
+            Debug.Log("NO SE SI SOY SERVER");
+            //if (!IsServer) return new List<PlayerInGame>();
+            Debug.Log("SOY SERVER");
+
+            return FindObjectsByType<PlayerInGame>(FindObjectsSortMode.None).ToList();
         }
     }
 }

@@ -90,9 +90,12 @@ namespace Assets.Scripts.Game.Manager
 
             foreach (var player in players)
             {
-                await PlayerStatsDAO.Instance.Insert(player.PlayerId, player.GetStats());
-                await PlayerMatchSummaryDAO.Instance.Insert(player.PlayerId, player.GetSummary());
-                await RankingDAO.Instance.Insert(player.PlayerId, player.GetRankingStats());
+                if(player.PlayerId != null)
+                {
+                    await PlayerStatsDAO.Instance.Insert(player.PlayerId, player.GetStats());
+                    await PlayerMatchSummaryDAO.Instance.Insert(player.PlayerId, player.GetSummary());
+                    await RankingDAO.Instance.Insert(player.PlayerId, player.GetRankingStats());
+                }
             }
         }
 

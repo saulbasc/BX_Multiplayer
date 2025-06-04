@@ -2,6 +2,7 @@
 using Assets.Scripts.Core.FireB;
 using Assets.Scripts.Core.Models;
 using Assets.Scripts.UI.Common;
+using Assets.Scripts.UI.MenuUI.MenuPanels;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,7 @@ namespace Assets.Scripts.UI.MenuUI
         private void OnEnable()
         {
             SetConfirmButtonText();
+            MenuEvents.Instance.OnNameUpdated += SetConfirmButtonText;
         }
 
         public override void Initialize(IUIManager manager)

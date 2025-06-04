@@ -14,6 +14,14 @@ namespace Assets.Scripts.UI.LobbyUI.LobbyPanels
             LobbyEvents.Instance.OnLobbyStart += OnLobbyStart;
         }
 
+        private void OnDestroy()
+        {
+            if (LobbyEvents.Instance != null)
+            {
+                LobbyEvents.Instance.OnLobbyStart -= OnLobbyStart;
+            }
+        }
+
         private void OnLobbyStart()
         {
             startingPanel.SetActive(true);
