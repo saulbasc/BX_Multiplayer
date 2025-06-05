@@ -12,15 +12,18 @@ namespace Assets.Scripts.Game.Manager
 {
     public class GameEntryManager : NetworkBehaviour
     {
+        [SerializeField] private MatchInfo matchInfo;
         [SerializeField] private GameObject playerPanel;
         [SerializeField] private GameObject spectatorPanel;
 
         public override void OnNetworkSpawn()
         {
+            Debug.Log("GameEntryManager OnNetworkSpawn called");
             NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
             if (LobbyDataManager.Instance.IsLocalPlayerHost())
             {
                 HostConnection();
+                SetMatchInfo();
             }
             else
             {
@@ -45,18 +48,15 @@ namespace Assets.Scripts.Game.Manager
             var playerInGame = playerObject.GetComponent<PlayerInGame>();
             playerPanel.SetActive(true);
             spectatorPanel.SetActive(false);
-            SetMatchInfo();
+            Debug.Log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOHOST");
         }
 
-        /// <summary>
-        /// Establece el número total de jugadores en Local y Visitante en MatchInfo.
-        /// </summary>
         private void SetMatchInfo()
         {
             int numberOfLocalPlayers = LobbyDataManager.Instance.GetNumberOfPlayersInLobbyTeams(PlayerTeam.Local);
             int numberOfVisitorPlayers = LobbyDataManager.Instance.GetNumberOfPlayersInLobbyTeams(PlayerTeam.Visitor);
-            MatchInfo.Instance.SetNumberOfPlayersInTeams(numberOfLocalPlayers + numberOfVisitorPlayers);
-            MatchInfo.Instance.SetMatchDuration(LobbyDataManager.Instance.GetLobbyMatchDuration());
+            matchInfo.SetNumberOfPlayersInTeams(numberOfLocalPlayers + numberOfVisitorPlayers);
+            matchInfo.SetMatchDuration(LobbyDataManager.Instance.GetLobbyMatchDuration());
         }
 
         private void ClientConnection()
@@ -65,6 +65,7 @@ namespace Assets.Scripts.Game.Manager
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetClientRelayData(ip, (ushort)port, allocationId, key, connectionData, hostConnectionData, true);
             ulong localClientId = NetworkManager.Singleton.LocalClientId;
             RegisterPlayerConnectionServerRpc(OwnerClientId, localClientId);
+            Debug.Log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOCLIENT");
         }
 
         [ServerRpc(RequireOwnership = false)]

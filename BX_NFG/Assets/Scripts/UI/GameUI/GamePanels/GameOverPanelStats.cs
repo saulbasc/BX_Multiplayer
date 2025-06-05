@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Game.Manager;
+﻿using System.Collections;
+using Assets.Scripts.Game.Manager;
 using Assets.Scripts.Lobbi.Data;
 using Assets.Scripts.UI.GameUI.Components;
 using TMPro;
@@ -8,6 +9,8 @@ namespace Assets.Scripts.UI.GameUI.GamePanels
 {
     public class GameOverPanelStats : MonoBehaviour
     {
+        private MatchInfo matchInfo;
+
         [SerializeField] private TextMeshProUGUI localScore;
         [SerializeField] private TextMeshProUGUI visitorScore;
         [SerializeField] private RectTransform localScroll;
@@ -16,19 +19,35 @@ namespace Assets.Scripts.UI.GameUI.GamePanels
 
         private void OnEnable()
         {
+            StartCoroutine(WaitForMatchInfo());
+        }
+
+        private IEnumerator WaitForMatchInfo()
+        {
+            GameObject manager = null;
+            while (manager == null)
+            {
+                manager = GameObject.Find("GameManager");
+                yield return null;
+            }
+
+            matchInfo = manager.GetComponent<MatchInfo>();
+
             SetScore();
             SetPanels();
         }
 
         private void SetScore()
         {
-            localScore.text = MatchInfo.Instance.GetLocalScore().ToString();
-            visitorScore.text = MatchInfo.Instance.GetVisitorScore().ToString();
+            if (matchInfo == null) return;
+
+            localScore.text = matchInfo.GetLocalScore().ToString();
+            visitorScore.text = matchInfo.GetVisitorScore().ToString();
         }
 
         private void SetPanels()
         {
-            foreach (var player in MatchInfo.Instance.GetPlayersInGame())
+            foreach (var player in matchInfo.GetPlayersInGame())
             {
                 GameObject stats; 
                 if (player.Team == PlayerTeam.Local)

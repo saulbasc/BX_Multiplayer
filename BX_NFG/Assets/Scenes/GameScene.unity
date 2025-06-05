@@ -5401,6 +5401,7 @@ GameObject:
   - component: {fileID: 1769640365}
   - component: {fileID: 1769640363}
   - component: {fileID: 1769640374}
+  - component: {fileID: 1769640375}
   - component: {fileID: 1769640366}
   - component: {fileID: 1769640367}
   - component: {fileID: 1769640368}
@@ -5409,7 +5410,6 @@ GameObject:
   - component: {fileID: 1769640371}
   - component: {fileID: 1769640372}
   - component: {fileID: 1769640373}
-  - component: {fileID: 1769640375}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5470,6 +5470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  matchInfo: {fileID: 1769640375}
   matchStateManager: {fileID: 1769640374}
 --- !u!114 &1769640367
 MonoBehaviour:
@@ -5506,6 +5507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  matchInfo: {fileID: 1769640375}
   matchStateManager: {fileID: 1769640374}
 --- !u!114 &1769640369
 MonoBehaviour:
@@ -5520,6 +5522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  matchInfo: {fileID: 1769640375}
   playerPanel: {fileID: 1968075677}
   spectatorPanel: {fileID: 1063969357}
 --- !u!114 &1769640370
@@ -5550,6 +5553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  matchInfo: {fileID: 1769640375}
   matchStateManager: {fileID: 1769640374}
 --- !u!114 &1769640372
 MonoBehaviour:
@@ -5602,9 +5606,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1769640362}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13c9cd3a418701b48b6b22605125c67e, type: 3}
+  m_Script: {fileID: 11500000, guid: d555cd34c8380be4f89a03b928a86a8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!1 &1798569738
 GameObject:
   m_ObjectHideFlags: 0

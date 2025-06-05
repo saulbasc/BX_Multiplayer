@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Assets.Scripts.Core.Models;
 using Assets.Scripts.Game.GameEvents.Spawner;
 using Assets.Scripts.Game.Manager;
@@ -14,6 +15,8 @@ namespace Assets.Scripts.Game.GameEvents.Player
 {
     public class PlayerInGame : NetworkBehaviour
     {
+        private MatchInfo matchInfo;
+
         public ulong PlayerConnectionID { get; private set; }
         public string PlayerId { get; private set; }
         public string TagName { get; private set; }
@@ -38,6 +41,11 @@ namespace Assets.Scripts.Game.GameEvents.Player
 
         public override void OnNetworkSpawn()
         {
+            if (IsServer)
+            {
+                StartCoroutine(WaitForMatchInfo());
+            }
+
             if (IsOwner)
             {
                 string userId = UnityServicesActions.GetCurrentUserID();
@@ -48,8 +56,24 @@ namespace Assets.Scripts.Game.GameEvents.Player
         private void Update()
         {
             if (!IsServer) return;
-
             AddTime(Time.deltaTime);
+        }
+
+        private IEnumerator WaitForMatchInfo()
+        {
+            GameObject manager = null;
+            while (manager == null)
+            {
+                manager = GameObject.Find("GameManager");
+                yield return null;
+            }
+
+            matchInfo = manager.GetComponent<MatchInfo>();
+
+            if(matchInfo != null)
+            {
+                SetPlayerConnected();
+            }
         }
 
         public static event Action<PlayerInGame> OnPlayerDataInitialized;
@@ -60,7 +84,6 @@ namespace Assets.Scripts.Game.GameEvents.Player
             LobbyPlayerData playerData = LobbyPlayerManager.Instance.GetSinglePlayerDataObject(userId);
             if(playerData.PlayerTeam == PlayerTeam.Spectator)  return;
 
-            SetPlayerConnected();
             PlayerConnectionID = rpcParams.Receive.SenderClientId;
             PlayerId = userId;
 
@@ -80,8 +103,8 @@ namespace Assets.Scripts.Game.GameEvents.Player
 
         public void SetPlayerConnected()
         {
-            MatchInfo.Instance.SetNumberOdPlayersInTeamsConnected(
-                MatchInfo.Instance.NumberOfPlayersInTeamsConnected + 1
+            matchInfo.SetNumberOdPlayersInTeamsConnected(
+                matchInfo.NumberOfPlayersInTeamsConnected + 1
             );
         }
 
@@ -111,31 +134,31 @@ namespace Assets.Scripts.Game.GameEvents.Player
         public PlayerMatchSummary GetSummary()
         {
             MatchResult matchResult = MatchResult.Draw;
-            if (MatchInfo.Instance.GetLocalScore() > MatchInfo.Instance.GetVisitorScore() && Team == PlayerTeam.Local)
+            if (matchInfo.GetLocalScore() > matchInfo.GetVisitorScore() && Team == PlayerTeam.Local)
             {
                 matchResult = MatchResult.Win;
             }
-            else if (MatchInfo.Instance.GetLocalScore() < MatchInfo.Instance.GetVisitorScore() && Team == PlayerTeam.Visitor)
+            else if (matchInfo.GetLocalScore() < matchInfo.GetVisitorScore() && Team == PlayerTeam.Visitor)
             {
                 matchResult = MatchResult.Win;
             }
-            else if(MatchInfo.Instance.GetLocalScore() < MatchInfo.Instance.GetVisitorScore() && Team == PlayerTeam.Local)
+            else if(matchInfo.GetLocalScore() < matchInfo.GetVisitorScore() && Team == PlayerTeam.Local)
             {
                 matchResult = MatchResult.Lose;
             }
-            else if (MatchInfo.Instance.GetLocalScore() > MatchInfo.Instance.GetVisitorScore() && Team == PlayerTeam.Visitor)
+            else if (matchInfo.GetLocalScore() > matchInfo.GetVisitorScore() && Team == PlayerTeam.Visitor)
             {
                 matchResult = MatchResult.Lose;
             }
-            else if (MatchInfo.Instance.GetLocalScore() == MatchInfo.Instance.GetVisitorScore())
+            else if (matchInfo.GetLocalScore() == matchInfo.GetVisitorScore())
             {
                 matchResult = MatchResult.Draw; ;
             }
             return new PlayerMatchSummary
                 {
-                LocalScore = MatchInfo.Instance.GetLocalScore(),
-                VisitorScore = MatchInfo.Instance.GetVisitorScore(),
-                Result = matchResult
+                LocalScore = matchInfo.GetLocalScore(),
+                VisitorScore = matchInfo.GetVisitorScore(),
+                Result = matchResult    
             };
         }
     }

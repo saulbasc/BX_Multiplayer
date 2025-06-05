@@ -30,8 +30,6 @@ namespace Assets.Scripts.UI.LobbyUI
             onLobbyCancelAction = () => startButton.gameObject.SetActive(false);
             LobbyEvents.Instance.OnLobbyCancel += onLobbyCancelAction;
 
-            Debug.Log("LocalPlayerIsHost? => " + LobbyDataManager.Instance.IsLocalPlayerHost());
-
             if (LobbyDataManager.Instance.IsLocalPlayerHost())
             {
                 onLobbyReadyAction = () => startButton.gameObject.SetActive(true);

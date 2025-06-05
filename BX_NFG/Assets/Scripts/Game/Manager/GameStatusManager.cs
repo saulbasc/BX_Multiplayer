@@ -1,16 +1,15 @@
 ﻿using System.Collections;
-using Assets.Scripts.Commons;
 using Assets.Scripts.Core.Daos;
 using Assets.Scripts.Game.GameEvents.Player;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Game.Manager
 {
     public class GameStatusManager : NetworkBehaviour
     {
+        [SerializeField] private MatchInfo matchInfo;
         [SerializeField] private MatchStateManager matchStateManager;
         private bool allConectedFirstTime;
         private bool gameEnded;
@@ -36,7 +35,7 @@ namespace Assets.Scripts.Game.Manager
         {
             if (!IsServer) return;
 
-            if (MatchInfo.Instance.GetAllConnected() && !allConectedFirstTime)
+            if (matchInfo.GetAllConnected() && !allConectedFirstTime)
             {
                 allConectedFirstTime = true;
                 StartCoroutine(HandleAllConnected());

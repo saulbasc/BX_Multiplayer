@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Assets.Scripts.Commons;
 using Assets.Scripts.Game.Manager;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
@@ -7,8 +6,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.GameManager.GameEvents.Timer
 {
-    public class MatchTimerManager : NetworkSingleton<MatchTimerManager>
+    public class MatchTimerManager : NetworkBehaviour
     {
+        [SerializeField] private MatchInfo matchInfo;
         [SerializeField] private MatchStateManager matchStateManager;
         private bool isRunning = false;
         private NetworkVariable<float> timeRemaining = new NetworkVariable<float>(
@@ -16,6 +16,7 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
 
         public override void OnNetworkSpawn()
         {
+            Debug.Log("osiudhduogewyfewife");
             if (IsServer)
             {
                 StartCoroutine(SetMatchDuration());
@@ -71,7 +72,7 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
         private IEnumerator SetMatchDuration()
         {
             yield return new WaitForSeconds(1f);
-            timeRemaining.Value = MatchInfo.Instance.GetMatchDuration();
+            timeRemaining.Value = matchInfo.GetMatchDuration();
         }
 
         public float GetTime() => timeRemaining.Value;

@@ -7,8 +7,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.GameManager.GameEvents
 {
-    public class LocalScoreManager : NetworkBehaviour
+    public class MatchScoreManager : NetworkBehaviour
     {
+        [SerializeField] private MatchInfo matchInfo;
         [SerializeField] private MatchStateManager matchStateManager;
         public override void OnNetworkSpawn()
         {
@@ -30,15 +31,15 @@ namespace Assets.Scripts.GameManager.GameEvents
 
         private void OnLocalGoalScored()
         {
-            MatchInfo.Instance.AddLocalGoal();
-            ScoreEvents.OnUpdateLocalGoalScored?.Invoke(MatchInfo.Instance.GetLocalScore());
+            matchInfo.AddLocalGoal();
+            ScoreEvents.OnUpdateLocalGoalScored?.Invoke(matchInfo.GetLocalScore());
             matchStateManager.SetMatchState(MatchState.onGoal);
         }
 
         private void OnVisitorGoalScored()
         {
-            MatchInfo.Instance.AddVisitorGoal();
-            ScoreEvents.OnUpdateVisitorGoalScored?.Invoke(MatchInfo.Instance.GetVisitorScore());
+            matchInfo.AddVisitorGoal();
+            ScoreEvents.OnUpdateVisitorGoalScored?.Invoke(matchInfo.GetVisitorScore());
             matchStateManager.SetMatchState(MatchState.onGoal);
         }
     }

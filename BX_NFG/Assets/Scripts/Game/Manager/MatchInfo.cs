@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Commons;
 using Assets.Scripts.Game.GameEvents.Player;
 using Assets.Scripts.GameManager.GameEvents.Timer;
 using Unity.Netcode;
@@ -8,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Game.Manager
 {
-    public class MatchInfo : NetworkSingleton<MatchInfo>
+    public class MatchInfo : NetworkBehaviour
     {
         public int NumberOfPlayersInTeams { get; private set; }
         public int NumberOfPlayersInTeamsConnected { get; private set; }
@@ -23,25 +22,17 @@ namespace Assets.Scripts.Game.Manager
 
         public void AddLocalGoal()
         {
-            Debug.Log("GOAL AÑADIDO A MATCH INFO");
             localScore.Value++;
         }
 
         public void AddVisitorGoal()
         {
-            Debug.Log("GOAL AÑADIDO A MATCH INFO");
             visitorScore.Value++;
         }
 
         public void SetMatchDuration(MatchDuration matchDuration)
         {
             this.matchDuration.Value = MatchDurationExtensions.ToFloat(matchDuration);
-            Debug.Log("SEEEEEEEEEEEEEEEET MATCH DURATION");
-        }
-
-        private void Awake()
-        {
-            DontDestroyOnLoad(this);
         }
 
         public override void OnNetworkSpawn()
@@ -58,11 +49,13 @@ namespace Assets.Scripts.Game.Manager
         public void SetNumberOfPlayersInTeams(int numberOfPlayers)
         {
             NumberOfPlayersInTeams = numberOfPlayers;
+            Debug.Log("NumberOfPlayersInTeams set to: " + NumberOfPlayersInTeams);
         }
         
         public void SetNumberOdPlayersInTeamsConnected(int numberOfPlayers)
         {
             NumberOfPlayersInTeamsConnected = numberOfPlayers;
+            Debug.Log("NumberOfPlayersInTeamsConnected set to: " + NumberOfPlayersInTeamsConnected);
         }
 
         public bool GetAllConnected()
@@ -74,10 +67,6 @@ namespace Assets.Scripts.Game.Manager
 
         public List<PlayerInGame> GetPlayersInGame()
         {
-            Debug.Log("NO SE SI SOY SERVER");
-            //if (!IsServer) return new List<PlayerInGame>();
-            Debug.Log("SOY SERVER");
-
             return FindObjectsByType<PlayerInGame>(FindObjectsSortMode.None).ToList();
         }
     }

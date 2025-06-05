@@ -28,7 +28,7 @@
         {
             return duration switch
             {
-                MatchDuration.matchDuration1 => 20,
+                MatchDuration.matchDuration1 => 5,
                 MatchDuration.matchDuration3 => 180,
                 MatchDuration.matchDuration5 => 300,
                 MatchDuration.matchDuration7 => 420,
@@ -41,7 +41,7 @@
         {
             return duration switch
             {
-                MatchDuration.matchDuration1 => 20f,
+                MatchDuration.matchDuration1 => 5f,
                 MatchDuration.matchDuration3 => 180f,
                 MatchDuration.matchDuration5 => 300f,
                 MatchDuration.matchDuration7 => 420f,
