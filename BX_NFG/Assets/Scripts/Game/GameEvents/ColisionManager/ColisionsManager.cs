@@ -7,11 +7,20 @@ namespace Assets.Scripts.Game.GameEvents
 {
     public class ColisionsManager : NetworkBehaviour
     {
+        [SerializeField] private MatchStateManager matchStateManager;
         [SerializeField] private GameObject restartColision;
 
         public override void OnNetworkSpawn()
         {
-            MatchStateManager.Instance.OnMatchStateChanged += HandleStateChanged;
+            if (IsServer)
+            {
+                matchStateManager.OnMatchStateChanged += HandleStateChanged;
+            }
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            matchStateManager.OnMatchStateChanged -= HandleStateChanged;
         }
 
         private void HandleStateChanged(MatchState state)

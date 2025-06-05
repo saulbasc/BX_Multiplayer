@@ -11,6 +11,7 @@ namespace Assets.Scripts.Game.Manager
 {
     public class GameStatusManager : NetworkBehaviour
     {
+        [SerializeField] private MatchStateManager matchStateManager;
         private bool allConectedFirstTime;
         private bool gameEnded;
 
@@ -18,7 +19,7 @@ namespace Assets.Scripts.Game.Manager
         {
             if (IsServer)
             {
-                MatchStateManager.Instance.OnMatchStateChanged += HandleStateChanged;
+                matchStateManager.OnMatchStateChanged += HandleStateChanged;
                 gameEnded = false;
             }
         }
@@ -27,7 +28,7 @@ namespace Assets.Scripts.Game.Manager
         {
             if (IsServer)
             {
-                MatchStateManager.Instance.OnMatchStateChanged -= HandleStateChanged;
+                matchStateManager.OnMatchStateChanged -= HandleStateChanged;
             }
         }
 
@@ -45,7 +46,7 @@ namespace Assets.Scripts.Game.Manager
         private IEnumerator HandleAllConnected()
         {
             yield return new WaitForSeconds(5);
-            MatchStateManager.Instance.SetMatchState(MatchState.starting);
+            matchStateManager.SetMatchState(MatchState.starting);
             Debug.Log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
         }
 
@@ -109,7 +110,7 @@ namespace Assets.Scripts.Game.Manager
                 countdownTime--;
             }
 
-            MatchStateManager.Instance.SetMatchState(MatchState.starting);
+            matchStateManager.SetMatchState(MatchState.starting);
         }
 
         public delegate void UpdateSecondsLeft(int secondsLeft);
@@ -125,7 +126,7 @@ namespace Assets.Scripts.Game.Manager
             }
 
             OnUpdateSecondsLeft?.Invoke(0);
-            MatchStateManager.Instance.SetMatchState(MatchState.playing);
+            matchStateManager.SetMatchState(MatchState.playing);
         }
     }
 }

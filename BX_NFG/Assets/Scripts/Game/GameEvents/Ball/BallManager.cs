@@ -7,6 +7,7 @@ namespace Assets.Scripts.Game.GameEvents.Ball
 {
     public class BallManager : NetworkSingleton<BallManager>
     {
+        [SerializeField] private MatchStateManager matchStateManager;
         [SerializeField] private GameObject ballPrefab;
         private GameObject ball;
         private BallController ballController;
@@ -15,7 +16,7 @@ namespace Assets.Scripts.Game.GameEvents.Ball
         {
             if (IsServer)
             {
-                MatchStateManager.Instance.OnMatchStateChanged += HandleStateChanged;
+                matchStateManager.OnMatchStateChanged += HandleStateChanged;
                 ball = Instantiate(ballPrefab, new Vector3(0, 2.5f, 0), Quaternion.identity);
                 ballController = ball.GetComponent<BallController>();
             }
@@ -25,7 +26,7 @@ namespace Assets.Scripts.Game.GameEvents.Ball
         {
             if (IsServer)
             {
-                MatchStateManager.Instance.OnMatchStateChanged -= HandleStateChanged;
+                matchStateManager.OnMatchStateChanged -= HandleStateChanged;
             }
         }
 

@@ -9,13 +9,14 @@ namespace Assets.Scripts.GameManager.GameEvents
 {
     public class MatchSpawnerManager : NetworkBehaviour
     {
+        [SerializeField] private MatchStateManager matchStateManager;
         public static event Action<bool> OnTeleportingChanged;
 
         public override void OnNetworkSpawn()
         {
             if (IsServer)
             {
-                MatchStateManager.Instance.OnMatchStateChanged += HandleStateChanged;
+                matchStateManager.OnMatchStateChanged += HandleStateChanged;
             }
         }
 
@@ -23,7 +24,7 @@ namespace Assets.Scripts.GameManager.GameEvents
         {
             if (IsServer)
             {
-                MatchStateManager.Instance.OnMatchStateChanged -= HandleStateChanged;
+                matchStateManager.OnMatchStateChanged -= HandleStateChanged;
             }
         }
 

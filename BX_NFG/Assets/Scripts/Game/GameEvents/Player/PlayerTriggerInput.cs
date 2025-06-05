@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Assets.Scripts.Game.GameEvents.Ball;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
@@ -8,6 +9,7 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
 {
     public class PlayerTriggerInput : NetworkBehaviour
     {
+        private MatchStateManager matchStateManager;
         private bool ballInRange;
         private bool shootable;
 
@@ -21,9 +23,49 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
 
             if (IsServer)
             {
-                MatchStateManager.Instance.OnMatchStateChanged += HandleStateChanged;
+                StartCoroutine(WaitForGameManager());
             }
         }
+
+        private IEnumerator WaitForGameManager()
+        {
+            GameObject manager = null;
+
+            while (manager == null)
+            {
+                manager = GameObject.Find("GameManager");
+                yield return null; 
+            }
+
+            matchStateManager = manager.GetComponent<MatchStateManager>();
+
+            if (matchStateManager != null)
+            {
+                matchStateManager.OnMatchStateChanged += HandleStateChanged;
+            }
+            else
+            {
+                Debug.LogError("MatchStateManager component not found on GameManager!");
+            }
+        }
+
+        public override void OnNetworkDespawn()
+        {
+            if (IsOwner)
+            {
+                PlayerEvents.OnShootAction -= TryShoot;
+                PlayerEvents.OnPassAction -= TryPass;
+            }
+
+            if (IsServer)
+            {
+                if (matchStateManager != null)
+                {
+                    matchStateManager.OnMatchStateChanged -= HandleStateChanged;
+                }
+            }
+        }
+
 
         private void HandleStateChanged(MatchState state)
         {
@@ -34,15 +76,6 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
             else
             {
                 shootable = false;
-            }
-        }
-
-        public override void OnNetworkDespawn()
-        {
-            if (IsOwner)
-            {
-                PlayerEvents.OnShootAction -= TryShoot;
-                PlayerEvents.OnPassAction -= TryPass;
             }
         }
 

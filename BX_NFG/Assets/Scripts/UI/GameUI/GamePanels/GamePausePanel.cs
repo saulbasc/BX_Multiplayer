@@ -5,12 +5,21 @@ namespace Assets.Scripts.UI.GameUI.GamePanels
 {
     public class GamePausePanel : MonoBehaviour
     {
+        [SerializeField] private MatchStateManager matchStateManager;
         [SerializeField] private GameObject pausePanel;
 
         private void Awake()
         {
-            MatchStateManager.Instance.OnMatchStateChanged += OnMatchStateChanged;
+            matchStateManager.OnMatchStateChanged += OnMatchStateChanged;
             pausePanel.SetActive(false);
+        }
+
+        private void OnDestroy()
+        {
+            if (matchStateManager != null)
+            {
+                matchStateManager.OnMatchStateChanged -= OnMatchStateChanged;
+            }
         }
 
         private void OnMatchStateChanged(MatchState state)

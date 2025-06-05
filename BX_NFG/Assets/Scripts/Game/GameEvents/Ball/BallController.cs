@@ -1,11 +1,11 @@
 ﻿using Assets.Scripts.Game.GameEvents.Player;
-using Assets.Scripts.Game.Manager;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
 using UnityEngine;
 
 public class BallController : NetworkBehaviour
 {
+    private MatchStateManager matchStateManager;
     private Rigidbody ballRb;
     private Vector3 savedVelocity;
     private Vector3 savedAngularVelocity;
@@ -23,7 +23,9 @@ public class BallController : NetworkBehaviour
 
         if (IsServer)
         {
-            MatchStateManager.Instance.OnMatchStateChanged += HandleStateChanged;
+            GameObject manager = GameObject.Find("GameManager");
+            matchStateManager = manager.GetComponent<MatchStateManager>();
+            matchStateManager.OnMatchStateChanged += HandleStateChanged;
         }
     }
 
@@ -31,7 +33,7 @@ public class BallController : NetworkBehaviour
     {
         if (IsServer)
         {
-            MatchStateManager.Instance.OnMatchStateChanged -= HandleStateChanged;
+            matchStateManager.OnMatchStateChanged -= HandleStateChanged;
         }
     }
 

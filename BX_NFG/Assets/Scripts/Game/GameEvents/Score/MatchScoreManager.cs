@@ -3,11 +3,13 @@ using Assets.Scripts.Game.GameEvents.Score;
 using Assets.Scripts.Game.Manager;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
+using UnityEngine;
 
 namespace Assets.Scripts.GameManager.GameEvents
 {
     public class LocalScoreManager : NetworkBehaviour
     {
+        [SerializeField] private MatchStateManager matchStateManager;
         public override void OnNetworkSpawn()
         {
             if (IsServer)
@@ -30,14 +32,14 @@ namespace Assets.Scripts.GameManager.GameEvents
         {
             MatchInfo.Instance.AddLocalGoal();
             ScoreEvents.OnUpdateLocalGoalScored?.Invoke(MatchInfo.Instance.GetLocalScore());
-            MatchStateManager.Instance.SetMatchState(MatchState.onGoal);
+            matchStateManager.SetMatchState(MatchState.onGoal);
         }
 
         private void OnVisitorGoalScored()
         {
             MatchInfo.Instance.AddVisitorGoal();
             ScoreEvents.OnUpdateVisitorGoalScored?.Invoke(MatchInfo.Instance.GetVisitorScore());
-            MatchStateManager.Instance.SetMatchState(MatchState.onGoal);
+            matchStateManager.SetMatchState(MatchState.onGoal);
         }
     }
 }

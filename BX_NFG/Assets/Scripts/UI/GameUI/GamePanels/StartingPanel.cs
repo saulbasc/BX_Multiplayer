@@ -7,14 +7,25 @@ namespace Assets.Scripts.UI.GameUI.GamePanels
 {
     public class StartingPanel : MonoBehaviour
     {
+        [SerializeField] private MatchStateManager matchStateManager;
         [SerializeField] private GameObject startingPanel;
         [SerializeField] private TextMeshProUGUI startingText;
 
         private void Awake()
         {
-            MatchStateManager.Instance.OnMatchStateChanged += HandleMatchStateChanged;
+            matchStateManager.OnMatchStateChanged += HandleMatchStateChanged;
             GameStatusManager.OnUpdateSecondsLeft += UpdateStartingText;
             startingText.text = "Esperando a todos los jugadores...";
+        }
+
+        private void OnDestroy()
+        {
+            if (matchStateManager != null)
+            {
+                matchStateManager.OnMatchStateChanged -= HandleMatchStateChanged;
+            }
+            GameStatusManager.OnUpdateSecondsLeft -= UpdateStartingText;
+            startingPanel.SetActive(false);
         }
 
         private void UpdateStartingText(int secondsLeft)

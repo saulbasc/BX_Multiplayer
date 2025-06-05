@@ -8,19 +8,20 @@ namespace Assets.Scripts.UI.GameUI.GamePanels
 {
     public class GameOverPanel : MonoBehaviour
     {
+        [SerializeField] private MatchStateManager matchStateManager;
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private Button exitButton;
 
         private void Awake()
         {
-            MatchStateManager.Instance.OnMatchStateChanged += OnMatchStateChanged;
+            matchStateManager.OnMatchStateChanged += OnMatchStateChanged;
         }
 
         private void OnDestroy()
         {
-            if (MatchStateManager.Instance != null)
+            if (matchStateManager != null)
             {
-                MatchStateManager.Instance.OnMatchStateChanged -= OnMatchStateChanged;
+                matchStateManager.OnMatchStateChanged -= OnMatchStateChanged;
             }
         }
 

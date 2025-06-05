@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class PlayerController : NetworkBehaviour
 {
+    private MatchStateManager matchStateManager;
     private readonly float moveSpeed = 18f;
 
     [SerializeField] private GameJoystick playerInput;
@@ -31,9 +32,30 @@ public class PlayerController : NetworkBehaviour
 
         if (IsServer)
         {
-            MatchStateManager.Instance.OnMatchStateChanged += HandleStateChanged;
+            StartCoroutine(WaitForGameManager());
             MatchSpawnerManager.OnTeleportingChanged += OnTeleportingChanged;
             updateable = false;
+        }
+    }
+
+    private IEnumerator WaitForGameManager()
+    {
+        GameObject manager = null;
+        while (manager == null)
+        {
+            manager = GameObject.Find("GameManager");
+            yield return null; 
+        }
+
+        matchStateManager = manager.GetComponent<MatchStateManager>();
+
+        if (matchStateManager != null)
+        {
+            matchStateManager.OnMatchStateChanged += HandleStateChanged;
+        }
+        else
+        {
+            Debug.LogError("MatchStateManager component not found on GameManager!");
         }
     }
 
@@ -41,10 +63,14 @@ public class PlayerController : NetworkBehaviour
     {
         if (IsServer)
         {
-            MatchStateManager.Instance.OnMatchStateChanged -= HandleStateChanged;
+            if (matchStateManager != null)
+            {
+                matchStateManager.OnMatchStateChanged -= HandleStateChanged;
+            }
             MatchSpawnerManager.OnTeleportingChanged -= OnTeleportingChanged;
         }
     }
+
 
     private void HandleStateChanged(MatchState state)
     {

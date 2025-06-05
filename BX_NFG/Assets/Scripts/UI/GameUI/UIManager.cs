@@ -13,6 +13,7 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
 {
     public class UIManager : NetworkBehaviour
     {
+        [SerializeField] private MatchStateManager matchStateManager;
         [SerializeField] private MatchTimerManager timerManager;
         [SerializeField] private TextMeshProUGUI timerText;
         [SerializeField] private TextMeshProUGUI localGoalsText;
@@ -96,13 +97,13 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
         [Rpc(SendTo.Server)]
         private void RequestPauseServerRpc(RpcParams rpcParams = default)
         {
-            MatchStateManager.Instance.SetMatchState(MatchState.pause);
+            matchStateManager.SetMatchState(MatchState.pause);
         }
 
         [Rpc(SendTo.Server)]
         private void RequestResumeServerRpc(RpcParams rpcParams = default)
         {
-            MatchStateManager.Instance.SetMatchState(MatchState.playing);
+            matchStateManager.SetMatchState(MatchState.playing);
         }
     }
 }
