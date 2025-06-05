@@ -1,19 +1,17 @@
 ﻿using Unity.Services.Lobbies.Models;
 using UnityEngine;
-using Assets.Scripts.Commons;
 using Assets.Scripts.Relay;
-using UnityEngine.SceneManagement;
 using WebSocketSharp;
-using Assets.Scripts.Handlers;
-using Unity.Netcode;
 
 namespace Assets.Scripts.Lobbi.Logic
 {
     /// <summary>
     /// Clase dedicada a la actualización periódica de la Lobby
     /// </summary>
-    public class LobbyUpdaterManager : Singleton<LobbyUpdaterManager>
+    public class LobbyUpdaterManager : MonoBehaviour
     {
+        [SerializeField] private ClientRelayManager clientRelayManager;
+        [SerializeField] private LobbyDataManager lobbyDataManager;
         private void OnEnable()
         {
             LobbyEvents.Instance.OnNewLobbyUpdated += OnLobbyUpdated;
@@ -27,6 +25,8 @@ namespace Assets.Scripts.Lobbi.Logic
 
         private void OnLobbyUpdated(Lobby lobby)
         {
+            lobbyDataManager.SetLobby(lobby);
+
             LobbyEvents.Instance.RaiserLobbyUpdated();
 
             CheckIfNumberOfPlayersReadyInLobby();
@@ -40,7 +40,7 @@ namespace Assets.Scripts.Lobbi.Logic
         /// </summary>
         private void CheckIfNumberOfPlayersReadyInLobby()
         {
-            if (LobbyDataManager.Instance.NumberOfPlayersReady() == LobbyDataManager.Instance.GetNumberOfPlayers())
+            if (lobbyDataManager.NumberOfPlayersReady() == lobbyDataManager.GetNumberOfPlayers())
             {
                 LobbyEvents.Instance.RaiserLobbyReady();
             }
@@ -56,11 +56,12 @@ namespace Assets.Scripts.Lobbi.Logic
         /// </summary>
         private async void CheckIfLocalPlayerIsReadyToEnterInGame()
         {
-            string joinRelayCode = LobbyDataManager.Instance.GetLobbyDataObject().RelayJoinCode;
+            string joinRelayCode = lobbyDataManager.GetLobbyDataObject().RelayJoinCode;
 
             if (joinRelayCode.IsNullOrEmpty() || PlayerStatus.Instance.InGame || PlayerStatus.Instance.JoinedGame) return;
 
-            await ClientRelayManager.Instance.JoinRelayServer();
+            LobbyEvents.Instance.RaiserLobbyStart();
+            await clientRelayManager.JoinRelayServer();
             PlayerStatus.Instance.JoinedGame = true;
         }
 

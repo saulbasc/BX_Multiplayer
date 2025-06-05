@@ -16,8 +16,10 @@ using Assets.Scripts.Lobbi.Players;
 
 namespace Assets.Scripts.Lobbi.Logic
 {
-    public class LobbyServiceManager : DefaultSingleton<LobbyServiceManager>
+    public class LobbyServiceManager : MonoBehaviour
     {
+        [SerializeField] private LobbyDataManager lobbyDataManager;
+        [SerializeField] private LobbyCoroutineManager lobbyCoroutineManager;
         /// <summary>
         /// Jugadores máximos para la Lobby y partido.
         /// </summary>
@@ -45,12 +47,12 @@ namespace Assets.Scripts.Lobbi.Logic
                 Data = lobbyDataObject,
             };
 
-            return await SafeAsyncFunctionsHandler.ExecuteAsync( async () =>
+            return await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
             {
                 Lobby newLobby = await LobbyService.Instance.CreateLobbyAsync("MyLobby", maxPlayers, lobbyOptions);
-                LobbyDataManager.Instance.SetLobby(newLobby);
-                LobbyCoroutineManager.Instance.StartUpdateLobbyCororutine(LobbyDataManager.Instance.GetLobbyID(), 1f);
-                LobbyCoroutineManager.Instance.StartHeartbeatCororutine(LobbyDataManager.Instance.GetLobbyID(), 5f);
+                lobbyDataManager.SetLobby(newLobby);
+                lobbyCoroutineManager.StartUpdateLobbyCororutine(lobbyDataManager.GetLobbyID(), 1f);
+                lobbyCoroutineManager.StartHeartbeatCororutine(lobbyDataManager.GetLobbyID(), 5f);
                 return true;
             }, false);
         }
@@ -76,8 +78,8 @@ namespace Assets.Scripts.Lobbi.Logic
             return await SafeAsyncFunctionsHandler.ExecuteAsync( async () =>
             {
                 Lobby lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(code, options);
-                LobbyDataManager.Instance.SetLobby(lobby);
-                LobbyCoroutineManager.Instance.StartUpdateLobbyCororutine(LobbyDataManager.Instance.GetLobbyID(), 1f);
+                lobbyDataManager.SetLobby(lobby);
+                lobbyCoroutineManager.StartUpdateLobbyCororutine(lobbyDataManager.GetLobbyID(), 1f);
                 return true;
             }, false);
         }
@@ -90,15 +92,23 @@ namespace Assets.Scripts.Lobbi.Logic
         {
             return await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
             {
-                if (UnityServicesActions.GetCurrentUserID() == LobbyDataManager.Instance.GetHostID())
+                if (UnityServicesActions.GetCurrentUserID() == lobbyDataManager.GetHostID())
                 {
                     await HostDisconnection();
                 }
                 else
                 {
-                    await LobbyService.Instance.RemovePlayerAsync(LobbyDataManager.Instance.GetLobbyID(), UnityServicesActions.GetCurrentUserID());
+                    await LobbyService.Instance.RemovePlayerAsync(lobbyDataManager.GetLobbyID(), UnityServicesActions.GetCurrentUserID());
                 }
-                DestroyAllLobbyInstances();
+                GameObject lobbyManager = GameObject.Find("LobbyManager");
+                if (lobbyManager != null)
+                {
+                    Destroy(lobbyManager);
+                }
+                else
+                {
+                    Debug.LogWarning("No se encontró el objeto 'LobbyManager' para destruir.");
+                }
                 await SceneManager.LoadSceneAsync(Scenes.MenuScene.ToString());
                 return true;
             }, false);
@@ -106,21 +116,21 @@ namespace Assets.Scripts.Lobbi.Logic
 
         private async Task HostDisconnection()
         {
-            List<Player> players = LobbyDataManager.Instance.GetPlayers();
+            List<Player> players = lobbyDataManager.GetPlayers();
             Player newHost = players.FirstOrDefault(player => player.Id != UnityServicesActions.GetCurrentUserID());
             await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
             {
                 if (newHost != null)
                 {
-                    await LobbyService.Instance.UpdateLobbyAsync(LobbyDataManager.Instance.GetLobbyID(), new UpdateLobbyOptions
+                    await LobbyService.Instance.UpdateLobbyAsync(lobbyDataManager.GetLobbyID(), new UpdateLobbyOptions
                     {
                         HostId = newHost.Id
                     });
-                    await LobbyService.Instance.RemovePlayerAsync(LobbyDataManager.Instance.GetLobbyID(), UnityServicesActions.GetCurrentUserID());   
+                    await LobbyService.Instance.RemovePlayerAsync(lobbyDataManager.GetLobbyID(), UnityServicesActions.GetCurrentUserID());   
                 }
                 else
                 {
-                    await LobbyService.Instance.DeleteLobbyAsync(LobbyDataManager.Instance.GetLobbyID());
+                    await LobbyService.Instance.DeleteLobbyAsync(lobbyDataManager.GetLobbyID());
                 }
             });
         }
@@ -129,8 +139,7 @@ namespace Assets.Scripts.Lobbi.Logic
         {
             try
             {
-                LobbyUpdaterManager.Instance.Delete();
-                LobbyCoroutineManager.Instance.Delete();
+                lobbyCoroutineManager.Delete();
             }
             catch (Exception e)
             {

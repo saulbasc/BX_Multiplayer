@@ -588,6 +588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  cameraPrefab: {fileID: 2942967062704680881, guid: b6658aa972dfdcb42b247f567cda21eb, type: 3}
 --- !u!114 &5858887984023349052
 MonoBehaviour:
   m_ObjectHideFlags: 0

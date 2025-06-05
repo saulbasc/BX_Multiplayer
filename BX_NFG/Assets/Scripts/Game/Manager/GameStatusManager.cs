@@ -69,6 +69,7 @@ namespace Assets.Scripts.Game.Manager
             else if (state == MatchState.exit)
             {
                 ShutDownMatch();
+                DestroyLobbyManager();
             }
             else if(state == MatchState.onGoal)
             {
@@ -79,6 +80,19 @@ namespace Assets.Scripts.Game.Manager
         private void ShutDownMatch()
         {
             NetworkManager.Singleton.Shutdown();
+        }
+
+        private void DestroyLobbyManager()
+        {
+            GameObject lobbyManager = GameObject.Find("LobbyManager");
+            if (lobbyManager != null)
+            {
+                Destroy(lobbyManager);
+            }
+            else
+            {
+                Debug.LogWarning("No se encontró el objeto 'LobbyManager' para destruir.");
+            }
         }
 
         private async void GameOverActions()

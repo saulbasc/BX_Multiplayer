@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Game.GameEvents.Player;
+﻿using System.Collections;
+using Assets.Scripts.Game.GameEvents.Player;
 using Assets.Scripts.Init;
 using Assets.Scripts.Lobbi.Data;
 using Assets.Scripts.Lobbi.Logic;
@@ -12,15 +13,55 @@ namespace Assets.Scripts.Game.Manager
 {
     public class GameEntryManager : NetworkBehaviour
     {
+        private HostRelayManager hostRelayManager;
+        private ClientRelayManager clientRelayManager;
+        private LobbyDataManager lobbyDataManager;
+        private LobbyPlayerManager lobbyPlayerManager;
+
         [SerializeField] private MatchInfo matchInfo;
         [SerializeField] private GameObject playerPanel;
         [SerializeField] private GameObject spectatorPanel;
 
         public override void OnNetworkSpawn()
         {
-            Debug.Log("GameEntryManager OnNetworkSpawn called");
             NetworkManager.Singleton.NetworkConfig.ConnectionApproval = true;
-            if (LobbyDataManager.Instance.IsLocalPlayerHost())
+            StartCoroutine(WaitForLobbyDataManagerAndInit());
+        }
+
+        private IEnumerator WaitForLobbyDataManagerAndInit()
+        {
+            while (lobbyDataManager == null || lobbyPlayerManager == null || clientRelayManager == null || hostRelayManager == null)
+            {
+                lobbyDataManager = FindFirstObjectByType<LobbyDataManager>();
+                if (lobbyDataManager == null)
+                {
+                    Debug.Log("Esperando LobbyDataManager en escena...");
+                    yield return null; 
+                }
+
+                lobbyPlayerManager = FindFirstObjectByType<LobbyPlayerManager>();
+                if (lobbyPlayerManager == null)
+                {
+                    Debug.Log("Esperando LobbyPlayerManager en escena...");
+                    yield return null;
+                }
+
+                clientRelayManager = FindFirstObjectByType<ClientRelayManager>();
+                if (clientRelayManager == null)
+                {
+                    Debug.Log("Esperando ClientRelayManager en escena...");
+                    yield return null;
+                }
+
+                hostRelayManager = FindFirstObjectByType<HostRelayManager>();
+                if (hostRelayManager == null)
+                {
+                    Debug.Log("Esperando HostRelayManager en escena...");
+                    yield return null;
+                }
+            }
+
+            if (lobbyDataManager.IsLocalPlayerHost())
             {
                 HostConnection();
                 SetMatchInfo();
@@ -31,12 +72,12 @@ namespace Assets.Scripts.Game.Manager
             }
         }
 
+
         private void HostConnection()
         {
-            (byte[] allocationId, byte[] key, byte[] connectionData, string ip, int port) = HostRelayManager.Instance.GetHostConnectionData();
+            (byte[] allocationId, byte[] key, byte[] connectionData, string ip, int port) = hostRelayManager.GetHostConnectionData();
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetHostRelayData(ip, (ushort)port, allocationId, key, connectionData, true);
-            LobbyPlayerData lpd = LobbyPlayerManager.Instance.GetSinglePlayerDataObject(UnityServicesActions.GetCurrentUserID());
-            Debug.Log("HOST TEAM => " + lpd.PlayerTeam);
+            LobbyPlayerData lpd = lobbyPlayerManager.GetSinglePlayerDataObject(UnityServicesActions.GetCurrentUserID());
             if (lpd.PlayerTeam == PlayerTeam.Spectator)
             {
                 playerPanel.SetActive(false);
@@ -48,24 +89,22 @@ namespace Assets.Scripts.Game.Manager
             var playerInGame = playerObject.GetComponent<PlayerInGame>();
             playerPanel.SetActive(true);
             spectatorPanel.SetActive(false);
-            Debug.Log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOHOST");
         }
 
         private void SetMatchInfo()
         {
-            int numberOfLocalPlayers = LobbyDataManager.Instance.GetNumberOfPlayersInLobbyTeams(PlayerTeam.Local);
-            int numberOfVisitorPlayers = LobbyDataManager.Instance.GetNumberOfPlayersInLobbyTeams(PlayerTeam.Visitor);
+            int numberOfLocalPlayers = lobbyDataManager.GetNumberOfPlayersInLobbyTeams(PlayerTeam.Local);
+            int numberOfVisitorPlayers = lobbyDataManager.GetNumberOfPlayersInLobbyTeams(PlayerTeam.Visitor);
             matchInfo.SetNumberOfPlayersInTeams(numberOfLocalPlayers + numberOfVisitorPlayers);
-            matchInfo.SetMatchDuration(LobbyDataManager.Instance.GetLobbyMatchDuration());
+            matchInfo.SetMatchDuration(lobbyDataManager.GetLobbyMatchDuration());
         }
 
         private void ClientConnection()
         {
-            (byte[] allocationId, byte[] key, byte[] connectionData, byte[] hostConnectionData, string ip, int port) = ClientRelayManager.Instance.GetClientConnectionData();
+            (byte[] allocationId, byte[] key, byte[] connectionData, byte[] hostConnectionData, string ip, int port) = clientRelayManager.GetClientConnectionData();
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetClientRelayData(ip, (ushort)port, allocationId, key, connectionData, hostConnectionData, true);
             ulong localClientId = NetworkManager.Singleton.LocalClientId;
             RegisterPlayerConnectionServerRpc(OwnerClientId, localClientId);
-            Debug.Log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOCLIENT");
         }
 
         [ServerRpc(RequireOwnership = false)]

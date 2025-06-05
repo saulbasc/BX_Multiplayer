@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Assets.Scripts.Commons;
 using Assets.Scripts.Handlers;
 using Assets.Scripts.Init;
 using Assets.Scripts.Lobbi.Data;
@@ -16,15 +15,16 @@ namespace Assets.Scripts.Lobbi.Logic
     /// <summary>
     /// Clase que gestiona los datos de los jugadores en la Lobby.
     /// </summary>
-    public class LobbyPlayerManager : DefaultSingleton<LobbyPlayerManager>
+    public class LobbyPlayerManager : MonoBehaviour
     {
+        [SerializeField] private LobbyDataManager lobbyDataManager;
         /// <summary>
         /// Obtiene los datos de todos los jugadores de la Lobby en formato string y PlayerDataObject.
         /// </summary>
         /// <returns>El diccionario con los datos de todos los jugadores.</returns>
         public List<Dictionary<string, PlayerDataObject>> GetAllPlayersData()
         {
-            return LobbyDataManager.Instance.GetPlayers().Select(player => player.Data).ToList();
+            return lobbyDataManager.GetPlayers().Select(player => player.Data).ToList();
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Assets.Scripts.Lobbi.Logic
         /// <returns>El diccionario con los datos del jugador</returns>
         public Dictionary<string, PlayerDataObject> GetSinglePlayerData(string playerId)
         {
-            return LobbyDataManager.Instance.Lobby?.Players.FirstOrDefault(player => player.Id == playerId)?.Data;  
+            return lobbyDataManager.Lobby?.Players.FirstOrDefault(player => player.Id == playerId)?.Data;  
         }
 
         /// <summary>
@@ -134,9 +134,9 @@ namespace Assets.Scripts.Lobbi.Logic
         {
             return await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
             {
-                Lobby newLobby = await LobbyService.Instance.UpdatePlayerAsync(LobbyDataManager.Instance.GetLobbyID(), playerId, options);
-                LobbyDataManager.Instance.SetLobby(newLobby);
-                LobbyEvents.Instance.RaiseNewLobbyUpdated(LobbyDataManager.Instance.Lobby);
+                Lobby newLobby = await LobbyService.Instance.UpdatePlayerAsync(lobbyDataManager.GetLobbyID(), playerId, options);
+                lobbyDataManager.SetLobby(newLobby);
+                LobbyEvents.Instance.RaiseNewLobbyUpdated(lobbyDataManager.Lobby);
                 return true;
             }, false);
         }

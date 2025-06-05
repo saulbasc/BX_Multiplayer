@@ -5,11 +5,13 @@ using Assets.Scripts.Lobbi.Players;
 using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Init;
 using Assets.Scripts.Lobbi.Data;
+using System.Collections;
 
 namespace Assets.Scripts.Lobbi.UI.TeamScroll
 {
     public class LobbyScroll : MonoBehaviour
     {
+        private LobbyPlayerManager lobbyPlayerManager;
         [SerializeField] private PlayerTeam teamPlayersToAdd;
         /// <summary>
         /// El panel que representa una instancia de un jugador local. 
@@ -24,21 +26,40 @@ namespace Assets.Scripts.Lobbi.UI.TeamScroll
         /// </summary>
         [SerializeField] protected Transform playerListContainer;
 
+        private bool canStart;
+
         protected List<GameObject> instantiatedPlayerPanels = new List<GameObject>();
 
         private void OnEnable()
         {
+            LobbyEvents.Instance.OnLobbyReadyToStart += CanStart;
             LobbyEvents.Instance.OnLobbyUpdated += OnLobbyUpdated;
+            StartCoroutine(SetLobbyScroll());
         }
 
         private void OnDisable()
         {
+            LobbyEvents.Instance.OnLobbyReadyToStart -= CanStart;
             LobbyEvents.Instance.OnLobbyUpdated -= OnLobbyUpdated;
+        }
+
+        private IEnumerator SetLobbyScroll()
+        {
+            while (lobbyPlayerManager == null)
+            {
+                lobbyPlayerManager = FindFirstObjectByType<LobbyPlayerManager>();
+                if (lobbyPlayerManager == null)
+                {
+                    yield return null;
+                }
+            }
         }
 
         private void OnLobbyUpdated()
         {
-            List<LobbyPlayerData> playerDataList = LobbyPlayerManager.Instance.GetAllPlayersDataObject();
+            if (!canStart || lobbyPlayerManager == null) return;
+
+            List<LobbyPlayerData> playerDataList = lobbyPlayerManager.GetAllPlayersDataObject();
             instantiatedPlayerPanels.ForEach(playerPanel => Destroy(playerPanel));
             instantiatedPlayerPanels.Clear();
             playerDataList.ForEach(playerData => {
@@ -47,6 +68,11 @@ namespace Assets.Scripts.Lobbi.UI.TeamScroll
                     SetUIPanelPlayer(playerData);
                 }
             });
+        }
+
+        private void CanStart()
+        {
+            canStart = true;
         }
 
         private void SetUIPanelPlayer(LobbyPlayerData playerData)

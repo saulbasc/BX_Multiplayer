@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using Assets.Scripts.Commons;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Managers.Corroutine;
 using Unity.Services.Lobbies;
@@ -11,8 +10,9 @@ namespace Assets.Scripts.Lobbi.Logic
     /// <summary>
     /// Permite gestionar la corrutina que matiene la sala activa.
     /// </summary>
-    public class LobbyCoroutineManager : Singleton<LobbyCoroutineManager>
+    public class LobbyCoroutineManager : MonoBehaviour
     {
+        [SerializeField] private LobbyDataManager lobbyDataManager;
         /// <summary>
         /// Crea una nueva corrutina para matener activa la Lobby y la guarda en el CoroutineManager.
         /// </summary>
@@ -77,10 +77,10 @@ namespace Assets.Scripts.Lobbi.Logic
                 if (lobbyTask.IsCompletedSuccessfully)
                 {
                     var latestLobby = lobbyTask.Result;
-                    if (latestLobby.LastUpdated > LobbyDataManager.Instance.Lobby.LastUpdated)
+                    if (latestLobby.LastUpdated > lobbyDataManager.Lobby.LastUpdated)
                     {
                         LobbyEvents.Instance.RaiseNewLobbyUpdated(latestLobby);
-                        LobbyDataManager.Instance.SetLobby(latestLobby);
+                        lobbyDataManager.SetLobby(latestLobby);
                     }
                 }
                 else
@@ -97,9 +97,16 @@ namespace Assets.Scripts.Lobbi.Logic
         /// </summary>
         public void Delete()
         {
+            Debug.Log("LobbyCoroutineManager: Delete() called. Stopping coroutines and destroying instance. SE VA A DESTRUIR CORRUTINAS LOBBY");
             StopHeartbeatCoroutine();
             StopUodateLobbyCoroutine();
             Destroy(gameObject);
+        }
+
+        private void OnDestroy()
+        {
+            StopHeartbeatCoroutine();
+            StopUodateLobbyCoroutine();
         }
 
         /// <summary>

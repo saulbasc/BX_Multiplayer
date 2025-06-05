@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Assets.Scripts.Game.Manager;
 using Assets.Scripts.Lobbi.Data;
 using Assets.Scripts.UI.GameUI.Components;
@@ -33,6 +34,8 @@ namespace Assets.Scripts.UI.GameUI.GamePanels
 
             matchInfo = manager.GetComponent<MatchInfo>();
 
+            yield return new WaitUntil(() => matchInfo.playerStats.Count > 0);
+
             SetScore();
             SetPanels();
         }
@@ -47,14 +50,14 @@ namespace Assets.Scripts.UI.GameUI.GamePanels
 
         private void SetPanels()
         {
-            foreach (var player in matchInfo.GetPlayersInGame())
+            foreach (var player in matchInfo.playerStats)
             {
                 GameObject stats; 
-                if (player.Team == PlayerTeam.Local)
+                if (player.PlayerTeam == PlayerTeam.Local)
                 {
                     stats = Instantiate(statsPrefab, localScroll);
                 }
-                else if (player.Team == PlayerTeam.Visitor)
+                else if (player.PlayerTeam == PlayerTeam.Visitor)
                 {
                     stats = Instantiate(statsPrefab, visitorScroll);
                 }
@@ -66,7 +69,7 @@ namespace Assets.Scripts.UI.GameUI.GamePanels
                 var playerStats = stats.GetComponent<PlayerGameOverStats>();
                 if (playerStats != null)
                 {
-                    playerStats.SetPanelData(player.TagName, player.Goals, player.Touches);
+                    playerStats.SetPanelData(player.PlayerName.ToString(), player.Goals, player.Touches);
                 }
                 else
                 {

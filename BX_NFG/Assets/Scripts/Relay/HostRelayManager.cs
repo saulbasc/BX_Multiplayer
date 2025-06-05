@@ -15,16 +15,22 @@ using UnityEngine;
 
 namespace Assets.Scripts.Relay
 {
-    public class HostRelayManager : Singleton<HostRelayManager>
+    public class HostRelayManager : MonoBehaviour
     {
+        [SerializeField] private LobbyDataManager lobbyDataManager;
+        [SerializeField] private LobbyPlayerManager lobbyPlayerManager;
         private int maxConnections = 10;
         private HostRelayData hostRelayData;
-        private string playerType;
 
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
             NetworkManager.Singleton.ConnectionApprovalCallback += ConnectionApproval;
+        }
+
+        private void OnDestroy()
+        {
+            NetworkManager.Singleton.ConnectionApprovalCallback -= ConnectionApproval;
         }
 
         public async Task<bool> StartRelayServer()
@@ -75,14 +81,14 @@ namespace Assets.Scripts.Relay
 
         private async Task<bool> UpdateLobbyData(string joinCode)
         {
-            LobbyData actualLobbyData = LobbyDataManager.Instance.GetLobbyDataObject();
+            LobbyData actualLobbyData = lobbyDataManager.GetLobbyDataObject();
             var lobbyData = new LobbyData(joinCode, actualLobbyData.MatchDuration);
-            return await LobbyDataManager.Instance.UpdateLobbyData(lobbyData.SerializeObjectToDictionary());
+            return await lobbyDataManager.UpdateLobbyData(lobbyData.SerializeObjectToDictionary());
         }
 
         private async Task<bool> UpdateLobbyPlayerData()
         {
-            return await LobbyPlayerManager.Instance.UpdatePlayerOptions(
+            return await lobbyPlayerManager.UpdatePlayerOptions(
                 UnityServicesActions.GetCurrentUserID(), 
                 hostRelayData.AllocationId.ToString(),
                 Convert.ToBase64String(hostRelayData.ConnectionData)

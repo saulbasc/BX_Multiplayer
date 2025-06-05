@@ -3,10 +3,8 @@ using Assets.Scripts.Lobbi.Data;
 using System.Collections.Generic;
 using System;
 using Unity.Services.Lobbies.Models;
-using Assets.Scripts.Commons;
 using System.Threading.Tasks;
 using Assets.Scripts.Lobbi.Datas;
-using Assets.Scripts.Game.Manager;
 using System.Linq;
 using Assets.Scripts.Init;
 using Assets.Scripts.Handlers;
@@ -19,8 +17,9 @@ namespace Assets.Scripts.Lobbi.Logic
     /// <summary>
     /// Clase encargada de gestionar los datos de la Lobby.
     /// </summary>
-    public class LobbyDataManager : DefaultSingleton<LobbyDataManager>
+    public class LobbyDataManager : MonoBehaviour
     {
+        [SerializeField] private LobbyPlayerManager lobbyPlayerManager;
         /// <summary>
         /// El objeto Lobby con el que se trabaja.
         /// </summary>
@@ -100,7 +99,7 @@ namespace Assets.Scripts.Lobbi.Logic
         /// <returns>El número de jugadores en el equipo.</returns>
         public int GetNumberOfPlayersInLobbyTeams(PlayerTeam playerTeam)
         {
-            List<Dictionary<string, PlayerDataObject>> playersData = LobbyPlayerManager.Instance.GetAllPlayersData();
+            List<Dictionary<string, PlayerDataObject>> playersData = lobbyPlayerManager.GetAllPlayersData();
 
             return playersData.Count(playerData =>
                 playerData.TryGetValue(PlayerDataKeys.PlayerTeam, out var teamObj)
@@ -134,7 +133,7 @@ namespace Assets.Scripts.Lobbi.Logic
         /// <returns>El número de jugadores que están listos en la Lobby.</returns>
         public int NumberOfPlayersReady()
         {
-            List<Dictionary<string, PlayerDataObject>> players = LobbyPlayerManager.Instance.GetAllPlayersData();
+            List<Dictionary<string, PlayerDataObject>> players = lobbyPlayerManager.GetAllPlayersData();
             int numberOfPlayersReady = 0;
             players.ForEach(player => { numberOfPlayersReady = SumPlayerReady(player, numberOfPlayersReady); });
             return numberOfPlayersReady;

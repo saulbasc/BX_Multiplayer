@@ -13,6 +13,8 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
 {
     public class UIManager : NetworkBehaviour
     {
+        [SerializeField] LobbyActionsManager lobbyActionsManager;
+
         [SerializeField] private MatchStateManager matchStateManager;
         [SerializeField] private MatchTimerManager timerManager;
         [SerializeField] private TextMeshProUGUI timerText;
@@ -90,7 +92,7 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
         private async void OnExitButtonClicked()
         {
             NetworkManager.Singleton.Shutdown();
-            await LobbyActionsManager.Instance.ExitLobby();
+            await lobbyActionsManager.ExitLobby();
             SceneManager.LoadScene(Scenes.MenuScene.ToString());
         }
 

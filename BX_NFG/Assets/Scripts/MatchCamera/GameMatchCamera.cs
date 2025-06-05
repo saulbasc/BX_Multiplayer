@@ -4,7 +4,7 @@ namespace Assets.Scripts.MatchCamera
     using Assets.Scripts.Game.GameEvents.Player;
     using UnityEngine;
 
-    public class MatchCamera : MonoBehaviour
+    public class GameMatchCamera : MonoBehaviour
     {
         private Transform target;
 
@@ -13,6 +13,8 @@ namespace Assets.Scripts.MatchCamera
 
         private const string ZoomKey = "CameraZoom";
         private const string AngleKey = "CameraAngle";
+
+        private bool targetAsigned;
 
         private void Awake()
         {
@@ -41,20 +43,12 @@ namespace Assets.Scripts.MatchCamera
 
         void LateUpdate()
         {
-            if (target == null)
+            if (target == null || !targetAsigned)
             {
-                foreach (var player in FindObjectsByType<PlayerInGame>(FindObjectsSortMode.None))
+                target = GameObject.FindGameObjectWithTag("Ball")?.transform;
+                if (target != null)
                 {
-                    if (player.IsOwner && player.PlayerId != null)
-                    {
-                        target = player.transform;
-                        break;
-                    }
-                }
-
-                if( target == null)
-                {
-                    target = GameObject.FindGameObjectWithTag("Ball")?.transform;
+                    targetAsigned = true;
                 }
             }
 
@@ -62,6 +56,12 @@ namespace Assets.Scripts.MatchCamera
             {
                 UpdateCameraPosition();
             }
+        }
+
+        public void SetTarget(Transform newTarget)
+        {
+            target = newTarget;
+            targetAsigned = true;
         }
 
         private void UpdateCameraPosition()

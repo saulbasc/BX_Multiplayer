@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using Assets.Scripts.Init;
+using System.Collections;
 
 namespace Assets.Scripts.Lobbi.UI.PlayerEntry
 {
     public class PlayerPanel : MonoBehaviour
     {
+        private LobbyPlayerManager lobbyPlayerManager;
+
         [System.Serializable]
         public struct TeamButtonBinding
         {
@@ -20,6 +23,20 @@ namespace Assets.Scripts.Lobbi.UI.PlayerEntry
 
         private void OnEnable()
         {
+            StartCoroutine(FindLobbyPlayerManager());
+        }
+
+        private IEnumerator FindLobbyPlayerManager()
+        {
+            while (lobbyPlayerManager == null)
+            {
+                lobbyPlayerManager = FindFirstObjectByType<LobbyPlayerManager>();
+                if (lobbyPlayerManager == null)
+                {
+                    yield return null; 
+                }
+            }
+
             foreach (var binding in teamButtons)
             {
                 binding.button.onClick.AddListener(() => OnButtonClicked(binding.team));
@@ -36,9 +53,11 @@ namespace Assets.Scripts.Lobbi.UI.PlayerEntry
 
         private async void OnButtonClicked(PlayerTeam team)
         {
+            if (lobbyPlayerManager == null) return;
+
             string localId = UnityServicesActions.GetCurrentUserID();
-            await LobbyPlayerManager.Instance.SetPlayerTeamAsync(
-                LobbyPlayerManager.Instance.GetSinglePlayerDataObject(localId), 
+            await lobbyPlayerManager.SetPlayerTeamAsync(
+                lobbyPlayerManager.GetSinglePlayerDataObject(localId), 
                 team
             );
         }

@@ -7,6 +7,7 @@ using Assets.Scripts.Init;
 using Assets.Scripts.Lobbi.Data;
 using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Lobbi.Players;
+using Assets.Scripts.MatchCamera;
 using Assets.Scripts.UI.MenuUI.Components;
 using Unity.Netcode;
 using UnityEngine;
@@ -15,7 +16,10 @@ namespace Assets.Scripts.Game.GameEvents.Player
 {
     public class PlayerInGame : NetworkBehaviour
     {
+        [SerializeField] private GameObject cameraPrefab;
+
         private MatchInfo matchInfo;
+        private LobbyPlayerManager lobbyPlayerManager;
 
         public ulong PlayerConnectionID { get; private set; }
         public string PlayerId { get; private set; }
@@ -41,16 +45,7 @@ namespace Assets.Scripts.Game.GameEvents.Player
 
         public override void OnNetworkSpawn()
         {
-            if (IsServer)
-            {
-                StartCoroutine(WaitForMatchInfo());
-            }
-
-            if (IsOwner)
-            {
-                string userId = UnityServicesActions.GetCurrentUserID();
-                SendDataServerRpc(userId);
-            }
+            StartCoroutine(WaitForMatchInfo());
         }
 
         private void Update()
@@ -61,19 +56,47 @@ namespace Assets.Scripts.Game.GameEvents.Player
 
         private IEnumerator WaitForMatchInfo()
         {
-            GameObject manager = null;
-            while (manager == null)
+            if (IsServer)
             {
-                manager = GameObject.Find("GameManager");
-                yield return null;
+                GameObject manager = null;
+                while (manager == null)
+                {
+                    manager = GameObject.Find("GameManager");
+                    yield return null;
+                }
+
+                while (lobbyPlayerManager == null)
+                {
+                    lobbyPlayerManager = FindFirstObjectByType<LobbyPlayerManager>();
+                    if (lobbyPlayerManager == null)
+                    {
+                        yield return null;
+                    }
+                }
+
+                matchInfo = manager.GetComponent<MatchInfo>();
+
+                if (matchInfo != null)
+                {
+                    SetPlayerConnected();
+                }
             }
 
-            matchInfo = manager.GetComponent<MatchInfo>();
-
-            if(matchInfo != null)
+            if (IsOwner)
             {
-                SetPlayerConnected();
+                SetCamera();
+                string userId = UnityServicesActions.GetCurrentUserID();
+                SendDataServerRpc(userId);
             }
+        }
+
+        private void SetCamera()
+        {
+            if (cameraPrefab == null) return;
+
+            GameObject cameraInstance = Instantiate(cameraPrefab);
+            var matchCamera = cameraInstance.GetComponent<GameMatchCamera>();
+            matchCamera.SetTarget(transform);
         }
 
         public static event Action<PlayerInGame> OnPlayerDataInitialized;
@@ -81,7 +104,7 @@ namespace Assets.Scripts.Game.GameEvents.Player
         [ServerRpc(RequireOwnership = true)]
         public void SendDataServerRpc(string userId, ServerRpcParams rpcParams = default)
         {
-            LobbyPlayerData playerData = LobbyPlayerManager.Instance.GetSinglePlayerDataObject(userId);
+            LobbyPlayerData playerData = lobbyPlayerManager.GetSinglePlayerDataObject(userId);
             if(playerData.PlayerTeam == PlayerTeam.Spectator)  return;
 
             PlayerConnectionID = rpcParams.Receive.SenderClientId;

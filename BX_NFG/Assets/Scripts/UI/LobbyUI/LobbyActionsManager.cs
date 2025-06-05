@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Assets.Scripts.Commons;
 using Assets.Scripts.GameManager.GameEvents.Timer;
 using Assets.Scripts.Lobbi.Logic;
+using UnityEngine;
 
 namespace Assets.Scripts.UI.LobbyUI
 {
     /// <summary>
     /// Clase dedicada a las acciones que puede acometer el jugador en la Labby.
     /// </summary>
-    public class LobbyActionsManager : Singleton<LobbyActionsManager>
+    public class LobbyActionsManager : MonoBehaviour
     {
+        [SerializeField] private LobbyServiceManager lobbyServiceManager;
+        [SerializeField] private LobbyPlayerManager LobbyPlayerManager;
+        [SerializeField] private LobbyDataManager lobbyDataManager;
+        [SerializeField] private LobbyCoroutineManager lobbyCoroutineManager;
         /// <summary>
         /// El jugador abandona la Lobby.
         /// </summary>
         /// <returns>True si abandona con éxito la Lobby.</returns>
         public async Task<bool> ExitLobby()
         {
-            LobbyCoroutineManager.Instance.Delete();
-            return await LobbyServiceManager.Instance.DisconnectFromLobby();
+            return await lobbyServiceManager.DisconnectFromLobby();
         }
 
         /// <summary>
@@ -28,7 +31,7 @@ namespace Assets.Scripts.UI.LobbyUI
         /// <returns>True si se establece el cambio correctamente.</returns>
         public async Task<bool> SetLocalLobbyPlayerReadyStatus(bool isReady)
         { 
-            return await LobbyPlayerManager.Instance.SetPlayerReadyAsync(isReady);
+            return await LobbyPlayerManager.SetPlayerReadyAsync(isReady);
         }
 
         /// <summary>
@@ -39,7 +42,7 @@ namespace Assets.Scripts.UI.LobbyUI
         public async Task<bool> ChangeMatchDuration(bool increase)
         {
             MatchDuration[] durations = MatchDurationExtensions.MatchDurationList();
-            MatchDuration currentMatchDuration = LobbyDataManager.Instance.GetLobbyMatchDuration();
+            MatchDuration currentMatchDuration = lobbyDataManager.GetLobbyMatchDuration();
 
             int index = Array.IndexOf(durations, currentMatchDuration);
             int newIndex = increase ? index + 1 : index - 1;
@@ -47,7 +50,7 @@ namespace Assets.Scripts.UI.LobbyUI
             if (newIndex >= 0 && newIndex < durations.Length)
             {
                 MatchDuration newMatchDuration = durations[newIndex];
-                return await LobbyDataManager.Instance.SetLobbyMatchDurationAsync(newMatchDuration);
+                return await lobbyDataManager.SetLobbyMatchDurationAsync(newMatchDuration);
             }
 
             return false;
