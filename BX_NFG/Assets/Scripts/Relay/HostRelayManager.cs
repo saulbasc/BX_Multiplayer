@@ -79,21 +79,9 @@ namespace Assets.Scripts.Relay
 
         private async Task<bool> UpdateLobbyData(string joinCode)
         {
-            SetMatchInfo();
             LobbyData actualLobbyData = LobbyDataManager.Instance.GetLobbyDataObject();
             var lobbyData = new LobbyData(joinCode, actualLobbyData.MatchDuration);
             return await LobbyDataManager.Instance.UpdateLobbyData(lobbyData.SerializeObjectToDictionary());
-        }
-
-        /// <summary>
-        /// Establece el número total de jugadores en Local y Visitante en MatchInfo.
-        /// </summary>
-        private void SetMatchInfo()
-        {
-            int numberOfLocalPlayers = LobbyDataManager.Instance.GetNumberOfPlayersInLobbyTeams(PlayerTeam.Local);
-            int numberOfVisitorPlayers = LobbyDataManager.Instance.GetNumberOfPlayersInLobbyTeams(PlayerTeam.Visitor);
-            MatchInfo.Instance.SetNumberOfPlayersInTeams(numberOfLocalPlayers + numberOfVisitorPlayers);
-            MatchInfo.Instance.SetMatchDuration(LobbyDataManager.Instance.GetLobbyMatchDuration());
         }
 
         private async Task<bool> UpdateLobbyPlayerData()

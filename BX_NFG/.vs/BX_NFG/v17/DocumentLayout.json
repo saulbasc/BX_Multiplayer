@@ -3,23 +3,55 @@
   "WorkspaceRootPath": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\ui\\gameui\\gamepanels\\playingpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\game\\manager\\matchinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\manager\\matchinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\game\\manager\\gamestatusmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\manager\\gamestatusmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\ui\\gameui\\gamepanels\\gameoverpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\gameui\\gamepanels\\gameoverpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\game\\manager\\gameentrymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\manager\\gameentrymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\game\\gameevents\\spawner\\matchspawnermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\gameevents\\spawner\\matchspawnermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\game\\gameevents\\player\\playeringame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\gameevents\\player\\playeringame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\relay\\hostrelaymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\relay\\hostrelaymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\matchcamera\\matchcamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\matchcamera\\matchcamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\ui\\gameui\\gamepanels\\playingpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\gameui\\gamepanels\\playingpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\ui\\gameui\\gamepanels\\startingpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\ui\\gameui\\gamepanels\\startingpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\gameui\\gamepanels\\startingpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\ui\\gameui\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\ui\\gameui\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\gameui\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\ui\\gameui\\gamepanels\\spectatorpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\ui\\gameui\\gamepanels\\spectatorpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\gameui\\gamepanels\\spectatorpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\game\\gameevents\\state\\matchstatemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\game\\gameevents\\state\\matchstatemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\gameevents\\state\\matchstatemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -30,11 +62,112 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GameOverPanel.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\GameUI\\GamePanels\\GameOverPanel.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\GameUI\\GamePanels\\GameOverPanel.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\GameUI\\GamePanels\\GameOverPanel.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\GameUI\\GamePanels\\GameOverPanel.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAQwCEAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T02:37:12.296Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "GameStatusManager.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\Manager\\GameStatusManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\Manager\\GameStatusManager.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\Manager\\GameStatusManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Game\\Manager\\GameStatusManager.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAswEwAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T02:36:21.364Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MatchSpawnerManager.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\Spawner\\MatchSpawnerManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\GameEvents\\Spawner\\MatchSpawnerManager.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\Spawner\\MatchSpawnerManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Game\\GameEvents\\Spawner\\MatchSpawnerManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T02:13:49.697Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GameEntryManager.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\Manager\\GameEntryManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\Manager\\GameEntryManager.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\Manager\\GameEntryManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Game\\Manager\\GameEntryManager.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAuwE0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T02:10:06.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MatchInfo.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\Manager\\MatchInfo.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\Manager\\MatchInfo.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\Manager\\MatchInfo.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Game\\Manager\\MatchInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T01:54:10.896Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PlayerInGame.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerInGame.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerInGame.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerInGame.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerInGame.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwBIAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T02:09:24.998Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "HostRelayManager.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Relay\\HostRelayManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Relay\\HostRelayManager.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Relay\\HostRelayManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Relay\\HostRelayManager.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAswFAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T02:08:03.348Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MatchCamera.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\MatchCamera\\MatchCamera.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\MatchCamera\\MatchCamera.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\MatchCamera\\MatchCamera.cs",
+              "RelativeToolTip": "Assets\\Scripts\\MatchCamera\\MatchCamera.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T01:49:22.982Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "StartingPanel.cs",
               "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\GameUI\\GamePanels\\StartingPanel.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\GameUI\\GamePanels\\StartingPanel.cs",
@@ -42,12 +175,11 @@
               "RelativeToolTip": "Assets\\Scripts\\UI\\GameUI\\GamePanels\\StartingPanel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-05T01:35:34.116Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-05T01:35:34.116Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 10,
               "Title": "UIManager.cs",
               "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\GameUI\\UIManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\GameUI\\UIManager.cs",
@@ -55,12 +187,11 @@
               "RelativeToolTip": "Assets\\Scripts\\UI\\GameUI\\UIManager.cs",
               "ViewState": "AgIAAEoAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-05T01:35:00.984Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-05T01:35:00.984Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 8,
               "Title": "PlayingPanel.cs",
               "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\GameUI\\GamePanels\\PlayingPanel.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\GameUI\\GamePanels\\PlayingPanel.cs",
@@ -68,12 +199,11 @@
               "RelativeToolTip": "Assets\\Scripts\\UI\\GameUI\\GamePanels\\PlayingPanel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-05T01:34:34.295Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-05T01:34:34.295Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 11,
               "Title": "SpectatorPanel.cs",
               "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\GameUI\\GamePanels\\SpectatorPanel.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\GameUI\\GamePanels\\SpectatorPanel.cs",
@@ -81,12 +211,11 @@
               "RelativeToolTip": "Assets\\Scripts\\UI\\GameUI\\GamePanels\\SpectatorPanel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-05T01:34:26.973Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-05T01:34:26.973Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 12,
               "Title": "MatchStateManager.cs",
               "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\State\\MatchStateManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\GameEvents\\State\\MatchStateManager.cs",
@@ -94,8 +223,7 @@
               "RelativeToolTip": "Assets\\Scripts\\Game\\GameEvents\\State\\MatchStateManager.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-05T01:21:07.541Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-05T01:21:07.541Z"
             }
           ]
         }

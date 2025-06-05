@@ -41,6 +41,7 @@ namespace Assets.Scripts.UI.GameUI.GamePanels
 
         private void OnExitButtonClicked()
         {
+            matchStateManager.SetMatchState(MatchState.exit);
             SceneManager.LoadScene(Scenes.MenuScene.ToString());
         }
     }

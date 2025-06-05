@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Commons;
-using Assets.Scripts.Core.Models;
 using Assets.Scripts.Game.GameEvents.Player;
 using Assets.Scripts.GameManager.GameEvents.Timer;
-using NUnit.Framework;
 using Unity.Netcode;
 using UnityEngine;
 

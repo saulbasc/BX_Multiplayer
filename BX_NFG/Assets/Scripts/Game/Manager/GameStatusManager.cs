@@ -69,7 +69,7 @@ namespace Assets.Scripts.Game.Manager
             }
             else if (state == MatchState.exit)
             {
-                SetGameMenuSceneRpc();
+                ShutDownMatch();
             }
             else if(state == MatchState.onGoal)
             {
@@ -77,10 +77,9 @@ namespace Assets.Scripts.Game.Manager
             }
         }
 
-        [Rpc(SendTo.ClientsAndHost)]
-        private void SetGameMenuSceneRpc()
+        private void ShutDownMatch()
         {
-            SceneManager.LoadSceneAsync(Scenes.MenuScene.ToString());
+            NetworkManager.Singleton.Shutdown();
         }
 
         private async void GameOverActions()

@@ -43,18 +43,20 @@ namespace Assets.Scripts.Game.Manager
             ulong localClientId = NetworkManager.Singleton.LocalClientId;
             var playerObject = NetworkManager.Singleton.ConnectedClients[localClientId].PlayerObject;
             var playerInGame = playerObject.GetComponent<PlayerInGame>();
-            PlayerConnectionMap.Instance.RegisterPlayer(localClientId, playerInGame);
-            /*
-            if(playerInGame.Team == PlayerTeam.Local)
-            {
-                MatchInfo.Instance.Match.LocalTeam.AddNewPlayer(OwnerClientId, playerInGame.PlayerId);
-            }else if(playerInGame.Team == PlayerTeam.Visitor)
-            {
-                MatchInfo.Instance.Match.VisitorTeam.AddNewPlayer(OwnerClientId, playerInGame.PlayerId);
-            }
-            */
             playerPanel.SetActive(true);
             spectatorPanel.SetActive(false);
+            SetMatchInfo();
+        }
+
+        /// <summary>
+        /// Establece el número total de jugadores en Local y Visitante en MatchInfo.
+        /// </summary>
+        private void SetMatchInfo()
+        {
+            int numberOfLocalPlayers = LobbyDataManager.Instance.GetNumberOfPlayersInLobbyTeams(PlayerTeam.Local);
+            int numberOfVisitorPlayers = LobbyDataManager.Instance.GetNumberOfPlayersInLobbyTeams(PlayerTeam.Visitor);
+            MatchInfo.Instance.SetNumberOfPlayersInTeams(numberOfLocalPlayers + numberOfVisitorPlayers);
+            MatchInfo.Instance.SetMatchDuration(LobbyDataManager.Instance.GetLobbyMatchDuration());
         }
 
         private void ClientConnection()
@@ -70,17 +72,6 @@ namespace Assets.Scripts.Game.Manager
         {
             var playerObject = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject;
             var playerInGame = playerObject.GetComponent<PlayerInGame>();
-            PlayerConnectionMap.Instance.RegisterPlayer(clientId, playerInGame);
-            /*
-            if (playerInGame.Team == PlayerTeam.Local)
-            {
-                MatchInfo.Instance.Match.LocalTeam.AddNewPlayer(playerGameId, playerInGame.PlayerId);
-            }
-            else if (playerInGame.Team == PlayerTeam.Visitor)
-            {
-                MatchInfo.Instance.Match.VisitorTeam.AddNewPlayer(playerGameId, playerInGame.PlayerId);
-            }
-            */
         }
     }
 }

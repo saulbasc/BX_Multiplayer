@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Assets.Scripts.Game.GameEvents.Player;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
 using Unity.Netcode.Components;
@@ -44,10 +45,14 @@ namespace Assets.Scripts.GameManager.GameEvents
 
             yield return new WaitForSeconds(0.05f); 
 
-            foreach (var (playerId, playerInGame) in PlayerConnectionMap.Instance.PlayerInGameList)
+            foreach (var playerData in NetworkManager.Singleton.ConnectedClients)
             {
-                var rb = playerInGame.GetComponent<Rigidbody>();
-                var networkTransform = playerInGame.GetComponent<NetworkTransform>();
+                var clientId = playerData.Key;
+                var playerObject = playerData.Value.PlayerObject;
+
+                var playerInGame = playerObject.GetComponent<PlayerInGame>();
+                var rb = playerObject.GetComponent<Rigidbody>();
+                var networkTransform = playerObject.GetComponent<NetworkTransform>();
 
                 if (networkTransform != null) networkTransform.enabled = false;
 
