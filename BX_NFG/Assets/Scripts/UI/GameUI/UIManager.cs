@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Commons;
+﻿using System.Collections;
+using Assets.Scripts.Commons;
 using Assets.Scripts.Game.GameEvents.Score;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Assets.Scripts.GameManager.GameEvents.Timer;
@@ -13,7 +14,7 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
 {
     public class UIManager : NetworkBehaviour
     {
-        [SerializeField] LobbyActionsManager lobbyActionsManager;
+        private LobbyActionsManager lobbyActionsManager;
 
         [SerializeField] private MatchStateManager matchStateManager;
         [SerializeField] private MatchTimerManager timerManager;
@@ -40,6 +41,16 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
         {
             ScoreEvents.OnUpdateLocalGoalScored += OnUpdateLocalGoalScoredRpc;
             ScoreEvents.OnUpdateVisitorGoalScored += OnUpdateVisitorGoalsScoredRpc;
+            StartCoroutine(SetUIManager());
+        }
+
+        private IEnumerator SetUIManager()
+        {
+            while (lobbyActionsManager == null)
+            {
+                lobbyActionsManager = FindAnyObjectByType<LobbyActionsManager>();
+                yield return null;
+            }
         }
 
         public override void OnNetworkDespawn()
@@ -91,8 +102,8 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
 
         private async void OnExitButtonClicked()
         {
-            NetworkManager.Singleton.Shutdown();
             await lobbyActionsManager.ExitLobby();
+            NetworkManager.Singleton.Shutdown();
             SceneManager.LoadScene(Scenes.MenuScene.ToString());
         }
 

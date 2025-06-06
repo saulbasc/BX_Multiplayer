@@ -70,7 +70,7 @@ namespace Assets.Scripts.Game.GameEvents.Ball
         {
             if (!IsServer || ballController == null) return;
 
-            ballController.ShootBall(2f, playerPosition, OwnerClientId);
+            ballController.ShootBall(3f, playerPosition, OwnerClientId);
         }
     }
 }

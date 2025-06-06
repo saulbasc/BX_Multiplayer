@@ -7,11 +7,6 @@ namespace Assets.Scripts.UI.CommonUI
         private Camera mainCamera;
         private const float fixedYRotation = 0f;
 
-        private void Awake()
-        {
-            mainCamera = Camera.main;
-        }
-
         private void Update()
         {
             if (mainCamera == null)
@@ -22,7 +17,6 @@ namespace Assets.Scripts.UI.CommonUI
             }
 
             Vector3 camEuler = mainCamera.transform.rotation.eulerAngles;
-
             Quaternion fixedRotation = Quaternion.Euler(camEuler.x, fixedYRotation, 0f);
             transform.rotation = fixedRotation;
         }

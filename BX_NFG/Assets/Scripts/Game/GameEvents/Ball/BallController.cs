@@ -100,7 +100,6 @@ public class BallController : NetworkBehaviour
 
     public void ShootBall(float shootForce, Vector3 playerPosition, ulong playerGameId)
     {
-        Debug.Log("Shooting in ball Controller");
         LastPlayerTouched.Value = playerGameId;
         Vector3 direction = (ballRb.position - playerPosition).normalized;
         ballRb.AddForce(direction * shootForce, ForceMode.Impulse);

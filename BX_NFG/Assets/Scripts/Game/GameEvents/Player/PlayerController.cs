@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Assets.Scripts.GameManager.GameEvents;
 using Assets.Scripts.GameManager.GameEvents.State;
@@ -9,11 +8,15 @@ using UnityEngine;
 public class PlayerController : NetworkBehaviour
 {
     private MatchStateManager matchStateManager;
-    private readonly float moveSpeed = 18f;
+    private readonly float moveSpeed = 12f;
 
     [SerializeField] private GameJoystick playerInput;
     private Rigidbody playerRb;
     private Vector3 latestInput;
+
+    private NetworkVariable<Vector3> serverPosition = new NetworkVariable<Vector3>(
+      writePerm: NetworkVariableWritePermission.Server);
+
 
     private bool updateable;
 
@@ -67,6 +70,7 @@ public class PlayerController : NetworkBehaviour
             {
                 matchStateManager.OnMatchStateChanged -= HandleStateChanged;
             }
+
             MatchSpawnerManager.OnTeleportingChanged -= OnTeleportingChanged;
         }
     }
@@ -105,6 +109,7 @@ public class PlayerController : NetworkBehaviour
         if (IsOwner)
         {
             Vector3 input = playerInput.GetPlayerInput();
+            SetLocalVelocity(input);
 
             if (IsServer)
             {
@@ -118,9 +123,32 @@ public class PlayerController : NetworkBehaviour
 
         if (IsServer && updateable)
         {
-            Vector3 moveDirection = new Vector3(latestInput.x, 0, latestInput.y);
-            playerRb.linearVelocity = moveDirection * moveSpeed;
+            SetPlayerVelocity();
         }
+
+        if (IsOwner && !IsServer)
+        {
+            float distance = Vector3.Distance(transform.position, serverPosition.Value);
+            if (distance > 0.5f)
+            {
+                transform.position = serverPosition.Value;
+            }
+        }
+
+    }
+
+    private void SetLocalVelocity(Vector3 input)
+    {
+        Vector3 localMoveDir = new Vector3(input.x, 0, input.y);
+        playerRb.linearVelocity = localMoveDir * moveSpeed;
+    }
+
+    private void SetPlayerVelocity()
+    {
+        Vector3 moveDirection = new Vector3(latestInput.x, 0, latestInput.y);
+        playerRb.linearVelocity = moveDirection * moveSpeed;
+
+        serverPosition.Value = transform.position;
     }
 
     [Rpc(SendTo.Server)]

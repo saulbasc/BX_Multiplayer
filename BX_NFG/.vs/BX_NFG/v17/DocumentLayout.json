@@ -3,24 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\game\\manager\\matchinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\manager\\matchinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Library\\PackageCache\\com.unity.netcode.gameobjects@f2477a6c90fe\\Runtime\\NetworkVariable\\Collections\\NetworkList.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Library\\PackageCache\\com.unity.netcode.gameobjects@f2477a6c90fe\\Runtime\\NetworkVariable\\Collections\\NetworkList.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\ui\\gameui\\gamepanels\\gameoverpanelstats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\gameui\\gamepanels\\gameoverpanelstats.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\game\\gameevents\\state\\matchstatemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\gameevents\\state\\matchstatemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|c:\\users\\saulb\\unityprojects\\bx_nfg\\assets\\scripts\\game\\gameevents\\player\\finalplayerstatsdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\gameevents\\player\\finalplayerstatsdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|C:\\Users\\saulb\\UnityProjects\\BX_NFG\\assets\\scripts\\game\\gameevents\\player\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{245F2B9F-2A16-6C7E-2A67-CA82122DC252}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\game\\gameevents\\player\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,68 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MatchInfo.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\Manager\\MatchInfo.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\Manager\\MatchInfo.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\Manager\\MatchInfo.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Game\\Manager\\MatchInfo.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAQwB0AAAAJAAAAAAAAAA==",
+              "Title": "PlayerController.cs",
+              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerController.cs",
+              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Game\\GameEvents\\Player\\PlayerController.cs",
+              "ViewState": "AgIAAGQAAAAAAAAAAAA3wIMAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-05T17:13:23.018Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GameOverPanelStats.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\GameUI\\GamePanels\\GameOverPanelStats.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\GameUI\\GamePanels\\GameOverPanelStats.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\UI\\GameUI\\GamePanels\\GameOverPanelStats.cs",
-              "RelativeToolTip": "Assets\\Scripts\\UI\\GameUI\\GamePanels\\GameOverPanelStats.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAQwCMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-05T17:13:38.352Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "NetworkList.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Library\\PackageCache\\com.unity.netcode.gameobjects@f2477a6c90fe\\Runtime\\NetworkVariable\\Collections\\NetworkList.cs",
-              "RelativeDocumentMoniker": "Library\\PackageCache\\com.unity.netcode.gameobjects@f2477a6c90fe\\Runtime\\NetworkVariable\\Collections\\NetworkList.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Library\\PackageCache\\com.unity.netcode.gameobjects@f2477a6c90fe\\Runtime\\NetworkVariable\\Collections\\NetworkList.cs",
-              "RelativeToolTip": "Library\\PackageCache\\com.unity.netcode.gameobjects@f2477a6c90fe\\Runtime\\NetworkVariable\\Collections\\NetworkList.cs",
-              "ViewState": "AgIAAFABAAAAAAAAAAAnwKIBAABAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-05T18:22:31.141Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MatchStateManager.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\State\\MatchStateManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\GameEvents\\State\\MatchStateManager.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\State\\MatchStateManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Game\\GameEvents\\State\\MatchStateManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-05T17:36:40.422Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "FinalPlayerStatsData.cs",
-              "DocumentMoniker": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\Player\\FinalPlayerStatsData.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Game\\GameEvents\\Player\\FinalPlayerStatsData.cs",
-              "ToolTip": "C:\\Users\\saulb\\UnityProjects\\BX_NFG\\Assets\\Scripts\\Game\\GameEvents\\Player\\FinalPlayerStatsData.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Game\\GameEvents\\Player\\FinalPlayerStatsData.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAgwB8AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-05T17:17:17.6Z",
+              "WhenOpened": "2025-06-06T00:12:16.747Z",
               "EditorCaption": ""
             }
           ]

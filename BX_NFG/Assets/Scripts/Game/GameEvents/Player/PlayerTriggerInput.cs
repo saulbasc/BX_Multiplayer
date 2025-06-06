@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Assets.Scripts.Game.GameEvents.Ball;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Unity.Netcode;
@@ -10,8 +9,12 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
     public class PlayerTriggerInput : NetworkBehaviour
     {
         private MatchStateManager matchStateManager;
-        private bool ballInRange;
-        private bool shootable;
+        private NetworkVariable<bool> ballInRange = new NetworkVariable<bool>(false,
+            NetworkVariableReadPermission.Everyone,
+            NetworkVariableWritePermission.Server);
+        private NetworkVariable<bool> shootable = new NetworkVariable<bool>(false,
+            NetworkVariableReadPermission.Everyone,
+            NetworkVariableWritePermission.Server);
 
         public override void OnNetworkSpawn()
         {
@@ -34,7 +37,7 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
             while (manager == null)
             {
                 manager = GameObject.Find("GameManager");
-                yield return null; 
+                yield return null;
             }
 
             matchStateManager = manager.GetComponent<MatchStateManager>();
@@ -66,16 +69,15 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
             }
         }
 
-
         private void HandleStateChanged(MatchState state)
         {
             if (state == MatchState.playing)
             {
-                shootable = true;
+                shootable.Value = true;
             }
             else
             {
-                shootable = false;
+                shootable.Value = false;
             }
         }
 
@@ -85,26 +87,23 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
             {
                 if (IsServer)
                 {
-                    ballInRange = true;
+                    ballInRange.Value = true;
                 }
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if(!IsServer) return;
+            if (!IsServer) return;
 
             if (other.CompareTag("Ball"))
             {
-                ballInRange = false;
+                ballInRange.Value = false;
             }
         }
-
         public void TryShoot()
         {
-            Debug.Log("ENTRA EN SHOOT");
             if (!IsOwner) return;
-            Debug.Log("ENTRA EN SHOOT Y ESTA EN RANGO");
             ShootServerRpc(transform.position);
         }
 
@@ -117,7 +116,7 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
         [ServerRpc]
         private void ShootServerRpc(Vector3 playerPosition)
         {
-            if (ballInRange && shootable)
+            if (ballInRange.Value && shootable.Value)
             {
                 BallManager.Instance.ShootBall(playerPosition);
             }
@@ -126,7 +125,7 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
         [ServerRpc]
         private void PassServerRpc(Vector3 playerPosition)
         {
-            if (ballInRange && shootable)
+            if (ballInRange.Value && shootable.Value)
             {
                 BallManager.Instance.PassBall(playerPosition);
             }

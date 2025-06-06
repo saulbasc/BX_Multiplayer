@@ -1487,10 +1487,10 @@ RectTransform:
   - {fileID: 105199057}
   m_Father: {fileID: 1537501387}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 547.7568, y: -420.62463}
-  m_SizeDelta: {x: 1095.5135, y: 841.24927}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &495772828
 GameObject:
@@ -2869,10 +2869,10 @@ RectTransform:
   - {fileID: 1520917360}
   m_Father: {fileID: 1537501387}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1643.2703, y: -420.62463}
-  m_SizeDelta: {x: 1095.5135, y: 841.24927}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &985872168
 GameObject:
@@ -5335,7 +5335,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  lobbyActionsManager: {fileID: 0}
   matchStateManager: {fileID: 1769640374}
   timerManager: {fileID: 1769640366}
   timerText: {fileID: 1504618620}
@@ -5461,6 +5460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  matchStateManager: {fileID: 1769640374}
 --- !u!1 &1798569738
 GameObject:
   m_ObjectHideFlags: 0
