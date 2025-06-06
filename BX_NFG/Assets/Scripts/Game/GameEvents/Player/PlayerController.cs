@@ -109,7 +109,11 @@ public class PlayerController : NetworkBehaviour
         if (IsOwner)
         {
             Vector3 input = playerInput.GetPlayerInput();
-            SetLocalVelocity(input);
+
+            if (updateable)
+            {
+                SetLocalVelocity(input);
+            }
 
             if (IsServer)
             {
@@ -124,6 +128,10 @@ public class PlayerController : NetworkBehaviour
         if (IsServer && updateable)
         {
             SetPlayerVelocity();
+        } 
+        else if (IsServer && !updateable)
+        {
+            StopMovement();
         }
 
         if (IsOwner && !IsServer)
@@ -134,13 +142,20 @@ public class PlayerController : NetworkBehaviour
                 transform.position = serverPosition.Value;
             }
         }
+    }
 
+    private void StopMovement()
+    {
+        playerRb.linearVelocity = Vector3.zero;
     }
 
     private void SetLocalVelocity(Vector3 input)
     {
-        Vector3 localMoveDir = new Vector3(input.x, 0, input.y);
-        playerRb.linearVelocity = localMoveDir * moveSpeed;
+        if (!IsServer)
+        {
+            Vector3 localMoveDir = new Vector3(input.x, 0, input.y);
+            transform.position += localMoveDir * moveSpeed * Time.fixedDeltaTime;
+        }
     }
 
     private void SetPlayerVelocity()

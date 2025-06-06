@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Assets.Scripts.Commons;
 using Assets.Scripts.Game.GameEvents.Score;
 using Assets.Scripts.GameManager.GameEvents.State;
@@ -41,7 +42,20 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
         {
             ScoreEvents.OnUpdateLocalGoalScored += OnUpdateLocalGoalScoredRpc;
             ScoreEvents.OnUpdateVisitorGoalScored += OnUpdateVisitorGoalsScoredRpc;
+            matchStateManager.OnMatchStateChanged += HandleStateChanged;
             StartCoroutine(SetUIManager());
+        }
+
+        private void HandleStateChanged(MatchState state)
+        {
+            if (state == MatchState.pause)
+            {
+                SetPauseButtons(true);
+            }
+            else
+            {
+                SetPauseButtons(false);
+            }
         }
 
         private IEnumerator SetUIManager()
@@ -57,6 +71,7 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
         {
             ScoreEvents.OnUpdateLocalGoalScored -= OnUpdateLocalGoalScoredRpc;
             ScoreEvents.OnUpdateVisitorGoalScored -= OnUpdateVisitorGoalsScoredRpc;
+            matchStateManager.OnMatchStateChanged -= HandleStateChanged;
         }
 
         [Rpc(SendTo.ClientsAndHost)]
@@ -89,15 +104,25 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
         private void OnPauseButtonClicked()
         {
             RequestPauseServerRpc();
-            pauseButton.gameObject.SetActive(false);
-            resumeButton.gameObject.SetActive(true);
+        }
+
+        private void SetPauseButtons(bool paused)
+        {
+            if (paused)
+            {
+                pauseButton.gameObject.SetActive(false);
+                resumeButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                resumeButton.gameObject.SetActive(false);
+                pauseButton.gameObject.SetActive(true);
+            }
         }
 
         private void OnResumeButtonClicked()
         {
             RequestResumeServerRpc();
-            resumeButton.gameObject.SetActive(false);
-            pauseButton.gameObject.SetActive(true);
         }
 
         private async void OnExitButtonClicked()
