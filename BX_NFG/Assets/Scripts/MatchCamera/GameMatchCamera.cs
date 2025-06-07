@@ -14,8 +14,6 @@ namespace Assets.Scripts.MatchCamera
         private const string ZoomKey = "CameraZoom";
         private const string AngleKey = "CameraAngle";
 
-        private bool targetAsigned;
-
         private void Awake()
         {
             GetSettings();
@@ -43,13 +41,9 @@ namespace Assets.Scripts.MatchCamera
 
         void LateUpdate()
         {
-            if (target == null || !targetAsigned)
+            if (target == null)
             {
                 target = GameObject.FindGameObjectWithTag("Ball")?.transform;
-                if (target != null)
-                {
-                    targetAsigned = true;
-                }
             }
 
             if (target != null)
@@ -58,10 +52,14 @@ namespace Assets.Scripts.MatchCamera
             }
         }
 
-        public void SetTarget(Transform newTarget)
+        public void SetTPlayerTarget(Transform newTarget)
         {
             target = newTarget;
-            targetAsigned = true;
+        }
+
+        public void SetBallTarget()
+        {
+            target = GameObject.FindGameObjectWithTag("Ball")?.transform;
         }
 
         private void UpdateCameraPosition()

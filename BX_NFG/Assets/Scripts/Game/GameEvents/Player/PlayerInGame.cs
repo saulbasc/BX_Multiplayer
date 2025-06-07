@@ -21,6 +21,8 @@ namespace Assets.Scripts.Game.GameEvents.Player
         private MatchInfo matchInfo;
         private LobbyPlayerManager lobbyPlayerManager;
 
+        private NetworkVariable<bool> isSpectator = new NetworkVariable<bool>(
+            false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
         public ulong PlayerConnectionID { get; private set; }
         public string PlayerId { get; private set; }
         public string TagName { get; private set; }
@@ -34,6 +36,13 @@ namespace Assets.Scripts.Game.GameEvents.Player
         public int Goals => goals;
         public int Touches => touches;
         public float SecondsPlayed => secondsPlayed;
+
+        public void SetSpectator()
+        {
+            if (!IsServer) return;
+
+            isSpectator.Value = true;
+        }
 
         public void AddGoal()
         {
@@ -84,19 +93,21 @@ namespace Assets.Scripts.Game.GameEvents.Player
 
             if (IsOwner)
             {
-                SetCamera();
                 string userId = UnityServicesActions.GetCurrentUserID();
                 SendDataServerRpc(userId);
+                isSpectator.OnValueChanged += OnIsSpectatorChanged;
+                SetCamera(isSpectator.Value);
             }
         }
 
-        private void SetCamera()
+        private void OnIsSpectatorChanged(bool previousValue, bool newValue)
         {
-            if (cameraPrefab == null) return;
-
-            GameObject cameraInstance = Instantiate(cameraPrefab);
-            var matchCamera = cameraInstance.GetComponent<GameMatchCamera>();
-            matchCamera.SetTarget(transform);
+            Debug.Log("IS SPECTATOR VARIABLE CHANGED");
+            if (newValue)
+            {
+                Team = PlayerTeam.Spectator;
+                SetCamera(false);
+            }
         }
 
         public static event Action<PlayerInGame> OnPlayerDataInitialized;
@@ -105,7 +116,12 @@ namespace Assets.Scripts.Game.GameEvents.Player
         public void SendDataServerRpc(string userId, ServerRpcParams rpcParams = default)
         {
             LobbyPlayerData playerData = lobbyPlayerManager.GetSinglePlayerDataObject(userId);
-            if(playerData.PlayerTeam == PlayerTeam.Spectator)  return;
+            if (playerData.PlayerTeam == PlayerTeam.Spectator)
+            {
+                Debug.Log("SPECTATOR IN PLAYER IN GAME");
+                isSpectator.Value = true;
+                return;
+            }
 
             PlayerConnectionID = rpcParams.Receive.SenderClientId;
             PlayerId = userId;
@@ -119,9 +135,30 @@ namespace Assets.Scripts.Game.GameEvents.Player
             touches = 0;
             secondsPlayed = 0;
 
-            Debug.Log("Lobby Player DATA Id => " + playerData.Id + ", Tag => " + playerData.GameTag + ", Team => " + playerData.PlayerTeam);
+            Debug.Log("TEAM????????? =>> " + Team);
+        }
 
-            GamePlayerInfo gamePlayerInfo = GetComponent<GamePlayerInfo>();
+        private void SetCamera(bool spectator)
+        {
+            if (cameraPrefab == null) return;
+
+            var existingCamera = FindObjectsByType<GameMatchCamera>(FindObjectsSortMode.None);
+            foreach (var camera in existingCamera)
+            {
+                Destroy(camera.gameObject);
+            }
+
+            GameObject cameraInstance = Instantiate(cameraPrefab);
+            var matchCamera = cameraInstance.GetComponent<GameMatchCamera>();
+
+            if(spectator)
+            {
+                matchCamera.SetBallTarget();
+            }
+            else
+            {
+                matchCamera.SetTPlayerTarget(transform);
+            }
         }
 
         public void SetPlayerConnected()

@@ -72,7 +72,6 @@ namespace Assets.Scripts.Game.Manager
             }
         }
 
-
         private void HostConnection()
         {
             (byte[] allocationId, byte[] key, byte[] connectionData, string ip, int port) = hostRelayManager.GetHostConnectionData();
@@ -80,13 +79,14 @@ namespace Assets.Scripts.Game.Manager
             LobbyPlayerData lpd = lobbyPlayerManager.GetSinglePlayerDataObject(UnityServicesActions.GetCurrentUserID());
             if (lpd.PlayerTeam == PlayerTeam.Spectator)
             {
+                ulong localClientId = NetworkManager.Singleton.LocalClientId;
+                var playerObject = NetworkManager.Singleton.ConnectedClients[localClientId].PlayerObject;
+                var playerInGame = playerObject.GetComponent<PlayerInGame>();
+                playerInGame.SetSpectator();
                 playerPanel.SetActive(false);
                 spectatorPanel.SetActive(true);
                 return;
             }
-            ulong localClientId = NetworkManager.Singleton.LocalClientId;
-            var playerObject = NetworkManager.Singleton.ConnectedClients[localClientId].PlayerObject;
-            var playerInGame = playerObject.GetComponent<PlayerInGame>();
             playerPanel.SetActive(true);
             spectatorPanel.SetActive(false);
         }
@@ -104,14 +104,22 @@ namespace Assets.Scripts.Game.Manager
             (byte[] allocationId, byte[] key, byte[] connectionData, byte[] hostConnectionData, string ip, int port) = clientRelayManager.GetClientConnectionData();
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetClientRelayData(ip, (ushort)port, allocationId, key, connectionData, hostConnectionData, true);
             ulong localClientId = NetworkManager.Singleton.LocalClientId;
-            RegisterPlayerConnectionServerRpc(OwnerClientId, localClientId);
+            LobbyPlayerData lpd = lobbyPlayerManager.GetSinglePlayerDataObject(UnityServicesActions.GetCurrentUserID());
+            RegisterPlayerConnectionServerRpc(OwnerClientId, localClientId, lpd.PlayerTeam);
         }
 
         [ServerRpc(RequireOwnership = false)]
-        public void RegisterPlayerConnectionServerRpc(ulong playerGameId, ulong clientId)
+        public void RegisterPlayerConnectionServerRpc(ulong playerGameId, ulong clientId, PlayerTeam playerTeam)
         {
-            var playerObject = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject;
-            var playerInGame = playerObject.GetComponent<PlayerInGame>();
+            if (playerTeam == PlayerTeam.Spectator)
+            {
+                var playerObject = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject;
+                var playerInGame = playerObject.GetComponent<PlayerInGame>();
+                playerInGame.SetSpectator();
+                playerPanel.SetActive(false);
+                spectatorPanel.SetActive(true);
+                return;
+            }
         }
     }
 }

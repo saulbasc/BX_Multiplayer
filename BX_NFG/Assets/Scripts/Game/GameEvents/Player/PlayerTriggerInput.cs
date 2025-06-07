@@ -101,6 +101,7 @@ namespace Assets.Scripts.Game.GameEvents.Player.Input
                 ballInRange.Value = false;
             }
         }
+
         public void TryShoot()
         {
             if (!IsOwner) return;

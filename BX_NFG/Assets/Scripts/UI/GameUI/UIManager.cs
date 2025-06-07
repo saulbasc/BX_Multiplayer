@@ -22,6 +22,9 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
         [SerializeField] private TextMeshProUGUI timerText;
         [SerializeField] private TextMeshProUGUI localGoalsText;
         [SerializeField] private TextMeshProUGUI visitorGoalsText;
+        [SerializeField] private TextMeshProUGUI spectatorTimerText;
+        [SerializeField] private TextMeshProUGUI spectatorLocalGoalsText;
+        [SerializeField] private TextMeshProUGUI spectatorVisitorGoalsText;
         [SerializeField] private Button exitButton;
         [SerializeField] private Button spectatorExitButton;
         [SerializeField] private Button pauseButton;
@@ -78,12 +81,14 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
         private void OnUpdateLocalGoalScoredRpc(int goals)
         {
             localGoalsText.text = goals.ToString();
+            spectatorLocalGoalsText.text = goals.ToString();
         }
 
         [Rpc(SendTo.ClientsAndHost)]
         private void OnUpdateVisitorGoalsScoredRpc(int goals)
         {
             visitorGoalsText.text = goals.ToString();
+            spectatorVisitorGoalsText.text = goals.ToString();
         }
 
         private void Update()
@@ -92,6 +97,7 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
 
             float time = timerManager.GetTime();
             timerText.text = FormatTime(time);
+            spectatorTimerText.text = FormatTime(time);
         }
 
         private string FormatTime(float time)

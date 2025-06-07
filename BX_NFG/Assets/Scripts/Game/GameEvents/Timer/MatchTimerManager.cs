@@ -16,7 +16,6 @@ namespace Assets.Scripts.GameManager.GameEvents.Timer
 
         public override void OnNetworkSpawn()
         {
-            Debug.Log("osiudhduogewyfewife");
             if (IsServer)
             {
                 StartCoroutine(SetMatchDuration());

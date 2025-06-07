@@ -10,8 +10,6 @@ namespace Assets.Scripts.UI.MenuUI
     {
         public override PanelType PanelType => PanelType.SettingsPanel;
         [SerializeField] private Button backButton;
-        [SerializeField] private Button musicButton;
-        [SerializeField] private Button soundButton;
         [SerializeField] private Button saveButton;
         [SerializeField] private Button cameraSettingsButton;
 

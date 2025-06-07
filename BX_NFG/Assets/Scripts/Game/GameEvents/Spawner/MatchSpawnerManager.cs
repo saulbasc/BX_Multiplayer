@@ -71,7 +71,6 @@ namespace Assets.Scripts.GameManager.GameEvents
 
             yield return new WaitForSeconds(0.1f); 
             OnTeleportingChanged?.Invoke(false);
-            Debug.Log("✅ Teleport finalizado");
         }
 
         private IEnumerator ReenableTransform(NetworkTransform netTransform)

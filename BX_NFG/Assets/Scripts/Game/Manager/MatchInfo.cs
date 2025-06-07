@@ -68,7 +68,10 @@ namespace Assets.Scripts.Game.Manager
             {
                 foreach (var playerInGame in GetPlayersInGame())
                 {
-                    RegisterPlayerStats(playerInGame);
+                    if (playerInGame.PlayerId != null)
+                    {
+                        RegisterPlayerStats(playerInGame);
+                    }
                 }
             }
         }
@@ -77,7 +80,7 @@ namespace Assets.Scripts.Game.Manager
         {
             FinalPlayerStatsData data = new FinalPlayerStatsData
             {
-                PlayerName = player.TagName,
+                PlayerName = player?.TagName,
                 Goals = player.Goals,
                 Touches = player.Touches,
                 PlayerTeam = player.Team
