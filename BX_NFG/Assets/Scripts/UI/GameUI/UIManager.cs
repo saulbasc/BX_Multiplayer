@@ -4,6 +4,7 @@ using Assets.Scripts.Commons;
 using Assets.Scripts.Game.GameEvents.Score;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Assets.Scripts.GameManager.GameEvents.Timer;
+using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.UI.LobbyUI;
 using TMPro;
 using Unity.Netcode;
@@ -58,7 +59,18 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
             else
             {
                 SetPauseButtons(false);
+
+                if(state == MatchState.exit)
+                {
+                    ExitLobby();
+                }
             }
+        }
+
+        private async void ExitLobby()
+        {
+            await lobbyActionsManager.ExitLobby();
+            SceneManager.LoadScene(Scenes.MenuScene.ToString());
         }
 
         private IEnumerator SetUIManager()
@@ -134,8 +146,23 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
         private async void OnExitButtonClicked()
         {
             await lobbyActionsManager.ExitLobby();
+            RequestExitServerRpc();
+        }
+
+        [ServerRpc]
+        private void RequestExitServerRpc()
+        {
+            if (NetworkManager.Singleton.IsHost)
+            {
+                matchStateManager.SetMatchState(MatchState.exit);
+                StartCoroutine(ShutDownDelay());
+            }
+        }
+
+        private IEnumerator ShutDownDelay()
+        {
+            yield return new WaitForSeconds(1f);
             NetworkManager.Singleton.Shutdown();
-            SceneManager.LoadScene(Scenes.MenuScene.ToString());
         }
 
         [Rpc(SendTo.Server)]

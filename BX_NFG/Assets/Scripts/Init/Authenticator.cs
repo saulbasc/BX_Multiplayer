@@ -14,6 +14,8 @@ namespace Assets.Scripts.Init
     /// </summary>
     public class Authenticator : MonoBehaviour
     {
+        [SerializeField] private GameObject lostConnectionPanel;
+
         private void Awake()
         {
             InitUIEvents.Instance.onConfirmButtonClicked += RegisterNewUserInFirebase;
@@ -36,7 +38,7 @@ namespace Assets.Scripts.Init
             {
                 if (await CheckUserRegisteredInFirebase())
                 {
-                    await SceneManager.LoadSceneAsync(Scenes.MenuScene.ToString());
+                    StartMenuScene();
                 }
                 else
                 {
@@ -104,7 +106,7 @@ namespace Assets.Scripts.Init
                     if (success)
                     {
                         InitEventManager.Instance.RaiseUserRegisteredSuccessfully();
-                        await SceneManager.LoadSceneAsync(Scenes.MenuScene.ToString());
+                        StartMenuScene();
                     }
                 });
             } 
@@ -130,6 +132,20 @@ namespace Assets.Scripts.Init
         private bool IsValidUserName(string username)
         {
             return !string.IsNullOrEmpty(username) && username.Length >= 3 && username.Length <= 20;
+        }
+
+
+        private async void StartMenuScene()
+        {
+            bool isConnected = Application.internetReachability != NetworkReachability.NotReachable;
+            if (isConnected)
+            {
+                await SceneManager.LoadSceneAsync(Scenes.MenuScene.ToString());
+            }
+            else
+            {
+                lostConnectionPanel.SetActive(true);
+            }
         }
     }
 }

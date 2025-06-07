@@ -114,6 +114,31 @@ namespace Assets.Scripts.Lobbi.Logic
             }, false);
         }
 
+        public async Task<bool> DisconnectFromLobbyAtExitGame()
+        {
+            return await SafeAsyncFunctionsHandler.ExecuteAsync(async () =>
+            {
+                if (UnityServicesActions.GetCurrentUserID() == lobbyDataManager.GetHostID())
+                {
+                    await HostDisconnection();
+                }
+                else
+                {
+                    await LobbyService.Instance.RemovePlayerAsync(lobbyDataManager.GetLobbyID(), UnityServicesActions.GetCurrentUserID());
+                }
+                GameObject lobbyManager = GameObject.Find("LobbyManager");
+                if (lobbyManager != null)
+                {
+                    Destroy(lobbyManager);
+                }
+                else
+                {
+                    Debug.LogWarning("No se encontró el objeto 'LobbyManager' para destruir.");
+                }
+                return true;
+            }, false);
+        }
+
         private async Task HostDisconnection()
         {
             List<Player> players = lobbyDataManager.GetPlayers();
@@ -133,18 +158,6 @@ namespace Assets.Scripts.Lobbi.Logic
                     await LobbyService.Instance.DeleteLobbyAsync(lobbyDataManager.GetLobbyID());
                 }
             });
-        }
-
-        private void DestroyAllLobbyInstances()
-        {
-            try
-            {
-                lobbyCoroutineManager.Delete();
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e);
-            }
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using Assets.Scripts.Commons;
 
 namespace Assets.Scripts.Init

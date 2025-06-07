@@ -21,7 +21,7 @@ namespace Assets.Scripts.UI.LobbyUI
         /// <returns>True si abandona con éxito la Lobby.</returns>
         public async Task<bool> ExitLobby()
         {
-            return await lobbyServiceManager.DisconnectFromLobby();
+            return await lobbyServiceManager.DisconnectFromLobbyAtExitGame();
         }
 
         /// <summary>

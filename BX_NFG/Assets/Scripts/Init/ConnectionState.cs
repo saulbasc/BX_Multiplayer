@@ -50,7 +50,7 @@ public class ConnectionState : MonoBehaviour
             bool isConnected = Application.internetReachability != NetworkReachability.NotReachable;
 
             if (isConnected && !wasConnected) OnReconnect();
-            else if (!isConnected && wasConnected) OnConnectionLost();
+            else if (!isConnected && wasConnected) StartCoroutine(OnConnectionLost());
 
             wasConnected = isConnected;
         }
@@ -60,11 +60,12 @@ public class ConnectionState : MonoBehaviour
     /// Gestiona la pérdida de conexión del dispositivo.
     /// Si se pierde la cpnexión volverá a la pantalla de inicio
     /// </summary>
-    private void OnConnectionLost()
+    private IEnumerator OnConnectionLost()
     {
-        lostConnectionPanel.SetActive(true);
         Debug.LogWarning("[UnitySessionMonitor] Conexión perdida.");
         SceneManager.LoadScene(Scenes.Init.ToString());
+        yield return new WaitForSeconds(1f);
+        lostConnectionPanel.SetActive(true); 
     }
 
     /// <summary>
@@ -74,5 +75,6 @@ public class ConnectionState : MonoBehaviour
     {
         lostConnectionPanel.SetActive(false);
         Debug.Log("[UnitySessionMonitor] Conexión restablecida.");
+        SceneManager.LoadScene(Scenes.MenuScene.ToString());
     }
 }
