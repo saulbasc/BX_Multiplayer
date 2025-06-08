@@ -1,9 +1,11 @@
 ﻿using System.Collections;
+using Assets.Scripts.Commons;
 using Assets.Scripts.Lobbi;
 using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Relay;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.LobbyUI
@@ -84,6 +86,7 @@ namespace Assets.Scripts.UI.LobbyUI
         private async void OnExitButtonClicked()
         {
             await lobbyActionsManager.ExitLobby();
+            SceneManager.LoadScene(Scenes.MenuScene.ToString());
         }
 
         private async void OnReadyButtonClicked()
