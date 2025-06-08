@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Lobbies;
 using Assets.Scripts.Commons;
@@ -155,7 +154,7 @@ namespace Assets.Scripts.Lobbi.Logic
                 }
                 else
                 {
-                    await LobbyService.Instance.DeleteLobbyAsync(lobbyDataManager.GetLobbyID());
+                    //await LobbyService.Instance.DeleteLobbyAsync(lobbyDataManager.GetLobbyID());
                 }
             });
         }

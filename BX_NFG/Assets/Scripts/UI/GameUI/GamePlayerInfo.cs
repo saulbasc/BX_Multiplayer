@@ -78,7 +78,6 @@ public class GamePlayerInfo : NetworkBehaviour
     {
         if (teamSpriteRenderer == null) return;
 
-        Debug.Log("ES LOCAL?????? => " + isLocal);
         teamSpriteRenderer.sprite = isLocal ? localSprite : visitorSprite;
     }
 }

@@ -97,7 +97,6 @@ namespace Assets.Scripts.Lobbi.Logic
         /// </summary>
         public void Delete()
         {
-            Debug.Log("LobbyCoroutineManager: Delete() called. Stopping coroutines and destroying instance. SE VA A DESTRUIR CORRUTINAS LOBBY");
             StopHeartbeatCoroutine();
             StopUodateLobbyCoroutine();
             Destroy(gameObject);

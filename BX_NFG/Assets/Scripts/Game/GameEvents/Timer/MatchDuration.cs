@@ -3,10 +3,10 @@
     public enum MatchDuration
     {
         matchDuration1,
+        matchDuration2,
         matchDuration3,
+        matchDuration4,
         matchDuration5,
-        matchDuration7,
-        matchDuration10,
     }
 
     public static class MatchDurationExtensions
@@ -16,10 +16,10 @@
             return duration switch
             {
                 MatchDuration.matchDuration1 => "1 min",
+                MatchDuration.matchDuration2 => "2 min",
                 MatchDuration.matchDuration3 => "3 min",
+                MatchDuration.matchDuration4 => "4 min",
                 MatchDuration.matchDuration5 => "5 min",
-                MatchDuration.matchDuration7 => "7 min",
-                MatchDuration.matchDuration10 => "10 min",
                 _ => throw new System.NotImplementedException(),
             };
         }
@@ -28,11 +28,11 @@
         {
             return duration switch
             {
-                MatchDuration.matchDuration1 => 30,
+                MatchDuration.matchDuration1 => 60,
+                MatchDuration.matchDuration2 => 120,
                 MatchDuration.matchDuration3 => 180,
+                MatchDuration.matchDuration4 => 240,
                 MatchDuration.matchDuration5 => 300,
-                MatchDuration.matchDuration7 => 420,
-                MatchDuration.matchDuration10 => 600,
                 _ => throw new System.NotImplementedException(),
             };
         }
@@ -41,11 +41,11 @@
         {
             return duration switch
             {
-                MatchDuration.matchDuration1 => 30f,
+                MatchDuration.matchDuration1 => 60f,
+                MatchDuration.matchDuration2 => 120f,
                 MatchDuration.matchDuration3 => 180f,
+                MatchDuration.matchDuration4 => 240f,
                 MatchDuration.matchDuration5 => 300f,
-                MatchDuration.matchDuration7 => 420f,
-                MatchDuration.matchDuration10 => 600f,
                 _ => throw new System.NotImplementedException(),
             };
         }
@@ -55,10 +55,10 @@
             return new MatchDuration[]
             {
                 MatchDuration.matchDuration1,
+                MatchDuration.matchDuration2,
                 MatchDuration.matchDuration3,
-                MatchDuration.matchDuration5,
-                MatchDuration.matchDuration7,
-                MatchDuration.matchDuration10
+                MatchDuration.matchDuration4,
+                MatchDuration.matchDuration5
             };
         }
     }

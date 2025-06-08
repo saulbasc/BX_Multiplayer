@@ -41,28 +41,24 @@ namespace Assets.Scripts.Game.Manager
                 lobbyDataManager = FindFirstObjectByType<LobbyDataManager>();
                 if (lobbyDataManager == null)
                 {
-                    Debug.Log("Esperando LobbyDataManager en escena...");
                     yield return null; 
                 }
 
                 lobbyPlayerManager = FindFirstObjectByType<LobbyPlayerManager>();
                 if (lobbyPlayerManager == null)
                 {
-                    Debug.Log("Esperando LobbyPlayerManager en escena...");
                     yield return null;
                 }
 
                 clientRelayManager = FindFirstObjectByType<ClientRelayManager>();
                 if (clientRelayManager == null)
                 {
-                    Debug.Log("Esperando ClientRelayManager en escena...");
                     yield return null;
                 }
 
                 hostRelayManager = FindFirstObjectByType<HostRelayManager>();
                 if (hostRelayManager == null)
                 {
-                    Debug.Log("Esperando HostRelayManager en escena...");
                     yield return null;
                 }
             }

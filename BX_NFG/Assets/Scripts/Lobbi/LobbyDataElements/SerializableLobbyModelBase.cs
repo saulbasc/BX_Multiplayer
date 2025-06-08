@@ -23,7 +23,6 @@ namespace Assets.Scripts.Lobbi.Datas
         {
             if (data == null)
             {
-                Debug.LogWarning("Lobby data is null");
                 return;
             }
 

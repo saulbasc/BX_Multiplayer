@@ -24,7 +24,6 @@ namespace Assets.Scripts.Lobbi.UI.Config
 
         private void OnEnable()
         {
-            Debug.Log("MATCH TIMER ENABLED");
             LobbyEvents.Instance.OnLobbyReadyToStart += () => canStart = true;
             StartCoroutine(SetLobbyTimer());
         }
@@ -52,8 +51,6 @@ namespace Assets.Scripts.Lobbi.UI.Config
             _upperTimeButton.onClick.AddListener(IncreaseMatchDuration);
             _lowerTimeButton.onClick.AddListener(DecreaseMatchDuration);
             LobbyEvents.Instance.OnLobbyUpdated += OnLobbyUpdated;
-
-            Debug.Log("MATCH TIMER SETUP COMPLETE");
         }
 
         private void OnDisable()
@@ -76,7 +73,6 @@ namespace Assets.Scripts.Lobbi.UI.Config
         private void OnLobbyUpdated()
         {
             MatchDuration newMatchDuration = lobbyDataManager.GetLobbyMatchDuration();
-            Debug.Log("LOBBY MATCH DURATION => "+newMatchDuration);
             _matchTimeText.text = MatchDurationExtensions.ToString(newMatchDuration);
         }
     }

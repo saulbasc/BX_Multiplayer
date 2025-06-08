@@ -4,7 +4,6 @@ using Assets.Scripts.Commons;
 using Assets.Scripts.Game.GameEvents.Score;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Assets.Scripts.GameManager.GameEvents.Timer;
-using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Sound;
 using Assets.Scripts.UI.LobbyUI;
 using TMPro;
@@ -49,6 +48,10 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
             ScoreEvents.OnUpdateVisitorGoalScored += OnUpdateVisitorGoalsScoredRpc;
             matchStateManager.OnMatchStateChanged += HandleStateChanged;
             StartCoroutine(SetUIManager());
+            if (!IsServer)
+            {
+                exitButton.gameObject.SetActive(false);
+            }
         }
 
         private void HandleStateChanged(MatchState state)
@@ -144,27 +147,11 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
             RequestResumeServerRpc();
         }
 
-        private async void OnExitButtonClicked()
+        private void OnExitButtonClicked()
         {
             SoundEvents.Instance.RaiseEndMatchSound();
-            await lobbyActionsManager.ExitLobby();
-            RequestExitServerRpc();
-        }
-
-        [ServerRpc]
-        private void RequestExitServerRpc()
-        {
-            if (NetworkManager.Singleton.IsHost)
-            {
-                matchStateManager.SetMatchState(MatchState.exit);
-                StartCoroutine(ShutDownDelay());
-            }
-        }
-
-        private IEnumerator ShutDownDelay()
-        {
-            yield return new WaitForSeconds(1f);
-            NetworkManager.Singleton.Shutdown();
+            matchStateManager.SetMatchState(MatchState.exit);
+            ExitLobby();
         }
 
         [Rpc(SendTo.Server)]

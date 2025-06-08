@@ -46,7 +46,6 @@ namespace Assets.Scripts.Game.Manager
         {
             yield return new WaitForSeconds(5);
             matchStateManager.SetMatchState(MatchState.starting);
-            Debug.Log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
         }
 
         private void HandleStateChanged(MatchState state)
@@ -88,10 +87,6 @@ namespace Assets.Scripts.Game.Manager
             if (lobbyManager != null)
             {
                 Destroy(lobbyManager);
-            }
-            else
-            {
-                Debug.LogWarning("No se encontró el objeto 'LobbyManager' para destruir.");
             }
         }
 

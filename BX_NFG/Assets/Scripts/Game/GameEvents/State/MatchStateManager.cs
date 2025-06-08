@@ -13,14 +13,12 @@ namespace Assets.Scripts.GameManager.GameEvents.State
 
         public override void OnNetworkSpawn()
         {
-            Debug.Log($"OnNetworkSpawn {gameObject.name} ID:{gameObject.GetInstanceID()} || isServer: {IsServer} || isClient: {IsClient} || isHost: {IsHost} || isOwner: {IsOwner}");
         }
 
         public void SetMatchState(MatchState newState)
         {
             if (!IsSpawned)
             {
-                Debug.LogWarning("SetMatchState called before NetworkSpawn!");
                 return;
             }
 
@@ -32,7 +30,6 @@ namespace Assets.Scripts.GameManager.GameEvents.State
             if (currentState != newState)
             {
                 currentState = newState;
-                Debug.Log($"[SERVER] Match state changed to {newState}");
 
                 OnMatchStateChanged?.Invoke(newState);
 
@@ -46,7 +43,6 @@ namespace Assets.Scripts.GameManager.GameEvents.State
             if (IsServer) return;
 
             currentState = newState;
-            Debug.Log($"[CLIENT] Match state changed to {newState}");
 
             OnMatchStateChanged?.Invoke(newState);
         }

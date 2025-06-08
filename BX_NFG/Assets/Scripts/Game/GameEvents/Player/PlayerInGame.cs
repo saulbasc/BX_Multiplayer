@@ -46,7 +46,6 @@ namespace Assets.Scripts.Game.GameEvents.Player
 
         public void AddGoal()
         {
-            Debug.Log("GOAL AÑADIDO A PLAYER IN GAME");
             goals++;
         }
         public void RegisterTouch() => touches++;
@@ -101,8 +100,7 @@ namespace Assets.Scripts.Game.GameEvents.Player
         }
 
         private void OnIsSpectatorChanged(bool previousValue, bool newValue)
-        {
-            Debug.Log("IS SPECTATOR VARIABLE CHANGED");
+        { 
             if (newValue)
             {
                 Team = PlayerTeam.Spectator;
@@ -118,7 +116,6 @@ namespace Assets.Scripts.Game.GameEvents.Player
             LobbyPlayerData playerData = lobbyPlayerManager.GetSinglePlayerDataObject(userId);
             if (playerData.PlayerTeam == PlayerTeam.Spectator)
             {
-                Debug.Log("SPECTATOR IN PLAYER IN GAME");
                 isSpectator.Value = true;
                 return;
             }
@@ -134,8 +131,6 @@ namespace Assets.Scripts.Game.GameEvents.Player
             goals = 0;
             touches = 0;
             secondsPlayed = 0;
-
-            Debug.Log("TEAM????????? =>> " + Team);
         }
 
         private void SetCamera(bool spectator)

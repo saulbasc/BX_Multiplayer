@@ -111,7 +111,6 @@ namespace Assets.Scripts.UI.LobbyUI
 
         private async void OnStartButtonClick()
         {
-            Debug.Log("Start button clicked");
             LobbyEvents.Instance.RaiserLobbyStart();
             if (lobbyDataManager.IsLocalPlayerHost())
             {

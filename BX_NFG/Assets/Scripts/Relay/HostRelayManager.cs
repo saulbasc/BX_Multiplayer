@@ -70,11 +70,6 @@ namespace Assets.Scripts.Relay
                     allocation.Key, allocation.AllocationIdBytes, allocation.AllocationId
                 );
 
-                Debug.Log($"Relay Allocation Created: {allocation.AllocationId}");
-                Debug.Log($"Join Code: {joinCode}");
-                Debug.Log($"Relay Endpoint: {dtlsEndpoint.Host}:{dtlsEndpoint.Port}");
-
-
                 return joinCode;
             }, "");
         }

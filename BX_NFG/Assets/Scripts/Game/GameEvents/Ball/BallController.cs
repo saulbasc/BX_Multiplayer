@@ -57,7 +57,6 @@ public class BallController : NetworkBehaviour
             {
                 LastPlayerTouched.Value = player.OwnerClientId;
                 player.RegisterTouch();
-                Debug.Log($"Ball touched by player: {player.OwnerClientId}");
             }
         }
         else if (collision.gameObject.CompareTag("BallLimit"))
@@ -79,12 +78,9 @@ public class BallController : NetworkBehaviour
             if (player.PlayerConnectionID == lastTouchedPlayerId)
             {
                 player.AddGoal();
-                Debug.Log($"Goal registered for player: {player.PlayerId} with ConnectionID: {lastTouchedPlayerId}");
                 return;
             }
         }
-
-        Debug.LogWarning($"No player found with ConnectionID: {lastTouchedPlayerId} to register goal.");
     }
 
 
