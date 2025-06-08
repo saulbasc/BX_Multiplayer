@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Commons;
 using Assets.Scripts.GameManager.GameEvents.State;
+using Assets.Scripts.Sound;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -41,6 +42,7 @@ namespace Assets.Scripts.UI.GameUI.GamePanels
 
         private void OnExitButtonClicked()
         {
+            SoundEvents.Instance.RaiseEndMatchSound();
             matchStateManager.SetMatchState(MatchState.exit);
             SceneManager.LoadScene(Scenes.MenuScene.ToString());
         }

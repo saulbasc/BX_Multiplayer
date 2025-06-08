@@ -45,7 +45,7 @@ namespace Assets.Scripts.Sound
             audioSource.Stop();
             audioSource.clip = matchSoundClip;
             audioSource.loop = true;
-            audioSource.volume = 0.2f;
+            audioSource.volume = 0.3f;
             audioSource.Play();
         }
 
@@ -72,7 +72,7 @@ namespace Assets.Scripts.Sound
             audioSource.Stop();
             audioSource.clip = matchSoundClip;
             audioSource.loop = true;
-            audioSource.volume = 0.2f;
+            audioSource.volume = 0.3f;
             audioSource.Play();
         }
     }
