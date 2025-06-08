@@ -1,10 +1,16 @@
-﻿using Assets.Scripts.Sound;
-using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Assets.Scripts.Menu.MenuUI;
+using Assets.Scripts.Sound;
 using UnityEngine.EventSystems;
+using UnityEngine;
 
-namespace Assets.Scripts.Menu.MenuUI
+namespace Assets.Scripts.UI.CommonUI
 {
-    public class ButtonBase : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+    public class ButtonBaseSilent : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         public void OnPointerDown(PointerEventData eventData)
         {
@@ -13,7 +19,6 @@ namespace Assets.Scripts.Menu.MenuUI
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            SoundEvents.Instance.RaiseClickSound();
             CommonAnimations.OnPressUpButton(gameObject);
         }
     }

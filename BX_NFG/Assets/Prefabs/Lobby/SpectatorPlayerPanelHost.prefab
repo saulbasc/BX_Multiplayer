@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 6618880374978809226}
   - component: {fileID: 4224036208405461024}
   - component: {fileID: 3807499335944190388}
+  - component: {fileID: 4327952408835278261}
   m_Layer: 5
   m_Name: RigthButton
   m_TagString: Untagged
@@ -227,6 +228,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4327952408835278261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986305598110017592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5982457a26f3a98429d2ad8979fbdbb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3227963281391556179
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,6 +802,7 @@ GameObject:
   - component: {fileID: 4221436546815349706}
   - component: {fileID: 6666724250389978055}
   - component: {fileID: 5874974278553295234}
+  - component: {fileID: 7167152802224670947}
   m_Layer: 5
   m_Name: LeftButton
   m_TagString: Untagged
@@ -898,3 +912,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7167152802224670947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8932744582196159696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5982457a26f3a98429d2ad8979fbdbb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

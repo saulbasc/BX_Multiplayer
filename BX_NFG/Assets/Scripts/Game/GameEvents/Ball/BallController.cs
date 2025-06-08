@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Game.GameEvents.Player;
 using Assets.Scripts.GameManager.GameEvents.State;
+using Assets.Scripts.Sound;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -49,12 +50,19 @@ public class BallController : NetworkBehaviour
     {
         if (!IsServer) return;
 
-        var player = collision.gameObject.GetComponent<PlayerInGame>();
-        if (player != null)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            LastPlayerTouched.Value = player.OwnerClientId;
-            player.RegisterTouch();
-            Debug.Log($"Ball touched by player: {player.OwnerClientId}");
+            var player = collision.gameObject.GetComponent<PlayerInGame>();
+            if (player != null)
+            {
+                LastPlayerTouched.Value = player.OwnerClientId;
+                player.RegisterTouch();
+                Debug.Log($"Ball touched by player: {player.OwnerClientId}");
+            }
+        }
+        else if (collision.gameObject.CompareTag("BallLimit"))
+        {
+            PlayShootSoundClientRpc();
         }
     }
 
@@ -103,5 +111,15 @@ public class BallController : NetworkBehaviour
         LastPlayerTouched.Value = playerGameId;
         Vector3 direction = (ballRb.position - playerPosition).normalized;
         ballRb.AddForce(direction * shootForce, ForceMode.Impulse);
+        if (playerGameId == NetworkManager.Singleton.LocalClientId)
+        {
+            PlayShootSoundClientRpc() ;
+        }
+    }
+
+    [ClientRpc]
+    private void PlayShootSoundClientRpc()
+    {
+        SoundEvents.Instance.RaiseShootSound();
     }
 }

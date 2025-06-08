@@ -5,6 +5,7 @@ using Assets.Scripts.Lobbi.Data;
 using Assets.Scripts.Lobbi.Logic;
 using Assets.Scripts.Lobbi.Players;
 using Assets.Scripts.Relay;
+using Assets.Scripts.Sound;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
@@ -21,6 +22,11 @@ namespace Assets.Scripts.Game.Manager
         [SerializeField] private MatchInfo matchInfo;
         [SerializeField] private GameObject playerPanel;
         [SerializeField] private GameObject spectatorPanel;
+
+        private void Awake()
+        {
+            SoundEvents.Instance.RaiseEndGameSound();
+        }
 
         public override void OnNetworkSpawn()
         {

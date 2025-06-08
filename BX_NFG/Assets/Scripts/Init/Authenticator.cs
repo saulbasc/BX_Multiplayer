@@ -3,6 +3,7 @@ using Assets.Scripts.Commons;
 using Assets.Scripts.Core.FireB;
 using Assets.Scripts.Core.Models;
 using Assets.Scripts.Handlers;
+using Assets.Scripts.Sound;
 using Assets.Scripts.UI.InitUI;
 using UnityEngine;
 using UnityEngine.SceneManagement;

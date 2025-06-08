@@ -5,6 +5,7 @@ using Assets.Scripts.Game.GameEvents.Score;
 using Assets.Scripts.GameManager.GameEvents.State;
 using Assets.Scripts.GameManager.GameEvents.Timer;
 using Assets.Scripts.Lobbi.Logic;
+using Assets.Scripts.Sound;
 using Assets.Scripts.UI.LobbyUI;
 using TMPro;
 using Unity.Netcode;
@@ -145,6 +146,7 @@ namespace Assets.Scripts.GameManager.GameEvents.UI
 
         private async void OnExitButtonClicked()
         {
+            SoundEvents.Instance.RaiseEndMatchSound();
             await lobbyActionsManager.ExitLobby();
             RequestExitServerRpc();
         }
