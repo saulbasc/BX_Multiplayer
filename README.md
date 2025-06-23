@@ -1,4 +1,4 @@
-# Proyecto móvil multijugador en Unity 6
+# Proyecto de juego multijugador en Unity 6.
 
 Proyecto desarrollado en Unity 6 para dispositivos móviles Android.  
 Multijugador en tiempo real y registro de estadísticas en base de datos.
