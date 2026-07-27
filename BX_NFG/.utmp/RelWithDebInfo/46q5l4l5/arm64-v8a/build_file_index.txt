@@ -1,2 +1,0 @@
-C:\Users\saulb\UnityProjects\BX_NFG\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
-C:\Users\saulb\UnityProjects\BX_NFG\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt

@@ -39,6 +39,29 @@ El juego implementa un sistema multijugador **peer-to-peer (host-client)** media
 
 ---
 
+## Configuración local
+
+Este repositorio no incluye configuración operativa de Firebase.
+
+Antes de abrir o compilar el proyecto con todas las funcionalidades online, cada entorno debe añadir su propia configuración local de Firebase en rutas no versionadas:
+
+- `Assets/StreamingAssets/google-services-desktop.json`
+- `Assets/Plugins/Android/FirebaseApp.androidlib/res/values/google-services.xml`
+
+Como referencia, el repositorio incluye una plantilla sanitizada en `Assets/StreamingAssets/google-services-desktop.example.json`.
+
+Pasos recomendados:
+
+1. Crear o seleccionar un proyecto propio en Firebase.
+2. Registrar la aplicación Android con el identificador correspondiente.
+3. Descargar o generar la configuración necesaria para Unity/Android.
+4. Copiar los archivos de configuración a las rutas anteriores.
+5. Verificar que Authentication y Firestore estén habilitados en el proyecto de Firebase.
+
+Estos archivos están excluidos de git para evitar subir identificadores o claves de cliente reales.
+
+---
+
 ## Arquitectura
 
 ```text
